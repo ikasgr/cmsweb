@@ -1,0 +1,68 @@
+================================= LISENSI ==========================================
+
+Untuk Membuat dan mengembangkan CMS ini membutuhkan sangat banyak waktu dan tenaga, 
+jika Anda mengabaikan izin dari kami, dan mengakui bahwa itu dibangun oleh Anda 
+secara keseluruhan adalah hal yang memalukan; untuk itu mari kita saling mendukung dan 
+menghargai, agar kita senantiasa dalam keberkahan.
+
+Silakan modifikasi dan gunakan CMS DATAGOE ini sesuai dengan keperluan Anda, 
+Anda boleh menggunakannya untuk project Anda sendiri maupun project client Anda. 
+
+		UNTUK DAPATKAN UPDATE TERBARU & PRODUK PREMIUM LAINNYA 
+  		    SILAHKAN AKTIFKAN AKUN PREMIUM DI DATAGOE.COM !! 
+
+================================= LISENSI ==========================================
+
+
+PETUNJUK SINGKAT PENGGUNAAN:
+
+~ Import database di Folder db
+~ Seting Database
+  Seting di app\Config\Database.php lihat mulai baris 35 => sesuaikan hostname, database, 
+  username dan password
+ 
+~ JIKA CMS Muncul Error Silahkan buka file
+  .env dan di baris ke 17 diubah ke development untuk melihat Detail Errornya.
+	#--------------------------------------------------------------------
+	# ENVIRONMENT
+	#--------------------------------------------------------------------
+
+	CI_ENVIRONMENT = production
+
+PASTIKAN SETELAH DIONLINEKAN, SETTING KEMBALI FILE .env baris 17 menjadi production!!
+
+~ untuk Masuk DASHBOARD ADMIN:
+  namafolder/cms-login
+  - Username : admin
+  - Password : CMS@d4tagoeGen5
+
+
+PERHATIAN:
+Agar Sistem Codeigniter 4 ini berjalan, maka pastikan Anda telah mengaktifkan beberapa ekstension 
+yang dibutuhkan antara lain:
+
+~ php-json ekstension untuk bekerja dengan JSON;
+~ php-mysqlnd native driver untuk MySQL;
+~ php-xml
+~ php-intl 
+~ libcurl (opsional)
+
+Untuk detailnya dapat baca artikel dibawah.
+https://datagoe.com/post/spesifikasi-web-server-untuk-menjalankan-ci-4
+
+      --------------- WAJIB DILAKUKAN ---------------
+============================================================
+- Hapus file db dan Petunjuk ini jika diupload ke HOSTING!!!
+- baca Petunjuk setingan untuk Konfigurasi Keamanan saat sudah Hosting
+- Segera ganti User dan Password Admin
+- Aktifkan Header pada file httacces di root utama cms ini
+============================================================
+
+LANGKAH KEAMANAN SAAT SUDAH ONLINEKAN WEBSITE:
+- buka file app\Config\Cookie.php
+  lihat baris 57	--> public bool $secure = false;
+  ubah menjadi		--> public bool $secure = true; 		
+
+
+== salam share datagoe untuk info selengkapnya hubungi 081 353 967 028 == 
+
