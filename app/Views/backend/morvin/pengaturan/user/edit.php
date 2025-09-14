@@ -253,42 +253,42 @@
                                 $('#email').addClass('is-valid');
                             }
 
-                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
 
                         }
                         if (response.gopdid) {
                             $('#opd_id').addClass('is-invalid');
                             $('.erroropd_id').html(response.gopdid.opd_id);
                             toastr["error"](response.gopdid)
-                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
 
                         }
                         if (response.errorpass) {
                             $('#password').addClass('is-invalid');
                             $('.errorpassword').html(response.errorpass.password);
                             toastr["error"](response.errorpass)
-                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
 
                         }
                         if (response.namaganda) {
                             $('#username').addClass('is-invalid');
                             $('.errorusername').html(response.namaganda.username);
                             toastr["error"](response.namaganda)
-                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                         }
 
                         if (response.sukses) {
 
                             toastr["success"](response.sukses)
                             $('#modaledit').modal('hide');
-                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                             listuser();
                         }
                     },
                     error: function(xhr, ajaxOptions, thrownerror) {
                         toastr["error"]("Maaf gagal proses Kode Error:  " + (xhr.status + "\n"), );
                         $('#modaledit').modal('hide');
-                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                     }
                 });
         });

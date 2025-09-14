@@ -9,7 +9,7 @@
                 </button>
             </div>
             <?= form_open_multipart('', ['class' => 'formkritiksaran']) ?>
-            <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsdatagoe" />
+            <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsikasmedia" />
 
             <div class="modal-body">
                 <input type="hidden" value="<?= $kritiksaran_id ?>" name="kritiksaran_id">
@@ -144,7 +144,7 @@
                                 }).then(function() {
                                     window.location = '../';
                                 })
-                                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                             }
 
                             if (response.blmakses) {
@@ -169,7 +169,7 @@
                                     $('#balas').removeClass('is-invalid');
                                     $('.errorbalas').html('');
                                 }
-                                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                             } else {
 
                                 toastr["success"](response.sukses)
@@ -177,7 +177,7 @@
                                 $('#modaledit').modal('hide');
                                 listkritiksaran();
                                 listkritiksaran2();
-                                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                             }
                         },
                         error: function(xhr, ajaxOptions, thrownerror) {

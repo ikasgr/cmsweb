@@ -82,7 +82,7 @@
                             $('#gambar').addClass('is-invalid');
                             $('.errorGambar').html(response.error.gambar);
                         }
-                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                     } else {
                         Swal.fire({
                             title: "Berhasil!",
@@ -99,7 +99,7 @@
                 error: function(xhr, ajaxOptions, thrownerror) {
                     toastr["error"]("Maaf gagal upload Kode Error:  " + (xhr.status + "\n"), );
                     $('#modalupload').modal('hide');
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             });
 

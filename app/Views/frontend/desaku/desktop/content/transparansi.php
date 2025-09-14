@@ -21,7 +21,7 @@ $db = \Config\Database::connect();
 </section>
 
 <section class="container pb-0">
-    <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsdatagoe" />
+    <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsikasmedia" />
     <div class="card p-3">
         <div class="row article-container pb-5">
 
@@ -111,7 +111,7 @@ $db = \Config\Database::connect();
             type: "post",
             url: "<?= site_url('transparansi/TampilkanGrafikAll') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 tahun: $('#tahun').val(),
                 judul: $('#judul').val(),
             },
@@ -124,7 +124,7 @@ $db = \Config\Database::connect();
             success: function(response) {
                 if (response.data) {
                     $('.viewtampilgrafik').html(response.data);
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {
@@ -147,7 +147,7 @@ $db = \Config\Database::connect();
             url: "<?= site_url('transparansi/TampilkanGrafik') ?>",
             data: {
                 // [csrfToken]: csrfHash,
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 tahun: $('#tahun').val(),
                 judul: $('#judul').val(),
 
@@ -162,7 +162,7 @@ $db = \Config\Database::connect();
             success: function(response) {
                 if (response.data) {
                     $('.viewtampilgrafik').html(response.data);
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {

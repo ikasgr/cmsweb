@@ -9,7 +9,7 @@
                 </button>
             </div>
             <?= form_open('produkhukum/simpanprodukhukum', ['class' => 'formtambah']) ?>
-            <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsdatagoe" />
+            <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsikasmedia" />
 
             <div class="modal-body">
 
@@ -42,7 +42,7 @@
                 type: "post",
                 url: $(this).attr('action'),
                 data: {
-                    csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                    csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                     nama_produk: $('input#nama_produk').val(),
 
                 },
@@ -66,7 +66,7 @@
                             $('#nama_produk').removeClass('is-invalid');
                             $('.errornama_produk').html('');
                         }
-                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                     } else {
                         toastr.options = {
                                 "closeButton": true,
@@ -87,14 +87,14 @@
                             },
                             toastr["success"](response.sukses)
                         $('#modaltambah').modal('hide');
-                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                         listprodukhukum();
                     }
                 },
                 error: function(xhr, ajaxOptions, thrownerror) {
                     toastr["error"]("Maaf gagal proses Kode Error:  " + (xhr.status + "\n"), );
                     $('#modaltambah').modal('hide');
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             });
         })

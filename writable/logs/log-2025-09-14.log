@@ -7,9 +7,9 @@ WARNING - 2025-09-14 18:46:13 --> [DEPRECATED] Creation of dynamic property App\
  5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
  6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
  7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
-ERROR - 2025-09-14 18:46:13 --> Error connecting to the database: mysqli_sql_exception: Unknown database 'cmsdatagoe_460' in C:\Users\IKASMEDIA\OneDrive\Documents\GitHub\cmsweb\system\Database\MySQLi\Connection.php:201
+ERROR - 2025-09-14 18:46:13 --> Error connecting to the database: mysqli_sql_exception: Unknown database 'cmsikasmedia_460' in C:\Users\IKASMEDIA\OneDrive\Documents\GitHub\cmsweb\system\Database\MySQLi\Connection.php:201
 Stack trace:
-#0 C:\Users\IKASMEDIA\OneDrive\Documents\GitHub\cmsweb\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'cmsdatagoe_460', 3306, '', 0)
+#0 C:\Users\IKASMEDIA\OneDrive\Documents\GitHub\cmsweb\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'cmsikasmedia_460', 3306, '', 0)
 #1 C:\Users\IKASMEDIA\OneDrive\Documents\GitHub\cmsweb\system\Database\BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
 #2 C:\Users\IKASMEDIA\OneDrive\Documents\GitHub\cmsweb\system\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
 #3 C:\Users\IKASMEDIA\OneDrive\Documents\GitHub\cmsweb\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
@@ -25,7 +25,7 @@ Stack trace:
 #13 C:\Users\IKASMEDIA\OneDrive\Documents\GitHub\cmsweb\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
 #14 {main}
 
-Next CodeIgniter\Database\Exceptions\DatabaseException: Unknown database 'cmsdatagoe_460' in C:\Users\IKASMEDIA\OneDrive\Documents\GitHub\cmsweb\system\Database\MySQLi\Connection.php:246
+Next CodeIgniter\Database\Exceptions\DatabaseException: Unknown database 'cmsikasmedia_460' in C:\Users\IKASMEDIA\OneDrive\Documents\GitHub\cmsweb\system\Database\MySQLi\Connection.php:246
 Stack trace:
 #0 C:\Users\IKASMEDIA\OneDrive\Documents\GitHub\cmsweb\system\Database\BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
 #1 C:\Users\IKASMEDIA\OneDrive\Documents\GitHub\cmsweb\system\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
@@ -42,7 +42,7 @@ Stack trace:
 #12 C:\Users\IKASMEDIA\OneDrive\Documents\GitHub\cmsweb\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
 #13 {main}
 CRITICAL - 2025-09-14 18:46:13 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
-Main connection [MySQLi]: Unknown database 'cmsdatagoe_460'
+Main connection [MySQLi]: Unknown database 'cmsikasmedia_460'
 [Method: GET, Route: /]
 in SYSTEMPATH\Database\BaseConnection.php on line 467.
  1 SYSTEMPATH\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
@@ -72,9 +72,9 @@ WARNING - 2025-09-14 18:46:24 --> [DEPRECATED] Creation of dynamic property App\
  5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
  6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
  7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
-ERROR - 2025-09-14 18:46:24 --> Error connecting to the database: mysqli_sql_exception: Unknown database 'cmsdatagoe_460' in C:\Users\IKASMEDIA\OneDrive\Documents\GitHub\cmsweb\system\Database\MySQLi\Connection.php:201
+ERROR - 2025-09-14 18:46:24 --> Error connecting to the database: mysqli_sql_exception: Unknown database 'cmsikasmedia_460' in C:\Users\IKASMEDIA\OneDrive\Documents\GitHub\cmsweb\system\Database\MySQLi\Connection.php:201
 Stack trace:
-#0 C:\Users\IKASMEDIA\OneDrive\Documents\GitHub\cmsweb\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'cmsdatagoe_460', 3306, '', 0)
+#0 C:\Users\IKASMEDIA\OneDrive\Documents\GitHub\cmsweb\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'cmsikasmedia_460', 3306, '', 0)
 #1 C:\Users\IKASMEDIA\OneDrive\Documents\GitHub\cmsweb\system\Database\BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
 #2 C:\Users\IKASMEDIA\OneDrive\Documents\GitHub\cmsweb\system\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
 #3 C:\Users\IKASMEDIA\OneDrive\Documents\GitHub\cmsweb\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
@@ -90,7 +90,7 @@ Stack trace:
 #13 C:\Users\IKASMEDIA\OneDrive\Documents\GitHub\cmsweb\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
 #14 {main}
 
-Next CodeIgniter\Database\Exceptions\DatabaseException: Unknown database 'cmsdatagoe_460' in C:\Users\IKASMEDIA\OneDrive\Documents\GitHub\cmsweb\system\Database\MySQLi\Connection.php:246
+Next CodeIgniter\Database\Exceptions\DatabaseException: Unknown database 'cmsikasmedia_460' in C:\Users\IKASMEDIA\OneDrive\Documents\GitHub\cmsweb\system\Database\MySQLi\Connection.php:246
 Stack trace:
 #0 C:\Users\IKASMEDIA\OneDrive\Documents\GitHub\cmsweb\system\Database\BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
 #1 C:\Users\IKASMEDIA\OneDrive\Documents\GitHub\cmsweb\system\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
@@ -107,7 +107,7 @@ Stack trace:
 #12 C:\Users\IKASMEDIA\OneDrive\Documents\GitHub\cmsweb\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
 #13 {main}
 CRITICAL - 2025-09-14 18:46:24 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
-Main connection [MySQLi]: Unknown database 'cmsdatagoe_460'
+Main connection [MySQLi]: Unknown database 'cmsikasmedia_460'
 [Method: GET, Route: /]
 in SYSTEMPATH\Database\BaseConnection.php on line 467.
  1 SYSTEMPATH\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
@@ -139,7 +139,7 @@ WARNING - 2025-09-14 18:52:38 --> [DEPRECATED] Creation of dynamic property App\
  7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
 ERROR - 2025-09-14 18:52:38 --> Error connecting to the database: mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in C:\Users\IKASMEDIA\OneDrive\Documents\GitHub\cmsweb\system\Database\MySQLi\Connection.php:201
 Stack trace:
-#0 C:\Users\IKASMEDIA\OneDrive\Documents\GitHub\cmsweb\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'cmsdatagoe_460', 3306, '', 0)
+#0 C:\Users\IKASMEDIA\OneDrive\Documents\GitHub\cmsweb\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'cmsikasmedia_460', 3306, '', 0)
 #1 C:\Users\IKASMEDIA\OneDrive\Documents\GitHub\cmsweb\system\Database\BaseConnection.php(421): CodeIgniter\Database\MySQLi\Connection->connect(false)
 #2 C:\Users\IKASMEDIA\OneDrive\Documents\GitHub\cmsweb\system\Database\BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
 #3 C:\Users\IKASMEDIA\OneDrive\Documents\GitHub\cmsweb\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)

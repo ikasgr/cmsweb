@@ -8,7 +8,7 @@
                 </button>
             </div>
             <?= form_open_multipart('', ['class' => 'formupload']) ?>
-            <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsdatagoe" />
+            <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsikasmedia" />
 
             <input type="hidden" value="<?= $id ?>" name="id_masterdata">
             <div class="modal-body">
@@ -111,7 +111,7 @@
                             $('.errorimage_master').html(response.error.image_master);
                             $(".progress").hide();
                         }
-                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                     } else if (response.nofile) {
 
                         toastr["error"](response.nofile)
@@ -119,11 +119,11 @@
                         $('#image_master').addClass('is-invalid');
                         // $('.errornofile').html(response.error.nofile);
                         $(".progress").hide();
-                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                     } else {
                         toastr["success"](response.sukses)
                         $('#modalupload').modal('hide');
-                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                         listmaster();
 
                     }

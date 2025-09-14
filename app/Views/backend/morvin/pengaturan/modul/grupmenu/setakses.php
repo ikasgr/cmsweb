@@ -93,11 +93,11 @@
                             $('#id_grup').removeClass('is-invalid');
                             $('.errorid_grup').html('');
                         }
-                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                     } else if (response.aksesganda) {
 
                         toastr["error"](response.aksesganda)
-                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                     } else {
 
                         toastr.options = {
@@ -119,7 +119,7 @@
                             },
                             toastr["success"](response.sukses)
                         $('#modaledit').modal('hide');
-                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                         listgrupmenu();
                     }
                 },
@@ -127,7 +127,7 @@
 
                     toastr["error"]("Maaf gagal proses Kode Error:  " + (xhr.status + "\n"), )
                     $('#modaledit').modal('hide');
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
 
                 }
             });

@@ -174,7 +174,7 @@
                                         "hideMethod": "fadeOut"
                                     },
                                     toastr["success"](response.sukses)
-                                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                                 listlinkterkait();
                             },
                             error: function(xhr, ajaxOptions, thrownerror) {
@@ -200,7 +200,7 @@
             type: "post",
             url: "<?= site_url('linkterkait/formedit') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 id_link: id_link
 
             },
@@ -213,7 +213,7 @@
                         keyboard: false
                     });
                     $('#modaledit').modal('show');
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {
@@ -246,7 +246,7 @@
                     type: "post",
                     dataType: "json",
                     data: {
-                        csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                        csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                         id_link: id_link
                     },
                     success: function(response) {
@@ -269,7 +269,7 @@
                                     "hideMethod": "fadeOut"
                                 },
                                 toastr["success"](response.sukses)
-                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                             listlinkterkait();
                         }
                     },
@@ -327,7 +327,7 @@
             type: "post",
             url: "<?= site_url('linkterkait/toggle') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 id: id,
                 jns: jns
             },
@@ -340,7 +340,7 @@
                         showConfirmButton: false,
                         timer: 1500
                     })
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                     listlinkterkait();
                 }
             },
@@ -364,7 +364,7 @@
             type: "post",
             url: "<?= site_url('linkterkait/formgantifoto') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 id_link: id_link,
             },
             dataType: "json",

@@ -1,4 +1,4 @@
-<!-- ============================= WEBSITE DIDEVELOP OLEH VIAN TAUM | DATAGOE.COM ============================= -->
+<!-- ============================= WEBSITE DIDEVELOP OLEH VIAN TAUM | ikasmedia.net ============================= -->
 <?php
 $db = \Config\Database::connect();
 ?>
@@ -21,7 +21,7 @@ $konfigurasi = $this->konfigurasi->orderBy('id_setaplikasi')->first();
 
     <title>Cetak Quisioner</title>
 
-    <meta content="CMS DATAGOE" name="DATAGOE SOFTWARE" />
+    <meta content="CMS ikasmedia" name="ikasmedia SOFTWARE" />
 
     <link rel="shortcut icon" href="<?= base_url('/public/img/konfigurasi/icon/' . esc($konfigurasi['icon'])) ?>">
     <link href="<?= base_url() ?>/public/backend/standar/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">

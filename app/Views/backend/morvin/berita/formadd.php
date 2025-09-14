@@ -345,10 +345,10 @@
             },
             success: function(response) {
                 if (response.error) {
-                    if (response.csrf_tokencmsdatagoe) {
+                    if (response.csrf_tokencmsikasmedia) {
                         //update hash untuk proses error validation 
-                        $('#csrfToken, #csrfRandom').val(response.csrf_tokencmsdatagoe);
-                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe); //dataSrc untuk random request token char (wajib)
+                        $('#csrfToken, #csrfRandom').val(response.csrf_tokencmsikasmedia);
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia); //dataSrc untuk random request token char (wajib)
                     }
                     if (response.error.judul_berita) {
                         $('#judul_berita').addClass('is-invalid');
@@ -399,7 +399,7 @@
                         $('.errorGambar').html('');
                     }
                     toastr["error"]("Gagal simpan")
-                    // $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    // $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 } else {
 
 
@@ -417,7 +417,7 @@
             },
             error: function(xhr, ajaxOptions, thrownerror) {
                 toastr["error"]("Maaf gagal proses Kode Error:  " + (xhr.status + "\n"), );
-                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 // $('#modaltambah').modal('hide');
             }
         });

@@ -19,12 +19,12 @@ $this->section('script') ?>
                     url: "<?= base_url('login/logout') ?>",
                     type: 'post',
                     data: {
-                        csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                        csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                     },
                     dataType: 'json',
                     success: function(response) {
 
-                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe); //dataSrc untuk random request token char (wajib)
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia); //dataSrc untuk random request token char (wajib)
                         Swal.fire({
                             title: "Berhasil!",
                             text: "Anda berhasil keluar!",

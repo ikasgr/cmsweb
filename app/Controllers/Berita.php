@@ -429,7 +429,7 @@ class Berita extends BaseController
             'hapus'                 => $listgrupf->hapus,
 
             'folder'                => $tadmin['folder'],
-            'csrf_tokencmsdatagoe'  => csrf_hash()
+            'csrf_tokencmsikasmedia'  => csrf_hash()
         ];
 
         return view('backend/' . $tadmin['folder'] . '/' . 'berita/index', $data);
@@ -567,7 +567,7 @@ class Berita extends BaseController
         $this->berita->update($id, ['status' => $sts]);
         echo json_encode([
             'sukses'                => $stsket,
-            'csrf_tokencmsdatagoe'  => csrf_hash(),
+            'csrf_tokencmsikasmedia'  => csrf_hash(),
         ]);
     }
 
@@ -590,7 +590,7 @@ class Berita extends BaseController
         $this->berita->update($id, ['headline' => $sts]);
         echo json_encode([
             'sukses'                => $stsket,
-            'csrf_tokencmsdatagoe'  => csrf_hash(),
+            'csrf_tokencmsikasmedia'  => csrf_hash(),
         ]);
     }
 
@@ -622,7 +622,7 @@ class Berita extends BaseController
                 'user'                 => $this->user->listaddnews($id),
                 'akses'                => $listgrupf->akses,
                 'id'                   => $id,
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
                 'folder'               => $tadmin['folder'],
             ];
 
@@ -687,7 +687,7 @@ class Berita extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => $validation->getErrors(),
-                    'csrf_tokencmsdatagoe' => csrf_hash()
+                    'csrf_tokencmsikasmedia' => csrf_hash()
                 ];
             } else {
                 // Persiapkan data
@@ -747,7 +747,7 @@ class Berita extends BaseController
                 // Mengirimkan pesan sukses
                 $msg = [
                     'sukses' => 'Berita berhasil disimpan!',
-                    'csrf_tokencmsdatagoe' => csrf_hash()
+                    'csrf_tokencmsikasmedia' => csrf_hash()
                 ];
             }
 
@@ -772,7 +772,7 @@ class Berita extends BaseController
             if (!$cekdata) {
                 $msg = [
                     'error'                 => 'Data berita tidak ditemukan!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
                 echo json_encode($msg);
                 return;
@@ -804,7 +804,7 @@ class Berita extends BaseController
 
             $msg = [
                 'sukses' => 'Data Berita Berhasil Dihapus',
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -856,7 +856,7 @@ class Berita extends BaseController
 
             // Kirim respon
             $msg = [
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
                 'sukses'                => "$jmldata Data berita berhasil dihapus",
             ];
             echo json_encode($msg);
@@ -910,7 +910,7 @@ class Berita extends BaseController
             'folder'           => $tadmin['folder'],
             'user'             => $this->user->listaddnews(session()->get('id')),
             'namasingkat'      => $konfigurasi->namasingkat,
-            'csrf_tokencmsdatagoe' => csrf_hash(),
+            'csrf_tokencmsikasmedia' => csrf_hash(),
         ];
 
         return view('backend/' . $tadmin['folder'] . '/berita/formedit', $data);
@@ -980,7 +980,7 @@ class Berita extends BaseController
                         'isi'          => $validation->getError('isi'),
                         'tgl_berita'   => $validation->getError('tgl_berita'),
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash()
+                    'csrf_tokencmsikasmedia' => csrf_hash()
                 ];
                 echo json_encode($msg);
                 return;
@@ -1024,7 +1024,7 @@ class Berita extends BaseController
 
             $msg = [
                 'sukses'                => 'Data berita berhasil diubah!',
-                'csrf_tokencmsdatagoe' => csrf_hash()
+                'csrf_tokencmsikasmedia' => csrf_hash()
             ];
             echo json_encode($msg);
         }
@@ -1045,7 +1045,7 @@ class Berita extends BaseController
             if (empty($berita_id)) {
                 echo json_encode([
                     'error' => 'ID berita tidak valid.',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ]);
                 return;
             }
@@ -1055,7 +1055,7 @@ class Berita extends BaseController
             if (!$berita) {
                 echo json_encode([
                     'error' => 'Data berita tidak ditemukan.',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ]);
                 return;
             }
@@ -1074,7 +1074,7 @@ class Berita extends BaseController
             // Kirimkan pesan sukses beserta tampilan
             $msg = [
                 'sukses' => view('backend/' . $tadmin['folder'] . '/berita/gantifoto', $data),
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -1107,7 +1107,7 @@ class Berita extends BaseController
                     'error' => [
                         'gambar' => $validation->getError('gambar')
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ]);
                 return;
             }
@@ -1153,7 +1153,7 @@ class Berita extends BaseController
 
             echo json_encode([
                 'sukses' => $fileGambar && $fileGambar->isValid() ? 'Cover Berita berhasil diganti!' : 'Data berhasil diubah!',
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ]);
         }
     }
@@ -1208,7 +1208,7 @@ class Berita extends BaseController
                         'hp_komen' => $validation->getError('hp_komen'),
                         'isi_komen' => $validation->getError('isi_komen'),
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash()
+                    'csrf_tokencmsikasmedia' => csrf_hash()
                 ];
             } else {
 
@@ -1337,7 +1337,7 @@ class Berita extends BaseController
                     $tadmin = $this->template->tempadminaktif();
                     $msg = [
                         'sukses'               => view('backend/' . $tadmin['folder'] . '/' . 'berita/berita_komen/edit', $data),
-                        'csrf_tokencmsdatagoe' => csrf_hash(),
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                 } else {
                     $msg = [
@@ -1378,7 +1378,7 @@ class Berita extends BaseController
                     'error' => [
                         'isi_komen' => $validation->getError('isi_komen'),
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
@@ -1405,7 +1405,7 @@ class Berita extends BaseController
 
                 $msg = [
                     'sukses'               => 'Berhasil update Data !',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -1482,7 +1482,7 @@ class Berita extends BaseController
             $this->beritakomen->delete($beritakomen_id);
             $msg = [
                 'sukses'             => 'Data Berhasil Dihapus',
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -1504,7 +1504,7 @@ class Berita extends BaseController
 
             $msg = [
                 'sukses' => "$jmldata data berhasil dihapus",
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -1584,7 +1584,7 @@ class Berita extends BaseController
             $tadmin = $this->template->tempadminaktif();
             $msg = [
                 'data'                  => view('backend/' . $tadmin['folder'] . '/' . 'berita/tag/tambah', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -1612,7 +1612,7 @@ class Berita extends BaseController
                     'error' => [
                         'nama_tag' => $validation->getError('nama_tag'),
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash()
+                    'csrf_tokencmsikasmedia' => csrf_hash()
                 ];
             } else {
                 $simpandata = [
@@ -1623,7 +1623,7 @@ class Berita extends BaseController
                 $this->tag->insert($simpandata);
                 $msg = [
                     'sukses'                => 'Data berhasil disimpan',
-                    'csrf_tokencmsdatagoe' => csrf_hash()
+                    'csrf_tokencmsikasmedia' => csrf_hash()
                 ];
             }
             echo json_encode($msg);
@@ -1646,7 +1646,7 @@ class Berita extends BaseController
             ];
             $msg = [
                 'sukses'               => view('backend/' . $tadmin['folder'] . '/' . 'berita/tag/edit', $data),
-                'csrf_tokencmsdatagoe' => csrf_hash()
+                'csrf_tokencmsikasmedia' => csrf_hash()
 
             ];
             echo json_encode($msg);
@@ -1674,7 +1674,7 @@ class Berita extends BaseController
                     'error' => [
                         'nama_tag' => $validation->getError('nama_tag'),
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash()
+                    'csrf_tokencmsikasmedia' => csrf_hash()
                 ];
             } else {
                 $updatedata = [
@@ -1687,7 +1687,7 @@ class Berita extends BaseController
 
                 $msg = [
                     'sukses' => 'Data berhasil diupdate',
-                    'csrf_tokencmsdatagoe' => csrf_hash()
+                    'csrf_tokencmsikasmedia' => csrf_hash()
                 ];
             }
             echo json_encode($msg);
@@ -1704,7 +1704,7 @@ class Berita extends BaseController
             $this->tag->delete($tag_id);
             $msg = [
                 'sukses' => 'Data Berhasil Dihapus',
-                'csrf_tokencmsdatagoe' => csrf_hash()
+                'csrf_tokencmsikasmedia' => csrf_hash()
             ];
 
             echo json_encode($msg);
@@ -1723,7 +1723,7 @@ class Berita extends BaseController
         $data = [
             'title'                 => 'Informasi - Berita',
             'subtitle'              => 'Kategori',
-            'csrf_tokencmsdatagoe'  => csrf_hash(),
+            'csrf_tokencmsikasmedia'  => csrf_hash(),
             'folder'                 => $tadmin['folder'],
         ];
         return view('backend/' . $tadmin['folder'] . '/' . 'berita/kategori/index', $data);
@@ -1787,7 +1787,7 @@ class Berita extends BaseController
             ];
             $msg = [
                 'data'                  => view('backend/' . $tadmin['folder'] . '/' . 'berita/kategori/tambah', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -1815,7 +1815,7 @@ class Berita extends BaseController
                     'error' => [
                         'nama_kategori' => $validation->getError('nama_kategori'),
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash()
+                    'csrf_tokencmsikasmedia' => csrf_hash()
 
                 ];
             } else {
@@ -1827,7 +1827,7 @@ class Berita extends BaseController
                 $this->kategori->insert($simpandata);
                 $msg = [
                     'sukses'               => 'Data berhasil disimpan',
-                    'csrf_tokencmsdatagoe' => csrf_hash()
+                    'csrf_tokencmsikasmedia' => csrf_hash()
                 ];
             }
             echo json_encode($msg);
@@ -1850,7 +1850,7 @@ class Berita extends BaseController
             $tadmin = $this->template->tempadminaktif();
             $msg = [
                 'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'berita/kategori/edit', $data),
-                'csrf_tokencmsdatagoe' => csrf_hash()
+                'csrf_tokencmsikasmedia' => csrf_hash()
 
             ];
             echo json_encode($msg);
@@ -1878,7 +1878,7 @@ class Berita extends BaseController
                     'error' => [
                         'nama_kategori' => $validation->getError('nama_kategori'),
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash()
+                    'csrf_tokencmsikasmedia' => csrf_hash()
                 ];
             } else {
                 $updatedata = [
@@ -1892,7 +1892,7 @@ class Berita extends BaseController
 
                 $msg = [
                     'sukses' => 'Data berhasil diupdate',
-                    'csrf_tokencmsdatagoe' => csrf_hash()
+                    'csrf_tokencmsikasmedia' => csrf_hash()
                 ];
             }
             echo json_encode($msg);
@@ -1909,7 +1909,7 @@ class Berita extends BaseController
             $this->kategori->delete($kategori_id);
             $msg = [
                 'sukses'                => 'Kategori Berhasil Dihapus',
-                'csrf_tokencmsdatagoe' => csrf_hash()
+                'csrf_tokencmsikasmedia' => csrf_hash()
             ];
 
             echo json_encode($msg);

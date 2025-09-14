@@ -84,7 +84,7 @@
                             $('.errortransparan_jumlah').html('');
                         }
 
-                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
 
                     } else {
                         toastr.options = {
@@ -106,14 +106,14 @@
                             },
                             toastr["success"](response.sukses)
                         $('#modaledit').modal('hide');
-                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                         listdetailtransparansi();
                     }
                 },
                 error: function(xhr, ajaxOptions, thrownerror) {
                     toastr["error"]("Maaf gagal proses Kode Error:  " + (xhr.status + "\n"), );
                     $('#modaledit').modal('hide');
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
 
                 }
             });

@@ -16,7 +16,7 @@
             $thnk = date('Y', strtotime($tgl_ajuan));
             $jamk = date('H:i:s', strtotime($tgl_ajuan));
             ?>
-            <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsdatagoe" />
+            <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsikasmedia" />
 
             <div class="modal-body">
                 <input type="hidden" value="<?= $id_mohoninfo ?>" name="id_mohoninfo">
@@ -172,7 +172,7 @@
                                 }).then(function() {
                                     window.location = '../';
                                 })
-                                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                             }
 
                             if (response.blmakses) {
@@ -197,14 +197,14 @@
                                     $('#respon_balas').removeClass('is-invalid');
                                     $('.errorrespon_balas').html('');
                                 }
-                                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                             } else {
 
                                 toastr["success"](response.sukses)
 
                                 $('#modaledit').modal('hide');
                                 listpermohonaninfo();
-                                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                             }
                         },
                         error: function(xhr, ajaxOptions, thrownerror) {

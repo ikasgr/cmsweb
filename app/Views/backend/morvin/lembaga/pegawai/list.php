@@ -192,7 +192,7 @@
                                     },
                                     toastr["success"](response.sukses)
                                 listpegawai();
-                                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                             },
                             error: function(xhr, ajaxOptions, thrownerror) {
                                 Swal.fire({
@@ -217,7 +217,7 @@
             type: "post",
             url: "<?= site_url('pegawai/formedit') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 pegawai_id: pegawai_id
             },
             dataType: "json",
@@ -229,7 +229,7 @@
                         keyboard: false
                     });
                     $('#modaledit').modal('show');
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {
@@ -262,7 +262,7 @@
                     type: "post",
                     dataType: "json",
                     data: {
-                        csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                        csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                         pegawai_id: pegawai_id
                     },
                     success: function(response) {
@@ -286,7 +286,7 @@
                                 },
                                 toastr["success"](response.sukses)
                             listpegawai();
-                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                         }
                     },
                     error: function(xhr, ajaxOptions, thrownerror) {
@@ -320,7 +320,7 @@
                         keyboard: false
                     });
                     $('#modaltambah').modal('show');
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 },
                 error: function(xhr, ajaxOptions, thrownerror) {
                     Swal.fire({
@@ -350,7 +350,7 @@
                         // keyboard: false
                     });
                     $('#modalimport').modal('show');
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 },
                 error: function(xhr, ajaxOptions, thrownerror) {
                     Swal.fire({
@@ -374,7 +374,7 @@
             type: "post",
             url: "<?= site_url('pegawai/formgantifoto') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 pegawai_id: pegawai_id,
             },
             dataType: "json",
@@ -386,7 +386,7 @@
                         keyboard: false
                     });
                     $('#modalupload').modal('show');
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {
@@ -410,7 +410,7 @@
             type: "post",
             url: "<?= site_url('pegawai/formlihatback') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 pegawai_id: pegawai_id,
             },
             dataType: "json",
@@ -422,7 +422,7 @@
                         keyboard: false
                     });
                     $('#modallihat').modal('show');
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
 
                 }
             },
@@ -447,7 +447,7 @@
             type: "post",
             url: "<?= site_url('pegawai/formgantitupoksi') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 pegawai_id: pegawai_id,
             },
             dataType: "json",
@@ -459,7 +459,7 @@
                         keyboard: false
                     });
                     $('#modalupload').modal('show');
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {
@@ -493,7 +493,7 @@
                     type: "post",
                     dataType: "json",
                     data: {
-                        csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                        csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                         pegawai_id: pegawai_id
                     },
                     success: function(response) {
@@ -517,7 +517,7 @@
                                 },
                                 toastr["success"](response.sukses)
                             listpegawai();
-                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                         }
                     },
                     error: function(xhr, ajaxOptions, thrownerror) {

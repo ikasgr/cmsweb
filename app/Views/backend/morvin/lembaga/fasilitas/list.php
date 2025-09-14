@@ -125,7 +125,7 @@
             type: "post",
             url: "<?= site_url('fasilitas/formeditfasilitas') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 fasilitas_id: fasilitas_id
             },
             dataType: "json",
@@ -133,7 +133,7 @@
                 if (response.sukses) {
                     $('.viewmodal').html(response.sukses).show();
                     $('#modaledit').modal('show');
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             },
 
@@ -171,7 +171,7 @@
                     type: "post",
                     dataType: "json",
                     data: {
-                        csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                        csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                         fasilitas_id: fasilitas_id
                     },
 
@@ -195,7 +195,7 @@
                                     "showMethod": "fadeIn",
                                     "hideMethod": "fadeOut"
                                 },
-                                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                             listfasilitas();
                         }
                     },
@@ -209,7 +209,7 @@
                         }).then(function() {
                             window.location = '';
                         })
-                        // $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                        // $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                     }
                 });
             }
@@ -222,7 +222,7 @@
             type: "post",
             url: "<?= site_url('fasilitas/ganticoverfas') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 fasilitas_id: fasilitas_id,
             },
             dataType: "json",
@@ -234,7 +234,7 @@
                         keyboard: false
                     });
                     $('#modalupload').modal('show');
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {
@@ -258,7 +258,7 @@
             type: "post",
             url: "<?= site_url('fasilitas/toggledef') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 fasilitas_id: fasilitas_id
             },
             dataType: "json",
@@ -270,7 +270,7 @@
                         showConfirmButton: false,
                         timer: 1500
                     })
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                     listfasilitas();
                 }
             },
@@ -285,7 +285,7 @@
                     window.location = '';
 
                 })
-                // $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                // $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
             }
         });
     }

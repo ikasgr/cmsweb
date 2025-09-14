@@ -44,7 +44,7 @@
                         </button>
                     <?php } ?>
                     <hr>
-                    <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsdatagoe" />
+                    <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsikasmedia" />
 
                     <!-- <div class="table-rep-plugin"> -->
                     <div class="table-responsive mb-0" data-pattern="priority-columns">
@@ -116,7 +116,7 @@
                 "type": "POST",
                 "data": {
                     // [csrfToken]: csrfHash,
-                    csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                    csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 },
 
 
@@ -124,7 +124,7 @@
                     $(".databerita-error").html("");
                     $("#databerita").append('<tbody class="databerita-error"><tr><th colspan="3">Data Tidak Ditemukan di Server</th></tr></tbody>');
                     $("#databerita_processing").css("display", "none");
-                    // $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    // $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
 
                 },
 
@@ -162,11 +162,11 @@
         $('#centangSemua').click(function(e) {
             if ($(this).is(':checked')) {
                 $('.centangBeritaid').prop('checked', true);
-                // $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe); //dataSrc untuk random request token char (wajib)
+                // $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia); //dataSrc untuk random request token char (wajib)
 
             } else {
                 $('.centangBeritaid').prop('checked', false);
-                // $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe); //dataSrc untuk random request token char (wajib)
+                // $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia); //dataSrc untuk random request token char (wajib)
 
             }
         });
@@ -185,7 +185,7 @@
                     showConfirmButton: false,
                     timer: 1500
                 })
-                // $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                // $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
             } else {
                 Swal.fire({
                     title: `Apakah anda yakin menghapus ${jmldata.length} data ini?`,
@@ -206,7 +206,7 @@
                             data: $(this).serialize(),
                             // data: {
                             //     // [csrfToken]: csrfHash,
-                            //     csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                            //     csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                             // },
                             beforeSend: function() {
                                 $('.tblhapus').attr('disable', 'disable');
@@ -217,11 +217,11 @@
                                 $('.tblhapus').html('<i class="far fa-trash-alt text-light"></i> Hapus yang diceklist');
                             },
                             success: function(response) {
-                                // $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe); //dataSrc untuk random request token char (wajib)
-                                // if (response.csrf_tokencmsdatagoe) {
+                                // $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia); //dataSrc untuk random request token char (wajib)
+                                // if (response.csrf_tokencmsikasmedia) {
                                 //     //update hash untuk proses error validation 
-                                //     $('#csrf_tokencmsdatagoe, #csrfRandom').val(response.csrf_tokencmsdatagoe);
-                                //     $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                                //     $('#csrf_tokencmsikasmedia, #csrfRandom').val(response.csrf_tokencmsikasmedia);
+                                //     $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                                 // }
                                 // toastr.options = {
                                 //         "closeButton": true,
@@ -251,11 +251,11 @@
                                     window.location = '';
                                 });
                                 // AmbilDataBerita();
-                                // $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
-                                // if (response.csrf_tokencmsdatagoe) {
+                                // $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                                // if (response.csrf_tokencmsikasmedia) {
                                 //     //update hash untuk proses error validation 
-                                //     $('#csrfToken, #csrfRandom').val(response.csrf_tokencmsdatagoe);
-                                //     $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe); //dataSrc untuk random request token char (wajib)
+                                //     $('#csrfToken, #csrfRandom').val(response.csrf_tokencmsikasmedia);
+                                //     $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia); //dataSrc untuk random request token char (wajib)
                                 // }
                             },
 
@@ -293,18 +293,18 @@
                 $.ajax({
                     url: "<?= site_url('berita/hapus') ?>",
                     data: {
-                        csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                        csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                         berita_id: berita_id
                     },
                     type: "post",
                     dataType: "json",
                     success: function(response) {
-                        if (response.csrf_tokencmsdatagoe) {
+                        if (response.csrf_tokencmsikasmedia) {
                             //update hash untuk proses error validation 
-                            $('#csrfToken, #csrfRandom').val(response.csrf_tokencmsdatagoe);
-                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                            $('#csrfToken, #csrfRandom').val(response.csrf_tokencmsikasmedia);
+                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                         }
-                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe); //dataSrc untuk random request token char (wajib)
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia); //dataSrc untuk random request token char (wajib)
                         if (response.sukses) {
                             // toastr.options = {
                             //         "closeButton": true,
@@ -334,7 +334,7 @@
                             }).then(function() {
                                 window.location = '';
                             });
-                            // $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                            // $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                         }
                     },
                     error: function(xhr, ajaxOptions, thrownerror) {
@@ -349,7 +349,7 @@
                         })
                     }
                 });
-                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
 
             }
         })
@@ -363,7 +363,7 @@
             type: "post",
             url: "<?= site_url('berita/toggle') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 id: id
             },
             dataType: "json",
@@ -407,7 +407,7 @@
             type: "post",
             url: "<?= site_url('berita/toggleutm') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 id: id
             },
             dataType: "json",
@@ -451,7 +451,7 @@
             type: "post",
             url: "<?= site_url('berita/formgantifoto') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 berita_id: berita_id,
             },
             dataType: "json",
@@ -463,7 +463,7 @@
                         keyboard: false
                     });
                     $('#modalupload').modal('show');
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {

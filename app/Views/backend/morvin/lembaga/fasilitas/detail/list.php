@@ -154,12 +154,12 @@
                                         "hideMethod": "fadeOut"
                                     },
                                     toastr["success"](response.sukses)
-                                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                                 listdetailfasilitas();
                             },
                             error: function(xhr, ajaxOptions, thrownerror) {
                                 toastr["error"]("Maaf gagal hapus Kode Error:  " + (xhr.status + "\n"), )
-                                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                             }
                         });
                     }
@@ -174,7 +174,7 @@
             type: "post",
             url: "<?= site_url('fasilitas/formeditdetail') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 fasilitasdetail_id: fasilitasdetail_id,
                 fasilitas_id: fasilitas_id
 
@@ -188,7 +188,7 @@
                         keyboard: false
                     });
                     $('#modaledit').modal('show');
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {
@@ -222,7 +222,7 @@
                     type: "post",
                     dataType: "json",
                     data: {
-                        csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                        csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                         fasilitasdetail_id: fasilitasdetail_id
                     },
                     success: function(response) {
@@ -245,13 +245,13 @@
                                     "hideMethod": "fadeOut"
                                 },
                                 toastr["success"](response.sukses)
-                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                             listdetailfasilitas();
                         }
                     },
                     error: function(xhr, ajaxOptions, thrownerror) {
                         toastr["error"]("Maaf gagal hapus Kode Error:  " + (xhr.status + "\n"), )
-                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                     }
 
                 });
@@ -279,7 +279,7 @@
                         keyboard: false
                     });
                     $('#modaltambah').modal('show');
-                    // $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    // $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 },
                 error: function(xhr, ajaxOptions, thrownerror) {
                     Swal.fire({

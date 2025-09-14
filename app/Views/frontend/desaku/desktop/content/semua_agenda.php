@@ -27,7 +27,7 @@
 
                     <h1 class="text-blue montserrat-700 f-30 text-center">Agenda Kegiatan </h1>
                     <hr>
-                    <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsdatagoe" />
+                    <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsikasmedia" />
                     <?php if ($agenda) { ?>
 
                         <div class="alert alert-info" style='background-color:#f4f4f4; border-color:#e3e3e3;'>
@@ -62,7 +62,7 @@
                         if ($jum > 8) { ?>
                             <P>
                             <ul class="pagination justify-content-center">
-                                <?= $pager->links('hal', 'datagoe'); ?>
+                                <?= $pager->links('hal', 'ikasmedia'); ?>
                             </ul>
                             </P>
                         <?php } ?>

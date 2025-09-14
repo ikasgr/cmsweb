@@ -77,7 +77,7 @@
                             $('#cover_foto').addClass('is-invalid');
                             $('.errorcover_foto').html(response.error.cover_foto);
                         }
-                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                     } else {
                         Swal.fire({
                             title: "Berhasil!",
@@ -90,7 +90,7 @@
                             window.location = '';
                             // listfasilitas();
                         })
-                        // $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                        // $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                     }
                 },
 

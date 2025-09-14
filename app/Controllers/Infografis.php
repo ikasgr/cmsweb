@@ -159,7 +159,7 @@ class Infografis extends BaseController
                         'ket'           => $validation->getError('ket'),
                         'banner_image'  => $validation->getError('banner_image')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             } else {
 
@@ -182,7 +182,7 @@ class Infografis extends BaseController
                 $filegambar->move('public/img/informasi/infografis/', $nama_file); //folder gbr
                 $msg = [
                     'sukses'                => 'Banner berhasil diupload!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -206,7 +206,7 @@ class Infografis extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'setkonten/infografis/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -247,7 +247,7 @@ class Infografis extends BaseController
                         'ket' => $validation->getError('ket'),
                         'banner' => $validation->getError('banner')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             } else {
                 $filegambar = $this->request->getFile('banner_image');
@@ -261,7 +261,7 @@ class Infografis extends BaseController
                     $this->banner->update($id_banner, $data);
                     $msg = [
                         'sukses'                => 'Data berhasil diubah!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'csrf_tokencmsikasmedia'  => csrf_hash(),
                     ];
                 } else {
 
@@ -290,7 +290,7 @@ class Infografis extends BaseController
 
                     $msg = [
                         'sukses'                => 'Info Grafis berhasil diganti!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'csrf_tokencmsikasmedia'  => csrf_hash(),
                     ];
                 }
 
@@ -320,7 +320,7 @@ class Infografis extends BaseController
             $this->banner->delete($id_banner);
             $msg = [
                 'sukses'                => 'Data berhasil dihapus!',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -351,7 +351,7 @@ class Infografis extends BaseController
 
             $msg = [
                 'sukses'                => "$jmldata Info Grafis berhasil dihapus",
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -375,7 +375,7 @@ class Infografis extends BaseController
             $msg = [
 
                 'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'modal/v_infografis', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
 
             ];
             echo json_encode($msg);

@@ -86,7 +86,7 @@ class User extends BaseController
 
             echo json_encode([
                 'sukses'                => $pesan,
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ]);
         }
     }
@@ -185,7 +185,7 @@ class User extends BaseController
             if (!$this->validate($rules)) {
                 echo json_encode([
                     'error' => $validation->getErrors(),
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ]);
                 return;
             }
@@ -209,7 +209,7 @@ class User extends BaseController
             if ($konopd == 1 && $opd_id == '') {
                 echo json_encode([
                     'gopdid' => 'Unit kerja belum dipilih!',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ]);
                 return;
             }
@@ -223,7 +223,7 @@ class User extends BaseController
 
             echo json_encode([
                 'sukses' => 'User berhasil ditambahkan!',
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ]);
         }
     }
@@ -246,7 +246,7 @@ class User extends BaseController
             $this->user->delete($id);
             $msg = [
                 'sukses'                => 'Data User Berhasil Dihapus',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -273,7 +273,7 @@ class User extends BaseController
 
             $msg = [
                 'sukses'                => "$jmldata Data berhasil dihapus",
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -315,7 +315,7 @@ class User extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/user/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -371,7 +371,7 @@ class User extends BaseController
                         'fullname'      => $validation->getError('fullname'),
                         'id_grup'       => $validation->getError('id_grup')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             } else {
                 $namausernew = $this->request->getVar('username');
@@ -397,7 +397,7 @@ class User extends BaseController
 
                         $msg = [
                             'errorpass'             => $validation->getError('password'),
-                            'csrf_tokencmsdatagoe'  => csrf_hash(),
+                            'csrf_tokencmsikasmedia'  => csrf_hash(),
                         ];
                         // echo json_encode($msg);
                     } else {
@@ -419,14 +419,14 @@ class User extends BaseController
                     $this->user->update($user_id, $updatedata);
                     $msg = [
                         'sukses'                => 'Data berhasil diubah!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'csrf_tokencmsikasmedia'  => csrf_hash(),
                     ];
                 } else {
                     $userganda =  $this->user->listuserganda($namausernew);
                     if ($userganda) {
                         $msg = [
                             'namaganda'             => 'Data gagal diubah..!',
-                            'csrf_tokencmsdatagoe'  => csrf_hash(),
+                            'csrf_tokencmsikasmedia'  => csrf_hash(),
                         ];
                     } else {
                         $updatedata = [
@@ -439,7 +439,7 @@ class User extends BaseController
                         $this->user->update($user_id, $updatedata);
                         $msg = [
                             'sukses'                => 'Data berhasil diubah!',
-                            'csrf_tokencmsdatagoe'  => csrf_hash(),
+                            'csrf_tokencmsikasmedia'  => csrf_hash(),
                         ];
                     }
                 }
@@ -465,7 +465,7 @@ class User extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/user/gantifoto', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -499,7 +499,7 @@ class User extends BaseController
                     'error' => [
                         'fotouser' => $validation->getError('fotouser')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             } else {
 
@@ -525,7 +525,7 @@ class User extends BaseController
                     ->save('public/img/user/' . $nama_file);
                 $msg = [
                     'sukses'                => 'Foto profil berhasil diganti!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -676,7 +676,7 @@ class User extends BaseController
             $tadmin             = $this->template->tempadminaktif();
             $msg = [
                 'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/user/lihat', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -794,7 +794,7 @@ class User extends BaseController
                     'error' => [
                         'nama_grup' => $validation->getError('nama_grup'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             } else {
 
@@ -826,7 +826,7 @@ class User extends BaseController
 
                 $msg = [
                     'sukses'                => 'Data berhasil disimpan',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -856,7 +856,7 @@ class User extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/user/grup/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -884,7 +884,7 @@ class User extends BaseController
                     'error' => [
                         'nama_grup' => $validation->getError('nama_grup'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             } else {
 
@@ -918,7 +918,7 @@ class User extends BaseController
 
                 $msg = [
                     'sukses'                => 'Hak Akses berhasil diubah',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -943,7 +943,7 @@ class User extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/user/grup/lihatakses', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -969,7 +969,7 @@ class User extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/user/grup/editnm', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -996,7 +996,7 @@ class User extends BaseController
                     'error' => [
                         'nama_grup' => $validation->getError('nama_grup'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             } else {
                 $updatedata = [
@@ -1009,7 +1009,7 @@ class User extends BaseController
 
                 $msg = [
                     'sukses'                => 'Data berhasil diubah',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -1035,7 +1035,7 @@ class User extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/user/grup/addmenu', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -1074,7 +1074,7 @@ class User extends BaseController
             }
             $msg = [
                 'sukses'                => 'Data berhasil disimpan',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -1100,7 +1100,7 @@ class User extends BaseController
 
             $msg = [
                 'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/user/grup/editmenu', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -1137,7 +1137,7 @@ class User extends BaseController
             }
             $msg = [
                 'sukses'                => 'Hak Akses Menu berhasil diubah',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
         }
         echo json_encode($msg);
@@ -1163,7 +1163,7 @@ class User extends BaseController
             $this->grupuser->delete($id_grup);
             $msg = [
                 'sukses'                => 'Data Berhasil Dihapus',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
 
             echo json_encode($msg);

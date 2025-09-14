@@ -84,7 +84,7 @@
                         if (response.error.gambar) {
                             $('#gambar').addClass('is-invalid');
                             $('.errorGambar').html(response.error.gambar);
-                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
 
                         }
                     } else {

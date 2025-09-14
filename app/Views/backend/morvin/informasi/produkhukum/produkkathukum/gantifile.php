@@ -89,7 +89,7 @@
                             $('#file_kathukum').addClass('is-invalid');
                             $('.errorfile_kathukum').html(response.error.file_kathukum);
                         }
-                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                     } else {
                         Swal.fire({
                             title: "Berhasil!",

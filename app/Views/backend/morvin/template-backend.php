@@ -1,10 +1,10 @@
 <!-- =======================================================
-      * CMS DATAGOE
+      * CMS ikasmedia
       * Content Management System.
       *
       * @author			Vian Taum <viantaum17@gmail.com>
-      * @website		www.datagoe.com
-      * @copyright		(c) 2023 - Datagoe Software
+      * @website		www.ikasmedia.net
+      * @copyright		(c) 2023 - ikasmedia Software
  ======================================================== -->
 
 <?php
@@ -57,7 +57,7 @@ if (esc($list['user_image']) != 'default.png' && file_exists('public/img/user/' 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <title><?= esc($title) ?> | <?= esc($subtitle) ?></title>
-    <meta content="Control Web Panel CMS DATAGOE" name="Control Web Panel CMS DATAGOE" />
+    <meta content="Control Web Panel CMS ikasmedia" name="Control Web Panel CMS ikasmedia" />
     <link rel="shortcut icon" href="<?= base_url('/public/img/konfigurasi/icon/' . esc($konfigurasi->icon)) ?>">
     <!-- Toast -->
     <link href="<?= base_url('/public/template/backend/' . esc($folder) . '/assets/libs/toastr/toastr.css') ?>" rel="stylesheet" type="text/css" />
@@ -110,7 +110,7 @@ if (esc($list['user_image']) != 'default.png' && file_exists('public/img/user/' 
 
 <body <?= esc($tadmin['warna_topbar']) ==  '#ffffff' ? '' : 'data-topbar="colored"' ?> <?= $tadmin['sidebar_mode'] ==  0 ? '' : 'data-sidebar="dark"' ?>>
 
-    <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsdatagoe" />
+    <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsikasmedia" />
     <!-- Loader -->
     <div id="preloader">
         <div id="status">
@@ -344,8 +344,8 @@ if (esc($list['user_image']) != 'default.png' && file_exists('public/img/user/' 
                     <i class="mdi mdi-comment-quote text-primary h1"></i>
                     <div class="media-body ps-1">
                         <p class="text-muted font-italic">Terima kasih atas kepercayaan Anda, yang telah menggunakan layanan kami..!
-                            Panduan Penggunaan silahkan kunjungi Channel Youtube <a href="https://www.youtube.com/playlist?list=PLa11gJo4z4Q90r53PD_tCJOSUl0JHQsjl" target="_blank" class="alert-link">DATAGOE SOFTWARE</a>.
-                            <br> Informasi lain dapat kunjungi situs resmi kami <a href="https://datagoe.com/" target="_blank">datagoe.com</a>
+                            Panduan Penggunaan silahkan kunjungi Channel Youtube <a href="https://www.youtube.com/playlist?list=PLa11gJo4z4Q90r53PD_tCJOSUl0JHQsjl" target="_blank" class="alert-link">ikasmedia SOFTWARE</a>.
+                            <br> Informasi lain dapat kunjungi situs resmi kami <a href="https://ikasmedia.net/" target="_blank">ikasmedia.net</a>
                         </p>
                     </div>
                 </div>

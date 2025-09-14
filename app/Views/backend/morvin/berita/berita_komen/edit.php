@@ -137,7 +137,7 @@
                                 $('#isi_komen').removeClass('is-invalid');
                                 $('.errorisi_komen').html('');
                             }
-                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                         } else {
                             toastr.options = {
                                     "closeButton": true,
@@ -161,7 +161,7 @@
                             $('#modalkomen').modal('hide');
                             listkomen();
                             listkomennew();
-                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                         }
 
                     },

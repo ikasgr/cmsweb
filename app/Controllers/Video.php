@@ -176,7 +176,7 @@ class Video extends BaseController
                         'video_link' => $validation->getError('video_link'),
                         'kategorivideo_id' => $validation->getError('kategorivideo_id'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             } else {
 
@@ -218,7 +218,7 @@ class Video extends BaseController
                 $this->video->insert($insertdata);
                 $msg = [
                     'sukses'                => 'Video berhasil diupload!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -247,7 +247,7 @@ class Video extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'galeri/video/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -292,7 +292,7 @@ class Video extends BaseController
                         'video_link' => $validation->getError('video_link'),
                         'kategorivideo_id' => $validation->getError('kategorivideo_id')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             } else {
 
@@ -305,7 +305,7 @@ class Video extends BaseController
                 $this->video->update($video_id, $updatedata);
                 $msg = [
                     'sukses'                => 'Data berhasil diubah!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -327,7 +327,7 @@ class Video extends BaseController
             ];
             $msg = [
                 'data'                  => view('backend/' . esc($tadmin['folder']) . '/' . 'galeri/video/formmultiadd', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -372,7 +372,7 @@ class Video extends BaseController
                         'video_link'  => $validation->getError('video_link'),
                         'kategorivideo_id'  => $validation->getError('kategorivideo_id')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             } else {
 
@@ -424,13 +424,13 @@ class Video extends BaseController
 
                     $msg = [
                         'sukses'                => "$jdata Video berhasil ditambahkan !",
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'csrf_tokencmsikasmedia'  => csrf_hash(),
                     ];
                 }
 
                 $msg = [
                     'sukses'                => 'Data berhasil disimpan!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -449,7 +449,7 @@ class Video extends BaseController
             $this->video->delete($video_id);
             $msg = [
                 'sukses' => 'Data berhasil dihapus!',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -469,7 +469,7 @@ class Video extends BaseController
             }
             $msg = [
                 'sukses'                => "$jmldata video berhasil dihapus",
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -492,7 +492,7 @@ class Video extends BaseController
 
             echo json_encode([
                 'sukses'                => $stsket,
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ]);
         }
     }
@@ -566,13 +566,13 @@ class Video extends BaseController
         if ($this->request->isAJAX()) {
             $data = [
                 'title' => 'Tambah Kategori',
-                // 'csrf_tokencmsdatagoe'  => csrf_hash(),
+                // 'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             $tadmin = $this->template->tempadminaktif();
 
             $msg = [
                 'data'                  => view('backend/' . esc($tadmin['folder']) . '/' . 'galeri/video/kategorivideo/tambah', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
 
             ];
             echo json_encode($msg);
@@ -601,7 +601,7 @@ class Video extends BaseController
                     'error' => [
                         'nama_kategori_video' => $validation->getError('nama_kategori_video'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             } else {
                 $simpandata = [
@@ -613,7 +613,7 @@ class Video extends BaseController
                 $this->kategorivideo->insert($simpandata);
                 $msg = [
                     'sukses'                => 'Data berhasil disimpan',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -637,7 +637,7 @@ class Video extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'galeri/video/kategorivideo/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -664,7 +664,7 @@ class Video extends BaseController
                     'error' => [
                         'nama_kategori_video' => $validation->getError('nama_kategori_video'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             } else {
                 $updatedata = [
@@ -676,7 +676,7 @@ class Video extends BaseController
                 $this->kategorivideo->update($kategorivideo_id, $updatedata);
                 $msg = [
                     'sukses'                => 'Data berhasil diupdate',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -695,7 +695,7 @@ class Video extends BaseController
             $this->kategorivideo->delete($kategorivideo_id);
             $msg = [
                 'sukses'                => 'Kategori Berhasil Dihapus',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -776,7 +776,7 @@ class Video extends BaseController
 
             $msg = [
                 'sukses'                => 'Anda menyukai video ini',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
 
             echo json_encode($msg);

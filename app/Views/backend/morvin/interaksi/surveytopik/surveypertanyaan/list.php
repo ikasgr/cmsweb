@@ -160,12 +160,12 @@ $this->jawaban = new ModelSurveyJawaban();
                                         "hideMethod": "fadeOut"
                                     },
                                     toastr["success"](response.sukses)
-                                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                                 listpertanyaan();
                             },
                             error: function(xhr, ajaxOptions, thrownerror) {
                                 toastr["error"]("Maaf gagal hapus Kode Error:  " + (xhr.status + "\n"), )
-                                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                             }
                         });
                     }
@@ -180,7 +180,7 @@ $this->jawaban = new ModelSurveyJawaban();
             type: "post",
             url: "<?= site_url('survey/formeditpertanyaan') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 pertanyaan_id: pertanyaan_id,
                 survey_id: survey_id
 
@@ -227,7 +227,7 @@ $this->jawaban = new ModelSurveyJawaban();
                     type: "post",
                     dataType: "json",
                     data: {
-                        csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                        csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                         pertanyaan_id: pertanyaan_id
                     },
                     success: function(response) {
@@ -250,13 +250,13 @@ $this->jawaban = new ModelSurveyJawaban();
                                     "hideMethod": "fadeOut"
                                 },
                                 toastr["success"](response.sukses)
-                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                             listpertanyaan();
                         }
                     },
                     error: function(xhr, ajaxOptions, thrownerror) {
                         toastr["error"]("Maaf gagal hapus Kode Error:  " + (xhr.status + "\n"), )
-                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                     }
                 });
             }

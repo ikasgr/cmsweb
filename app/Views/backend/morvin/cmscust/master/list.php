@@ -141,7 +141,7 @@
             type: "post",
             url: "<?= site_url('masterdata/formuploadfoto') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 id_masterdata: id_masterdata,
 
             },
@@ -150,7 +150,7 @@
                 if (response.sukses) {
                     $('.viewmodal').html(response.sukses).show();
                     $('#modalupload').modal('show');
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             },
 
@@ -174,7 +174,7 @@
             type: "post",
             url: "<?= site_url('masterdata/formedit') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 id_masterdata: id_masterdata,
                 req: req,
                 jdl: jdl,
@@ -189,7 +189,7 @@
                         keyboard: false
                     });
                     $('#modaledit').modal('show');
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {
@@ -225,7 +225,7 @@
                     type: "post",
                     dataType: "json",
                     data: {
-                        csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                        csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                         id_masterdata: id_masterdata
                     },
 
@@ -250,7 +250,7 @@
                                     "showMethod": "fadeIn",
                                     "hideMethod": "fadeOut"
                                 },
-                                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                             listmaster();
                         }
                     },
@@ -275,7 +275,7 @@
             type: "post",
             url: "<?= site_url('masterdata/toggle') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 id_masterdata: id_masterdata
             },
             dataType: "json",
@@ -287,7 +287,7 @@
                         showConfirmButton: false,
                         timer: 1500
                     })
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                     listmaster();
                 }
             },

@@ -85,7 +85,7 @@
                             $('#filepdf').addClass('is-invalid');
                             $('.errorfilepdf').html(response.error.filepdf);
                         }
-                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                     } else {
                         Swal.fire({
                             title: "Berhasil!",

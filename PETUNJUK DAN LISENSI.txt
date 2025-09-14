@@ -5,11 +5,11 @@ jika Anda mengabaikan izin dari kami, dan mengakui bahwa itu dibangun oleh Anda
 secara keseluruhan adalah hal yang memalukan; untuk itu mari kita saling mendukung dan 
 menghargai, agar kita senantiasa dalam keberkahan.
 
-Silakan modifikasi dan gunakan CMS DATAGOE ini sesuai dengan keperluan Anda, 
+Silakan modifikasi dan gunakan CMS ikasmedia ini sesuai dengan keperluan Anda, 
 Anda boleh menggunakannya untuk project Anda sendiri maupun project client Anda. 
 
 		UNTUK DAPATKAN UPDATE TERBARU & PRODUK PREMIUM LAINNYA 
-  		    SILAHKAN AKTIFKAN AKUN PREMIUM DI DATAGOE.COM !! 
+  		    SILAHKAN AKTIFKAN AKUN PREMIUM DI ikasmedia.net !! 
 
 ================================= LISENSI ==========================================
 
@@ -48,7 +48,7 @@ yang dibutuhkan antara lain:
 ~ libcurl (opsional)
 
 Untuk detailnya dapat baca artikel dibawah.
-https://datagoe.com/post/spesifikasi-web-server-untuk-menjalankan-ci-4
+https://ikasmedia.net/post/spesifikasi-web-server-untuk-menjalankan-ci-4
 
       --------------- WAJIB DILAKUKAN ---------------
 ============================================================
@@ -64,5 +64,5 @@ LANGKAH KEAMANAN SAAT SUDAH ONLINEKAN WEBSITE:
   ubah menjadi		--> public bool $secure = true; 		
 
 
-== salam share datagoe untuk info selengkapnya hubungi 081 353 967 028 == 
+== salam share ikasmedia untuk info selengkapnya hubungi 081 353 967 028 == 
 

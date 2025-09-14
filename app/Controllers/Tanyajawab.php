@@ -202,7 +202,7 @@ class Tanyajawab extends BaseController
                         'kat_faq'    => $validation->getError('kat_faq'),
 
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
                 echo json_encode($msg);
             } else {
@@ -217,7 +217,7 @@ class Tanyajawab extends BaseController
                 $this->faqtanya->insert($insertdata);
                 $msg = [
                     'sukses'                => 'Data berhasil disimpan!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
                 echo json_encode($msg);
             }
@@ -236,7 +236,7 @@ class Tanyajawab extends BaseController
             $this->faqtanya->delete($id);
             $msg = [
                 'sukses'                => 'Data Berhasil Dihapus',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -259,7 +259,7 @@ class Tanyajawab extends BaseController
 
             $msg = [
                 'sukses'                => "$jmldata Data berhasil dihapus",
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -284,7 +284,7 @@ class Tanyajawab extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'setkonten/faqtanya/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -317,7 +317,7 @@ class Tanyajawab extends BaseController
                         'faqtanya'    => $validation->getError('faqtanya'),
 
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             } else {
 
@@ -328,7 +328,7 @@ class Tanyajawab extends BaseController
                 $this->faqtanya->update($faq_tanyaid, $updatedata);
                 $msg = [
                     'sukses'                => 'Data berhasil diubah!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -465,7 +465,7 @@ class Tanyajawab extends BaseController
                         'faq_jawaban'  => $validation->getError('faq_jawaban'),
 
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             } else {
 
@@ -478,7 +478,7 @@ class Tanyajawab extends BaseController
                 $this->faqjawab->insert($insertdata);
                 $msg = [
                     'sukses'                => 'Data berhasil disimpan!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -504,7 +504,7 @@ class Tanyajawab extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'setkonten/faqtanya/faqjawab/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -535,7 +535,7 @@ class Tanyajawab extends BaseController
                     'error' => [
                         'faq_jawaban' => $validation->getError('faq_jawaban'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             } else {
 
@@ -547,7 +547,7 @@ class Tanyajawab extends BaseController
                 $this->faqjawab->update($faq_jawabid, $updatedata);
                 $msg = [
                     'sukses'                => 'Data berhasil diubah!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -565,7 +565,7 @@ class Tanyajawab extends BaseController
             $this->faqjawab->delete($id);
             $msg = [
                 'sukses'                => 'Data Berhasil Dihapus',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -586,7 +586,7 @@ class Tanyajawab extends BaseController
             }
             $msg = [
                 'sukses'                => "$jmldata Data berhasil dihapus",
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }

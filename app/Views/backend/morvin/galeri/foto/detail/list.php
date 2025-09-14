@@ -1,5 +1,5 @@
 <?= form_open('foto/hapusall', ['class' => 'formhapus']) ?>
-<!-- <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsdatagoe" /> -->
+<!-- <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsikasmedia" /> -->
 
 <button type="button" class="btn btn-warning btn-sm kembali" id="kembali">
     <i class="far fa-arrow-alt-circle-left"></i> Kembali
@@ -164,7 +164,7 @@
                                         "hideMethod": "fadeOut"
                                     },
                                     toastr["success"](response.sukses)
-                                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                                 listfoto();
                             },
                             error: function(xhr, ajaxOptions, thrownerror) {
@@ -190,7 +190,7 @@
             type: "post",
             url: "<?= site_url('foto/formedit') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 foto_id: foto_id
             },
             dataType: "json",
@@ -203,7 +203,7 @@
                     });
                     $('#modaledit').modal('show');
                 }
-                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
             },
             error: function(xhr, ajaxOptions, thrownerror) {
                 Swal.fire({
@@ -237,7 +237,7 @@
                     type: "post",
                     dataType: "json",
                     data: {
-                        csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                        csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                         foto_id: foto_id
                     },
                     success: function(response) {
@@ -260,7 +260,7 @@
                                     "hideMethod": "fadeOut"
                                 },
                                 toastr["success"](response.sukses)
-                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                             listfoto();
                         }
                     },
@@ -320,7 +320,7 @@
             type: "post",
             url: '<?= site_url('foto/uploadmulti') ?>',
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 kategorifoto_id: kategorifoto_id,
             },
             dataType: "json",
@@ -337,11 +337,11 @@
                 $(kem1).hide();
                 $(addmulti).hide();
                 $(kembali).show();
-                // $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                // $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
             },
             success: function(response) {
                 $('.viewdatamulti').html(response.data);
-                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
             },
             error: function(xhr, ajaxOptions, thrownerror) {
                 Swal.fire({
@@ -353,7 +353,7 @@
                 }).then(function() {
                     // window.location = '';
                 })
-                // $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                // $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
             }
         });
     });

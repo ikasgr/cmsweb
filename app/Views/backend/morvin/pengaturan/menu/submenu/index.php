@@ -43,7 +43,7 @@
                 </div>
 
                 <div class="viewmodal"></div>
-                <!-- <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsdatagoe" /> -->
+                <!-- <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsikasmedia" /> -->
 
             </div>
         </div> <!-- end col -->
@@ -58,13 +58,13 @@
         $.ajax({
             type: "post",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 menu_id: menu_id,
             },
             url: "<?= site_url('menu/getsubmenu') ?>",
             dataType: "json",
             success: function(response) {
-                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 $('.viewdata').html(response.data);
                 if (response.noakses) {
 

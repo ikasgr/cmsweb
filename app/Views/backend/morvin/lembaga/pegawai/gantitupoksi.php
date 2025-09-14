@@ -92,7 +92,7 @@
                             $('#filetupoksi').addClass('is-invalid');
                             $('.errorfiletupoksi').html(response.error.filetupoksi);
                         }
-                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                     } else {
                         Swal.fire({
                             title: "Berhasil!",

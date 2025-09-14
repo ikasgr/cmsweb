@@ -146,7 +146,7 @@
             type: "post",
             url: "<?= site_url('poling/formedit') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 poling_id: poling_id
             },
             dataType: "json",
@@ -158,7 +158,7 @@
                         keyboard: false
                     });
                     $('#modaledit').modal('show');
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             },
 
@@ -195,7 +195,7 @@
                     type: "post",
                     dataType: "json",
                     data: {
-                        csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                        csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                         poling_id: poling_id
                     },
 
@@ -220,7 +220,7 @@
                                     "showMethod": "fadeIn",
                                     "hideMethod": "fadeOut"
                                 },
-                                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                             listpoling();
                         }
                     },
@@ -247,7 +247,7 @@
             type: "post",
             url: "<?= site_url('poling/toggle') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 id: id
             },
             dataType: "json",
@@ -259,7 +259,7 @@
                         showConfirmButton: false,
                         timer: 1500
                     })
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                     listpoling();
                 }
             },

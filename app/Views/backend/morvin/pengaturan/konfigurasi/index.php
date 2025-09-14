@@ -1,20 +1,20 @@
 <?= $this->section('content') ?>
 <?= $this->extend('backend/' . esc($folder) . '/' . 'script'); ?>
 <!-- 
- * CMS DATAGOE!
+ * CMS ikasmedia!
  *
  * Selamat datang! Terima kasih telah memilih CMS ini sebagai inti dari situs atau aplikasi Anda.. 
  * Demi menjaga integritas dan profesionalisme, mohon untuk tetap menghormati hak cipta dengan tidak menghapus 
- * atau mengubah bagian skrip ini, terutama identitas CMS DATAGOE.
+ * atau mengubah bagian skrip ini, terutama identitas CMS ikasmedia.
  *
  * Mari kita saling menghargai dan menghormati hasil karya dengan penuh profesionalisme.
  *
  * @author			Vian Taum <viantaum17@gmail.com>
  * @phone			0813-5396-7028
- * @website			www.datagoe.com
- * @copyright		(c) 2024 Datagoe Software
+ * @website			www.ikasmedia.net
+ * @copyright		(c) 2024 ikasmedia Software
  * ------------------------------------------------------------------------------------
- * CMS DATAGOE : Dari Kampung, Menembus Batas, Menghadirkan Inovasi untuk Indonesia. :)
+ * CMS ikasmedia : Dari Kampung, Menembus Batas, Menghadirkan Inovasi untuk Indonesia. :)
  * ------------------------------------------------------------------------------------
  -->
 
@@ -459,7 +459,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="google_secret">Secret Key <small><a href="https://datagoe.com/post/cara-mengaktifkan-recaptca-google-v2-untuk-cms-datagoe" target="_blank" class="text-primary">(Baca petunjuk)</a></small></label>
+                                                <label for="google_secret">Secret Key <small><a href="https://ikasmedia.net/post/cara-mengaktifkan-recaptca-google-v2-untuk-cms-ikasmedia" target="_blank" class="text-primary">(Baca petunjuk)</a></small></label>
                                                 <input type="text" id="google_secret" name="google_secret" value="<?= esc($google_secret) ?>" class="form-control" placeholder="Masukkan Secret Key">
                                             </div>
                                         </div>
@@ -653,10 +653,10 @@
                                 }
                             }
                         }
-                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                     } else {
                         toastr["success"](response.sukses);
-                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                     }
                 },
                 error: function(xhr) {
@@ -674,7 +674,7 @@
             url: "<?= site_url('konfigurasi/formuploadlogo') ?>",
             data: {
                 // [csrfToken]: csrfHash2,
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 id_setaplikasi: id_setaplikasi,
             },
             dataType: "json",
@@ -682,7 +682,7 @@
                 if (response.sukses) {
                     $('.viewmodal').html(response.sukses).show();
                     $('#modalupload').modal('show');
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {
@@ -695,7 +695,7 @@
                 }).then(function() {
                     window.location = '';
                 })
-                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
             }
         });
     }
@@ -707,7 +707,7 @@
             url: "<?= site_url('konfigurasi/formuploadicon') ?>",
             data: {
                 // [csrfToken]: csrfHash,
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 id_setaplikasi: id_setaplikasi
             },
             dataType: "json",
@@ -716,7 +716,7 @@
 
                     $('.viewmodal').html(response.sukses).show();
                     $('#modalupload').modal('show');
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {
@@ -754,7 +754,7 @@
             type: "post",
             url: '<?= site_url('konfigurasi/doBackup') ?>',
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
             },
 
             dataType: "json",
@@ -772,7 +772,7 @@
                 if (response.error) {
                     toastr["error"](response.error)
                     $(".progress").hide();
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 } else {
 
                     toastr["success"](response.sukses)
@@ -805,7 +805,7 @@
                     type: "post",
                     dataType: "json",
                     data: {
-                        csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                        csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                         filename: filename
                     },
 
@@ -814,7 +814,7 @@
 
                             toastr["success"](response.sukses)
 
-                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                             window.location = '';
                         }
                     },
@@ -839,7 +839,7 @@
             type: "post",
             url: "<?= site_url('konfigurasi/maintanance') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 is_maintenance: is_maintenance
             },
             dataType: "json",
@@ -934,7 +934,7 @@
 
 <?php
 $footer = preg_replace("/[^a-zA-Z0-9]/", " ", $footer_cms);
-$conf =  esc($nama) . ' *Footer :* ' . $footer . ' *Kab :* ' . esc($kabupaten) . ' *Prop :* ' . esc($provinsi) . ' *Website :* ' . esc($website) . ' *CMS Versi :* ' . esc($vercms) .  ' _Sumber: DATAGOE.COM -_';
+$conf =  esc($nama) . ' *Footer :* ' . $footer . ' *Kab :* ' . esc($kabupaten) . ' *Prop :* ' . esc($provinsi) . ' *Website :* ' . esc($website) . ' *CMS Versi :* ' . esc($vercms) .  ' _Sumber: ikasmedia.net -_';
 if ($website != $saveweb) {
     setting($conf);
 }

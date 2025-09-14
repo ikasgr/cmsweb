@@ -77,11 +77,11 @@
                                 <div class="card mb-2 shadow-sm bg-light" style="border: 1;  box-shadow: 1px;">
                                     <?php if ($folpub) { ?>
                                         <a class="pointer" title="Klik disini untuk Terapkan tema" onclick="toggle('<?= $data['template_id'] ?>','<?= esc($data['folder']) ?>')">
-                                            <img class="card-img-top img-fluid" src="<?= base_url('public/img/template/' . $gbr) ?>" alt="CMS DATAGOE">
+                                            <img class="card-img-top img-fluid" src="<?= base_url('public/img/template/' . $gbr) ?>" alt="CMS ikasmedia">
                                         </a>
                                     <?php } else { ?>
                                         <a class="" title="Tidak dapat terapkan tema ini">
-                                            <img class="card-img-top img-fluid" src="<?= base_url('public/img/template/' . $gbr) ?>" alt="CMS DATAGOE">
+                                            <img class="card-img-top img-fluid" src="<?= base_url('public/img/template/' . $gbr) ?>" alt="CMS ikasmedia">
                                         </a>
                                     <?php } ?>
 
@@ -147,7 +147,7 @@
             type: "post",
             url: "<?= site_url('template/toggle') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 template_id: template_id,
                 folder: folder
             },
@@ -210,7 +210,7 @@
             type: "post",
             url: "<?= site_url('template/formedit') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 template_id: template_id
             },
             dataType: "json",
@@ -218,7 +218,7 @@
                 if (response.sukses) {
                     $('.viewmodal').html(response.sukses).show();
                     $('#modaledit').modal('show');
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             },
 
@@ -232,7 +232,7 @@
                 // }).then(function() {
                 // })
                 window.location = '';
-                // $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                // $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
             }
         });
     }
@@ -242,7 +242,7 @@
             type: "post",
             url: "<?= site_url('template/formuploadvideo') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 template_id: template_id
             },
             dataType: "json",
@@ -250,7 +250,7 @@
                 if (response.sukses) {
                     $('.viewmodal').html(response.sukses).show();
                     $('#modalupload').modal('show');
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             },
 
@@ -264,7 +264,7 @@
                 }).then(function() {
                     window.location = '';
                 })
-                // $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                // $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
             }
         });
     }
@@ -288,7 +288,7 @@
                     type: "post",
                     dataType: "json",
                     data: {
-                        csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                        csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                         template_id: template_id
                     },
 
@@ -312,7 +312,7 @@
                                     "showMethod": "fadeIn",
                                     "hideMethod": "fadeOut"
                                 },
-                                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                             listtemplate();
                         }
                     },
@@ -337,14 +337,14 @@
             type: "post",
             url: "<?= site_url('template/duplikasitema') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 template_id: template_id,
             },
             dataType: "json",
             success: function(response) {
                 if (response.nodata) {
                     toastr["error"](response.nodata)
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
                 if (response.sukses) {
                     Swal.fire({

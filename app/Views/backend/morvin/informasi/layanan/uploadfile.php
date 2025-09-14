@@ -89,7 +89,7 @@
                         if (response.error.fileunduh) {
                             $('#fileunduh').addClass('is-invalid');
                             $('.errorfileunduh').html(response.error.fileunduh);
-                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
 
                         }
 

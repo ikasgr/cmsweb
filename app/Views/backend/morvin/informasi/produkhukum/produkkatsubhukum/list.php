@@ -182,13 +182,13 @@ foreach ($list as $dataid) :
                                         "hideMethod": "fadeOut"
                                     },
                                     toastr["success"](response.sukses)
-                                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                                 listsubsubproduk();
 
                             },
                             error: function(xhr, ajaxOptions, thrownerror) {
                                 toastr["error"]("Maaf gagal hapus Kode Error:  " + (xhr.status + "\n"), )
-                                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                             }
                         });
                     }
@@ -203,7 +203,7 @@ foreach ($list as $dataid) :
             type: "post",
             url: "<?= site_url('produkhukum/formeditsubsub') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 subkathukum_id: subkathukum_id,
                 kathukum_id: kathukum_id
 
@@ -217,7 +217,7 @@ foreach ($list as $dataid) :
                         keyboard: false
                     });
                     $('#modaledit').modal('show');
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
 
                 }
             },
@@ -252,7 +252,7 @@ foreach ($list as $dataid) :
                     type: "post",
                     dataType: "json",
                     data: {
-                        csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                        csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                         subkathukum_id: subkathukum_id
                     },
                     success: function(response) {
@@ -275,14 +275,14 @@ foreach ($list as $dataid) :
                                     "hideMethod": "fadeOut"
                                 },
                                 toastr["success"](response.sukses)
-                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                             listsubsubproduk();
 
                         }
                     },
                     error: function(xhr, ajaxOptions, thrownerror) {
                         toastr["error"]("Maaf gagal hapus Kode Error:  " + (xhr.status + "\n"), )
-                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
 
                     }
                 });
@@ -300,7 +300,7 @@ foreach ($list as $dataid) :
             $.ajax({
                 url: "<?= site_url('produkhukum/formtambahsubsubproduk') ?>",
                 data: {
-                    csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                    csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                     subproduk: subproduk,
                 },
                 dataType: "json",
@@ -334,7 +334,7 @@ foreach ($list as $dataid) :
             type: "post",
             url: "<?= site_url('produkhukum/formuploadsubfile') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 subkathukum_id: subkathukum_id,
             },
             dataType: "json",
@@ -346,7 +346,7 @@ foreach ($list as $dataid) :
                         keyboard: false
                     });
                     $('#modalupload').modal('show');
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
 
 
                 }

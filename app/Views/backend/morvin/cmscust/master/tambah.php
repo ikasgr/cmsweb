@@ -85,7 +85,7 @@
                                 $('#nama_master').removeClass('is-invalid');
                                 $('.errornama_master').html('');
                             }
-                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
 
                         } else if (response.kdganda) {
 
@@ -98,7 +98,7 @@
 
                             toastr["success"](response.sukses)
                             $('#modaltambah').modal('hide');
-                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                             listmaster();
                         }
                     },
@@ -106,7 +106,7 @@
                     error: function(xhr, ajaxOptions, thrownerror) {
                         toastr["error"]("Maaf gagal proses Kode Error:  " + (xhr.status + "\n"), );
                         $('#modaltambah').modal('hide');
-                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
 
                     }
                 });

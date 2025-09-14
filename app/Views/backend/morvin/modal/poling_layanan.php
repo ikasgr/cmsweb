@@ -116,7 +116,7 @@ $agentdetek      = $_SERVER['HTTP_USER_AGENT'];
                         // showConfirmButton: false,
                         // timer: 3550
                     });
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
                 if (response.gagal) {
 
@@ -129,7 +129,7 @@ $agentdetek      = $_SERVER['HTTP_USER_AGENT'];
                         // showConfirmButton: false,
                         // timer: 3550
                     });
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
                 if (response.sukses) {
 
@@ -149,7 +149,7 @@ $agentdetek      = $_SERVER['HTTP_USER_AGENT'];
             },
             error: function(xhr, ajaxOptions, thrownerror) {
 
-                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
             }
         });
     });

@@ -104,7 +104,7 @@
                             $('.errorcover_foto').html('');
                             $(".progress").show();
                         }
-                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                     } else {
                         Swal.fire({
                             title: "Berhasil!",
@@ -118,7 +118,7 @@
                             $(".progress").hide();
                             // window.location = '';
                         })
-                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                     }
                 },
                 error: function(xhr, ajaxOptions, thrownerror) {

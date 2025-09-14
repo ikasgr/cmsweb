@@ -71,7 +71,7 @@ class Login extends BaseController
                         'username'      => $validation->getError('username'),
                         'password_hash' => $validation->getError('password_hash'),
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ]);
                 return;
             }
@@ -86,7 +86,7 @@ class Login extends BaseController
                 if (!$this->validateRecaptcha($recaptchaResponse, $secretkey)) {
                     echo json_encode([
                         'gagalcap'          => 'Validasi reCAPTCHA gagal. Silakan coba lagi!',
-                        'csrf_tokencmsdatagoe' => csrf_hash(),
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ]);
                     return;
                 }
@@ -98,7 +98,7 @@ class Login extends BaseController
             if (!$user) {
                 echo json_encode([
                     'error' => ['username' => 'Username/Password salah!'],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ]);
                 return;
             }
@@ -110,7 +110,7 @@ class Login extends BaseController
                 // Jika session ditemukan, berarti pengguna sudah login di lokasi lain
                 echo json_encode([
                     'sumasuk'              => 'Pengguna sudah login di lokasi lain!',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ]);
                 return;
             }
@@ -119,7 +119,7 @@ class Login extends BaseController
             if ($user['active'] != 1) {
                 echo json_encode([
                     'nonactive'              => 'Status akun Anda tidak aktif, silakan hubungi admin!',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ]);
                 return;
             }
@@ -142,12 +142,12 @@ class Login extends BaseController
                         if (sendEmail($user['email'], $title, $emailContent)) {
                             echo json_encode([
                                 'otp_needed'           => 'Kode OTP telah dikirim ke email Anda.',
-                                'csrf_tokencmsdatagoe' => csrf_hash(),
+                                'csrf_tokencmsikasmedia' => csrf_hash(),
                             ]);
                         } else {
                             echo json_encode([
                                 'emailerr'             => 'Gagal mengirim kode OTP ke email!',
-                                'csrf_tokencmsdatagoe' => csrf_hash(),
+                                'csrf_tokencmsikasmedia' => csrf_hash(),
                             ]);
                         }
                         return;
@@ -155,14 +155,14 @@ class Login extends BaseController
 
                     echo json_encode([
                         'usahalebih'            => 'Terlalu banyak upaya login. Coba lagi nanti!',
-                        'csrf_tokencmsdatagoe' => csrf_hash(),
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ]);
                     return;
                 }
 
                 echo json_encode([
                     'error' => ['password_hash' => 'Username/Password salah!'],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ]);
                 return;
             }
@@ -172,7 +172,7 @@ class Login extends BaseController
                 if ($otp_input !== $user['otp_code']) {
                     echo json_encode([
                         'otpsalah'             => 'Kode OTP salah!',
-                        'csrf_tokencmsdatagoe' => csrf_hash(),
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ]);
                     return;
                 }
@@ -203,13 +203,13 @@ class Login extends BaseController
             'fullname'      => esc($user['fullname']),
             'user_image'    => esc($user['user_image']),
             'id_grup'       => esc($user['id_grup']),
-            'setweb'        => 'https://cms.datagoe.com/',
+            'setweb'        => 'https://cms.ikasmedia.net/',
             'session_id'    => session_id(),
         ];
         $session->set($simpan_session);
 
         echo json_encode([
-            'sukses' => ['csrf_tokencmsdatagoe' => csrf_hash()],
+            'sukses' => ['csrf_tokencmsikasmedia' => csrf_hash()],
         ]);
     }
 
@@ -249,7 +249,7 @@ class Login extends BaseController
                         'username'      => $validation->getError('username'),
                         'password_hash' => $validation->getError('password_hash'),
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ]);
                 return;
             }
@@ -262,7 +262,7 @@ class Login extends BaseController
                     'error' => [
                         'username' => 'Username/Password salah!',
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ]);
                 return;
             }
@@ -285,7 +285,7 @@ class Login extends BaseController
                 // Jika session ditemukan, berarti pengguna sudah login di lokasi lain
                 echo json_encode([
                     'sumasuk'              => 'Pengguna sudah login di lokasi lain!',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ]);
                 return;
             }
@@ -296,14 +296,14 @@ class Login extends BaseController
                 if ($user['login_attempts'] >= 2) {
                     echo json_encode([
                         'usahalebih'            => 'Terlalu banyak upaya login. Coba lagi nanti!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'csrf_tokencmsikasmedia'  => csrf_hash(),
                     ]);
                 } else {
                     echo json_encode([
                         'error' => [
                             'password_hash' => 'Username/Password salah!',
                         ],
-                        'csrf_tokencmsdatagoe' => csrf_hash(),
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ]);
                 }
                 return;
@@ -318,7 +318,7 @@ class Login extends BaseController
                     'error' => [
                         'nonactive' => 'Status akun Anda tidak aktif, silakan hubungi admin!',
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ]);
                 return;
             }
@@ -342,12 +342,12 @@ class Login extends BaseController
                     if (sendEmail($user['email'], $title, $emailContent)) {
                         echo json_encode([
                             'otp_needed'           => 'Kode OTP telah dikirim ke email Anda. Masukkan kode OTP.',
-                            'csrf_tokencmsdatagoe' => csrf_hash(),
+                            'csrf_tokencmsikasmedia' => csrf_hash(),
                         ]);
                     } else {
                         echo json_encode([
                             'emailerr'             => 'Gagal mengirim kode OTP ke email!',
-                            'csrf_tokencmsdatagoe' => csrf_hash(),
+                            'csrf_tokencmsikasmedia' => csrf_hash(),
                         ]);
                     }
                     return; // Hentikan eksekusi jika OTP perlu diverifikasi
@@ -357,7 +357,7 @@ class Login extends BaseController
                 if ($otp_input !== $user['otp_code']) {
                     echo json_encode([
                         'otpsalah'             => 'Kode OTP salah!',
-                        'csrf_tokencmsdatagoe' => csrf_hash(),
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ]);
                     return;
                 }
@@ -371,7 +371,7 @@ class Login extends BaseController
                 if (!$this->validateRecaptcha($recaptchaResponse, $secretkey)) {
                     echo json_encode([
                         'gagalcap'             => 'Validasi reCAPTCHA gagal. Silakan coba lagi.',
-                        'csrf_tokencmsdatagoe' => csrf_hash(),
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ]);
                     return;
                 }
@@ -396,13 +396,13 @@ class Login extends BaseController
                 'fullname'      => esc($user['fullname']),
                 'user_image'    => esc($user['user_image']),
                 'id_grup'       => esc($user['id_grup']),
-                'setweb'        => 'https://cms.datagoe.com/',
+                'setweb'        => 'https://cms.ikasmedia.net/',
                 'session_id'    => $sessionId,
             ];
             $session->set($simpan_session); // Menyimpan session data
 
             echo json_encode([
-                'sukses' => ['csrf_tokencmsdatagoe' => csrf_hash()],
+                'sukses' => ['csrf_tokencmsikasmedia' => csrf_hash()],
             ]);
         }
     }
@@ -498,7 +498,7 @@ class Login extends BaseController
             $data = [
                 'respond'               => 'success',
                 'message'               => 'Anda berhasil Keluar..!',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             return $this->response->setJSON($data);
         }
@@ -514,7 +514,7 @@ class Login extends BaseController
         $data = [
             'title'                 => 'Lupa Password',
             'folder'                => esc($tadmin['folder']),
-            'csrf_tokencmsdatagoe'  => csrf_hash(),
+            'csrf_tokencmsikasmedia'  => csrf_hash(),
         ];
 
         return view('backend/' . esc($tadmin['folder']) . '/' . 'auth/v_forgot', $data);
@@ -542,7 +542,7 @@ class Login extends BaseController
                     'error' => [
                         'email' => $validation->getError('email'),
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 $session = session();
@@ -556,7 +556,7 @@ class Login extends BaseController
                         if (!empty($user['reset_expires']) && $user['reset_expires'] >= time()) {
                             $session->regenerate();
                             $msg = [
-                                'resetexpair' => ['csrf_tokencmsdatagoe' => csrf_hash()],
+                                'resetexpair' => ['csrf_tokencmsikasmedia' => csrf_hash()],
                             ];
                         } else {
                             // Regenerasi sesi dan buat token reset baru
@@ -654,7 +654,7 @@ class Login extends BaseController
                                 $msg = [
                                     'error' => [
                                         'email'                 => 'Gagal mengirim email!',
-                                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                                        'csrf_tokencmsikasmedia'  => csrf_hash(),
                                     ]
                                 ];
                             }
@@ -663,7 +663,7 @@ class Login extends BaseController
                         $msg = [
                             'error' => [
                                 'password_hash' => 'Password salah!',
-                                'csrf_tokencmsdatagoe' => csrf_hash(),
+                                'csrf_tokencmsikasmedia' => csrf_hash(),
                             ]
                         ];
                     }
@@ -672,7 +672,7 @@ class Login extends BaseController
                     $msg = [
                         'wrongemail' => [
                             'wrongemail' => 'Email tidak ditemukan!',
-                            'csrf_tokencmsdatagoe' => csrf_hash(),
+                            'csrf_tokencmsikasmedia' => csrf_hash(),
                         ]
                     ];
                 }
@@ -733,7 +733,7 @@ class Login extends BaseController
                         'password'          => $validation->getError('password'),
                         'password_confirm' => $validation->getError('password_confirm'),
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
@@ -756,7 +756,7 @@ class Login extends BaseController
                         'reset_hash'            => null,
                         'reset_expires'         => null,
                         'password_hash'         => (password_hash($this->request->getVar('password_confirm'), PASSWORD_BCRYPT)),
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'csrf_tokencmsikasmedia'  => csrf_hash(),
                     ];
 
                     $this->user->update($user_id, $updatedata);
@@ -794,7 +794,7 @@ class Login extends BaseController
             'opd'                   => $opd,
             'konfigurasi'           => $konfigurasi,
             'sitekey'               => $konfigurasi->g_sitekey,
-            'csrf_tokencmsdatagoe'  => csrf_hash(),
+            'csrf_tokencmsikasmedia'  => csrf_hash(),
             'folder'                => esc($tadmin['folder']),
 
         ];
@@ -918,7 +918,7 @@ class Login extends BaseController
                 'password_confirm'  => $validation->getError('password_confirm'),
                 'user_image'        => $validation->getError('user_image'),
             ],
-            'csrf_tokencmsdatagoe' => csrf_hash(),
+            'csrf_tokencmsikasmedia' => csrf_hash(),
         ]);
     }
 
@@ -926,7 +926,7 @@ class Login extends BaseController
     {
         return json_encode([
             'gagalcap'              => 'Gagal Daftar Silahkan periksa Kembali!',
-            'csrf_tokencmsdatagoe'  => csrf_hash(),
+            'csrf_tokencmsikasmedia'  => csrf_hash(),
         ]);
     }
 

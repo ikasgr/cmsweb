@@ -200,7 +200,7 @@ if ($list) { ?>
                     type: "post",
                     dataType: "json",
                     data: {
-                        csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                        csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                         responden_id: responden_id,
                         survey_id: survey_id,
                         jpoin: jpoin,
@@ -226,7 +226,7 @@ if ($list) { ?>
                                     "showMethod": "fadeIn",
                                     "hideMethod": "fadeOut"
                                 },
-                                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                             listsurveypesan();
                         }
                     },

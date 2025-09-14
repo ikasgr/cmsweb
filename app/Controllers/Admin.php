@@ -64,7 +64,7 @@ class Admin extends BaseController
 			'bankdata' 				=> $bank,
 			'agenda'      			=> $this->agenda->listagendapage()->paginate(1),
 			'grupakses'     		=> $grupakses,
-			'csrf_tokencmsdatagoe' 	=> csrf_hash(),
+			'csrf_tokencmsikasmedia' 	=> csrf_hash(),
 			'folder'                => $tadmin['folder'],
 			'warna_topbar'          => $tadmin['warna_topbar'],
 			'sidebar_mode'          => $tadmin['sidebar_mode'],
@@ -96,12 +96,12 @@ class Admin extends BaseController
 			'pengunjungblnini' 		=> $this->user->pengunjungblnini(),
 			'totkunjungan'     		=> $this->db->query("SELECT hits FROM visitor")->getNumRows(),
 
-			'csrf_tokencmsdatagoe' 	=> csrf_hash()
+			'csrf_tokencmsikasmedia' 	=> csrf_hash()
 		];
 
 		$dgrafik = [
 			'data'   				=> view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/user/vgrafik', $data),
-			'csrf_tokencmsdatagoe' 	=> csrf_hash()
+			'csrf_tokencmsikasmedia' 	=> csrf_hash()
 		];
 
 		echo json_encode($dgrafik, true);
@@ -146,7 +146,7 @@ class Admin extends BaseController
 
 			$msg = [
 				'data'   				=> view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/user/vonline', $data),
-				'csrf_tokencmsdatagoe' 	=> csrf_hash()
+				'csrf_tokencmsikasmedia' 	=> csrf_hash()
 			];
 
 			echo json_encode($msg);

@@ -10,7 +10,7 @@
 
             <div class="modal-body">
                 <?= form_open_multipart('', ['class' => 'formimport']) ?>
-                <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsdatagoe" />
+                <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsikasmedia" />
 
                 <div class="form-group">
                     <label>
@@ -83,10 +83,10 @@
                         },
                         toastr["error"](response.gagal)
                     $('#modalimport').modal('hide');
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 } else if (response.kosong) {
                     toastr["error"](response.kosong)
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
 
                 } else {
 
@@ -110,13 +110,13 @@
                         toastr["success"](response.sukses)
                     $('#modalimport').modal('hide');
                     listpegawai();
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {
                 toastr["error"]("Maaf gagal proses Kode Error:  " + (xhr.status + "\n"), );
                 $('#modalimport').modal('hide');
-                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
             }
         });
     });

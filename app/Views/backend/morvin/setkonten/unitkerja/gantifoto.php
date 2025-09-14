@@ -86,7 +86,7 @@
                             $('#logo_opd').addClass('is-invalid');
                             $('.errorlogo_opd').html(response.error.logo_opd);
                         }
-                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                     } else {
                         Swal.fire({
                             title: "Berhasil!",
@@ -103,7 +103,7 @@
                 error: function(xhr, ajaxOptions, thrownerror) {
                     toastr["error"]("Maaf gagal upload Kode Error:  " + (xhr.status + "\n"), );
                     $('#modalupload').modal('hide');
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             });
 

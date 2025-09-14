@@ -208,7 +208,7 @@ $this->pertanyaan = new ModelSurveyPertanyaan();
             type: "post",
             url: "<?= site_url('survey/toggle') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 survey_id: survey_id,
                 jns: jns,
 
@@ -222,7 +222,7 @@ $this->pertanyaan = new ModelSurveyPertanyaan();
                         showConfirmButton: false,
                         timer: 1500
                     })
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                     listsurveytopik();
                 }
             },
@@ -245,7 +245,7 @@ $this->pertanyaan = new ModelSurveyPertanyaan();
             type: "post",
             url: "<?= site_url('survey/formedit') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 survey_id: survey_id
             },
             dataType: "json",
@@ -253,7 +253,7 @@ $this->pertanyaan = new ModelSurveyPertanyaan();
                 if (response.sukses) {
                     $('.viewmodal').html(response.sukses).show();
                     $('#modaledit').modal('show');
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             },
 
@@ -292,7 +292,7 @@ $this->pertanyaan = new ModelSurveyPertanyaan();
                     type: "post",
                     dataType: "json",
                     data: {
-                        csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                        csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                         survey_id: survey_id
                     },
 
@@ -316,7 +316,7 @@ $this->pertanyaan = new ModelSurveyPertanyaan();
                                     "showMethod": "fadeIn",
                                     "hideMethod": "fadeOut"
                                 },
-                                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                             listsurveytopik();
                         }
                     },
@@ -354,7 +354,7 @@ $this->pertanyaan = new ModelSurveyPertanyaan();
                     type: "post",
                     dataType: "json",
                     data: {
-                        csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                        csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                         survey_id: survey_id
                     },
 
@@ -378,7 +378,7 @@ $this->pertanyaan = new ModelSurveyPertanyaan();
                                     "showMethod": "fadeIn",
                                     "hideMethod": "fadeOut"
                                 },
-                                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                             listsurveytopik();
                         }
                     },

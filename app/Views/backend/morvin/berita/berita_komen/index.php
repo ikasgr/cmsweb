@@ -50,7 +50,7 @@
             $.ajax({
                 url: "<?= site_url('berita/getdatakomen') ?>",
                 data: {
-                    // csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                    // csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 },
                 dataType: "json",
                 success: function(response) {

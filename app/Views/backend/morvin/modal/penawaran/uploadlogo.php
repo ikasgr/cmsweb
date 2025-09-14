@@ -86,10 +86,10 @@
             },
             success: function(response) {
                 // $('.txt_csrfname').val(response.token);
-                if (response.csrf_tokencmsdatagoe) {
+                if (response.csrf_tokencmsikasmedia) {
                     //update hash untuk proses error validation 
-                    $('#csrfToken, #csrfRandom').val(response.csrf_tokencmsdatagoe);
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('#csrfToken, #csrfRandom').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
                 if (response.error) {
                     if (response.error.gbrtawaran) {
@@ -99,10 +99,10 @@
                 } else if (response.nofile) {
 
                     toastr["error"](response.nofile)
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
 
                 } else {
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                     Swal.fire({
                         title: "Berhasil!",
                         text: response.sukses,
@@ -118,7 +118,7 @@
             error: function(xhr, ajaxOptions, thrownerror) {
                 toastr["error"]("Maaf gagal proses Kode Error:  " + (xhr.status + "\n"), )
                 $('#modalupload').modal('hide');
-                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 // Swal.fire({
                 //     title: "Maaf gagal update gambar!",
                 //     html: `Silahkan Cek kembali Kode Error: <strong>${(xhr.status + "\n")}</strong> `,

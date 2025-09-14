@@ -3,18 +3,18 @@
 namespace App\Controllers;
 
 /**
- * CMS DATAGOE!
+ * CMS ikasmedia!
  *
  * Selamat datang bro ^_^ terima kasih sudah menggunakan CMS ini sebagai Core situs atau Aplikasi Anda. 
  * agar tetap terlihat berwibawa dan berkelas, mohon tetap menghargai karya cipta,
- * dengan tidak mengubah atau menghapus semua baris script ini (apalagi identitas CMS DATAGOE).
+ * dengan tidak mengubah atau menghapus semua baris script ini (apalagi identitas CMS ikasmedia).
  *
  * Mari kita sama-sama saling menghormati dan menghargai hasil keringat dengan Elegan.
  *
  * @author			Vian Taum <viantaum17@gmail.com>
  * @phone			081353967028
- * @website			www.datagoe.com
- * @copyright		(c) 2024 Datagoe Software
+ * @website			www.ikasmedia.net
+ * @copyright		(c) 2024 ikasmedia Software
  * -------------------------------------------------------------------
  * Salam share CMS Anak kampung WKC untuk Indonesia :)
  * -------------------------------------------------------------------
@@ -69,7 +69,7 @@ class Updatecms extends BaseController
                 $akses = $listgrupf->akses;
                 if ($akses == '1') {
                     $list               = $this->konfigurasi->select('id_setaplikasi, sts_regis, sts_posting, verdb')->first();
-                    $fileakses          = $this->request->getPost('fileUrl') ?: 'https://datagoe.com/';
+                    $fileakses          = $this->request->getPost('fileUrl') ?: 'https://ikasmedia.net/';
                     $serverkonek        = dataKoneksi();
                     $fileUrl            = $serverkonek . $fileakses . '.txt';
 

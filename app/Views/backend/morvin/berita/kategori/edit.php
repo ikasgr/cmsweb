@@ -10,7 +10,7 @@
             </div>
 
             <?= form_open('', ['class' => 'formedit']) ?>
-            <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsdatagoe" />
+            <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsikasmedia" />
 
             <div class="modal-body">
                 <input type="hidden" class="form-control" id="kategori_id" value="<?= $kategori_id ?>" name="kategori_id" readonly>
@@ -67,7 +67,7 @@
                             $('#nama_kategori').removeClass('is-invalid');
                             $('.errorNamakategori').html('');
                         }
-                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                     } else {
                         toastr.options = {
                                 "closeButton": true,
@@ -91,14 +91,14 @@
                         $('#modaledit').modal('hide');
                         listkategori();
 
-                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                     }
 
                 },
                 error: function(xhr, ajaxOptions, thrownerror) {
                     toastr["error"]("Maaf gagal proses Kode Error:  " + (xhr.status + "\n"), );
                     $('#modaledit').modal('hide');
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             });
         });

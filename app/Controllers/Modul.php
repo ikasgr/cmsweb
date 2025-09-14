@@ -84,7 +84,7 @@ class Modul extends BaseController
 
         // Siapkan respons JSON dengan data dan CSRF token
         $msg = [
-            'csrf_tokencmsdatagoe' => csrf_hash(),
+            'csrf_tokencmsikasmedia' => csrf_hash(),
             'data' => view('backend/' . esc($tadmin['folder']) . '/pengaturan/modul/list', $data),
         ];
 
@@ -154,7 +154,7 @@ class Modul extends BaseController
                         'urlmenu'        => $validation->getError('urlmenu'),
                         'urut'         => $validation->getError('urut'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
                 echo json_encode($msg);
             } else {
@@ -172,7 +172,7 @@ class Modul extends BaseController
                 $this->modulecms->insert($insertdata);
                 $msg = [
                     'sukses'                => 'Data berhasil disimpan!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
                 echo json_encode($msg);
             }
@@ -198,7 +198,7 @@ class Modul extends BaseController
             $this->modulecms->delete($id);
             $msg = [
                 'sukses'                => 'Data Berhasil Dihapus',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -228,7 +228,7 @@ class Modul extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'pengaturan/modul/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -278,7 +278,7 @@ class Modul extends BaseController
                         'urlmenu'      => $validation->getError('urlmenu'),
                         'urut'         => $validation->getError('urut'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             } else {
 
@@ -294,7 +294,7 @@ class Modul extends BaseController
                 $this->modulecms->update($id_modul, $updatedata);
                 $msg = [
                     'sukses'                => 'Data berhasil diubah!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -351,7 +351,7 @@ class Modul extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'pengaturan/modul/setakses', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -382,7 +382,7 @@ class Modul extends BaseController
                     'error' => [
                         'id_grup'           => $validation->getError('id_grup'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             } else {
                 $id_modul = $this->request->getVar('id_modul');
@@ -410,11 +410,11 @@ class Modul extends BaseController
                     $this->grupakses->update($id_grupakses, $dataakses);
                     // $msg = [
                     //     'aksesganda'            => 'Grup Akses sudah ditentukan.',
-                    //     'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    //     'csrf_tokencmsikasmedia'  => csrf_hash(),
                     // ];
                     $msg = [
                         'sukses'                => 'Role grup berhasil diubah!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'csrf_tokencmsikasmedia'  => csrf_hash(),
                     ];
                 } else {
 
@@ -423,7 +423,7 @@ class Modul extends BaseController
 
                     $msg = [
                         'sukses'                => 'Modul berhasil ditambahkan ke Role Grup!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'csrf_tokencmsikasmedia'  => csrf_hash(),
                     ];
                 }
             }
@@ -447,7 +447,7 @@ class Modul extends BaseController
 
             echo json_encode([
                 'sukses'                => $stsket,
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ]);
         }
     }
@@ -572,7 +572,7 @@ class Modul extends BaseController
                         'urut'         => $validation->getError('urut'),
                         'gm'         => $validation->getError('gm'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
                 echo json_encode($msg);
             } else {
@@ -591,7 +591,7 @@ class Modul extends BaseController
                 $this->modulecms->insert($insertdata);
                 $msg = [
                     'sukses'                => 'Data berhasil disimpan!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
                 echo json_encode($msg);
             }
@@ -629,7 +629,7 @@ class Modul extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'pengaturan/modul/grupmenu/setakses', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -665,7 +665,7 @@ class Modul extends BaseController
                     'error' => [
                         'id_grup'    => $validation->getError('id_grup'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             } else {
                 // listgrupaksesganda
@@ -673,7 +673,7 @@ class Modul extends BaseController
                 if ($listganda) {
                     $msg = [
                         'aksesganda'            => 'Grup Akses sudah ditentukan.',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'csrf_tokencmsikasmedia'  => csrf_hash(),
                     ];
                 } else {
 
@@ -687,7 +687,7 @@ class Modul extends BaseController
 
                     $msg = [
                         'sukses'                => 'Menu berhasil ditambahkan ke Role Grup!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'csrf_tokencmsikasmedia'  => csrf_hash(),
                     ];
                 }
             }
@@ -720,7 +720,7 @@ class Modul extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'pengaturan/modul/grupmenu/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -770,7 +770,7 @@ class Modul extends BaseController
                         'gm'        => $validation->getError('gm'),
                         'urut'         => $validation->getError('urut'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             } else {
 
@@ -784,7 +784,7 @@ class Modul extends BaseController
                 $this->modulecms->update($id_modul, $updatedata);
                 $msg = [
                     'sukses'                => 'Data berhasil diubah!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -898,7 +898,7 @@ class Modul extends BaseController
                         'modpublic' => $validation->getError('modpublic'),
                         'link' => $validation->getError('link'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             } else {
                 $simpandata = [
@@ -909,7 +909,7 @@ class Modul extends BaseController
                 $this->modulpublic->insert($simpandata);
                 $msg = [
                     'sukses'                => 'Data berhasil disimpan',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -933,7 +933,7 @@ class Modul extends BaseController
             ];
             $msg = [
                 'sukses' => view('backend/' . esc($tadmin['folder']) . '/' . 'pengaturan/modul/publik/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -970,7 +970,7 @@ class Modul extends BaseController
                         'modpublic' => $validation->getError('modpublic'),
                         'link'      => $validation->getError('link'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             } else {
                 $updatedata = [
@@ -983,7 +983,7 @@ class Modul extends BaseController
 
                 $msg = [
                     'sukses'                => 'Data berhasil diupdate',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -1000,7 +1000,7 @@ class Modul extends BaseController
             $this->modulpublic->delete($id_modpublic);
             $msg = [
                 'sukses'                => 'Modul Publik Berhasil Dihapus',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -1024,7 +1024,7 @@ class Modul extends BaseController
 
             echo json_encode([
                 'sukses'                => $stsket,
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ]);
         }
     }

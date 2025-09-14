@@ -107,7 +107,7 @@ class Bukutamu extends BaseController
                         'instansi'   => $validation->getError('instansi'),
                         'keperluan'  => $validation->getError('keperluan'),
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
@@ -152,12 +152,12 @@ class Bukutamu extends BaseController
 
                         $msg = [
                             'sukses'                => 'Pesan Anda sukses terkirim..!',
-                            'csrf_tokencmsdatagoe' => csrf_hash(),
+                            'csrf_tokencmsikasmedia' => csrf_hash(),
                         ];
                     } else {
                         $msg = [
                             'gagal' => 'Gagal kirim pesan Silahkan periksa Kembali!',
-                            'csrf_tokencmsdatagoe' => csrf_hash(),
+                            'csrf_tokencmsikasmedia' => csrf_hash(),
                         ];
                     }
                 } else {
@@ -247,7 +247,7 @@ class Bukutamu extends BaseController
         // Siapkan respons JSON dengan data tampilan dan csrf token
         $msg = [
             'data' => view('backend/' . esc($tadmin['folder']) . '/interaksi/bukutamu/list', $data),
-            'csrf_tokencmsdatagoe' => csrf_hash(),
+            'csrf_tokencmsikasmedia' => csrf_hash(),
         ];
 
         echo json_encode($msg);
@@ -297,7 +297,7 @@ class Bukutamu extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'interaksi/bukutamu/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -315,7 +315,7 @@ class Bukutamu extends BaseController
             $this->bukutamu->delete($bukutamu_id);
             $msg = [
                 'sukses'                => 'Data berhasil dihapus!',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -337,7 +337,7 @@ class Bukutamu extends BaseController
 
             $msg = [
                 'sukses'                => "$jmldata data berhasil dihapus",
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -426,7 +426,7 @@ class Bukutamu extends BaseController
 
             $msg = [
                 'data'                  => view('backend/' . $tadmin['folder'] . '/' . 'interaksi/bukutamu/bt_bidang/tambah', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -454,7 +454,7 @@ class Bukutamu extends BaseController
                     'error' => [
                         'nama_bidang' => $validation->getError('nama_bidang'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             } else {
                 $simpandata = [
@@ -465,7 +465,7 @@ class Bukutamu extends BaseController
                 $this->bidang->insert($simpandata);
                 $msg = [
                     'sukses'                => 'Data berhasil disimpan',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -488,7 +488,7 @@ class Bukutamu extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'interaksi/bukutamu/bt_bidang/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -515,7 +515,7 @@ class Bukutamu extends BaseController
                     'error' => [
                         'nama_bidang' => $validation->getError('nama_bidang'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             } else {
                 $updatedata = [
@@ -527,7 +527,7 @@ class Bukutamu extends BaseController
 
                 $msg = [
                     'sukses'                => 'Data berhasil diupdate',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -544,7 +544,7 @@ class Bukutamu extends BaseController
             $this->bidang->delete($bidang_id);
             $msg = [
                 'sukses'                => 'Data Berhasil Dihapus',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
 
             echo json_encode($msg);

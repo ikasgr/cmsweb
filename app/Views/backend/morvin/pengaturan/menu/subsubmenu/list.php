@@ -133,7 +133,7 @@
             type: "post",
             url: "<?= site_url('menu/formeditsubsubmenu') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 subsubmenu_id: subsubmenu_id
             },
             dataType: "json",
@@ -144,7 +144,7 @@
                         backdrop: 'static',
                         keyboard: false
                     });
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                     $('#modaledit').modal('show');
                 }
             },
@@ -182,7 +182,7 @@
                     type: "post",
                     dataType: "json",
                     data: {
-                        csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                        csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                         subsubmenu_id: subsubmenu_id
                     },
 
@@ -207,7 +207,7 @@
                                     "showMethod": "fadeIn",
                                     "hideMethod": "fadeOut"
                                 },
-                                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                             listsubsubmenu();
                         }
                     },
@@ -232,7 +232,7 @@
             type: "post",
             url: "<?= site_url('menu/togglesubsub') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 subsubmenu_id: subsubmenu_id
             },
             dataType: "json",
@@ -244,7 +244,7 @@
                         showConfirmButton: false,
                         timer: 1500
                     })
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                     listsubsubmenu();
                 }
             },

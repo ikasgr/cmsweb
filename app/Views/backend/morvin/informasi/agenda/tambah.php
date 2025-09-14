@@ -11,7 +11,7 @@
                 </button>
             </div>
             <?= form_open_multipart('', ['class' => 'formtambah']) ?>
-            <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsdatagoe" />
+            <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsikasmedia" />
 
 
             <div class="modal-body">
@@ -214,7 +214,7 @@
                             $('#pengirim').removeClass('is-invalid');
                             $('.errorpengirim').html('');
                         }
-                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
 
                     } else {
 
@@ -237,7 +237,7 @@
                             },
                             toastr["success"](response.sukses)
                         $('#modaltambah').modal('hide');
-                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                         listagenda();
 
                     }
@@ -246,7 +246,7 @@
 
                     toastr["error"]("Maaf gagal proses Kode Error:  " + (xhr.status + "\n"), )
                     $('#modaltambah').modal('hide');
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
 
                 }
             });

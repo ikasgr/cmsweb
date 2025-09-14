@@ -62,7 +62,7 @@ class Transparansi extends BaseController
 
 		$dgrafik = [
 			'data'                => view('backend/' . esc($tadmin['folder']) . '/' . 'lembaga/transparansi/vgrafik', $data),
-			'csrf_tokencmsdatagoe'  => csrf_hash(),
+			'csrf_tokencmsikasmedia'  => csrf_hash(),
 		];
 
 		echo json_encode($dgrafik);
@@ -79,7 +79,7 @@ class Transparansi extends BaseController
 		];
 		$dgrafik = [
 			'data'   				=> view('backend/' . esc($tadmin['folder']) . '/' . 'lembaga/transparansi/vgrafik', $data),
-			'csrf_tokencmsdatagoe'  => csrf_hash(),
+			'csrf_tokencmsikasmedia'  => csrf_hash(),
 		];
 
 		echo json_encode($dgrafik);
@@ -206,7 +206,7 @@ class Transparansi extends BaseController
 						'judul'           => $validation->getError('judul'),
 						'tahun'           => $validation->getError('tahun'),
 					],
-					'csrf_tokencmsdatagoe'  => csrf_hash(),
+					'csrf_tokencmsikasmedia'  => csrf_hash(),
 				];
 				echo json_encode($msg);
 			} else {
@@ -221,7 +221,7 @@ class Transparansi extends BaseController
 				$this->transparan->insert($insertdata);
 				$msg = [
 					'sukses' 				=> 'Data berhasil disimpan!',
-					'csrf_tokencmsdatagoe'  => csrf_hash(),
+					'csrf_tokencmsikasmedia'  => csrf_hash(),
 				];
 				echo json_encode($msg);
 			}
@@ -240,7 +240,7 @@ class Transparansi extends BaseController
 			$this->transparan->delete($id);
 			$msg = [
 				'sukses' 				=> 'Data Berhasil Dihapus',
-				'csrf_tokencmsdatagoe'  => csrf_hash(),
+				'csrf_tokencmsikasmedia'  => csrf_hash(),
 			];
 
 			echo json_encode($msg);
@@ -267,7 +267,7 @@ class Transparansi extends BaseController
 			];
 			$msg = [
 				'sukses' => view('backend/' . esc($tadmin['folder']) . '/' . 'lembaga/transparansi/edit', $data),
-				'csrf_tokencmsdatagoe'  => csrf_hash(),
+				'csrf_tokencmsikasmedia'  => csrf_hash(),
 			];
 			echo json_encode($msg);
 		}
@@ -308,7 +308,7 @@ class Transparansi extends BaseController
 						'judul'           => $validation->getError('judul'),
 						'tahun'           => $validation->getError('tahun'),
 					],
-					'csrf_tokencmsdatagoe'  => csrf_hash(),
+					'csrf_tokencmsikasmedia'  => csrf_hash(),
 				];
 			} else {
 
@@ -321,7 +321,7 @@ class Transparansi extends BaseController
 				$this->transparan->update($transparan_id, $updatedata);
 				$msg = [
 					'sukses'			    => 'Data berhasil diubah!',
-					'csrf_tokencmsdatagoe'  => csrf_hash(),
+					'csrf_tokencmsikasmedia'  => csrf_hash(),
 				];
 			}
 			echo json_encode($msg);
@@ -346,7 +346,7 @@ class Transparansi extends BaseController
 
 			echo json_encode([
 				'sukses'                => $stsket,
-				'csrf_tokencmsdatagoe'  => csrf_hash(),
+				'csrf_tokencmsikasmedia'  => csrf_hash(),
 			]);
 		}
 	}
@@ -378,7 +378,7 @@ class Transparansi extends BaseController
 			// Kirim respons JSON
 			echo json_encode([
 				'sukses'                => $stsket,
-				'csrf_tokencmsdatagoe'  => csrf_hash(),
+				'csrf_tokencmsikasmedia'  => csrf_hash(),
 			]);
 		}
 	}
@@ -525,7 +525,7 @@ class Transparansi extends BaseController
 						'transparan_nama' 	 => $validation->getError('transparan_nama'),
 						'transparan_jumlah'  => $validation->getError('transparan_jumlah'),
 					],
-					'csrf_tokencmsdatagoe'  => csrf_hash(),
+					'csrf_tokencmsikasmedia'  => csrf_hash(),
 				];
 				// echo json_encode($msg);
 			} else {
@@ -540,7 +540,7 @@ class Transparansi extends BaseController
 
 				$msg = [
 					'sukses' => 'Data berhasil disimpan!',
-					'csrf_tokencmsdatagoe'  => csrf_hash(),
+					'csrf_tokencmsikasmedia'  => csrf_hash(),
 				];
 			}
 			echo json_encode($msg);
@@ -587,7 +587,7 @@ class Transparansi extends BaseController
 			];
 			$msg = [
 				'sukses' => view('backend/' . esc($tadmin['folder']) . '/' . 'lembaga/transparansi/detail/edit', $data),
-				'csrf_tokencmsdatagoe'  => csrf_hash(),
+				'csrf_tokencmsikasmedia'  => csrf_hash(),
 			];
 			echo json_encode($msg);
 		}
@@ -627,7 +627,7 @@ class Transparansi extends BaseController
 						'transparan_nama' => $validation->getError('transparan_nama'),
 						'transparan_jumlah' => $validation->getError('transparan_jumlah'),
 					],
-					'csrf_tokencmsdatagoe'  => csrf_hash(),
+					'csrf_tokencmsikasmedia'  => csrf_hash(),
 				];
 			} else {
 				$updatedata = [
@@ -638,7 +638,7 @@ class Transparansi extends BaseController
 				$this->transparandetail->update($transparandetail_id, $updatedata);
 				$msg = [
 					'sukses' 				=> 'Data berhasil diubah!',
-					'csrf_tokencmsdatagoe'  => csrf_hash(),
+					'csrf_tokencmsikasmedia'  => csrf_hash(),
 				];
 			}
 			echo json_encode($msg);
@@ -657,7 +657,7 @@ class Transparansi extends BaseController
 			$this->transparandetail->delete($id);
 			$msg = [
 				'sukses' 				=> 'Data Berhasil Dihapus',
-				'csrf_tokencmsdatagoe'  => csrf_hash(),
+				'csrf_tokencmsikasmedia'  => csrf_hash(),
 			];
 
 			echo json_encode($msg);
@@ -679,7 +679,7 @@ class Transparansi extends BaseController
 
 			$msg = [
 				'sukses' 				=> "$jmldata Data berhasil dihapus",
-				'csrf_tokencmsdatagoe'  => csrf_hash(),
+				'csrf_tokencmsikasmedia'  => csrf_hash(),
 			];
 			echo json_encode($msg);
 		}

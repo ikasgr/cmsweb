@@ -284,7 +284,7 @@ $this->masterdata = new M_Prj_master();
             type: "post",
             url: "<?= site_url('permohonaninfo/formedit') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 id_mohoninfo: id_mohoninfo
             },
             dataType: "json",
@@ -300,7 +300,7 @@ $this->masterdata = new M_Prj_master();
                     }).then(function() {
                         // window.location = '../';
                     })
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
                 if (response.blmakses) {
 
@@ -313,7 +313,7 @@ $this->masterdata = new M_Prj_master();
                     }).then(function() {
                         // window.location = '../admin';
                     })
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
                 if (response.sukses) {
                     $('.viewmodal').html(response.sukses).show();
@@ -322,7 +322,7 @@ $this->masterdata = new M_Prj_master();
                         keyboard: false
                     });
                     $('#modaledit').modal('show');
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {
@@ -356,7 +356,7 @@ $this->masterdata = new M_Prj_master();
                     type: "post",
                     dataType: "json",
                     data: {
-                        csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                        csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                         id_mohoninfo: id_mohoninfo
                     },
                     success: function(response) {
@@ -380,7 +380,7 @@ $this->masterdata = new M_Prj_master();
                                 },
                                 toastr["success"](response.sukses)
                             listpermohonaninfo();
-                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                         }
                     },
                     error: function(xhr, ajaxOptions, thrownerror) {
@@ -406,7 +406,7 @@ $this->masterdata = new M_Prj_master();
             type: "post",
             url: "<?= site_url('permohonaninfo/toggle') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 id_mohoninfo: id_mohoninfo
             },
             dataType: "json",
@@ -419,7 +419,7 @@ $this->masterdata = new M_Prj_master();
                         timer: 1600
                     })
                     listpermohonaninfo();
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {

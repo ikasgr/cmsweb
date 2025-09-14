@@ -19,7 +19,7 @@ $template = $this->template->tempaktif();
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 <?php } ?>
             </div>
-            <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsdatagoe" />
+            <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsikasmedia" />
 
             <div class="modal-body">
                 <table class="table table-sm table-hover table-striped p-0">

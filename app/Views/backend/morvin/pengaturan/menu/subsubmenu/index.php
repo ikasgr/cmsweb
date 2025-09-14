@@ -53,14 +53,14 @@
         $.ajax({
             type: "post",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 submenu_id: submenu_id,
             },
             url: "<?= site_url('menu/getsubsubmenu') ?>",
             dataType: "json",
             success: function(response) {
                 $('.viewdata').html(response.data);
-                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 if (response.noakses) {
 
                     Swal.fire({

@@ -33,7 +33,7 @@
             type: "post",
             url: "<?= site_url('kritiksaran/formedit') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 kritiksaran_id: kritiksaran_id
             },
             dataType: "json",

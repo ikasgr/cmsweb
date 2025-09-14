@@ -1,10 +1,10 @@
 <!-- =======================================================
-      * CMS DATAGOE
+      * CMS ikasmedia
       * Content Management System.
       *
       * @author			Vian Taum <viantaum17@gmail.com>
-      * @website		www.datagoe.com
-      * @copyright		(c) 2021 - Datagoe Software
+      * @website		www.ikasmedia.net
+      * @copyright		(c) 2021 - ikasmedia Software
  ======================================================== -->
 
 <script nonce="${nonce}">
@@ -24,7 +24,7 @@
                     keyboard: false
                 });
                 $('#modalview').modal('show');
-                // $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                // $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
             },
             error: function(xhr, ajaxOptions, thrownerror) {
                 // Swal.fire({
@@ -35,7 +35,7 @@
                 // }).then(function() {
                 //     window.location = '';
                 // })
-                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
             }
         });
     });
@@ -59,12 +59,12 @@
 
                 $('#modalview').modal('show');
                 $('body').removeClass("modal-open");
-                // $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                // $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
             },
             error: function(xhr, ajaxOptions, thrownerror) {
 
 
-                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
             }
         });
     });
@@ -76,7 +76,7 @@
             type: "post",
             url: "<?= base_url('infografis/formlihatinfo') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 id_banner: id_banner
             },
             dataType: "json",
@@ -91,13 +91,13 @@
                     });
                     $('#modalview').modal('show');
                     $('body').removeClass("modal-open");
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             },
 
             error: function(xhr, ajaxOptions, thrownerror) {
 
-                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
             }
         });
     }
@@ -109,7 +109,7 @@
             type: "post",
             url: "<?= base_url('foto/formlihatfoto') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 foto_id: foto_id,
                 nama_kategori_foto: nama_kategori_foto
             },
@@ -125,12 +125,12 @@
                     });
                     $('#modalview').modal('show');
                     $('body').removeClass("modal-open");
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {
 
-                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
             }
         });
     }
@@ -143,7 +143,7 @@
             url: "<?= base_url('agenda/formlihatagenda') ?>",
             data: {
                 // [csrfToken]: csrfHash,
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 agenda_id: agenda_id
             },
             dataType: "json",
@@ -158,12 +158,12 @@
                     });
                     $('#modalview').modal('show');
                     $('body').removeClass("modal-open");
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {
 
-                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
             }
         });
     }
@@ -176,7 +176,7 @@
             url: "<?= base_url('layanan/formlihatlayanan') ?>",
             data: {
                 // [csrfToken]: csrfHash,
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 informasi_id: informasi_id,
                 jns: jns,
 
@@ -194,12 +194,12 @@
                     });
                     $('#modalview').modal('show');
                     $('body').removeClass("modal-open");
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {
 
-                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
             }
         });
     }
@@ -211,7 +211,7 @@
             url: "<?= base_url('layanan/formisipolinglayanan') ?>",
             data: {
                 // [csrfToken]: csrfHash,
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 informasi_id: informasi_id
             },
             dataType: "json",
@@ -227,12 +227,12 @@
                     });
                     $('#modalview').modal('show');
                     $('body').removeClass("modal-open");
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {
 
-                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
             }
         });
     }
@@ -245,7 +245,7 @@
             url: "<?= base_url('pengumuman/formlihatpengumuman') ?>",
             data: {
                 // [csrfToken]: csrfHash,
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 informasi_id: informasi_id
             },
             dataType: "json",
@@ -260,12 +260,12 @@
                     });
                     $('#modalview').modal('show');
                     $('body').removeClass("modal-open");
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {
 
-                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
             }
         });
     }
@@ -277,13 +277,13 @@
             url: "<?= site_url('bankdata/getbankdata') ?>",
             data: {
                 // [csrfToken]: csrfHash,
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 bankdata_id: bankdata_id
             },
             dataType: "json",
             success: function(response) {
                 $('.viewdata').html(response.data);
-                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
             }
 
         });
@@ -297,7 +297,7 @@
             type: "post",
             url: "<?= site_url('ebook/formlihat') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 ebook_id: ebook_id,
                 kategoriebook_nama: kategoriebook_nama,
             },
@@ -307,12 +307,12 @@
                     $('.viewmodal').html(response.sukses).show();
                     $('#modallihat').modal('show');
                     $('body').removeClass("modal-open");
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {
 
-                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
             }
         });
     }
@@ -323,13 +323,13 @@
         $.ajax({
             url: "<?= site_url('ebook/getebook') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 ebook_id: ebook_id
             },
             dataType: "json",
             success: function(response) {
                 $('.viewdata').html(response.data);
-                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
             }
 
         });
@@ -341,7 +341,7 @@
         $.ajax({
             url: "<?= site_url('berita/likeposting') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 berita_id: berita_id
             },
             dataType: "json",
@@ -357,14 +357,14 @@
                     }).then(function() {
                         // window.location = '';
                     });
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
 
             },
 
             error: function(xhr, ajaxOptions, thrownerror) {
 
-                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
             }
 
         });
@@ -375,7 +375,7 @@
         $.ajax({
             url: "<?= site_url('video/likevideo') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 video_id: video_id
             },
             dataType: "json",
@@ -398,7 +398,7 @@
 
             error: function(xhr, ajaxOptions, thrownerror) {
 
-                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
             }
 
         });
@@ -411,7 +411,7 @@
             type: "post",
             url: "<?= site_url('pegawai/formlihat') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 pegawai_id: pegawai_id,
             },
             dataType: "json",
@@ -424,12 +424,12 @@
                     });
                     $('#modallihat').modal('show');
                     $('body').removeClass("modal-open");
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {
 
-                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
             }
         });
     }
@@ -441,16 +441,16 @@
             url: "<?= site_url('home/penawaran22') ?>",
             dataType: "json",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
             },
             success: function(response) {
-                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 $('.viewmodal').html(response.data).show();
                 $('#modalview').modal('show');
                 $('body').removeClass("modal-open");
             },
             error: function(xhr, ajaxOptions, thrownerror) {
-                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
             }
         });
 
@@ -488,7 +488,7 @@
                         // showConfirmButton: false,
                         // timer: 3550
                     });
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
                 if (response.gagal) {
 
@@ -499,7 +499,7 @@
                         // showConfirmButton: false,
                         // timer: 3550
                     });
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
                 if (response.sukses) {
 
@@ -517,7 +517,7 @@
             },
             error: function(xhr, ajaxOptions, thrownerror) {
 
-                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
             }
         });
     });

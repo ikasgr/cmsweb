@@ -64,7 +64,7 @@
 
                 <div class="form-group mb-2" id="eksternal">
                     <label>
-                        Link URL <small class="text-danger">(Misalnya: http://cms.datagoe.com/)</small>
+                        Link URL <small class="text-danger">(Misalnya: http://cms.ikasmedia.net/)</small>
                     </label>
                     <input type="text" id="link_submenu" name="link_submenu" class="form-control">
                     <div class="invalid-feedback errorlink_submenu"></div>
@@ -254,7 +254,7 @@
                             $('#urutansm').removeClass('is-invalid');
                             $('.errorurutansm').html('');
                         }
-                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
 
                     } else {
 
@@ -277,14 +277,14 @@
                             },
                             toastr["success"](response.sukses)
                         $('#modaltambah').modal('hide');
-                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                         listsubmenu();
                     }
                 },
                 error: function(xhr, ajaxOptions, thrownerror) {
                     toastr["error"]("Maaf gagal proses Kode Error:  " + (xhr.status + "\n"), );
                     $('#modaltambah').modal('hide');
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             });
         });

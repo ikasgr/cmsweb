@@ -18,7 +18,7 @@ $template = $this->template->tempaktif();
                 </h6>
             </div>
             <div class="modal-body">
-                <!-- <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsdatagoe" /> -->
+                <!-- <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsikasmedia" /> -->
 
                 <!-- <div class="form-group row"> -->
                 <img width='100%' src='<?= base_url('public/img/galeri/foto/' . esc($gambar)) ?>'>

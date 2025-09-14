@@ -115,7 +115,7 @@ if ($tambah == 1) { ?>
             type: "post",
             url: "<?= site_url('foto/formeditkategori') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 kategorifoto_id: kategorifoto_id
             },
             dataType: "json",
@@ -123,7 +123,7 @@ if ($tambah == 1) { ?>
                 if (response.sukses) {
                     $('.viewmodal').html(response.sukses).show();
                     $('#modaledit').modal('show');
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             },
 
@@ -137,7 +137,7 @@ if ($tambah == 1) { ?>
                 }).then(function() {
                     // window.location = '';
                 })
-                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
             }
         });
     }
@@ -161,7 +161,7 @@ if ($tambah == 1) { ?>
                     type: "post",
                     dataType: "json",
                     data: {
-                        csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                        csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                         kategorifoto_id: kategorifoto_id
                     },
 
@@ -186,7 +186,7 @@ if ($tambah == 1) { ?>
                                     "hideMethod": "fadeOut"
                                 },
                                 listkategorifoto();
-                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                         }
                     },
                     error: function(xhr, ajaxOptions, thrownerror) {
@@ -211,7 +211,7 @@ if ($tambah == 1) { ?>
             type: "post",
             url: "<?= site_url('foto/ganticoverkat') ?>",
             data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
+                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
                 kategorifoto_id: kategorifoto_id,
             },
             dataType: "json",
@@ -223,7 +223,7 @@ if ($tambah == 1) { ?>
                         keyboard: false
                     });
                     $('#modalupload').modal('show');
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {

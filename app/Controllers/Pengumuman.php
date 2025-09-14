@@ -124,7 +124,7 @@ class Pengumuman extends BaseController
             $tadmin = $this->template->tempadminaktif();
             $data = [
                 'title'                 => 'Tambah Pengumuman',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             $msg = [
                 'data' => view('backend/' . esc($tadmin['folder']) . '/' . 'informasi/pengumuman/tambah', $data)
@@ -177,7 +177,7 @@ class Pengumuman extends BaseController
                         'isi_informasi'  => $validation->getError('isi_informasi'),
                         'gambar'       => $validation->getError('gambar')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
                 echo json_encode($msg);
             } else {
@@ -202,7 +202,7 @@ class Pengumuman extends BaseController
                     $this->pengumuman->insert($insertdata);
                     $msg = [
                         'sukses'                => 'Pengumuman berhasil disimpan!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'csrf_tokencmsikasmedia'  => csrf_hash(),
                     ];
                 } else {
 
@@ -225,7 +225,7 @@ class Pengumuman extends BaseController
 
                     $msg = [
                         'sukses'                => 'Pengumuman berhasil disimpan!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'csrf_tokencmsikasmedia'  => csrf_hash(),
                     ];
                 }
                 echo json_encode($msg);
@@ -275,7 +275,7 @@ class Pengumuman extends BaseController
             if (!$cekdata) {
                 $msg = [
                     'error' => 'Data tidak ditemukan.',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
                 echo json_encode($msg);
                 return;
@@ -288,7 +288,7 @@ class Pengumuman extends BaseController
                 if (!unlink($filepath)) {
                     $msg = [
                         'error' => 'Gagal menghapus file. Silakan coba lagi.',
-                        'csrf_tokencmsdatagoe' => csrf_hash(),
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                     echo json_encode($msg);
                     return;
@@ -300,12 +300,12 @@ class Pengumuman extends BaseController
             if ($this->pengumuman->update($id, $updatedata)) {
                 $msg = [
                     'sukses' => 'File berhasil dihapus.',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 $msg = [
                     'error' => 'Gagal memperbarui data file.',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
 
@@ -340,7 +340,7 @@ class Pengumuman extends BaseController
 
             $msg = [
                 'sukses'                => "$jmldata Data pengumuman berhasil dihapus",
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -365,7 +365,7 @@ class Pengumuman extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'informasi/pengumuman/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -405,7 +405,7 @@ class Pengumuman extends BaseController
                         'nama'           => $validation->getError('nama'),
                         'isi_informasi'     => $validation->getError('isi_informasi'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             } else {
 
@@ -418,7 +418,7 @@ class Pengumuman extends BaseController
                 $this->pengumuman->update($informasi_id, $updatedata);
                 $msg = [
                     'sukses'                => 'Data pengumuman berhasil diubah!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -441,7 +441,7 @@ class Pengumuman extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'informasi/pengumuman/gantifoto', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -475,7 +475,7 @@ class Pengumuman extends BaseController
                     'error' => [
                         'gambar' => $validation->getError('gambar')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             } else {
 
@@ -526,7 +526,7 @@ class Pengumuman extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'informasi/pengumuman/uploadfile', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -563,7 +563,7 @@ class Pengumuman extends BaseController
                     'error' => [
                         'fileunduh' => $validation->getError('fileunduh')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             } else {
 
@@ -620,7 +620,7 @@ class Pengumuman extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'modal/v_pengumuman', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
 
             ];
             echo json_encode($msg);

@@ -76,7 +76,7 @@ class Counter extends BaseController
         if ($this->request->isAJAX()) {
             $data = [
                 'title'             => 'Tambah Counter',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             $tadmin             = $this->template->tempadminaktif();
             $msg = [
@@ -125,7 +125,7 @@ class Counter extends BaseController
                         'ic' => $validation->getError('ic'),
                         'jm'    => $validation->getError('jm'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             } else {
                 $simpandata = [
@@ -141,7 +141,7 @@ class Counter extends BaseController
                 $this->counter->insert($simpandata);
                 $msg = [
                     'sukses'                => 'Data berhasil disimpan',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -172,7 +172,7 @@ class Counter extends BaseController
             $msg = [
 
                 'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'setkonten/counter/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -218,7 +218,7 @@ class Counter extends BaseController
                         'ic' => $validation->getError('ic'),
                         'jm'    => $validation->getError('jm'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             } else {
                 $updatedata = [
@@ -237,7 +237,7 @@ class Counter extends BaseController
                 $this->counter->update($id_counter, $updatedata);
                 $msg = [
                     'sukses'                => 'Data berhasil diupdate',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -256,7 +256,7 @@ class Counter extends BaseController
             $this->counter->delete($id_counter);
             $msg = [
                 'sukses'                => 'Data Berhasil Dihapus',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -280,7 +280,7 @@ class Counter extends BaseController
 
             echo json_encode([
                 'sukses'                => $stsket,
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ]);
         }
     }

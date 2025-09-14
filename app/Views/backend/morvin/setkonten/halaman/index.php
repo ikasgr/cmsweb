@@ -41,7 +41,7 @@
                     <div class="viewdata"></div>
                 </div>
                 <div class="viewmodal"></div>
-                <!-- <input type="text" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsdatagoe" /> -->
+                <!-- <input type="text" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsikasmedia" /> -->
             </div>
 
         </div>
@@ -57,7 +57,7 @@
                 dataType: "json",
                 success: function(response) {
                     $('.viewdata').html(response.data);
-                    // $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    // $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                     if (response.noakses) {
 
                         Swal.fire({
@@ -92,14 +92,14 @@
                         // showConfirmButton: false,
                         // timer: 3100
                     });
-                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
                 }
             });
         }
 
         $(document).ready(function() {
             listhalaman();
-            // $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+            // $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
 
         });
     </script>

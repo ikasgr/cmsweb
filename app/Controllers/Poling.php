@@ -83,7 +83,7 @@ class Poling extends BaseController
         if ($this->request->isAJAX()) {
             $data = [
                 'title'                 => 'Tambah Jawaban',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             $tadmin             = $this->template->tempadminaktif();
 
@@ -119,7 +119,7 @@ class Poling extends BaseController
                         'pilihan' => $validation->getError('pilihan'),
 
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             } else {
                 $userid = session()->get('id');
@@ -132,7 +132,7 @@ class Poling extends BaseController
                 $this->poling->insert($simpandata);
                 $msg = [
                     'sukses' => 'Data berhasil disimpan',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -158,7 +158,7 @@ class Poling extends BaseController
             ];
             $msg = [
                 'sukses' => view('backend/' . esc($tadmin['folder']) . '/' . 'interaksi/poling/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -185,7 +185,7 @@ class Poling extends BaseController
                     'error' => [
                         'pilihan' => $validation->getError('pilihan'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             } else {
                 $updatedata = [
@@ -197,7 +197,7 @@ class Poling extends BaseController
                 $this->poling->update($poling_id, $updatedata);
                 $msg = [
                     'sukses'                => 'Data berhasil diupdate',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -230,7 +230,7 @@ class Poling extends BaseController
                         'error' => [
                             'poling_id' => $validation->getError('poling_id'),
                         ],
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'csrf_tokencmsikasmedia'  => csrf_hash(),
                     ];
                 } else {
 
@@ -244,13 +244,13 @@ class Poling extends BaseController
 
                     $msg = [
                         'sukses'                => 'Terima kasih atas partisipasi anda mengikuti polling kami',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'csrf_tokencmsikasmedia'  => csrf_hash(),
                     ];
                 }
             } else {
                 $msg = [
                     'gagal'                 => 'Anda sudah berpartisipasi..!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -269,7 +269,7 @@ class Poling extends BaseController
             $this->poling->delete($poling_id);
             $msg = [
                 'sukses'                => 'Data Berhasil Dihapus',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -292,7 +292,7 @@ class Poling extends BaseController
             ];
             $msg = [
                 'data' => view('backend/' . esc($tadmin['folder']) . '/' . 'modal/lihatpoling', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -314,7 +314,7 @@ class Poling extends BaseController
 
             echo json_encode([
                 'sukses'                => $stsket,
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia'  => csrf_hash(),
             ]);
         }
     }
