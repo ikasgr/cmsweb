@@ -2,7 +2,7 @@
       * CMS ikasmedia
       * Content Management System.
       *
-      * @author			Vian Taum <viantaum17@gmail.com>
+      * @author			ikasmedia <ikasmedia@gmail.com>
       * @website		www.ikasmedia.net
       * @copyright		(c) 2021 - ikasmedia Software
  ======================================================== -->

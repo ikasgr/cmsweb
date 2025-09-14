@@ -2,9 +2,9 @@
       * CMS ikasmedia
       * Content Management System.
       *
-      * @author			Vian Taum <viantaum17@gmail.com>
+      * @author			ikasmedia <ikasmedia@gmail.com>
       * @website		www.ikasmedia.net
-      * @copyright		(c) 2023 - ikasmedia Software
+      * @copyright		(c) 2025 - ikasmedia Software
  ======================================================== -->
 
 <!DOCTYPE html>
@@ -16,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
 
     <title>Login</title>
-    <meta content="CMS ikasmedia" name="Vian Taum" />
+    <meta content="CMS ikasmedia" name="ikasmedia" />
     <link rel="shortcut icon" href="<?= base_url('/public/img/konfigurasi/icon/' . esc($konfigurasi->icon)) ?>">
     <?php if (esc($sitekey) != '') { ?>
         <script src='https://www.google.com/recaptcha/api.js'></script>

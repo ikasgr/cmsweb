@@ -1,4 +1,4 @@
-<!-- ============================= WEBSITE DIDEVELOP OLEH VIAN TAUM | ikasmedia.net ============================= -->
+<!-- ============================= WEBSITE DIDEVELOP OLEH ikasmedia | ikasmedia.net ============================= -->
 <?php
 $db = \Config\Database::connect();
 ?>

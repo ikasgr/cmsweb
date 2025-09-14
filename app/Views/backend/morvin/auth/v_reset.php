@@ -2,9 +2,9 @@
       * CMS ikasmedia
       * Content Management System.
       *
-      * @author			Vian Taum <viantaum17@gmail.com>
+      * @author			ikasmedia <ikasmedia@gmail.com>
       * @website		www.ikasmedia.net
-      * @copyright		(c) 2023 - ikasmedia Software
+      * @copyright		(c) 2025 - ikasmedia Software
  ======================================================== -->
 
 <?php
@@ -23,7 +23,7 @@ $konfigurasi        = $builder->select('nama,vercms,kecamatan,icon,logo')->get()
 
     <title>Reset Password</title>
     <meta content="CMS ikasmedia" name="ikasmedia Software" />
-    <meta content="Themesbrand" name="Vian Taum" />
+    <meta content="Themesbrand" name="ikasmedia" />
     <link rel="shortcut icon" href="<?= base_url('/public/img/konfigurasi/icon/' . esc($konfigurasi->icon)) ?>">
     <link href="<?= base_url('/public/template/backend/' . esc($folder) . '/assets/libs/sweetalert2/sweetalert2.min.css') ?>" rel="stylesheet" type="text/css" />
     <link href="<?= base_url('/public/template/backend/' . esc($folder) . '/assets/css/bootstrap.min.css') ?>" id="bootstrap-style" rel="stylesheet" type="text/css" />

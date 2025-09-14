@@ -13,7 +13,7 @@ use App\Models\ModelKonfigurasi;
  *
  * Mari kita sama-sama saling menghormati dan menghargai hasil keringat dengan Elegan.
  *
- * @author			Vian Taum <viantaum17@gmail.com>
+ * @author			ikasmedia <ikasmedia@gmail.com>
  * @phone			081353967028
  * @website			www.ikasmedia.net
  * @copyright		(c) 2024 ikasmedia Software

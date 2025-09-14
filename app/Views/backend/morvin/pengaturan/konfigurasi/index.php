@@ -9,7 +9,7 @@
  *
  * Mari kita saling menghargai dan menghormati hasil karya dengan penuh profesionalisme.
  *
- * @author			Vian Taum <viantaum17@gmail.com>
+ * @author			ikasmedia <ikasmedia@gmail.com>
  * @phone			0813-5396-7028
  * @website			www.ikasmedia.net
  * @copyright		(c) 2024 ikasmedia Software

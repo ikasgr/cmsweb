@@ -2,9 +2,9 @@
       * CMS ikasmedia
       * Content Management System.
       *
-      * @author			Vian Taum <viantaum17@gmail.com>
+      * @author			ikasmedia <ikasmedia@gmail.com>
       * @website		www.ikasmedia.net
-      * @copyright		(c) 2023 - ikasmedia Software
+      * @copyright		(c) 2025 - ikasmedia Software
  ======================================================== -->
 
 <!DOCTYPE html>
@@ -17,7 +17,7 @@
 
     <title>Registrasi Pengguna</title>
     <meta content="Admin Dashboard" name="ikasmedia Software" />
-    <meta content="CMS ikasmedia" name="Vian Taum" />
+    <meta content="CMS ikasmedia" name="ikasmedia" />
     <link rel="shortcut icon" href="<?= base_url('/public/img/konfigurasi/icon/' . esc($konfigurasi->icon)) ?>">
     <link href="<?= base_url('/public/template/backend/' . esc($folder) . '/assets/libs/sweetalert2/sweetalert2.min.css') ?>" rel="stylesheet" type="text/css" />
 

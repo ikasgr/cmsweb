@@ -171,9 +171,9 @@
       * CMS ikasmedia (Tidak perlu menghapus informasi ini bro ^_^)
       * Content Management System.
       *
-      * @author			Vian Taum <viantaum17@gmail.com>
+      * @author			ikasmedia <ikasmedia@gmail.com>
       * @website		www.ikasmedia.net
-      * @copyright		(c) 2023 - ikasmedia Software
+      * @copyright		(c) 2025 - ikasmedia Software
         ======================================================== -->
 
         <div class="border-top m-auto">
