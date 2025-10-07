@@ -109,7 +109,7 @@
             type: "post",
             url: "<?= site_url('modul/formeditpublik') ?>",
             data: {
-                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                 id_modpublic: id_modpublic
             },
             dataType: "json",
@@ -122,7 +122,7 @@
                     });
 
                     $('#modaledit').modal('show');
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {
@@ -158,7 +158,7 @@
                     type: "post",
                     dataType: "json",
                     data: {
-                        csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                        csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                         id_modpublic: id_modpublic
                     },
 
@@ -183,7 +183,7 @@
                                     "showMethod": "fadeIn",
                                     "hideMethod": "fadeOut"
                                 },
-                                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                             listpublik();
                         }
                     },
@@ -208,7 +208,7 @@
             type: "post",
             url: "<?= site_url('modul/togglepublik') ?>",
             data: {
-                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                 id_modpublic: id_modpublic
             },
             dataType: "json",
@@ -220,7 +220,7 @@
                         showConfirmButton: false,
                         timer: 1500
                     })
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                     listpublik();
                 }
             },

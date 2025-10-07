@@ -117,7 +117,7 @@ class Banner extends BaseController
                         'ket'           => $validation->getError('ket'),
                         'banner_image'  => $validation->getError('banner_image')
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
 
@@ -143,7 +143,7 @@ class Banner extends BaseController
 
                 $msg = [
                     'sukses'                => 'Banner berhasil diupload!',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -172,7 +172,7 @@ class Banner extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'setkonten/banner/edit', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -204,7 +204,7 @@ class Banner extends BaseController
                         'ket' => $validation->getError('ket'),
 
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
                 echo json_encode($msg);
             } else {
@@ -217,7 +217,7 @@ class Banner extends BaseController
                 $this->banner->update($id_banner, $data);
                 $msg = [
                     'sukses' => 'Data berhasil diubah!',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
 
 
@@ -242,7 +242,7 @@ class Banner extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'setkonten/banner/gantibanner', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -274,7 +274,7 @@ class Banner extends BaseController
                     'error' => [
                         'banner_image' => $validation->getError('banner_image')
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
 
@@ -305,7 +305,7 @@ class Banner extends BaseController
 
                 $msg = [
                     'sukses' => 'Banner berhasil diganti!',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -329,7 +329,7 @@ class Banner extends BaseController
             $this->banner->delete($id_banner);
             $msg = [
                 'sukses'                 => 'Data berhasil dihapus!',
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -356,7 +356,7 @@ class Banner extends BaseController
             }
             $msg = [
                 'sukses'                => "$jmldata Banner berhasil dihapus",
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }

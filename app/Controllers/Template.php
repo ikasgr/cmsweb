@@ -84,7 +84,7 @@ class Template extends BaseController
             $this->template->update($id, $updatedata);
             $msg = [
                 'sukses'                => $stsket,
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -135,7 +135,7 @@ class Template extends BaseController
         // Siapkan dan kirimkan respons
         echo json_encode([
             'data' => view('backend/' . esc($tadmin['folder']) . '/pengaturan/template/front/list', $data),
-            'csrf_tokencmsikasmedia' => csrf_hash(),
+            'csrf_tokencmsdatagoe' => csrf_hash(),
         ]);
     }
 
@@ -176,7 +176,7 @@ class Template extends BaseController
         if (!$datatema) {
             echo json_encode([
                 'nodata' => 'Data tidak ditemukan',
-                'csrf_tokencmsikasmedia' => csrf_hash(),
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ]);
             return;
         }
@@ -215,7 +215,7 @@ class Template extends BaseController
         // Kirim respons sukses
         echo json_encode([
             'sukses' => 'Tema berhasil di duplikasi!',
-            'csrf_tokencmsikasmedia' => csrf_hash(),
+            'csrf_tokencmsdatagoe' => csrf_hash(),
         ]);
     }
 
@@ -272,7 +272,7 @@ class Template extends BaseController
             if (!$valid) {
                 echo json_encode([
                     'error'                => $validation->getErrors(),
-                    'csrf_tokencmsikasmedia' => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ]);
                 return;
             }
@@ -305,7 +305,7 @@ class Template extends BaseController
 
             echo json_encode([
                 'sukses' => 'Data berhasil disimpan!',
-                'csrf_tokencmsikasmedia' => csrf_hash(),
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ]);
         }
     }
@@ -330,7 +330,7 @@ class Template extends BaseController
             $this->template->delete($id);
             $msg = [
                 'sukses' => 'Data Berhasil Dihapus',
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -366,7 +366,7 @@ class Template extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'pengaturan/template/front/edit', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -457,7 +457,7 @@ class Template extends BaseController
                         'wlbanner'      => $validation->getError('wlbanner'),
                         'hpbanner'      => $validation->getError('hpbanner'),
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
                 $filegambar = $this->request->getFile('img');
@@ -480,7 +480,7 @@ class Template extends BaseController
                     $this->template->update($template_id, $updatedata);
                     $msg = [
                         'sukses'                => 'Data berhasil diubah!',
-                        'csrf_tokencmsikasmedia'  => csrf_hash(),
+                        'csrf_tokencmsdatagoe'  => csrf_hash(),
                     ];
                 } else {
                     //check
@@ -513,7 +513,7 @@ class Template extends BaseController
 
                     $msg = [
                         'sukses' => 'Data berhasil diubah!',
-                        'csrf_tokencmsikasmedia'  => csrf_hash(),
+                        'csrf_tokencmsdatagoe'  => csrf_hash(),
                     ];
                 }
             }
@@ -538,7 +538,7 @@ class Template extends BaseController
             ];
             $msg = [
                 'sukses'               => view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/template/front/gantifile', $data),
-                'csrf_tokencmsikasmedia' => csrf_hash()
+                'csrf_tokencmsdatagoe' => csrf_hash()
             ];
             echo json_encode($msg);
         }
@@ -573,7 +573,7 @@ class Template extends BaseController
                     'error' => [
                         'video_bag' => $validation->getError('video_bag'),
                     ],
-                    'csrf_tokencmsikasmedia' => csrf_hash()
+                    'csrf_tokencmsdatagoe' => csrf_hash()
                 ];
             } else {
                 // $fileunduhan = $this->request->getFile('video_bag');
@@ -587,7 +587,7 @@ class Template extends BaseController
                 if (!in_array($mimeType, $allowedMimeTypes)) {
                     $msg = [
                         'nofile'                => 'Hanya file video yang diizinkan!',
-                        'csrf_tokencmsikasmedia' => csrf_hash()
+                        'csrf_tokencmsdatagoe' => csrf_hash()
                     ];
                 } else {
                     // Proceed with video file processing
@@ -611,7 +611,7 @@ class Template extends BaseController
 
                     $msg = [
                         'sukses' => 'Video berhasil diupload!',
-                        'csrf_tokencmsikasmedia' => csrf_hash()
+                        'csrf_tokencmsdatagoe' => csrf_hash()
                     ];
                 }
             }
@@ -756,7 +756,7 @@ class Template extends BaseController
                         'folder'         => $validation->getError('folder'),
                         'img'         => $validation->getError('img'),
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
                 echo json_encode($msg);
             } else {
@@ -780,7 +780,7 @@ class Template extends BaseController
 
                     $msg = [
                         'sukses'                => 'Data berhasil disimpan!',
-                        'csrf_tokencmsikasmedia'  => csrf_hash(),
+                        'csrf_tokencmsdatagoe'  => csrf_hash(),
                     ];
                 } else {
                     $insertdata = [
@@ -803,7 +803,7 @@ class Template extends BaseController
                         ->save('public/img/template/' . $nama_file, 70);
                     $msg = [
                         'sukses'                => 'Data berhasil disimpan!',
-                        'csrf_tokencmsikasmedia'  => csrf_hash(),
+                        'csrf_tokencmsdatagoe'  => csrf_hash(),
                     ];
                 }
                 echo json_encode($msg);
@@ -835,7 +835,7 @@ class Template extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'pengaturan/template/back/edit', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -894,7 +894,7 @@ class Template extends BaseController
                         'pembuat'        => $validation->getError('pembuat'),
                         'folder'         => $validation->getError('folder'),
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
                 $filegambar = $this->request->getFile('img');
@@ -913,7 +913,7 @@ class Template extends BaseController
                     $this->template->update($template_id, $updatedata);
                     $msg = [
                         'sukses' => 'Data berhasil diubah!',
-                        'csrf_tokencmsikasmedia'  => csrf_hash(),
+                        'csrf_tokencmsdatagoe'  => csrf_hash(),
                     ];
                 } else {
                     //check
@@ -941,7 +941,7 @@ class Template extends BaseController
 
                     $msg = [
                         'sukses'                => 'Data berhasil diubah!',
-                        'csrf_tokencmsikasmedia'  => csrf_hash(),
+                        'csrf_tokencmsdatagoe'  => csrf_hash(),
                     ];
                 }
             }
@@ -976,7 +976,7 @@ class Template extends BaseController
             // Kirim respons JSON
             echo json_encode([
                 'sukses'                => $stsket,
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ]);
         }
     }

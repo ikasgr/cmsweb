@@ -86,7 +86,7 @@
                             $('#banner_image').addClass('is-invalid');
                             $('.errorbanner_image').html(response.error.banner_image);
                         }
-                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                     } else {
                         Swal.fire({
                             title: "Berhasil!",

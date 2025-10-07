@@ -1,10 +1,10 @@
 <!-- =======================================================
-      * CMS ikasmedia
+      * CMS DATAGOE
       * Content Management System.
       *
-      * @author			ikasmedia <ikasmedia@gmail.com>
-      * @website		www.ikasmedia.net
-      * @copyright		(c) 2025 - ikasmedia Software
+      * @author			Vian Taum <viantaum17@gmail.com>
+      * @website		www.datagoe.com
+      * @copyright		(c) 2023 - Datagoe Software
  ======================================================== -->
 
 <!DOCTYPE html>
@@ -16,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title><?= lang('Errors.whoops') ?></title>
-    <meta content="CMS ikasmedia" name="ikasmedia" />
+    <meta content="CMS DATAGOE" name="Vian Taum" />
 
     <link rel="shortcut icon" href="<?= base_url('/public/img/konfigurasi/icon/default.png') ?>">
     <!-- Google font -->

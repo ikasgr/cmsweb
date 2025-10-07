@@ -116,7 +116,7 @@ class Masterdata extends BaseController
 
         $msg = [
             'data' => view('backend/' . esc($tadmin['folder']) . '/cmscust/master/list', $data),
-            'csrf_tokencmsikasmedia' => csrf_hash(),
+            'csrf_tokencmsdatagoe' => csrf_hash(),
         ];
 
         echo json_encode($msg);
@@ -167,7 +167,7 @@ class Masterdata extends BaseController
                     'error' => [
                         'nama_master' => $validation->getError('nama_master'),
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
                 $jns = $this->request->getVar('jns_master');
@@ -183,7 +183,7 @@ class Masterdata extends BaseController
                 $this->masterdata->insert($simpandata);
                 $msg = [
                     'sukses'                => 'Data berhasil disimpan',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -220,7 +220,7 @@ class Masterdata extends BaseController
 
         echo json_encode([
             'sukses'                => view('backend/' . esc($tadmin['folder']) . '/cmscust/master/edit', $data),
-            'csrf_tokencmsikasmedia'  => csrf_hash(),
+            'csrf_tokencmsdatagoe'  => csrf_hash(),
         ]);
     }
 
@@ -246,7 +246,7 @@ class Masterdata extends BaseController
                     'error' => [
                         'nama_master' => $validation->getError('nama_master'),
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
                 $id_masterdata = $this->request->getVar('id_masterdata');
@@ -260,7 +260,7 @@ class Masterdata extends BaseController
 
                 $msg = [
                     'sukses'                => 'Data berhasil diupdate',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -285,7 +285,7 @@ class Masterdata extends BaseController
 
             $msg = [
                 'sukses'                => 'Data Berhasil Dihapus',
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -321,7 +321,7 @@ class Masterdata extends BaseController
 
         echo json_encode([
             'sukses'                => view('backend/' . esc($tadmin['folder']) . '/cmscust/master/gantifile', $data),
-            'csrf_tokencmsikasmedia'  => csrf_hash(),
+            'csrf_tokencmsdatagoe'  => csrf_hash(),
         ]);
     }
 
@@ -351,7 +351,7 @@ class Masterdata extends BaseController
                     'error' => [
                         'image_master' => $validation->getError('image_master')
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
 
@@ -377,7 +377,7 @@ class Masterdata extends BaseController
 
                 $msg = [
                     'sukses'                => 'File berhasil diupload!',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -404,7 +404,7 @@ class Masterdata extends BaseController
         $this->masterdata->update($id, ['sts_master' => $sts]);
         echo json_encode([
             'sukses'                => $stsket,
-            'csrf_tokencmsikasmedia'  => csrf_hash(),
+            'csrf_tokencmsdatagoe'  => csrf_hash(),
         ]);
     }
 }

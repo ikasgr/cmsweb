@@ -119,7 +119,7 @@ class Foto extends BaseController
             $msg = [
 
                 'sukses'                  => view('backend/' . $tadmin['folder'] . '/' . 'modal/v_foto', $data),
-                'csrf_tokencmsikasmedia'    => csrf_hash(),
+                'csrf_tokencmsdatagoe'    => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -207,7 +207,7 @@ class Foto extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'galeri/foto/detail/edit', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -256,7 +256,7 @@ class Foto extends BaseController
                         'kategorifoto_id' => $validation->getError('kategorifoto_id'),
                         'gambar' => $validation->getError('gambar')
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
                 $filegambar = $this->request->getFile('gambar');
@@ -271,7 +271,7 @@ class Foto extends BaseController
                     $this->foto->update($foto_id, $data);
                     $msg = [
                         'sukses'                => 'Data berhasil diubah!',
-                        'csrf_tokencmsikasmedia'  => csrf_hash(),
+                        'csrf_tokencmsdatagoe'  => csrf_hash(),
                     ];
                 } else {
 
@@ -304,7 +304,7 @@ class Foto extends BaseController
 
                     $msg = [
                         'sukses'                => 'Data berhasil diubah!',
-                        'csrf_tokencmsikasmedia'  => csrf_hash(),
+                        'csrf_tokencmsdatagoe'  => csrf_hash(),
                     ];
                 }
             }
@@ -334,7 +334,7 @@ class Foto extends BaseController
             $this->foto->delete($foto_id);
             $msg = [
                 'sukses'                => 'Data berhasil dihapus!',
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -366,7 +366,7 @@ class Foto extends BaseController
 
             $msg = [
                 'sukses'                => "$jmldata foto berhasil dihapus",
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -436,7 +436,7 @@ class Foto extends BaseController
 
             $msg = [
                 'data'                  => view('backend/' . $this->template->tempadminaktif()['folder'] . '/galeri/foto/detail/list', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -463,7 +463,7 @@ class Foto extends BaseController
             // Siapkan respons JSON
             $msg = [
                 'data'                 => view("backend/$tadminFolder/galeri/foto/detail/formmultiadd", $data),
-                'csrf_tokencmsikasmedia' => csrf_hash(),
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -505,7 +505,7 @@ class Foto extends BaseController
                         'judul'       => $validation->getError('judul'),
                         'gambar'      => $validation->getError('gambar')
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
 
@@ -541,7 +541,7 @@ class Foto extends BaseController
 
                 $msg = [
                     'sukses'                => 'Data berhasil disimpan!',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -561,7 +561,7 @@ class Foto extends BaseController
             $tadmin = $this->template->tempadminaktif();
             $data = [
                 'title'                 => 'Tambah Kategori',
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             $msg = [
                 'data' => view('backend/' . $tadmin['folder'] . '/' . 'galeri/foto/tambah', $data)
@@ -607,7 +607,7 @@ class Foto extends BaseController
                         'nama_kategori_foto'  => $validation->getError('nama_kategori_foto'),
                         'cover_foto'          => $validation->getError('cover_foto'),
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
                 echo json_encode($msg);
             } else {
@@ -631,7 +631,7 @@ class Foto extends BaseController
 
                     $msg = [
                         'sukses' => 'Kategori foto berhasil disimpan!',
-                        'csrf_tokencmsikasmedia'  => csrf_hash(),
+                        'csrf_tokencmsdatagoe'  => csrf_hash(),
                     ];
                 } else {
 
@@ -650,7 +650,7 @@ class Foto extends BaseController
                         ->save('public/img/galeri/katfoto/' . $nama_file, 70);
                     $msg = [
                         'sukses'                => 'Kategori berhasil disimpan!',
-                        'csrf_tokencmsikasmedia'  => csrf_hash(),
+                        'csrf_tokencmsdatagoe'  => csrf_hash(),
                     ];
                 }
                 echo json_encode($msg);
@@ -675,7 +675,7 @@ class Foto extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'galeri/foto/gantifoto', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
 
             ];
             echo json_encode($msg);
@@ -710,7 +710,7 @@ class Foto extends BaseController
                     'error' => [
                         'cover_foto' => $validation->getError('cover_foto')
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
 
@@ -737,7 +737,7 @@ class Foto extends BaseController
 
                 $msg = [
                     'sukses'                => 'Cover berhasil diganti!',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -763,7 +763,7 @@ class Foto extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'galeri/foto/edit', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -798,7 +798,7 @@ class Foto extends BaseController
                         'nama_kategori_foto' => $validation->getError('nama_kategori_foto'),
                         'tgl_album' => $validation->getError('tgl_album'),
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
                 $updatedata = [
@@ -812,7 +812,7 @@ class Foto extends BaseController
                 $this->kategorifoto->update($kategorifoto_id, $updatedata);
                 $msg = [
                     'sukses'                => 'Data berhasil diupdate',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -839,7 +839,7 @@ class Foto extends BaseController
             $this->kategorifoto->delete($kategorifoto_id);
             $msg = [
                 'sukses'                => 'Kategori Berhasil Dihapus',
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
 
             echo json_encode($msg);

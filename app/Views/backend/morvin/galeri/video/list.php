@@ -200,7 +200,7 @@
                                         "hideMethod": "fadeOut"
                                     },
                                     toastr["success"](response.sukses)
-                                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                                 listvideo();
                             },
                             error: function(xhr, ajaxOptions, thrownerror) {
@@ -228,7 +228,7 @@
             type: "post",
             url: "<?= site_url('video/toggle') ?>",
             data: {
-                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                 video_id: video_id
             },
             dataType: "json",
@@ -240,7 +240,7 @@
                         showConfirmButton: false,
                         timer: 1500
                     })
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                     listvideo();
                 }
             },
@@ -265,7 +265,7 @@
             type: "post",
             url: "<?= site_url('video/formedit') ?>",
             data: {
-                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                 video_id: video_id
             },
             dataType: "json",
@@ -276,7 +276,7 @@
                         backdrop: 'static',
                         keyboard: false
                     });
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                     $('#modaledit').modal('show');
                 }
             },
@@ -313,7 +313,7 @@
                     type: "post",
                     dataType: "json",
                     data: {
-                        csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                        csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                         video_id: video_id
                     },
                     success: function(response) {
@@ -336,7 +336,7 @@
                                     "hideMethod": "fadeOut"
                                 },
                                 toastr["success"](response.sukses)
-                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                             listvideo();
                         }
                     },
@@ -371,7 +371,7 @@
                         keyboard: false
                     });
                     $('#modaltambah').modal('show');
-                    // $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    // $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 },
                 error: function(xhr, ajaxOptions, thrownerror) {
                     Swal.fire({
@@ -397,7 +397,7 @@
                 url: '<?= site_url('video/uploadvideomulti') ?>',
                 dataType: "json",
                 "data": {
-                    csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                    csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                 },
                 beforeSend: function() {
                     $('.btnuploadmulti').attr('disable', 'disable');
@@ -416,7 +416,7 @@
                 },
                 success: function(response) {
                     $('.viewdatamulti').html(response.data);
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 },
                 error: function(xhr, ajaxOptions, thrownerror) {
                     Swal.fire({

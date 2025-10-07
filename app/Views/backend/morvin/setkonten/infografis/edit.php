@@ -103,7 +103,7 @@
                             $('#banner_image').removeClass('is-invalid');
                             $('.errorFoto').html('');
                         }
-                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                     } else {
                         toastr.options = {
                                 "closeButton": true,
@@ -124,14 +124,14 @@
                             },
                             toastr["success"](response.sukses)
                         $('#modaledit').modal('hide');
-                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                         listinfografis();
                     }
                 },
                 error: function(xhr, ajaxOptions, thrownerror) {
                     toastr["error"]("Maaf gagal proses Kode Error:  " + (xhr.status + "\n"), );
                     $('#modaledit').modal('hide');
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 }
             });
         });

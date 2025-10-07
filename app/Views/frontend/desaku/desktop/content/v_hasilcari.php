@@ -82,7 +82,7 @@
                             <div class="paging text-center">
                                 <P>
                                 <ul class="pagination justify-content-center">
-                                    <?= $pager->links('hal', 'ikasmedia'); ?>
+                                    <?= $pager->links('hal', 'datagoe'); ?>
                                 </ul>
 
                                 </P>

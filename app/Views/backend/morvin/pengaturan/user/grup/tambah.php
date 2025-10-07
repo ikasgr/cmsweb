@@ -203,19 +203,19 @@ $this->modulecms = new M_Dge_modul();
                                 $('.errornama_grup').html('');
                             }
 
-                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                         } else {
 
                             toastr["success"](response.sukses)
                             $('#modaltambah').modal('hide');
-                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                             listgrup();
                         }
                     },
                     error: function(xhr, ajaxOptions, thrownerror) {
                         toastr["error"]("Maaf gagal proses Kode Error:  " + (xhr.status + "\n"), );
                         $('#modaltambah').modal('hide');
-                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                     }
                 });
         });

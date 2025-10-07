@@ -97,7 +97,7 @@
             type: "post",
             url: "<?= site_url('produkhukum/formedit') ?>",
             data: {
-                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                 produk_id: produk_id
             },
             dataType: "json",
@@ -106,7 +106,7 @@
                     $('.viewmodal').html(response.sukses).show();
                     $('#modaledit').modal('show');
                 }
-                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
             },
 
             error: function(xhr, ajaxOptions, thrownerror) {
@@ -143,7 +143,7 @@
                     type: "post",
                     dataType: "json",
                     data: {
-                        csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                        csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                         produk_id: produk_id
                     },
 
@@ -167,7 +167,7 @@
                                     "showMethod": "fadeIn",
                                     "hideMethod": "fadeOut"
                                 },
-                                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                             listprodukhukum();
                         }
                     },
@@ -197,7 +197,7 @@
             dataType: "json",
             success: function(response) {
                 $('.viewmodal').html(response.sukses).show();
-                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
             },
             error: function(xhr, ajaxOptions, thrownerror) {
 
@@ -208,7 +208,7 @@
                     showConfirmButton: false,
                     timer: 3100
                 });
-                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
             }
         });
     }

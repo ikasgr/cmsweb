@@ -100,7 +100,7 @@
                 url: "<?= site_url('berita/formtag') ?>",
                 dataType: "json",
                 data: {
-                    csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                    csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
 
                 },
                 success: function(response) {
@@ -131,7 +131,7 @@
             type: "post",
             url: "<?= site_url('berita/formedittag') ?>",
             data: {
-                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                 tag_id: tag_id
             },
             dataType: "json",
@@ -181,7 +181,7 @@
                     type: "post",
                     dataType: "json",
                     data: {
-                        csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                        csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                         tag_id: tag_id
                     },
 
@@ -207,7 +207,7 @@
                                     "hideMethod": "fadeOut"
                                 },
                                 listtag();
-                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                         }
                     },
                     error: function(xhr, ajaxOptions, thrownerror) {

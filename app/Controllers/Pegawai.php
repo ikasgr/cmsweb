@@ -133,7 +133,7 @@ class Pegawai extends BaseController
             ];
             $msg = [
                 'data'                  => view('backend/' . esc($tadmin['folder']) . '/' . 'lembaga/pegawai/formimport', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
 
             ];
             echo json_encode($msg);
@@ -197,12 +197,12 @@ class Pegawai extends BaseController
             }
             $msg = [
                 'sukses'                => 'Data Pegawai berhasil di import!',
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
         } else {
             $msg = [
                 'kosong' => 'File belum ada!',
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
         }
         echo json_encode($msg);
@@ -222,7 +222,7 @@ class Pegawai extends BaseController
             ];
             $msg = [
                 'data' => view('backend/' . esc($tadmin['folder']) . '/' . 'lembaga/pegawai/tambah', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
 
             ];
             echo json_encode($msg);
@@ -326,7 +326,7 @@ class Pegawai extends BaseController
                         'gambar'       => $validation->getError('gambar'),
 
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
                 echo json_encode($msg);
             } else {
@@ -362,7 +362,7 @@ class Pegawai extends BaseController
                     $this->pegawai->insert($insertdata);
                     $msg = [
                         'sukses'                => 'Pegawai berhasil disimpan!',
-                        'csrf_tokencmsikasmedia'  => csrf_hash(),
+                        'csrf_tokencmsdatagoe'  => csrf_hash(),
                     ];
                 } else {
 
@@ -396,7 +396,7 @@ class Pegawai extends BaseController
                         ->save('public/img/informasi/pegawai/' .  $nama_file, 70);
                     $msg = [
                         'sukses'                => 'Pegawai berhasil disimpan!',
-                        'csrf_tokencmsikasmedia'  => csrf_hash(),
+                        'csrf_tokencmsdatagoe'  => csrf_hash(),
                     ];
                 }
                 echo json_encode($msg);
@@ -422,7 +422,7 @@ class Pegawai extends BaseController
             ];
             $msg = [
                 'sukses' => view('backend/' . esc($tadmin['folder']) . '/' . 'lembaga/pegawai/gantitupoksi', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -459,7 +459,7 @@ class Pegawai extends BaseController
                     'error' => [
                         'filetupoksi' => $validation->getError('filetupoksi')
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
 
@@ -491,7 +491,7 @@ class Pegawai extends BaseController
 
                 $msg = [
                     'sukses'                => 'File berhasil diupdate!',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -523,7 +523,7 @@ class Pegawai extends BaseController
 
             $msg = [
                 'sukses'                => 'Data tupoksi sukses Dihapus',
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -554,7 +554,7 @@ class Pegawai extends BaseController
             $this->pegawai->delete($id);
             $msg = [
                 'sukses'                => 'Data Pegawai Berhasil Dihapus',
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -589,7 +589,7 @@ class Pegawai extends BaseController
 
             $msg = [
                 'sukses'                => "$jmldata Data pegawai berhasil dihapus",
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -629,7 +629,7 @@ class Pegawai extends BaseController
             ];
             $msg = [
                 'sukses' => view('backend/' . esc($tadmin['folder']) . '/' . 'lembaga/pegawai/edit', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -722,7 +722,7 @@ class Pegawai extends BaseController
                         'pangkat'  => $validation->getError('pangkat'),
                         'jabatan'  => $validation->getError('jabatan'),
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
                 $tgl_lahir_input    = $this->request->getVar('tgl_lahir');
@@ -750,7 +750,7 @@ class Pegawai extends BaseController
                 $this->pegawai->update($pegawai_id, $updatedata);
                 $msg = [
                     'sukses'                => 'Data Pegawai berhasil diubah!',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -774,7 +774,7 @@ class Pegawai extends BaseController
             $msg = [
                 'sukses' => view('backend/' . esc($tadmin['folder']) . '/' . 'lembaga/pegawai/gantifoto', $data),
 
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -808,7 +808,7 @@ class Pegawai extends BaseController
                     'error' => [
                         'gambar' => $validation->getError('gambar')
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
 
@@ -837,7 +837,7 @@ class Pegawai extends BaseController
 
                 $msg = [
                     'sukses'                => 'Foto berhasil diganti!',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -876,12 +876,12 @@ class Pegawai extends BaseController
                 'bio_singkat'  => $list['bio_singkat'],
                 'konfigurasi'  => $template,
                 'folder'        => $template['folder'],
-                // 'csrf_tokencmsikasmedia'  => csrf_hash(),
+                // 'csrf_tokencmsdatagoe'  => csrf_hash(),
 
             ];
             $msg = [
 
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
                 'sukses' => view('backend/' . esc($tadmin['folder']) . '/' . 'lembaga/pegawai/lihatpegawai', $data),
             ];
             echo json_encode($msg);
@@ -924,7 +924,7 @@ class Pegawai extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'lembaga/pegawai/lihatpegawaiback', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
                 // 'sukses' => view('admin/lembaga/pegawai/lihatpegawai', $data)
             ];
             echo json_encode($msg);

@@ -29,7 +29,7 @@
         <div class="col-lg-8">
             <div class="card mb-4">
 
-                <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsikasmedia" />
+                <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsdatagoe" />
                 <?= form_open_multipart('', ['class' => 'formedit']) ?>
 
                 <div class='card-body'>
@@ -180,10 +180,10 @@
 
                 success: function(response) {
                     if (response.error) {
-                        // if (response.csrf_tokencmsikasmedia) {
+                        // if (response.csrf_tokencmsdatagoe) {
                         //     //update hash untuk proses error validation 
-                        //     $('#csrfToken, #csrfRandom').val(response.csrf_tokencmsikasmedia);
-                        //     $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia); //dataSrc untuk random request token char (wajib)
+                        //     $('#csrfToken, #csrfRandom').val(response.csrf_tokencmsdatagoe);
+                        //     $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe); //dataSrc untuk random request token char (wajib)
                         // }
 
 
@@ -218,7 +218,7 @@
                             $('#namatombol').removeClass('is-invalid');
                             $('.errornamatombol').html('');
                         }
-                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia); //dataSrc untuk random request token char (wajib)
+                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe); //dataSrc untuk random request token char (wajib)
 
                     } else {
 
@@ -229,7 +229,7 @@
                             showConfirmButton: false,
                             timer: 1500
                         });
-                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia); //dataSrc untuk random request token char (wajib)
+                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe); //dataSrc untuk random request token char (wajib)
 
                     }
                 },
@@ -256,7 +256,7 @@
             url: "<?= site_url('penawaran/formuploadtawaran') ?>",
             data: {
                 // [csrfToken]: csrfHash,
-                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                 modalpopup_id: modalpopup_id,
             },
             dataType: "json",
@@ -265,7 +265,7 @@
                     $('.viewmodal').html(response.sukses).show();
                     $('#modalupload').modal('show');
                 }
-                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 // $('.txt_csrfname').val(response.token);
             },
             error: function(xhr, ajaxOptions, thrownerror) {

@@ -255,7 +255,7 @@ $db = \Config\Database::connect();
                                 $('.errorusia').html('');
                             }
 
-                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                         }
                         if (response.gagal) {
 
@@ -266,7 +266,7 @@ $db = \Config\Database::connect();
                                 showConfirmButton: false,
                                 timer: 3550
                             });
-                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                         }
                         if (response.sukses) {
 
@@ -292,7 +292,7 @@ $db = \Config\Database::connect();
                             showConfirmButton: false,
                             timer: 3100
                         });
-                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                     }
                 });
                 return false;

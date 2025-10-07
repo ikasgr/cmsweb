@@ -143,7 +143,7 @@
                                         "hideMethod": "fadeOut"
                                     },
                                     toastr["success"](response.sukses)
-                                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                                 listinfografis();
                             },
                             error: function(xhr, ajaxOptions, thrownerror) {
@@ -169,7 +169,7 @@
             type: "post",
             url: "<?= site_url('infografis/formedit') ?>",
             data: {
-                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                 id_banner: id_banner
             },
             dataType: "json",
@@ -181,7 +181,7 @@
                         keyboard: false
                     });
                     $('#modaledit').modal('show');
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {
@@ -217,7 +217,7 @@
                     type: "post",
                     dataType: "json",
                     data: {
-                        csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                        csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                         id_banner: id_banner
                     },
                     success: function(response) {
@@ -240,7 +240,7 @@
                                     "hideMethod": "fadeOut"
                                 },
                                 toastr["success"](response.sukses)
-                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                             listinfografis();
                         }
                     },

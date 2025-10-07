@@ -215,7 +215,7 @@
             type: "post",
             url: "<?= site_url('ebook/formedit') ?>",
             data: {
-                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                 ebook_id: ebook_id
             },
             dataType: "json",
@@ -261,7 +261,7 @@
                     type: "post",
                     dataType: "json",
                     data: {
-                        csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                        csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                         ebook_id: ebook_id
                     },
                     success: function(response) {
@@ -284,7 +284,7 @@
                                     "hideMethod": "fadeOut"
                                 },
                                 toastr["success"](response.sukses)
-                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                             listebook();
                         }
                     },
@@ -318,7 +318,7 @@
                         keyboard: false
                     });
                     $('#modaltambah').modal('show');
-                    // $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    // $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 },
                 error: function(xhr, ajaxOptions, thrownerror) {
                     Swal.fire({
@@ -343,7 +343,7 @@
             type: "post",
             url: "<?= site_url('ebook/formlihat') ?>",
             data: {
-                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                 ebook_id: ebook_id,
                 kategoriebook_nama: kategoriebook_nama,
             },
@@ -356,7 +356,7 @@
                         keyboard: false
                     });
                     $('#modallihat').modal('show');
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {
@@ -379,7 +379,7 @@
             type: "post",
             url: "<?= site_url('ebook/formganticover') ?>",
             data: {
-                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                 ebook_id: ebook_id,
             },
             dataType: "json",
@@ -391,7 +391,7 @@
                         keyboard: false
                     });
                     $('#modalupload').modal('show');
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {
@@ -414,7 +414,7 @@
             type: "post",
             url: "<?= site_url('ebook/toggle') ?>",
             data: {
-                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                 ebook_id: ebook_id
             },
             dataType: "json",
@@ -426,7 +426,7 @@
                         showConfirmButton: false,
                         timer: 1500
                     })
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                     listebook();
                 }
             },

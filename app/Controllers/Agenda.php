@@ -127,7 +127,7 @@ class Agenda extends BaseController
             $tadmin = $this->template->tempadminaktif();
             $data = [
                 'title'                 => 'Tambah Agenda',
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             $msg = [
                 'data' => view('backend/' . $tadmin['folder'] . '/' . 'informasi/agenda/tambah', $data)
@@ -223,7 +223,7 @@ class Agenda extends BaseController
                         'pengirim'       => $validation->getError('pengirim'),
                         'jam'       => $validation->getError('jam')
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
                 echo json_encode($msg);
             } else {
@@ -260,7 +260,7 @@ class Agenda extends BaseController
 
                     $msg = [
                         'sukses' => 'Agenda berhasil disimpan!',
-                        'csrf_tokencmsikasmedia'  => csrf_hash(),
+                        'csrf_tokencmsdatagoe'  => csrf_hash(),
                     ];
                 } else {
 
@@ -287,7 +287,7 @@ class Agenda extends BaseController
                         ->save('public/img/informasi/agenda/' . $nama_file, 70);
                     $msg = [
                         'sukses' => 'Agenda berhasil disimpan!',
-                        'csrf_tokencmsikasmedia'  => csrf_hash(),
+                        'csrf_tokencmsdatagoe'  => csrf_hash(),
                     ];
                 }
                 echo json_encode($msg);
@@ -312,7 +312,7 @@ class Agenda extends BaseController
             $this->agenda->delete($id);
             $msg = [
                 'sukses'                => 'Data Agenda Berhasil Dihapus',
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
 
             ];
 
@@ -340,7 +340,7 @@ class Agenda extends BaseController
 
             $msg = [
                 'sukses' => "$jmldata Data agenda berhasil dihapus",
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
 
             ];
             echo json_encode($msg);
@@ -372,7 +372,7 @@ class Agenda extends BaseController
             ];
             $msg = [
                 'sukses' => view('backend/' . $tadmin['folder'] . '/' . 'informasi/agenda/edit', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
 
             ];
             echo json_encode($msg);
@@ -458,7 +458,7 @@ class Agenda extends BaseController
                         'pengirim'       => $validation->getError('pengirim'),
                         'jam'       => $validation->getError('jam')
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
 
                 ];
             } else {
@@ -481,7 +481,7 @@ class Agenda extends BaseController
 
                 $msg = [
                     'sukses' => 'Data Agenda berhasil diubah!',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
 
                 ];
             }
@@ -507,7 +507,7 @@ class Agenda extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'informasi/agenda/gantifoto', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -542,7 +542,7 @@ class Agenda extends BaseController
                     'error' => [
                         'gambar' => $validation->getError('gambar')
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
 
@@ -605,7 +605,7 @@ class Agenda extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'modal/v_agenda', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
 
             ];
             echo json_encode($msg);

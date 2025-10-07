@@ -24,8 +24,8 @@ class Pager extends BaseConfig
         'default_full'   => 'CodeIgniter\Pager\Views\default_full',
         'default_simple' => 'CodeIgniter\Pager\Views\default_simple',
         'default_head'   => 'CodeIgniter\Pager\Views\default_head',
-        'ikasmedia'        => 'App\Views\backend\pager',
-        'ikasmedia2'       => 'App\Views\backend\bs_page',
+        'datagoe'        => 'App\Views\backend\pager',
+        'datagoe2'       => 'App\Views\backend\bs_page',
     ];
 
     /**

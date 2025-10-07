@@ -125,7 +125,7 @@ class Layanan extends BaseController
             $tadmin = $this->template->tempadminaktif();
             $data = [
                 'title'                 => 'Tambah Layanan',
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             $msg = [
                 'data' => view('backend/' . esc($tadmin['folder']) . '/' . 'informasi/layanan/tambah', $data)
@@ -177,7 +177,7 @@ class Layanan extends BaseController
                         'isi_informasi' => $validation->getError('isi_informasi'),
                         'gambar'        => $validation->getError('gambar')
                     ],
-                    'csrf_tokencmsikasmedia' => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ]);
                 return;
             }
@@ -210,7 +210,7 @@ class Layanan extends BaseController
 
             echo json_encode([
                 'sukses' => 'Layanan berhasil disimpan!',
-                'csrf_tokencmsikasmedia' => csrf_hash(),
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ]);
         }
     }
@@ -238,7 +238,7 @@ class Layanan extends BaseController
             $this->layanan->delete($id);
             $msg = [
                 'sukses' => 'Data Layanan Berhasil Dihapus',
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
 
             ];
 
@@ -270,7 +270,7 @@ class Layanan extends BaseController
 
             $msg = [
                 'sukses'                => 'Data file yang disematkan sukses Dihapus',
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
 
             ];
 
@@ -303,7 +303,7 @@ class Layanan extends BaseController
 
             $msg = [
                 'sukses'                => "$jmldata Data layanan berhasil dihapus",
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
 
             ];
             echo json_encode($msg);
@@ -331,7 +331,7 @@ class Layanan extends BaseController
             ];
             $msg = [
                 'sukses' => view('backend/' . esc($tadmin['folder']) . '/' . 'informasi/layanan/edit', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
 
             ];
             echo json_encode($msg);
@@ -372,7 +372,7 @@ class Layanan extends BaseController
                         'nama'           => $validation->getError('nama'),
                         'isi_informasi'     => $validation->getError('isi_informasi'),
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
 
                 ];
             } else {
@@ -386,7 +386,7 @@ class Layanan extends BaseController
                 $this->layanan->update($informasi_id, $updatedata);
                 $msg = [
                     'sukses' => 'Data Layanan berhasil diubah!',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
 
                 ];
             }
@@ -409,7 +409,7 @@ class Layanan extends BaseController
                 'gambar'      => $list['gambar'],
             ];
             $msg = [
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
                 'sukses'    => view('backend/' . esc($tadmin['folder']) . '/' . 'informasi/layanan/gantifoto', $data),
             ];
             echo json_encode($msg);
@@ -444,7 +444,7 @@ class Layanan extends BaseController
                     'error' => [
                         'gambar' => $validation->getError('gambar')
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
 
@@ -494,7 +494,7 @@ class Layanan extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'informasi/layanan/uploadfile', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -533,7 +533,7 @@ class Layanan extends BaseController
                     'error' => [
                         'fileunduh' => $validation->getError('fileunduh')
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
 
@@ -604,7 +604,7 @@ class Layanan extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'modal/' . $folform . '', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -646,7 +646,7 @@ class Layanan extends BaseController
 
         $msg = [
             'sukses' => view('backend/' . esc($tadmin['folder']) . '/modal/' . $folform, $data),
-            'csrf_tokencmsikasmedia' => csrf_hash(),
+            'csrf_tokencmsdatagoe' => csrf_hash(),
         ];
 
         return $this->response->setJSON($msg);
@@ -779,7 +779,7 @@ class Layanan extends BaseController
 
             echo json_encode([
                 'sukses'                => $stsket,
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ]);
         }
     }
@@ -820,12 +820,12 @@ class Layanan extends BaseController
 
                 $msg = [
                     'sukses'                => 'Data berhasil di duplikasi!',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
                 $msg = [
                     'nodata'                => 'Data tidak ditemukan',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             // }
@@ -916,7 +916,7 @@ class Layanan extends BaseController
             $data = [
                 'title'                 => 'Tambah Jawaban',
                 'informasi_id'          => $informasi_id,
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             $tadmin             = $this->template->tempadminaktif();
 
@@ -952,7 +952,7 @@ class Layanan extends BaseController
                         'pilihan' => $validation->getError('pilihan'),
 
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
                 $userid = session()->get('id');
@@ -966,7 +966,7 @@ class Layanan extends BaseController
                 $this->poling->insert($simpandata);
                 $msg = [
                     'sukses'                => 'Data berhasil disimpan',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -1015,7 +1015,7 @@ class Layanan extends BaseController
             // Kirim response ke AJAX
             $msg = [
                 'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'modal/poling_layanan', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -1045,7 +1045,7 @@ class Layanan extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'modal/poling_layanan', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -1077,7 +1077,7 @@ class Layanan extends BaseController
             if ($is_poling_closed) {
                 $msg = [
                     'gagal'                 => 'Anda sudah berpartisipasi untuk layanan ini..!',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
                 // Tambahkan `informasi_id` ke array cookie
@@ -1098,7 +1098,7 @@ class Layanan extends BaseController
 
                 $msg = [
                     'sukses' => 'Terima kasih atas partisipasi Anda mengikuti polling layanan kami',
-                    'csrf_tokencmsikasmedia' => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);

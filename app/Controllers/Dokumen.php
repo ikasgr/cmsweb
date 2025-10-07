@@ -36,7 +36,7 @@ class Dokumen extends BaseController
                 if ($akses == '1' || $akses == '2') {
                     $data = [
                         'title'     => 'Berita',
-                        'list'      => 'cmsikasmedia',
+                        'list'      => 'cmsdatagoe',
                         'urlget'    => $urlget,
                     ];
 

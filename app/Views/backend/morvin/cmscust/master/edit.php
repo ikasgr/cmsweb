@@ -42,7 +42,7 @@
                 type: "post",
                 url: $(this).attr('action'),
                 data: {
-                    csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                    csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                     id_masterdata: $('input#id_masterdata').val(),
                     req: $('input#req').val(),
                     nama_master: $('input#nama_master').val(),
@@ -89,7 +89,7 @@
                             },
                             toastr["success"](response.sukses)
                         $('#modaledit').modal('hide');
-                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                         listmaster();
                     }
                 },
@@ -97,7 +97,7 @@
                 error: function(xhr, ajaxOptions, thrownerror) {
                     toastr["error"]("Maaf gagal proses Kode Error:  " + (xhr.status + "\n"), );
                     $('#modaledit').modal('hide');
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 }
             });
         })

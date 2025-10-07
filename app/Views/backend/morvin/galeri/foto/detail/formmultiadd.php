@@ -1,5 +1,5 @@
         <?= form_open_multipart('', ['class' => 'formtambahx']) ?>
-        <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsikasmedia" />
+        <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsdatagoe" />
 
         <table class="table table-hover tambahform">
             <thead class="bg-light p-1">
@@ -98,16 +98,16 @@
                                     if (response.error.gambar) {
                                         toastr["error"](response.error.gambar)
                                     }
-                                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                                 } else {
                                     toastr["success"](response.sukses)
-                                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                                     listfoto();
                                 }
                             },
                             error: function(xhr, ajaxOptions, thrownerror) {
                                 toastr["error"]("Maaf gagal simpan Kode Error:  " + (xhr.status + "\n"), );
-                                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                             }
 
                         });

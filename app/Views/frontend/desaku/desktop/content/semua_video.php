@@ -61,7 +61,7 @@ $db = \Config\Database::connect();
                         <?php if ($jum > 6) { ?>
                             <P>
                             <ul class="pagination justify-content-center">
-                                <?= $pager->links('hal', 'ikasmedia'); ?>
+                                <?= $pager->links('hal', 'datagoe'); ?>
                             </ul>
                             </P>
                         <?php } ?>

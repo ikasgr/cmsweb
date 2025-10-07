@@ -57,7 +57,7 @@
                                 <?php if ($jum > 4) { ?>
                                     <P>
                                     <ul class="pagination justify-content-center">
-                                        <?= $pager->links('hal', 'ikasmedia'); ?>
+                                        <?= $pager->links('hal', 'datagoe'); ?>
                                     </ul>
                                     </P>
                                 <?php } ?>

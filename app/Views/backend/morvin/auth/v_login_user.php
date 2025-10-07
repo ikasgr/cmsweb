@@ -1,10 +1,10 @@
 <!-- =======================================================
-      * CMS ikasmedia
+      * CMS DATAGOE
       * Content Management System.
       *
-      * @author			ikasmedia <ikasmedia@gmail.com>
-      * @website		www.ikasmedia.net
-      * @copyright		(c) 2025 - ikasmedia Software
+      * @author			Vian Taum <viantaum17@gmail.com>
+      * @website		www.datagoe.com
+      * @copyright		(c) 2023 - Datagoe Software
  ======================================================== -->
 
 <!DOCTYPE html>
@@ -16,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
 
     <title>Login</title>
-    <meta content="CMS ikasmedia" name="ikasmedia" />
+    <meta content="CMS Datagoe" name="Vian Taum" />
     <link rel="shortcut icon" href="<?= base_url('/public/img/konfigurasi/icon/' . esc($konfigurasi->icon)) ?>">
     <?php if (esc($sitekey) != '') { ?>
         <script src='https://www.google.com/recaptcha/api.js'></script>
@@ -72,7 +72,7 @@
                         <hr>
                         <!-- <p class="mb-4">Please sign-in to your account and start the adventure</p> -->
                         <?= form_open('login/validasi', ['class' => 'formlogin']) ?>
-                        <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsikasmedia" />
+                        <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsdatagoe" />
 
                         <form class="mb-1" autocomplete="off | unknown-autocomplete-value">
                             <div id="strlogin">
@@ -208,7 +208,7 @@
                                     window.location = '';
                                 });
                             }
-                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                         }
                         if (response.gagalcap) {
                             Swal.fire({
@@ -256,7 +256,7 @@
                                 showConfirmButton: false,
                                 timer: 3250
                             });
-                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                         }
 
                         if (response.emailerr) {
@@ -303,7 +303,7 @@
                         if (response.sukses) {
                             window.location = '<?= base_url('dashboard') ?>';
                         }
-                        // $('input[name="<?= csrf_token() ?>"]').val(response.csrf_tokencmsikasmedia);
+                        // $('input[name="<?= csrf_token() ?>"]').val(response.csrf_tokencmsdatagoe);
                     },
                     error: function(xhr, ajaxOptions, thrownerror) {
                         Swal.fire({

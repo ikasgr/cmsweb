@@ -1,10 +1,10 @@
 <!-- =======================================================
-      * CMS ikasmedia
+      * CMS DATAGOE
       * Content Management System.
       *
-      * @author			ikasmedia <ikasmedia@gmail.com>
-      * @website		www.ikasmedia.net
-      * @copyright		(c) 2025 - ikasmedia Software
+      * @author			Vian Taum <viantaum17@gmail.com>
+      * @website		www.datagoe.com
+      * @copyright		(c) 2023 - Datagoe Software
  ======================================================== -->
 
 <?php
@@ -51,15 +51,15 @@ $request            = $uri->getSegment(1);
     <meta property="og:image" content="<?= esc($img) ?>">
     <meta property="og:site_name" content="<?= esc($konfigurasi->website) ?>">
     <meta property="og:description" content="<?= esc($deskripsi) ?>">
-    <meta property="article:author" content="https://www.facebook.com/ikasmediasoftware/" />
-    <meta property="article:publisher" content="https://www.facebook.com/ikasmediasoftware/" />
+    <meta property="article:author" content="https://www.facebook.com/datagoesoftware/" />
+    <meta property="article:publisher" content="https://www.facebook.com/datagoesoftware/" />
     <meta property="og:image:width" content="600">
     <meta property="og:image:height" content="315">
 
     <!-- twitter card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@ikasmedia_wkc" />
-    <meta name="twitter:creator" content="@ikasmedia_wkc">
+    <meta name="twitter:site" content="@datagoe_wkc" />
+    <meta name="twitter:creator" content="@datagoe_wkc">
     <meta name="twitter:title" content="<?= esc($title) ?>" />
     <meta name="twitter:description" content="<?= esc($deskripsi) ?>" />
     <meta name="twitter:image:src" content="<?= esc($img) ?>" />
@@ -124,7 +124,7 @@ $request            = $uri->getSegment(1);
     <link rel="stylesheet" href="<?= base_url('/public/template/frontend/' . esc($folder) . '/desktop/css/menu.css?v1') ?>">
     <link rel="stylesheet" href="<?= base_url('/public/template/frontend/' . esc($folder) . '/desktop/css/mediumish.css') ?>">
     <link rel="stylesheet" href="<?= base_url('/public/template/frontend/' . esc($folder) . '/desktop/css/beranda.css') ?>">
-    <link rel="stylesheet" href="<?= base_url('/public/template/frontend/' . esc($folder) . '/desktop/css/ikasmedia.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('/public/template/frontend/' . esc($folder) . '/desktop/css/datagoe.css') ?>">
     <link rel="stylesheet" href="<?= base_url('/public/template/frontend/' . esc($folder) . '/desktop/css/dge.css') ?>">
     <link rel="stylesheet" href="<?= base_url('/public/template/frontend/' . esc($folder) . '/desktop/css/owl.carousel.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('/public/template/frontend/' . esc($folder) . '/desktop/css/owl.theme.default.min.css') ?>">

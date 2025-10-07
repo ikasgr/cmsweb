@@ -372,32 +372,32 @@
                             // }
 
 
-                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
 
                         }
                         if (response.namaganda) {
                             $('#username').addClass('is-invalid');
                             $('.errorusername').html(response.namaganda.username);
                             toastr["error"](response.namaganda)
-                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                         }
                         if (response.errorpass) {
                             $('#password').addClass('is-invalid');
                             $('.errorpassword').html(response.errorpass.password);
                             toastr["error"](response.errorpass)
-                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
 
                         }
                         if (response.sukses) {
 
-                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                             toastr["success"](response.sukses)
                         }
 
                     },
                     error: function(xhr, ajaxOptions, thrownerror) {
                         toastr["error"]("Maaf gagal proses Kode Error:  " + (xhr.status + "\n"), );
-                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                     }
                 });
             });
@@ -410,7 +410,7 @@
             url: "<?= site_url('akun/formgantifoto') ?>",
             data: {
                 id: id,
-                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
             },
             dataType: "json",
             success: function(response) {
@@ -438,7 +438,7 @@
             type: "post",
             url: "<?= site_url('user/formlihat') ?>",
             data: {
-                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                 id: id,
             },
             dataType: "json",
@@ -450,7 +450,7 @@
                         backdrop: 'static',
                         keyboard: false
                     });
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {

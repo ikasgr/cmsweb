@@ -86,7 +86,7 @@ class Sambutan extends BaseController
                         'nama_pimpinan'     => $validation->getError('nama_pimpinan'),
                         'jabatan_pimpinan'  => $validation->getError('jabatan_pimpinan')
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
                 $simpandata = [
@@ -99,7 +99,7 @@ class Sambutan extends BaseController
                 $this->konfigurasi->update(1, $simpandata);
                 $msg = [
                     'sukses' => 'Data berhasil diupdate',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -122,7 +122,7 @@ class Sambutan extends BaseController
             ];
             $msg = [
                 'sukses' => view('backend/' . $tadmin['folder'] . '/' . 'lembaga/sambutan/uploadlogo', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
 
             ];
             echo json_encode($msg);
@@ -153,7 +153,7 @@ class Sambutan extends BaseController
                     'error' => [
                         'gbr_sambutan' => $validation->getError('gbr_sambutan')
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
                 //check
@@ -177,7 +177,7 @@ class Sambutan extends BaseController
                     ->save('public/img/konfigurasi/pimpinan/' . $nama_file, 90);
                 $msg = [
                     'sukses'                => 'Gambar berhasil diupload!',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);

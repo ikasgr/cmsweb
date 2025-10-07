@@ -54,7 +54,7 @@ class Cari extends BaseController
                 'grafisrandom'    => $this->banner->grafisrandom(),
 
                 'folder'         => esc($template['folder']),
-                'csrf_tokencmsikasmedia' => csrf_hash(),
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ];
             // Menuju ke web front end;
             if ($template['duatema'] == 1) {

@@ -182,7 +182,7 @@
                             $('#jabatan_pimpinan').removeClass('is-invalid');
                             $('.errorjabatan_pimpinan').html('');
                         }
-                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                     } else {
                         Swal.fire({
                             title: "Berhasil!",
@@ -191,7 +191,7 @@
                             showConfirmButton: false,
                             timer: 1500
                         });
-                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                     }
                 },
                 error: function(xhr, ajaxOptions, thrownerror) {
@@ -202,7 +202,7 @@
                         showConfirmButton: false,
                         timer: 2100
                     });
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 }
             });
         })
@@ -215,7 +215,7 @@
             type: "post",
             url: "<?= site_url('sambutan/formuploadpimpinan') ?>",
             data: {
-                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                 id_setaplikasi: id_setaplikasi,
             },
             dataType: "json",
@@ -223,7 +223,7 @@
                 if (response.sukses) {
                     $('.viewmodal').html(response.sukses).show();
                     $('#modalupload').modal('show');
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {
@@ -234,7 +234,7 @@
                     showConfirmButton: false,
                     timer: 3100
                 });
-                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
             }
         });
     }

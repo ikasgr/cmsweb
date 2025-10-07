@@ -40,7 +40,7 @@
                 type: "post",
                 url: $(this).attr('action'),
                 data: {
-                    csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                    csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                     nama_bidang: $('input#nama_bidang').val(),
 
                 },
@@ -64,7 +64,7 @@
                             $('#nama_bidang').removeClass('is-invalid');
                             $('.errornama_bidang').html('');
                         }
-                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                     } else {
 
 
@@ -87,7 +87,7 @@
                             },
                             toastr["success"](response.sukses)
                         $('#modaltambah').modal('hide');
-                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                         listbidang();
                     }
                 },
@@ -95,7 +95,7 @@
 
                     toastr["error"]("Maaf gagal proses Kode Error:  " + (xhr.status + "\n"), );
                     $('#modaltambah').modal('hide');
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
 
                 }
             });

@@ -66,7 +66,7 @@ class Kritiksaran extends BaseController
             ];
             $msg = [
 
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
                 'data' => view('backend/' . $tadmin['folder'] . '/' . 'modal/kritiksaranmd', $data),
 
             ];
@@ -396,7 +396,7 @@ class Kritiksaran extends BaseController
                     ];
                     $msg = [
                         'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'interaksi/kritiksaran/edit', $data),
-                        'csrf_tokencmsikasmedia'  => csrf_hash(),
+                        'csrf_tokencmsdatagoe'  => csrf_hash(),
                         // 'sukses' => view('admin/interaksi/kritiksaran/edit', $data)
                     ];
                 } else {
@@ -435,7 +435,7 @@ class Kritiksaran extends BaseController
                     'error' => [
                         'balas' => $validation->getError('balas'),
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
 
@@ -569,7 +569,7 @@ class Kritiksaran extends BaseController
 
                 $msg = [
                     'sukses'                => $pesan,
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -653,7 +653,7 @@ class Kritiksaran extends BaseController
             $this->kritiksaran->delete($kritiksaran_id);
             $msg = [
                 'sukses'                => 'Data berhasil dihapus!',
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
 
             echo json_encode($msg);

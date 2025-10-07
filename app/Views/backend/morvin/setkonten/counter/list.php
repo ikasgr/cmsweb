@@ -119,7 +119,7 @@
                         keyboard: false
                     });
                     $('#modaltambah').modal('show');
-                    // $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    // $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 },
                 error: function(xhr, ajaxOptions, thrownerror) {
 
@@ -143,7 +143,7 @@
             type: "post",
             url: "<?= site_url('counter/formedit') ?>",
             data: {
-                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                 id_counter: id_counter
             },
             dataType: "json",
@@ -155,7 +155,7 @@
                         keyboard: false
                     });
                     $('#modaledit').modal('show');
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 }
             },
 
@@ -193,7 +193,7 @@
                     type: "post",
                     dataType: "json",
                     data: {
-                        csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                        csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                         id_counter: id_counter
                     },
 
@@ -219,7 +219,7 @@
                                     "hideMethod": "fadeOut"
                                 },
                                 listcount();
-                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                         }
                     },
                     error: function(xhr, ajaxOptions, thrownerror) {
@@ -243,7 +243,7 @@
             type: "post",
             url: "<?= site_url('counter/toggle') ?>",
             data: {
-                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                 id_counter: id_counter
             },
             dataType: "json",
@@ -256,7 +256,7 @@
                         timer: 1500
                     })
                     listcount();
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {

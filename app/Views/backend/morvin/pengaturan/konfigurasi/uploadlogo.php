@@ -19,7 +19,7 @@
                 $img = 'default.png';
             }
             ?>
-            <!-- <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsikasmedia" /> -->
+            <!-- <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsdatagoe" /> -->
             <br>
 
             <center>
@@ -104,21 +104,21 @@
                         $('.btnupload').html('<i class="fa fa-share-square"></i>  Simpan');
                     },
                     success: function(response) {
-                        // if (response.csrf_tokencmsikasmedia) {
+                        // if (response.csrf_tokencmsdatagoe) {
                         //     //update hash untuk proses error validation 
-                        //     $('#csrfToken, #csrfRandom').val(response.csrf_tokencmsikasmedia);
-                        //     $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                        //     $('#csrfToken, #csrfRandom').val(response.csrf_tokencmsdatagoe);
+                        //     $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                         // }
                         if (response.error) {
                             if (response.error.logo) {
                                 $('#logo').addClass('is-invalid');
                                 $('.errorLogo').html(response.error.logo);
-                                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                             }
                         } else if (response.nofile) {
 
                             toastr["error"](response.nofile)
-                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                         } else {
                             // toastr["success"](response.sukses)
                             Swal.fire({
@@ -131,12 +131,12 @@
                                 window.location = '';
                             })
                             // $('#modalupload').modal('hide');
-                            // $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                            // $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                         }
                     },
                     error: function(xhr, ajaxOptions, thrownerror) {
                         // $('#modalupload').modal('hide');
-                        // $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                        // $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                         // toastr["error"]("Maaf gagal proses Kode Error:  " + (xhr.status + "\n"), )
                         Swal.fire({
                             title: "Maaf gagal update Logo!",

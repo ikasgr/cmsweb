@@ -31,7 +31,7 @@
             type: "post",
             url: "<?= site_url('berita/formkomenback') ?>",
             data: {
-                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                 beritakomen_id: beritakomen_id
             },
             dataType: "json",
@@ -47,7 +47,7 @@
                     }).then(function() {
                         // window.location = '../';
                     })
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 }
                 if (response.blmakses) {
 
@@ -68,7 +68,7 @@
                         keyboard: false
                     });
                     $('#modalkomen').modal('show');
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {
@@ -80,7 +80,7 @@
                     // showConfirmButton: false,
                     // timer: 3100
                 });
-                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
             }
         });
     }

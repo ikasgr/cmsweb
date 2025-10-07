@@ -24,6 +24,14 @@ use App\Models\M_Prj_mohoninfo;
 
 use App\Models\M_Unitkerja;
 use App\Models\M_Unitkerjatipe;
+use App\Models\M_PendaftaranSidi;
+use App\Models\M_PendaftaranBaptis;
+use App\Models\M_PendaftaranNikah;
+use App\Models\M_ProdukUmkm;
+use App\Models\M_KategoriProduk;
+use App\Models\M_Keranjang;
+use App\Models\M_Pesanan;
+use App\Models\M_PesananDetail;
 
 
 use App\Models\ModelAgenda;
@@ -175,6 +183,14 @@ abstract class BaseController extends Controller
         $this->transparan = new ModelTransparan();
         $this->fasilitas = new M_Fasilitas();
         $this->fasilitasdetail = new M_FasilitasDetail();
+        $this->pendaftaransidi = new M_PendaftaranSidi();
+        $this->pendaftaranbaptis = new M_PendaftaranBaptis();
+        $this->pendaftarannikah = new M_PendaftaranNikah();
+        $this->produkumkm = new M_ProdukUmkm();
+        $this->kategoriproduk = new M_KategoriProduk();
+        $this->keranjang = new M_Keranjang();
+        $this->pesanan = new M_Pesanan();
+        $this->pesanandetail = new M_PesananDetail();
 
         $this->user->kunjungan();
     }

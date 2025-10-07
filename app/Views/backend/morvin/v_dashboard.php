@@ -6,7 +6,7 @@ $list = $db->table('users')->where('id', $userid)->get()->getRowArray();
 
 ?>
 
-<input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsikasmedia" />
+<input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsdatagoe" />
 <!-- start page title -->
 <div class="page-title-box pt-3">
     <div class="container-fluid">
@@ -346,10 +346,10 @@ $list = $db->table('users')->where('id', $userid)->get()->getRowArray();
                         </div>
                     <?php } else { ?>
                         <div class="border-top text-center mt-3">
-                            <!-- <img class="" src="<?= base_url('public/template/backend/morvin/assets/images/coming-soon.png') ?>" alt="ikasmedia" width="20%" height="100%"> -->
+                            <!-- <img class="" src="<?= base_url('public/template/backend/morvin/assets/images/coming-soon.png') ?>" alt="datagoe" width="20%" height="100%"> -->
                             <div class="alert alert-info alert-dismissible fade show mb-0" role="alert">
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                Dapatkan produk berkualitas ikasmedia SOFTWARE lainnya, <a target="_blank" href="https://ikasmedia.net/">disini</a>..!
+                                Dapatkan produk berkualitas DATAGOE SOFTWARE lainnya, <a target="_blank" href="https://datagoe.com/">disini</a>..!
                             </div>
                         </div>
                     <?php } ?>
@@ -451,7 +451,7 @@ $list = $db->table('users')->where('id', $userid)->get()->getRowArray();
             url: "<?= site_url('admin/TampilkanGrafik') ?>",
             data: {
                 // [csrfToken]: csrfHash,
-                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
             },
             dataType: "json",
 
@@ -462,12 +462,12 @@ $list = $db->table('users')->where('id', $userid)->get()->getRowArray();
             success: function(response) {
                 if (response.data) {
                     $('.viewtampilgrafik').html(response.data);
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 }
-                if (response.csrf_tokencmsikasmedia) {
+                if (response.csrf_tokencmsdatagoe) {
                     //update hash untuk proses error validation 
-                    $('#csrfToken, #csrfRandom').val(response.csrf_tokencmsikasmedia);
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia); //dataSrc untuk random request token char (wajib)
+                    $('#csrfToken, #csrfRandom').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe); //dataSrc untuk random request token char (wajib)
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {
@@ -480,7 +480,7 @@ $list = $db->table('users')->where('id', $userid)->get()->getRowArray();
                 }).then(function() {
                     // window.location = '';
                 })
-                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
             }
         });
     }
@@ -494,11 +494,11 @@ $list = $db->table('users')->where('id', $userid)->get()->getRowArray();
             },
             success: function(response) {
                 $('.viewonline').html(response.data);
-                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
-                if (response.csrf_tokencmsikasmedia) {
+                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
+                if (response.csrf_tokencmsdatagoe) {
                     //update hash untuk proses error validation 
-                    $('#csrfToken, #csrfRandom').val(response.csrf_tokencmsikasmedia);
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia); //dataSrc untuk random request token char (wajib)
+                    $('#csrfToken, #csrfRandom').val(response.csrf_tokencmsdatagoe);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe); //dataSrc untuk random request token char (wajib)
                 }
             },
 
@@ -510,7 +510,7 @@ $list = $db->table('users')->where('id', $userid)->get()->getRowArray();
                     // showConfirmButton: false,
                     // timer: 3100
                 });
-                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
             }
         });
     }

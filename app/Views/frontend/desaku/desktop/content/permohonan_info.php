@@ -206,7 +206,7 @@
                             $('#tujuan_info').addClass('is-valid');
                         }
 
-                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                     }
 
                     if (response.sukses) {
@@ -338,7 +338,7 @@
                             $('#tujuan_info').addClass('is-valid');
                         }
 
-                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                         $(".progress").hide();
                     } else {
 

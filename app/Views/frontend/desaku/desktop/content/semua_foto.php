@@ -66,7 +66,7 @@ $db = \Config\Database::connect();
                     <?php if ($jumpg > 12) { ?>
                         <P>
                         <ul class="pagination justify-content-center">
-                            <?= $pager->links('hal', 'ikasmedia'); ?>
+                            <?= $pager->links('hal', 'datagoe'); ?>
                         </ul>
                         </P>
                     <?php } ?>

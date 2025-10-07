@@ -91,7 +91,7 @@
                             $('#fotouser').addClass('is-invalid');
                             $('.errorUser').html(response.error.fotouser);
                         }
-                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                     } else {
                         Swal.fire({
                             title: "Berhasil!",

@@ -226,7 +226,7 @@ $db = \Config\Database::connect();
                                         "hideMethod": "fadeOut"
                                     },
                                     toastr["success"](response.sukses)
-                                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                                 listuser();
                             },
                             error: function(xhr, ajaxOptions, thrownerror) {
@@ -252,7 +252,7 @@ $db = \Config\Database::connect();
             type: "post",
             url: "<?= site_url('user/formedit') ?>",
             data: {
-                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                 id: id,
                 jenisgrp: jenisgrp
             },
@@ -265,7 +265,7 @@ $db = \Config\Database::connect();
                         backdrop: 'static',
                         keyboard: false
                     });
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {
@@ -287,7 +287,7 @@ $db = \Config\Database::connect();
             type: "post",
             url: "<?= site_url('user/formlihat') ?>",
             data: {
-                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                 id: id,
                 jenisgrp: jenisgrp
             },
@@ -300,7 +300,7 @@ $db = \Config\Database::connect();
                         backdrop: 'static',
                         keyboard: false
                     });
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {
@@ -334,7 +334,7 @@ $db = \Config\Database::connect();
                     type: "post",
                     dataType: "json",
                     data: {
-                        csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                        csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                         id: id
                     },
                     success: function(response) {
@@ -357,7 +357,7 @@ $db = \Config\Database::connect();
                                     "hideMethod": "fadeOut"
                                 },
                                 toastr["success"](response.sukses)
-                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                             listuser();
                         }
                     },
@@ -415,7 +415,7 @@ $db = \Config\Database::connect();
             type: "post",
             url: "<?= site_url('user/toggle') ?>",
             data: {
-                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                 id: id,
                 jns: jns
             },
@@ -428,7 +428,7 @@ $db = \Config\Database::connect();
                         showConfirmButton: false,
                         timer: 1500
                     })
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                     listuser();
                 }
             },
@@ -454,7 +454,7 @@ $db = \Config\Database::connect();
             url: "<?= site_url('user/formgantifoto') ?>",
             data: {
                 id: id,
-                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
             },
             dataType: "json",
             success: function(response) {
@@ -465,7 +465,7 @@ $db = \Config\Database::connect();
                         backdrop: 'static',
                         keyboard: false
                     });
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {

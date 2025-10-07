@@ -86,7 +86,7 @@ class Linkterkait extends BaseController
 
             echo json_encode([
                 'sukses'                => $stsket,
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ]);
         }
     }
@@ -155,7 +155,7 @@ class Linkterkait extends BaseController
                         'url'           => $validation->getError('url'),
                         'gambar'       => $validation->getError('gambar')
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
                 echo json_encode($msg);
             } else {
@@ -179,7 +179,7 @@ class Linkterkait extends BaseController
 
                     $msg = [
                         'sukses' => 'Link terkait berhasil disimpan!',
-                        'csrf_tokencmsikasmedia'  => csrf_hash(),
+                        'csrf_tokencmsdatagoe'  => csrf_hash(),
                     ];
                 } else {
 
@@ -198,7 +198,7 @@ class Linkterkait extends BaseController
                         ->save('public/img/linkterkait/' .  $nama_file);
                     $msg = [
                         'sukses'                => 'Link terkait berhasil disimpan!',
-                        'csrf_tokencmsikasmedia'  => csrf_hash(),
+                        'csrf_tokencmsdatagoe'  => csrf_hash(),
                     ];
                 }
                 echo json_encode($msg);
@@ -224,7 +224,7 @@ class Linkterkait extends BaseController
             $this->linkterkait->delete($id);
             $msg = [
                 'sukses'                => 'Data Berhasil Dihapus',
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -251,7 +251,7 @@ class Linkterkait extends BaseController
 
             $msg = [
                 'sukses'                => "$jmldata Data link terkait berhasil dihapus",
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -276,7 +276,7 @@ class Linkterkait extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'setkonten/linkterkait/edit', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -316,7 +316,7 @@ class Linkterkait extends BaseController
                         'nama_link'   => $validation->getError('nama_link'),
                         'url'       => $validation->getError('url')
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
                 $updatedata = [
@@ -328,7 +328,7 @@ class Linkterkait extends BaseController
 
                 $msg = [
                     'sukses'                => 'Data berhasil diubah!',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -352,7 +352,7 @@ class Linkterkait extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'setkonten/linkterkait/gantifoto', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -387,7 +387,7 @@ class Linkterkait extends BaseController
                     'error' => [
                         'gambar' => $validation->getError('gambar')
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
 
@@ -413,7 +413,7 @@ class Linkterkait extends BaseController
 
                 $msg = [
                     'sukses'                => 'Logo link terkait berhasil diganti!',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);

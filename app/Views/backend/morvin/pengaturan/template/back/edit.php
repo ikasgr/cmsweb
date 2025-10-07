@@ -220,14 +220,14 @@
                                     $('#img').removeClass('is-invalid');
                                     $('.errorimg').html('');
                                 }
-                                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                             } else {
 
                                 // toastr["success"]("Berhasil simpan")
                                 // toastr.success["success"](response.sukses)
                                 toastr.success(response.sukses);
                                 $('#modaledit').modal('hide');
-                                // $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                                // $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                                 // listtemplateback();
                                 window.location = '';
                             }
@@ -236,7 +236,7 @@
 
                             toastr["error"]("Maaf gagal proses Kode Error:  " + (xhr.status + "\n"), )
                             $('#modaledit').modal('hide');
-                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                         }
                     });
             });

@@ -50,7 +50,7 @@
         $.ajax({
             type: "post",
             data: {
-                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                 type: "post",
                 gm: gm,
             },
@@ -58,7 +58,7 @@
             dataType: "json",
             success: function(response) {
                 $('.viewdata').html(response.data);
-                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 if (response.noakses) {
 
                     Swal.fire({

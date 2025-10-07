@@ -32,7 +32,7 @@
 
                             <div class="col-lg-4 mt-1">
                                 <div class="card shadow-sm p-1 bg-info" style="border: 1;  box-shadow: 1px;">
-                                    <img class="card-img-top img-fluid" title=" <?= esc($data['ket']) ?>" src="<?= base_url('public/img/template/' . $gbr) ?>" alt="CMS ikasmedia">
+                                    <img class="card-img-top img-fluid" title=" <?= esc($data['ket']) ?>" src="<?= base_url('public/img/template/' . $gbr) ?>" alt="CMS DATAGOE">
                                     <div class="card-body">
                                         <h4 class="card-title font-size-14 mt-0 text-center "><?= esc($data['nama']) ?> <a class="text-danger"><?= esc($data['pembuat']) ?></a></h4>
                                         <small class="mt-1 pt-0 text-center">
@@ -57,7 +57,7 @@
                         <?php } else { ?>
                             <div class="col-lg-4 mt-1">
                                 <div class="card shadow-lg p-1" style="border: 1;  box-shadow: 1px;">
-                                    <img class="card-img-top img-fluid" title="<?= esc($data['ket']) ?>" src="<?= base_url('public/img/template/' . $gbr) ?>" alt="CMS ikasmedia">
+                                    <img class="card-img-top img-fluid" title="<?= esc($data['ket']) ?>" src="<?= base_url('public/img/template/' . $gbr) ?>" alt="CMS DATAGOE">
                                     <div class="card-body">
                                         <h4 class="card-title font-size-14 mt-0 text-center text-primary"><?= esc($data['nama']) ?> <a class="text-danger"><?= esc($data['pembuat']) ?></a></h4>
                                         <small class="mt-1 pt-0 text-center">
@@ -79,11 +79,11 @@
                                 <div class="card mb-2">
                                     <?php if ($folpub) { ?>
                                         <a class="pointer" title=" <?= esc($data['ket']) ?>" onclick="toggle('<?= $data['template_id'] ?>','<?= esc($data['folder']) ?>')">
-                                            <img class="card-img-top img-fluid" src="<?= base_url('public/img/template/' . $gbr) ?>" alt="CMS ikasmedia">
+                                            <img class="card-img-top img-fluid" src="<?= base_url('public/img/template/' . $gbr) ?>" alt="CMS DATAGOE">
                                         </a>
                                     <?php } else { ?>
                                         <a class="" title="Tidak dapat terapkan tema ini">
-                                            <img class="card-img-top img-fluid" src="<?= base_url('public/img/template/' . $gbr) ?>" alt="CMS ikasmedia">
+                                            <img class="card-img-top img-fluid" src="<?= base_url('public/img/template/' . $gbr) ?>" alt="CMS DATAGOE">
                                         </a>
                                     <?php } ?>
                                     <div class="card-body">
@@ -112,7 +112,7 @@
                         <?php } else { ?>
                             <div class="col-lg-4 mt-1">
                                 <div class="card mb-2">
-                                    <img class="card-img-top img-fluid" src="<?= base_url('public/img/template/' . $gbr) ?>" alt="CMS ikasmedia">
+                                    <img class="card-img-top img-fluid" src="<?= base_url('public/img/template/' . $gbr) ?>" alt="CMS DATAGOE">
                                     <div class="card-body">
                                         <h4 class="card-title font-size-14 mt-0 text-center text-primary"><?= esc($data['nama']) ?> - <a class="text-danger"><?= esc($data['pembuat']) ?></a></h4>
 
@@ -140,7 +140,7 @@
             type: "post",
             url: "<?= site_url('template/toggleback') ?>",
             data: {
-                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                 template_id: template_id,
                 folder: folder
             },
@@ -153,7 +153,7 @@
                         // showConfirmButton: false,
                         // timer: 1500
                     })
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                     // listtemplateback();
                     window.location = '';
                 }
@@ -205,7 +205,7 @@
             type: "post",
             url: "<?= site_url('template/formeditback') ?>",
             data: {
-                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                 template_id: template_id
             },
             dataType: "json",
@@ -213,7 +213,7 @@
                 if (response.sukses) {
                     $('.viewmodal').html(response.sukses).show();
                     $('#modaledit').modal('show');
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 }
             },
 
@@ -249,7 +249,7 @@
                     type: "post",
                     dataType: "json",
                     data: {
-                        csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                        csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                         template_id: template_id
                     },
 
@@ -273,7 +273,7 @@
                                     "showMethod": "fadeIn",
                                     "hideMethod": "fadeOut"
                                 },
-                                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                             listtemplateback();
                         }
                     },

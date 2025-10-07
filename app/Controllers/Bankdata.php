@@ -128,7 +128,7 @@ class Bankdata extends BaseController
             $tadmin = $this->template->tempadminaktif();
             $data = [
                 'title' => 'Tambah Bank Data',
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             $msg = [
                 'data' => view('backend/' . $tadmin['folder'] . '/' . 'informasi/bankdata/tambah', $data)
@@ -176,7 +176,7 @@ class Bankdata extends BaseController
                         'fileupload'     => $validation->getError('fileupload'),
 
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
                 echo json_encode($msg);
             } else {
@@ -208,7 +208,7 @@ class Bankdata extends BaseController
 
                     $msg = [
                         'sukses' => 'Bank data berhasil disimpan!',
-                        'csrf_tokencmsikasmedia'  => csrf_hash(),
+                        'csrf_tokencmsdatagoe'  => csrf_hash(),
                     ];
                 }
                 echo json_encode($msg);
@@ -233,7 +233,7 @@ class Bankdata extends BaseController
             $this->bankdata->delete($id);
             $msg = [
                 'sukses' => 'Data Berhasil Dihapus',
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
 
             ];
 
@@ -261,7 +261,7 @@ class Bankdata extends BaseController
 
             $msg = [
                 'sukses'                => "$jmldata Data berhasil dihapus",
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
 
             ];
             echo json_encode($msg);
@@ -289,7 +289,7 @@ class Bankdata extends BaseController
             ];
             $msg = [
                 'sukses' => view('backend/' . $tadmin['folder'] . '/' . 'informasi/bankdata/edit', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
 
             ];
             echo json_encode($msg);
@@ -321,7 +321,7 @@ class Bankdata extends BaseController
                     'error' => [
                         'nama_bankdata'           => $validation->getError('nama_bankdata'),
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
 
@@ -336,7 +336,7 @@ class Bankdata extends BaseController
 
                 $msg = [
                     'sukses'                => 'Data berhasil diubah!',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -361,7 +361,7 @@ class Bankdata extends BaseController
             ];
             $msg = [
                 'sukses' => view('backend/' . $tadmin['folder'] . '/' . 'informasi/bankdata/gantifile', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -399,7 +399,7 @@ class Bankdata extends BaseController
                     'error' => [
                         'fileupload' => $validation->getError('fileupload')
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
 
@@ -410,7 +410,7 @@ class Bankdata extends BaseController
                 if ($ext == 'php' || $ext == 'js') {
                     $msg = [
                         'nofile' => 'File tidak diijinkan!',
-                        'csrf_tokencmsikasmedia'  => csrf_hash(),
+                        'csrf_tokencmsdatagoe'  => csrf_hash(),
                     ];
                 } else {
 
@@ -433,7 +433,7 @@ class Bankdata extends BaseController
 
                     $msg = [
                         'sukses'                => 'File berhasil diupload!',
-                        'csrf_tokencmsikasmedia'  => csrf_hash(),
+                        'csrf_tokencmsdatagoe'  => csrf_hash(),
                     ];
                 }
             }

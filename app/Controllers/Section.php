@@ -133,7 +133,7 @@ class Section extends BaseController
                         'link'          => $validation->getError('link'),
                         'gambar'        => $validation->getError('gambar')
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
 
@@ -156,7 +156,7 @@ class Section extends BaseController
                 // $filegambar->move('public/img/section/', $nama_file); //folder gbr
                 $msg = [
                     'sukses'                => 'Gambar berhasil diupload!',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -185,7 +185,7 @@ class Section extends BaseController
             ];
             $msg = [
                 'sukses' => view('backend/' . esc($tadmin['folder']) . '/' . 'setkonten/section/edit', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -235,7 +235,7 @@ class Section extends BaseController
                         'link' => $validation->getError('link')
 
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
                 $filegambar = $this->request->getFile('gambar');
@@ -251,7 +251,7 @@ class Section extends BaseController
                     $this->section->update($section_id, $data);
                     $msg = [
                         'sukses'                => 'Data berhasil diubah!',
-                        'csrf_tokencmsikasmedia'  => csrf_hash(),
+                        'csrf_tokencmsdatagoe'  => csrf_hash(),
                     ];
                 } else {
 
@@ -279,7 +279,7 @@ class Section extends BaseController
 
                     $msg = [
                         'sukses'                => 'section berhasil diganti!',
-                        'csrf_tokencmsikasmedia'  => csrf_hash(),
+                        'csrf_tokencmsdatagoe'  => csrf_hash(),
                     ];
                 }
 
@@ -305,7 +305,7 @@ class Section extends BaseController
             $this->section->delete($id);
             $msg = [
                 'sukses'                => 'Data Section berhasil dihapus.',
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -334,7 +334,7 @@ class Section extends BaseController
 
             $msg = [
                 'sukses'                => "$jmldata Data section berhasil dihapus",
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }

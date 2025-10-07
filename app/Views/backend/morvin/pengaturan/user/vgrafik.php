@@ -1,7 +1,7 @@
 <canvas id="myChart" class="d-none d-sm-block" height="114"></canvas>
 <canvas id="myChartMob" class="d-block d-sm-none" height="180"></canvas>
 <!-- <canvas id="pie-ecart" class="d-none d-sm-block" height="114"></canvas> -->
-<input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsikasmedia" />
+<input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsdatagoe" />
 <?php
 $persentasi = round($pengunjungblnini / $totkunjungan * 100, 2);
 ?>

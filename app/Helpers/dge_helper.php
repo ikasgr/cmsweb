@@ -5,7 +5,7 @@ use Config\Services;
 use App\Models\ModelKonfigurasi;
 
 /**
- * CMS ikasmedia!
+ * CMS DATAGOE!
  *
  * Selamat datang bro ^_^ terima kasih sudah menggunakan CMS ini sebagai Core situs Anda. 
  * agar tetap terlihat berwibawa dan berkelas, mohon tetap menghargai karya cipta,
@@ -13,10 +13,10 @@ use App\Models\ModelKonfigurasi;
  *
  * Mari kita sama-sama saling menghormati dan menghargai hasil keringat dengan Elegan.
  *
- * @author			ikasmedia <ikasmedia@gmail.com>
+ * @author			Vian Taum <viantaum17@gmail.com>
  * @phone			081353967028
- * @website			www.ikasmedia.net
- * @copyright		(c) 2024 ikasmedia Software
+ * @website			www.datagoe.com
+ * @copyright		(c) 2024 Datagoe Software
  * -------------------------------------------------------------------
  * Salam share CMS Anak kampung untuk Indonesia :)
  * -------------------------------------------------------------------
@@ -207,7 +207,7 @@ function rudr_instagram_api_curl_connect($api_url)
 if (!function_exists('dataKoneksi')) {
     function dataKoneksi()
     {
-        return 'https://ikasmedia.net/get/ikasmediacms/link_up/';
+        return 'https://datagoe.com/get/datagoecms/link_up/';
     }
 }
 
@@ -238,6 +238,6 @@ function http_request($url)
     }
     return false;
 }
-// $webapi = "https://ikasmedia.net/wp-json/wp/v2/posts?context=view&per_page=8";
-// $ikasmedia = http_request($webapi);
-// $ikasmedia = json_decode($ikasmedia, true);
+// $webapi = "https://datagoe.com/wp-json/wp/v2/posts?context=view&per_page=8";
+// $datagoe = http_request($webapi);
+// $datagoe = json_decode($datagoe, true);

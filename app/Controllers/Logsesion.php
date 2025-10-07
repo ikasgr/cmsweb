@@ -58,7 +58,7 @@ class Logsesion extends BaseController
         // Siapkan respons JSON dengan data dan CSRF token
         $msg = [
             'data' => view('backend/' . esc($tadmin['folder']) . '/pengaturan/logsession/list', $data),
-            'csrf_tokencmsikasmedia' => csrf_hash(),
+            'csrf_tokencmsdatagoe' => csrf_hash(),
         ];
 
         echo json_encode($msg);
@@ -78,7 +78,7 @@ class Logsesion extends BaseController
 
             $msg = [
                 'sukses'                => 'Data berhasil dihapus!',
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -98,7 +98,7 @@ class Logsesion extends BaseController
                 // Jika $id_sesi kosong atau bukan array
                 $msg = [
                     'error'                 => 'Tidak ada data yang dipilih untuk dihapus.',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
                 echo json_encode($msg);
                 return;
@@ -114,12 +114,12 @@ class Logsesion extends BaseController
             if ($this->db->affectedRows() > 0) {
                 $msg = [
                     'sukses'                => count($id_sesi) . " data berhasil dihapus.",
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
                 $msg = [
                     'error'                 => 'Gagal menghapus data. Silakan coba lagi.',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
 

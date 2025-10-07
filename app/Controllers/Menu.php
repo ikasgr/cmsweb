@@ -71,7 +71,7 @@ class Menu extends BaseController
         // Siapkan respons JSON dengan data dan CSRF token
         $msg = [
             'data' => view('backend/' . esc($tadmin['folder']) . '/pengaturan/menu/list', $data),
-            'csrf_tokencmsikasmedia' => csrf_hash(),
+            'csrf_tokencmsdatagoe' => csrf_hash(),
         ];
 
         echo json_encode($msg);
@@ -139,7 +139,7 @@ class Menu extends BaseController
             if (!$valid) {
                 $msg = [
                     'error'                => $validation->getErrors(),
-                    'csrf_tokencmsikasmedia' => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             } else {
                 // Persiapkan data yang akan disimpan
@@ -159,7 +159,7 @@ class Menu extends BaseController
                 // Kirimkan response sukses
                 $msg = [
                     'sukses' => 'Data berhasil disimpan',
-                    'csrf_tokencmsikasmedia' => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             }
 
@@ -195,7 +195,7 @@ class Menu extends BaseController
             ];
             $msg = [
                 'sukses' => view('backend/' . esc($tadmin['folder']) . '/' . 'pengaturan/menu/edit', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -242,7 +242,7 @@ class Menu extends BaseController
                         'menu_link' => $validation->getError('menu_link'),
                         'urutan'    => $validation->getError('urutan'),
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
                 $updatedata = [
@@ -261,7 +261,7 @@ class Menu extends BaseController
                 $this->menu->update($menu_id, $updatedata);
                 $msg = [
                     'sukses'                => 'Data berhasil diupdate',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -280,7 +280,7 @@ class Menu extends BaseController
             $this->menu->delete($menu_id);
             $msg = [
                 'sukses'                => 'Menu Berhasil Dihapus',
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -304,7 +304,7 @@ class Menu extends BaseController
 
             echo json_encode([
                 'sukses'                => $stsket,
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ]);
         }
     }
@@ -358,7 +358,7 @@ class Menu extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'pengaturan/menu/editsec', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -404,7 +404,7 @@ class Menu extends BaseController
                         'menu_link' => $validation->getError('menu_link'),
                         'urutan'    => $validation->getError('urutan'),
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
                 $simpandata = [
@@ -423,7 +423,7 @@ class Menu extends BaseController
                 $this->menu->insert($simpandata);
                 $msg = [
                     'sukses' => 'Data berhasil disimpan',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -471,7 +471,7 @@ class Menu extends BaseController
                         'menu_link' => $validation->getError('menu_link'),
                         'urutan'    => $validation->getError('urutan'),
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
                 $updatedata = [
@@ -492,7 +492,7 @@ class Menu extends BaseController
                 $this->menu->update($menu_id, $updatedata);
                 $msg = [
                     'sukses'                => 'Data berhasil diupdate',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -579,7 +579,7 @@ class Menu extends BaseController
         // Siapkan respons JSON dengan data dan CSRF token
         $msg = [
             'data' => view('backend/' . esc($tadmin['folder']) . '/pengaturan/menu/submenu/list', $data),
-            'csrf_tokencmsikasmedia' => csrf_hash(),
+            'csrf_tokencmsdatagoe' => csrf_hash(),
         ];
 
         echo json_encode($msg);
@@ -598,11 +598,11 @@ class Menu extends BaseController
                 'modulpublic'       => $this->modulpublic->listaktif(),
                 'kategoriberita'    => $this->kategori->list(),
                 'halaman'           => $this->berita->listhalaman(),
-                // 'csrf_tokencmsikasmedia'  => csrf_hash(),
+                // 'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             $tadmin    = $this->template->tempadminaktif();
             $msg = [
-                // 'csrf_tokencmsikasmedia'  => csrf_hash(),
+                // 'csrf_tokencmsdatagoe'  => csrf_hash(),
                 'data'                  => view('backend/' . esc($tadmin['folder']) . '/' . 'pengaturan/menu/submenu/tambah', $data),
 
             ];
@@ -662,7 +662,7 @@ class Menu extends BaseController
                         'link_submenu' => $validation->getError('link_submenu'),
                         'urutansm' => $validation->getError('urutansm'),
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
                 $simpandata = [
@@ -680,7 +680,7 @@ class Menu extends BaseController
                 $this->submenu->insert($simpandata);
                 $msg = [
                     'sukses'                => 'Data berhasil disimpan',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -711,11 +711,11 @@ class Menu extends BaseController
                 'kategoriberita'    => $this->kategori->list(),
                 'halaman'           => $this->berita->listhalaman(),
                 'modulpublic'       => $this->modulpublic->listaktif(),
-                // 'csrf_tokencmsikasmedia'  => csrf_hash(),
+                // 'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             $msg = [
                 'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'pengaturan/menu/submenu/edit', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -762,7 +762,7 @@ class Menu extends BaseController
                         'link_submenu' => $validation->getError('link_submenu'),
                         'urutansm' => $validation->getError('urutansm'),
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
                 $updatedata = [
@@ -782,7 +782,7 @@ class Menu extends BaseController
                 $this->submenu->update($submenu_id, $updatedata);
                 $msg = [
                     'sukses'                => 'Data berhasil diupdate',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -801,7 +801,7 @@ class Menu extends BaseController
             $this->submenu->delete($submenu_id);
             $msg = [
                 'sukses'                => 'Menu Berhasil Dihapus',
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -825,7 +825,7 @@ class Menu extends BaseController
 
             echo json_encode([
                 'sukses'                => $stsket,
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ]);
         }
     }
@@ -913,7 +913,7 @@ class Menu extends BaseController
         // Siapkan respons JSON dengan data dan CSRF token
         $msg = [
             'data' => view('backend/' . esc($tadmin['folder']) . '/pengaturan/menu/subsubmenu/list', $data),
-            'csrf_tokencmsikasmedia' => csrf_hash(),
+            'csrf_tokencmsdatagoe' => csrf_hash(),
         ];
 
         echo json_encode($msg);
@@ -986,7 +986,7 @@ class Menu extends BaseController
                         'link_subsubmenu' => $validation->getError('link_subsubmenu'),
                         'urutanssm'       => $validation->getError('urutanssm'),
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
                 $simpandata = [
@@ -1004,7 +1004,7 @@ class Menu extends BaseController
                 $this->subsubmenu->insert($simpandata);
                 $msg = [
                     'sukses'                => 'Data berhasil disimpan',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -1039,7 +1039,7 @@ class Menu extends BaseController
 
             $msg = [
                 'sukses' => view('backend/' . esc($tadmin['folder']) . '/' . 'pengaturan/menu/subsubmenu/edit', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -1086,7 +1086,7 @@ class Menu extends BaseController
                         'link_subsubmenu' => $validation->getError('link_subsubmenu'),
                         'urutanssm' => $validation->getError('urutanssm'),
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
                 $updatedata = [
@@ -1106,7 +1106,7 @@ class Menu extends BaseController
                 $this->subsubmenu->update($subsubmenu_id, $updatedata);
                 $msg = [
                     'sukses'                => 'Data berhasil diupdate',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -1125,7 +1125,7 @@ class Menu extends BaseController
             $this->subsubmenu->delete($subsubmenu_id);
             $msg = [
                 'sukses' => 'Menu Berhasil Dihapus',
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -1149,7 +1149,7 @@ class Menu extends BaseController
 
             echo json_encode([
                 'sukses'                => $stsket,
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ]);
         }
     }

@@ -8,7 +8,7 @@
                 </button>
             </div>
             <?= form_open('', ['class' => 'formedit']) ?>
-            <!-- <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsikasmedia" /> -->
+            <!-- <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsdatagoe" /> -->
             <div class="modal-body">
                 <input type="hidden" class="form-control" id="submenu_id" value="<?= $submenu_id ?>" name="submenu_id" readonly>
 
@@ -67,7 +67,7 @@
 
                     <div class="form-group mb-2" id="eksternal">
                         <label>
-                            Link URL <small class="text-danger">(Misalnya: http://cms.ikasmedia.net/)</small>
+                            Link URL <small class="text-danger">(Misalnya: http://cms.datagoe.com/)</small>
                         </label>
                         <input type="text" id="link_submenu" name="link_submenu" value="<?= $link_submenu ?>" class="form-control ">
                         <div class="invalid-feedback errorlink_submenu"></div>
@@ -249,7 +249,7 @@
                             $('#urutan').removeClass('is-invalid');
                             $('.errorurutan').html('');
                         }
-                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                     } else {
                         toastr.options = {
                                 "closeButton": true,
@@ -270,14 +270,14 @@
                             },
                             toastr["success"](response.sukses)
                         $('#modaledit').modal('hide');
-                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                         listsubmenu();
                     }
                 },
                 error: function(xhr, ajaxOptions, thrownerror) {
                     toastr["error"]("Maaf gagal proses Kode Error:  " + (xhr.status + "\n"), );
                     $('#modaledit').modal('hide');
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 }
             });
         });

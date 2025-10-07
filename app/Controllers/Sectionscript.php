@@ -84,7 +84,7 @@ class Sectionscript extends BaseController
             ];
             $msg = [
                 'data'                  => view('backend/' . esc($tadmin['folder']) . '/' . 'setkonten/section-script/tambah', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -148,7 +148,7 @@ class Sectionscript extends BaseController
                         'isi_script'    => $validation->getError('isi_script'),
                         'gambar'        => $validation->getError('gambar')
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
 
@@ -161,7 +161,7 @@ class Sectionscript extends BaseController
                 if ($cekdata) {
                     $msg = [
                         'setganda'              => 'Posisi untuk tema ini sudah ada',
-                        'csrf_tokencmsikasmedia'  => csrf_hash(),
+                        'csrf_tokencmsdatagoe'  => csrf_hash(),
                     ];
                 } else {
                     //jika gambar tidak ada
@@ -179,7 +179,7 @@ class Sectionscript extends BaseController
 
                         $msg = [
                             'sukses'                => 'Data berhasil disimpan!',
-                            'csrf_tokencmsikasmedia'  => csrf_hash(),
+                            'csrf_tokencmsdatagoe'  => csrf_hash(),
                         ];
                     } else {
                         // ada
@@ -202,7 +202,7 @@ class Sectionscript extends BaseController
 
                         $msg = [
                             'sukses'                => 'Data berhasil disimpan!',
-                            'csrf_tokencmsikasmedia'  => csrf_hash(),
+                            'csrf_tokencmsdatagoe'  => csrf_hash(),
                         ];
                     }
                 }
@@ -234,7 +234,7 @@ class Sectionscript extends BaseController
             ];
             $msg = [
                 'sukses' => view('backend/' . esc($tadmin['folder']) . '/' . 'setkonten/section-script/edit', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -266,7 +266,7 @@ class Sectionscript extends BaseController
                     'error' => [
                         'nama' => $validation->getError('nama'),
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
 
@@ -288,7 +288,7 @@ class Sectionscript extends BaseController
                     $this->section->update($section_id, $updatedata);
                     $msg = [
                         'sukses'                => 'section berhasil diganti!',
-                        'csrf_tokencmsikasmedia'  => csrf_hash(),
+                        'csrf_tokencmsdatagoe'  => csrf_hash(),
                     ];
                 } else {
                     // jika tidak sama maka cek
@@ -296,7 +296,7 @@ class Sectionscript extends BaseController
                     if ($cekdata) {
                         $msg = [
                             'setganda'              => 'Posisi untuk tema ini sudah ada',
-                            'csrf_tokencmsikasmedia'  => csrf_hash(),
+                            'csrf_tokencmsdatagoe'  => csrf_hash(),
                         ];
                     } else {
                         $updatedata = [
@@ -310,7 +310,7 @@ class Sectionscript extends BaseController
                         $this->section->update($section_id, $updatedata);
                         $msg = [
                             'sukses'                => 'section berhasil diganti!',
-                            'csrf_tokencmsikasmedia'  => csrf_hash(),
+                            'csrf_tokencmsdatagoe'  => csrf_hash(),
                         ];
                     }
                 }
@@ -338,7 +338,7 @@ class Sectionscript extends BaseController
             $this->section->delete($id);
             $msg = [
                 'sukses'                => 'Data Section berhasil dihapus.',
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -367,7 +367,7 @@ class Sectionscript extends BaseController
 
             $msg = [
                 'sukses'                => "$jmldata Data section berhasil dihapus",
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -391,7 +391,7 @@ class Sectionscript extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'setkonten/section-script/gantifoto', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -426,7 +426,7 @@ class Sectionscript extends BaseController
                     'error' => [
                         'gambar' => $validation->getError('gambar')
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
 

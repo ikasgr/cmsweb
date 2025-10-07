@@ -146,7 +146,7 @@ class Unitkerja extends BaseController
                         'singkatan_opd'      => $validation->getError('singkatan_opd'),
                         'alamat'             => $validation->getError('alamat'),
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
                 echo json_encode($msg);
             } else {
@@ -162,7 +162,7 @@ class Unitkerja extends BaseController
                 $this->unitkerja->insert($insertdata);
                 $msg = [
                     'sukses'                => 'Data berhasil disimpan!',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
 
                 echo json_encode($msg);
@@ -182,7 +182,7 @@ class Unitkerja extends BaseController
             $this->unitkerja->delete($id);
             $msg = [
                 'sukses'                => 'Data Berhasil Dihapus',
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -204,7 +204,7 @@ class Unitkerja extends BaseController
             }
             $msg = [
                 'sukses'                => "$jmldata Data berhasil dihapus",
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -232,7 +232,7 @@ class Unitkerja extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'setkonten/unitkerja/edit', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -291,7 +291,7 @@ class Unitkerja extends BaseController
                         'alamat'             => $validation->getError('alamat'),
 
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
 
@@ -307,7 +307,7 @@ class Unitkerja extends BaseController
                 $this->unitkerja->update($opd_id, $updatedata);
                 $msg = [
                     'sukses'                => 'Data penerbit berhasil diubah!',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -414,7 +414,7 @@ class Unitkerja extends BaseController
                     'error' => [
                         'nama_tipe' => $validation->getError('nama_tipe'),
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
                 $simpandata = [
@@ -424,7 +424,7 @@ class Unitkerja extends BaseController
                 $this->unitkerjatipe->insert($simpandata);
                 $msg = [
                     'sukses' => 'Data berhasil disimpan',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -447,7 +447,7 @@ class Unitkerja extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'setkonten/unitkerja/tipe/edit', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -475,7 +475,7 @@ class Unitkerja extends BaseController
                     'error' => [
                         'nama_tipe' => $validation->getError('nama_tipe'),
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
                 $updatedata = [
@@ -487,7 +487,7 @@ class Unitkerja extends BaseController
 
                 $msg = [
                     'sukses'                => 'Data berhasil diupdate',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -504,7 +504,7 @@ class Unitkerja extends BaseController
             $this->unitkerjatipe->delete($tipe_id);
             $msg = [
                 'sukses'                => 'Tipe Penerbit Berhasil Dihapus',
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
 
             echo json_encode($msg);

@@ -20,7 +20,7 @@
             <div class="col-md-12 px-md-5">
                 <div class="article-detail mb-0">
                     <h1 class="text-blue montserrat-700 f-30 text-center">Bank Data </h1>
-                    <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsikasmedia" />
+                    <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsdatagoe" />
                     <div class=" stretch-card grid-margin">
                         <?php if ($list) { ?>
                             <table id="downloaddata" class="table table-hover table-striped p-0 table-bordered">

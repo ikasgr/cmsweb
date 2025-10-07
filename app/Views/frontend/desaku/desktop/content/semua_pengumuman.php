@@ -13,7 +13,7 @@
     </div>
 
 </section>
-<input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsikasmedia" />
+<input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsdatagoe" />
 <section class="container pb-0">
     <div class="card p-3">
         <div class="row article-container pb-5">
@@ -65,7 +65,7 @@
 
                                     <P>
                                     <ul class="pagination justify-content-center">
-                                        <?= $pager->links('hal', 'ikasmedia'); ?>
+                                        <?= $pager->links('hal', 'datagoe'); ?>
                                     </ul>
                                     </P>
                                 <?php }

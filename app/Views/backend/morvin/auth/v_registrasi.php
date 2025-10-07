@@ -1,10 +1,10 @@
 <!-- =======================================================
-      * CMS ikasmedia
+      * CMS DATAGOE
       * Content Management System.
       *
-      * @author			ikasmedia <ikasmedia@gmail.com>
-      * @website		www.ikasmedia.net
-      * @copyright		(c) 2025 - ikasmedia Software
+      * @author			Vian Taum <viantaum17@gmail.com>
+      * @website		www.datagoe.com
+      * @copyright		(c) 2023 - Datagoe Software
  ======================================================== -->
 
 <!DOCTYPE html>
@@ -16,8 +16,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
 
     <title>Registrasi Pengguna</title>
-    <meta content="Admin Dashboard" name="ikasmedia Software" />
-    <meta content="CMS ikasmedia" name="ikasmedia" />
+    <meta content="Admin Dashboard" name="Datagoe Software" />
+    <meta content="CMS Datagoe" name="Vian Taum" />
     <link rel="shortcut icon" href="<?= base_url('/public/img/konfigurasi/icon/' . esc($konfigurasi->icon)) ?>">
     <link href="<?= base_url('/public/template/backend/' . esc($folder) . '/assets/libs/sweetalert2/sweetalert2.min.css') ?>" rel="stylesheet" type="text/css" />
 
@@ -64,7 +64,7 @@
                         <hr>
 
                         <?= form_open_multipart('', ['class' => 'formregis']) ?>
-                        <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsikasmedia" />
+                        <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsdatagoe" />
 
                         <form class="mb-2" autocomplete="off | unknown-autocomplete-value">
 
@@ -332,12 +332,12 @@
                             $('.erroruser_image').html('');
 
                         }
-                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                     }
                     if (response.gopdid) {
                         $('#opd_id').addClass('is-invalid');
                         $('.erroropd_id').html(response.gopdid.opd_id);
-                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
 
                     }
                     if (response.gagalcap) {

@@ -34,7 +34,7 @@ class Penawaran extends BaseController
                     'namatombol'       => $list['namatombol'],
                     'sts_tombol'       => $list['sts_tombol'],
                     'akses'            => $akses,
-                    'csrf_tokencmsikasmedia' => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                     'folder'            => esc($tadmin['folder']),
 
                 ];
@@ -105,7 +105,7 @@ class Penawaran extends BaseController
                                 'linktawaran'     => $validation->getError('linktawaran'),
                                 'namatombol'      => $validation->getError('namatombol'),
                             ],
-                            'csrf_tokencmsikasmedia'  => csrf_hash(),
+                            'csrf_tokencmsdatagoe'  => csrf_hash(),
                         ];
                     } else {
                         $modalpopup_id  = $this->request->getVar('modalpopup_id');
@@ -121,7 +121,7 @@ class Penawaran extends BaseController
                         $this->modalpopup->update($modalpopup_id, $simpandata);
                         $msg = [
                             'sukses' => 'Data berhasil diupdate',
-                            'csrf_tokencmsikasmedia' => csrf_hash(),
+                            'csrf_tokencmsdatagoe' => csrf_hash(),
                         ];
                     }
                     echo json_encode($msg);
@@ -153,7 +153,7 @@ class Penawaran extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'modal/penawaran/uploadlogo', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -194,7 +194,7 @@ class Penawaran extends BaseController
                             'error' => [
                                 'gbrtawaran' => $validation->getError('gbrtawaran')
                             ],
-                            'csrf_tokencmsikasmedia' => csrf_hash()
+                            'csrf_tokencmsdatagoe' => csrf_hash()
                         ];
                     } else {
                         //check
@@ -212,7 +212,7 @@ class Penawaran extends BaseController
                         if ($ext == 'php' || $ext == 'js' || $ext == 'htm' || $ext == 'html' || $ext == 'phtml' || $ext == 'fLA' || $ext == 'txt' || $ext == 'py' || $ext == 'exe') {
                             $msg = [
                                 'nofile'                => 'File tidak diijinkan!',
-                                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                                'csrf_tokencmsdatagoe'  => csrf_hash(),
                             ];
                         } else {
 
@@ -227,7 +227,7 @@ class Penawaran extends BaseController
                                 ->save('public/img/informasi/' .  $nama_file);
                             $msg = [
                                 'sukses'                => 'Gambar berhasil diupload!',
-                                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                                'csrf_tokencmsdatagoe'  => csrf_hash(),
                             ];
                         }
                     }
@@ -255,7 +255,7 @@ class Penawaran extends BaseController
             ];
             $msg = [
                 'data'                  => view('backend/' . esc($tadmin['folder']) . '/' . 'modal/penawaran/viewpenawaran', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
 
             ];
             echo json_encode($msg);

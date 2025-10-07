@@ -248,12 +248,12 @@
                                 $('.errorwlbanner').html('');
                             }
 
-                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                         } else {
 
                             toastr["success"](response.sukses)
                             $('#modaledit').modal('hide');
-                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                             listtemplate();
                         }
                     },
@@ -261,7 +261,7 @@
 
                         toastr["error"]("Maaf gagal proses Kode Error:  " + (xhr.status + "\n"), )
                         $('#modaledit').modal('hide');
-                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
 
                     }
                 });

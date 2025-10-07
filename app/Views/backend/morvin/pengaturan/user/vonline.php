@@ -168,17 +168,17 @@
         <?php }
         } ?>
         <!-- =======================================================
-      * CMS ikasmedia (Tidak perlu menghapus informasi ini bro ^_^)
+      * CMS DATAGOE (Tidak perlu menghapus informasi ini bro ^_^)
       * Content Management System.
       *
-      * @author			ikasmedia <ikasmedia@gmail.com>
-      * @website		www.ikasmedia.net
-      * @copyright		(c) 2025 - ikasmedia Software
+      * @author			Vian Taum <viantaum17@gmail.com>
+      * @website		www.datagoe.com
+      * @copyright		(c) 2023 - Datagoe Software
         ======================================================== -->
 
         <div class="border-top m-auto">
             <label class="d-block text-primary mb-0 text-center"> <i class="mdi mdi-console"></i> CMS VER: <?= esc($vercms) ?> | CI: <?= esc(\CodeIgniter\CodeIgniter::CI_VERSION) ?> </label>
-            <p class="text-center"><a href="https:/ikasmedia.net/" class="text-dark" style="font-size: 12px;">Last update <a class="text-danger" style="font-size: 12px;">23-03-2025</a> | Tema <span class="text-success"><?= esc($template['nama']) ?></span> </a>
+            <p class="text-center"><a href="https:/datagoe.com/" class="text-dark" style="font-size: 12px;">Last update <a class="text-danger" style="font-size: 12px;">23-03-2025</a> | Tema <span class="text-success"><?= esc($template['nama']) ?></span> </a>
             </p>
         </div>
         </div>
@@ -258,7 +258,7 @@
                     toastr["success"](response.message)
                     $('.viewonline').html(response.data);
                     // window.location = '';
-                    csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val()
+                    csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val()
                 } else {
                     toastr["error"](response.message)
                 }

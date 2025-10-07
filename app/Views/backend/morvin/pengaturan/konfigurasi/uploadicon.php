@@ -9,7 +9,7 @@
                 </button>
             </div>
             <?= form_open_multipart('', ['class' => 'formupload']) ?>
-            <!-- <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsikasmedia" /> -->
+            <!-- <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsdatagoe" /> -->
             <br>
             <center>
                 <img class="img-thumbnail" id="img_load" src="<?= base_url('/public/img/konfigurasi/icon/'  . esc($list['icon'])) ?>" alt="Icon Website">
@@ -75,10 +75,10 @@
                     $('.btnupload').html('<i class="fa fa-share-square"></i>  Simpan');
                 },
                 success: function(response) {
-                    // if (response.csrf_tokencmsikasmedia) {
+                    // if (response.csrf_tokencmsdatagoe) {
                     //     //update hash untuk proses error validation 
-                    //     $('#csrfToken, #csrfRandom').val(response.csrf_tokencmsikasmedia);
-                    //     $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia); //dataSrc untuk random request token char (wajib)
+                    //     $('#csrfToken, #csrfRandom').val(response.csrf_tokencmsdatagoe);
+                    //     $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe); //dataSrc untuk random request token char (wajib)
                     // }
                     if (response.error) {
                         if (response.error.icon) {
@@ -88,7 +88,7 @@
                     } else if (response.nofile) {
 
                         toastr["error"](response.nofile)
-                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                     } else {
                         Swal.fire({
                             title: "Berhasil!",
@@ -100,7 +100,7 @@
                             $('#modalupload').modal('hide');
                             window.location = '';
                         })
-                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                     }
                 },
                 error: function(xhr, ajaxOptions, thrownerror) {
@@ -114,7 +114,7 @@
                         $('#modalupload').modal('hide');
                         window.location = '';
                     })
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 }
             });
 

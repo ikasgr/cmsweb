@@ -89,7 +89,7 @@
 
                     <div class="form-group mb-2" id="eksternal">
                         <label> <i class="mdi mdi-text-shadow"></i>
-                            Link URL <small class="text-danger">(Misalnya: http://cms.ikasmedia.net/)</small>
+                            Link URL <small class="text-danger">(Misalnya: http://cms.datagoe.com/)</small>
                         </label>
                         <input type="text" id="link" name="link" class="form-control">
                         <div class="invalid-feedback errorgm"></div>
@@ -251,7 +251,7 @@
                             $('#banner_image').removeClass('is-invalid');
                             $('.errorFoto').html('');
                         }
-                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                     } else {
 
                         toastr.options = {
@@ -273,14 +273,14 @@
                             },
                             toastr["success"](response.sukses)
                         $('#modaltambah').modal('hide');
-                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                         listbanner();
                     }
                 },
                 error: function(xhr, ajaxOptions, thrownerror) {
                     toastr["error"]("Maaf gagal proses Kode Error:  " + (xhr.status + "\n"), );
                     $('#modaltambah').modal('hide');
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 }
             });
         });

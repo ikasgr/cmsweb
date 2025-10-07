@@ -805,7 +805,94 @@ $routes->group('', ['namespace' => 'App\Controllers'], function ($routes) {
     $routes->post('dokumen/updatekategori', 'Dokumen::updatekategori');
     $routes->post('dokumen/hapuskategori', 'Dokumen::hapuskategori');
 
+    // Pendaftaran Sidi
+    $routes->get('pendaftaran-sidi', 'PendaftaranSidi::index');
+    $routes->post('pendaftaran-sidi/simpanpendaftaran', 'PendaftaranSidi::simpanpendaftaran');
+    $routes->get('pendaftaran-sidi/list', 'PendaftaranSidi::list');
+    $routes->get('pendaftaran-sidi/getdata', 'PendaftaranSidi::getdata');
+    $routes->post('pendaftaran-sidi/formlihat', 'PendaftaranSidi::formlihat');
+    $routes->post('pendaftaran-sidi/formedit', 'PendaftaranSidi::formedit');
+    $routes->post('pendaftaran-sidi/update', 'PendaftaranSidi::update');
+    $routes->get('pendaftaran-sidi/formtambah', 'PendaftaranSidi::formtambah');
+    $routes->post('pendaftaran-sidi/simpan', 'PendaftaranSidi::simpan');
+    $routes->post('pendaftaran-sidi/hapus', 'PendaftaranSidi::hapus');
+    $routes->post('pendaftaran-sidi/hapusall', 'PendaftaranSidi::hapusall');
+    $routes->post('pendaftaran-sidi/toggle', 'PendaftaranSidi::toggle');
+    $routes->post('pendaftaran-sidi/formupload', 'PendaftaranSidi::formupload');
+    $routes->post('pendaftaran-sidi/simpanupload', 'PendaftaranSidi::simpanupload');
+    $routes->post('pendaftaran-sidi/hapusfile', 'PendaftaranSidi::hapusfile');
 
+    // Pendaftaran Baptis
+    $routes->get('pendaftaran-baptis', 'PendaftaranBaptis::index');
+    $routes->post('pendaftaran-baptis/simpanpendaftaran', 'PendaftaranBaptis::simpanpendaftaran');
+    $routes->get('pendaftaran-baptis/list', 'PendaftaranBaptis::list');
+    $routes->get('pendaftaran-baptis/getdata', 'PendaftaranBaptis::getdata');
+    $routes->post('pendaftaran-baptis/formlihat', 'PendaftaranBaptis::formlihat');
+    $routes->post('pendaftaran-baptis/formedit', 'PendaftaranBaptis::formedit');
+    $routes->post('pendaftaran-baptis/update', 'PendaftaranBaptis::update');
+    $routes->get('pendaftaran-baptis/formtambah', 'PendaftaranBaptis::formtambah');
+    $routes->post('pendaftaran-baptis/simpan', 'PendaftaranBaptis::simpan');
+    $routes->post('pendaftaran-baptis/hapus', 'PendaftaranBaptis::hapus');
+    $routes->post('pendaftaran-baptis/hapusall', 'PendaftaranBaptis::hapusall');
+    $routes->post('pendaftaran-baptis/toggle', 'PendaftaranBaptis::toggle');
+    $routes->post('pendaftaran-baptis/formupload', 'PendaftaranBaptis::formupload');
+    $routes->post('pendaftaran-baptis/simpanupload', 'PendaftaranBaptis::simpanupload');
+    $routes->post('pendaftaran-baptis/hapusfile', 'PendaftaranBaptis::hapusfile');
+
+    // Pendaftaran Nikah
+    $routes->get('pendaftaran-nikah', 'PendaftaranNikah::index');
+    $routes->post('pendaftaran-nikah/simpanpendaftaran', 'PendaftaranNikah::simpanpendaftaran');
+    $routes->get('pendaftaran-nikah/list', 'PendaftaranNikah::list');
+    $routes->get('pendaftaran-nikah/getdata', 'PendaftaranNikah::getdata');
+    $routes->post('pendaftaran-nikah/formlihat', 'PendaftaranNikah::formlihat');
+    $routes->post('pendaftaran-nikah/formedit', 'PendaftaranNikah::formedit');
+    $routes->post('pendaftaran-nikah/update', 'PendaftaranNikah::update');
+    $routes->get('pendaftaran-nikah/formtambah', 'PendaftaranNikah::formtambah');
+    $routes->post('pendaftaran-nikah/simpan', 'PendaftaranNikah::simpan');
+    $routes->post('pendaftaran-nikah/hapus', 'PendaftaranNikah::hapus');
+    $routes->post('pendaftaran-nikah/hapusall', 'PendaftaranNikah::hapusall');
+    $routes->post('pendaftaran-nikah/toggle', 'PendaftaranNikah::toggle');
+    $routes->post('pendaftaran-nikah/formupload', 'PendaftaranNikah::formupload');
+    $routes->post('pendaftaran-nikah/simpanupload', 'PendaftaranNikah::simpanupload');
+    $routes->post('pendaftaran-nikah/hapusfile', 'PendaftaranNikah::hapusfile');
+
+    // Produk UMKM - Backend
+    $routes->get('produk-umkm/list', 'ProdukUmkm::list');
+    $routes->get('produk-umkm/getdata', 'ProdukUmkm::getdata');
+    $routes->get('produk-umkm/formtambah', 'ProdukUmkm::formtambah');
+    $routes->post('produk-umkm/simpan', 'ProdukUmkm::simpan');
+    $routes->post('produk-umkm/formedit', 'ProdukUmkm::formedit');
+    $routes->post('produk-umkm/update', 'ProdukUmkm::update');
+    $routes->post('produk-umkm/hapus', 'ProdukUmkm::hapus');
+    $routes->post('produk-umkm/gantigambar', 'ProdukUmkm::gantigambar');
+    $routes->post('produk-umkm/toggle', 'ProdukUmkm::toggle');
+
+    // Kategori Produk - Backend
+    $routes->get('kategori-produk/list', 'KategoriProduk::list');
+    $routes->get('kategori-produk/getdata', 'KategoriProduk::getdata');
+    $routes->get('kategori-produk/formtambah', 'KategoriProduk::formtambah');
+    $routes->post('kategori-produk/simpan', 'KategoriProduk::simpan');
+    $routes->post('kategori-produk/formedit', 'KategoriProduk::formedit');
+    $routes->post('kategori-produk/update', 'KategoriProduk::update');
+    $routes->post('kategori-produk/hapus', 'KategoriProduk::hapus');
+
+    // Pesanan - Backend
+    $routes->get('pesanan/list', 'Pesanan::list');
+    $routes->get('pesanan/getdata', 'Pesanan::getdata');
+    $routes->post('pesanan/detail', 'Pesanan::detail');
+    $routes->post('pesanan/updatestatus', 'Pesanan::updatestatus');
+    $routes->post('pesanan/hapus', 'Pesanan::hapus');
+
+    // Toko - Frontend
+    $routes->get('toko', 'Toko::index');
+    $routes->get('toko/kategori/(:segment)', 'Toko::kategori/$1');
+    $routes->get('toko/search', 'Toko::search');
+    $routes->get('toko/keranjang', 'Toko::keranjang');
+    $routes->post('toko/addtocart', 'Toko::addtocart');
+    $routes->post('toko/updatecart', 'Toko::updatecart');
+    $routes->post('toko/removecart', 'Toko::removecart');
+    $routes->get('toko/cartcount', 'Toko::cartcount');
+    $routes->get('toko/(:segment)', 'Toko::detail/$1');
 
     $routes->get('(:segment)', 'Berita::detail/$1');
 });

@@ -23,7 +23,7 @@ $iklanatas      = $this->banner->listiklanatasran();
     tanggallengkap = namahari[hari] + ", " + tanggal + " " + namabulan[bulan] + " " + tahun + ", ";
 </script>
 
-<!-- <section id="topbar" class="topbar d-flex align-items-center" style="padding:1px; border-top:3px solid #FFA500;background-image: url('<?= base_url('/public/template/frontend/' . esc($folder) . '/desktop/img/ikasmedia.jpg') ?>');"> -->
+<!-- <section id="topbar" class="topbar d-flex align-items-center" style="padding:1px; border-top:3px solid #FFA500;background-image: url('<?= base_url('/public/template/frontend/' . esc($folder) . '/desktop/img/datagoe.jpg') ?>');"> -->
 <section id="topbar" class="topbar d-flex align-items-center" style="padding:1px; border-top:3px solid #FFA500;background-color: #f1f1f1;">
     <div class="container d-flex justify-content-center justify-content-md-between">
 

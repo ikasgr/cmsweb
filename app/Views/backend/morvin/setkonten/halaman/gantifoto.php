@@ -87,7 +87,7 @@
                             $('#gambar').addClass('is-invalid');
                             $('.errorGambar').html(response.error.gambar);
                         }
-                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                     } else {
                         Swal.fire({
                             title: "Berhasil!",

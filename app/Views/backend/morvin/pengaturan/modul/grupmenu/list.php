@@ -9,7 +9,7 @@ $this->modulecms = new M_Dge_modul();
     <button type="submit" class="btn btn-success btn-sm tambah">
         <i class="fas fa fa-plus-circle"></i> Tambah Menu
     </button>
-    <a href="modul/publik" button type="button" title="Kelola Modul Publik CMS ikasmedia" class="btn btn-primary btn-sm mr-1">
+    <a href="modul/publik" button type="button" title="Kelola Modul Publik CMS Datagoe" class="btn btn-primary btn-sm mr-1">
         <i class="fas fa-copy text-light"></i> Modul Publik
     </a>
 <?php } ?>
@@ -133,7 +133,7 @@ $this->modulecms = new M_Dge_modul();
             type: "post",
             url: "<?= site_url('modul/formeditmenu') ?>",
             data: {
-                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                 id_modul: id_modul
             },
             dataType: "json",
@@ -141,7 +141,7 @@ $this->modulecms = new M_Dge_modul();
                 if (response.sukses) {
                     $('.viewmodal').html(response.sukses).show();
                     $('#modaledit').modal('show');
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 }
             },
 
@@ -177,7 +177,7 @@ $this->modulecms = new M_Dge_modul();
                     type: "post",
                     dataType: "json",
                     data: {
-                        csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                        csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                         id_modul: id_modul
                     },
 
@@ -201,7 +201,7 @@ $this->modulecms = new M_Dge_modul();
                                     "showMethod": "fadeIn",
                                     "hideMethod": "fadeOut"
                                 },
-                                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                             listgrupmenu();
                         }
                     },
@@ -227,7 +227,7 @@ $this->modulecms = new M_Dge_modul();
             type: "post",
             url: "<?= site_url('modul/formsetaksesmenu') ?>",
             data: {
-                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                 id_modul: id_modul
             },
             dataType: "json",
@@ -235,7 +235,7 @@ $this->modulecms = new M_Dge_modul();
                 if (response.sukses) {
                     $('.viewmodal').html(response.sukses).show();
                     $('#modaledit').modal('show');
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 }
             },
 
@@ -258,7 +258,7 @@ $this->modulecms = new M_Dge_modul();
             type: "post",
             url: "<?= site_url('modul/toggle') ?>",
             data: {
-                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                 id_modul: id_modul
             },
             dataType: "json",
@@ -270,7 +270,7 @@ $this->modulecms = new M_Dge_modul();
                         showConfirmButton: false,
                         timer: 1500
                     })
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                     listgrupmenu();
                 }
             },

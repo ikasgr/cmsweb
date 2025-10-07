@@ -58,7 +58,7 @@
                 <div class="article-detail mb-0">
                     <h1 class="text-blue montserrat-700 f-30 text-center">Daftar Pegawai </h1>
                     <hr>
-                    <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsikasmedia" />
+                    <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsdatagoe" />
                     <div class="gen-section">
 
                         <?php if ($pegawai) {
@@ -96,7 +96,7 @@
                                 <br>
                                 <P>
                                 <ul class="pagination justify-content-center">
-                                    <?= $pager->links('hal', 'ikasmedia'); ?>
+                                    <?= $pager->links('hal', 'datagoe'); ?>
                                 </ul>
                                 </P>
                             <?php } ?>

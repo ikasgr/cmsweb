@@ -273,7 +273,7 @@
             type: "post",
             url: "<?= site_url('kritiksaran/formedit') ?>",
             data: {
-                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                 kritiksaran_id: kritiksaran_id
             },
             dataType: "json",
@@ -289,7 +289,7 @@
                     }).then(function() {
                         // window.location = '../';
                     })
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 }
                 if (response.blmakses) {
 
@@ -302,7 +302,7 @@
                     }).then(function() {
                         // window.location = '../admin';
                     })
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 }
                 if (response.sukses) {
                     $('.viewmodal').html(response.sukses).show();
@@ -311,7 +311,7 @@
                         keyboard: false
                     });
                     $('#modaledit').modal('show');
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {
@@ -345,7 +345,7 @@
                     type: "post",
                     dataType: "json",
                     data: {
-                        csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                        csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                         kritiksaran_id: kritiksaran_id
                     },
                     success: function(response) {
@@ -369,7 +369,7 @@
                                 },
                                 toastr["success"](response.sukses)
                             listkritiksaran();
-                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                         }
                     },
                     error: function(xhr, ajaxOptions, thrownerror) {
@@ -395,7 +395,7 @@
             type: "post",
             url: "<?= site_url('kritiksaran/toggle') ?>",
             data: {
-                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                 kritiksaran_id: kritiksaran_id
             },
             dataType: "json",
@@ -408,7 +408,7 @@
                         timer: 1600
                     })
                     listkritiksaran();
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 }
             },
             error: function(xhr, ajaxOptions, thrownerror) {

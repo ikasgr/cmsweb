@@ -139,7 +139,7 @@ class Home extends BaseController
 					$tadmin = $this->template->tempadminaktif();
 					$msg = [
 						'data' => view('backend/' . $tadmin['folder'] . '/' . 'berita/data-api', $data),
-						'csrf_tokencmsikasmediaon' => csrf_hash(),
+						'csrf_tokencmsdatagoeon' => csrf_hash(),
 					];
 				} else {
 					// Jika status code bukan 200, tampilkan pesan error
@@ -179,7 +179,7 @@ class Home extends BaseController
 			];
 			$msg = [
 				'data' 					  => view('admin/modal/onpengunjung', $data),
-				'csrf_tokencmsikasmediaon'  => csrf_hash(),
+				'csrf_tokencmsdatagoeon'  => csrf_hash(),
 
 			];
 
@@ -192,7 +192,7 @@ class Home extends BaseController
 	{
 		if ($this->request->isAJAX()) {
 			$msg = [
-				'csrf_tokencmsikasmedia'  => csrf_hash(),
+				'csrf_tokencmsdatagoe'  => csrf_hash(),
 				set_cookie("penawaran", "isi", 5500),
 			];
 			echo json_encode($msg);
@@ -212,13 +212,13 @@ class Home extends BaseController
 					'list'        => $this->modalpopup->orderBy('modalpopup_id')->first(),
 				];
 				$msg = [
-					'csrf_tokencmsikasmedia'  => csrf_hash(),
+					'csrf_tokencmsdatagoe'  => csrf_hash(),
 					'data' 					=> view('backend/' . $tadmin['folder'] . '/' . 'modal/penawaran', $data),
 
 				];
 			} else {
 				$msg = [
-					'csrf_tokencmsikasmedia'  => csrf_hash(),
+					'csrf_tokencmsdatagoe'  => csrf_hash(),
 				];
 			}
 			echo json_encode($msg);

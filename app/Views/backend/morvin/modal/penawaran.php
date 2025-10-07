@@ -1,10 +1,10 @@
 <!-- =======================================================
-      * CMS ikasmedia
+      * CMS DATAGOE
       * Content Management System.
       *
-      * @author			ikasmedia <ikasmedia@gmail.com>
-      * @website		www.ikasmedia.net
-      * @copyright		(c) 2025 - ikasmedia Software
+      * @author			Vian Taum <viantaum17@gmail.com>
+      * @website		www.datagoe.com
+      * @copyright		(c) 2023 - Datagoe Software
  ======================================================== -->
 
 <?php
@@ -42,7 +42,7 @@ if ($folder == 'plus1' || $folder == 'plus2' || $folder == 'desaku') { ?>
             <div class="modal-header">
                 <h6 class="modal-title" id="modalviewLabel"><?= esc($list['judultawaran']) ?></h6>
             </div>
-            <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsikasmedia" />
+            <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsdatagoe" />
 
             <div class="modal-body">
                 <?php
@@ -81,10 +81,10 @@ if ($folder == 'plus1' || $folder == 'plus2' || $folder == 'desaku') { ?>
             url: "<?= site_url('home/nonaktiftawaran') ?>",
             dataType: "json",
             data: {
-                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
             },
             success: function(response) {
-                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
             },
             // error: function(xhr, ajaxOptions, thrownerror) {
             //     alert(xhr.status + "\n" + xhr.responseText + "\n" +

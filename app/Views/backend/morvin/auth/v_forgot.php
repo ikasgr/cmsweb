@@ -1,10 +1,10 @@
 <!-- =======================================================
-      * CMS ikasmedia
+      * CMS DATAGOE
       * Content Management System.
       *
-      * @author			ikasmedia <ikasmedia@gmail.com>
-      * @website		www.ikasmedia.net
-      * @copyright		(c) 2025 - ikasmedia Software
+      * @author			Vian Taum <viantaum17@gmail.com>
+      * @website		www.datagoe.com
+      * @copyright		(c) 2023 - Datagoe Software
  ======================================================== -->
 
 <?php
@@ -24,7 +24,7 @@ $konfigurasi        = $builder->select('nama,vercms,kecamatan,icon,logo')->get()
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
 
     <title>Lupa Password</title>
-    <meta content="CMS ikasmedia" name="ikasmedia SOFTWARE" />
+    <meta content="CMS DATAGOE" name="DATAGOE SOFTWARE" />
 
     <link rel="shortcut icon" href="<?= base_url('/public/img/konfigurasi/icon/' . esc($konfigurasi->icon)) ?>">
     <link href="<?= base_url('/public/template/backend/' . esc($folder) . '/assets/libs/sweetalert2/sweetalert2.min.css') ?>" rel="stylesheet" type="text/css" />
@@ -68,7 +68,7 @@ $konfigurasi        = $builder->select('nama,vercms,kecamatan,icon,logo')->get()
                         <p class="mb-3 font-size-14 text-center">Masukkan email untuk menerima instruksi selanjutnya!</p>
                         <!-- <p class="mb-4">Please sign-in to your account and start the adventure</p> -->
                         <?= form_open('login/proseslupa', ['class' => 'formlogin']) ?>
-                        <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsikasmedia" />
+                        <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsdatagoe" />
 
                         <form class="mb-1" autocomplete="off | unknown-autocomplete-value">
                             <div class="mb-3">
@@ -139,7 +139,7 @@ $konfigurasi        = $builder->select('nama,vercms,kecamatan,icon,logo')->get()
                             $('#email').removeClass('is-invalid');
                             $('.erroremail').html();
                         }
-                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                     }
 
                     if (response.sukses) {
@@ -163,7 +163,7 @@ $konfigurasi        = $builder->select('nama,vercms,kecamatan,icon,logo')->get()
                             showConfirmButton: false,
                             timer: 1250
                         });
-                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                     }
                     if (response.resetexpair) {
                         Swal.fire({
@@ -173,7 +173,7 @@ $konfigurasi        = $builder->select('nama,vercms,kecamatan,icon,logo')->get()
                             // showConfirmButton: false,
                             // timer: 1250
                         });
-                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                     }
 
                 },
@@ -185,7 +185,7 @@ $konfigurasi        = $builder->select('nama,vercms,kecamatan,icon,logo')->get()
                         showConfirmButton: false,
                         timer: 3100
                     });
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 }
             });
             return false;

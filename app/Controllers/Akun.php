@@ -69,7 +69,7 @@ class Akun extends BaseController
                         'email'    => $validation->getError('email'),
                         'fullname' => $validation->getError('fullname'),
                     ],
-                    'csrf_tokencmsikasmedia' => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             } else {
                 $namausernew = $this->request->getVar('username');
@@ -93,7 +93,7 @@ class Akun extends BaseController
                     if (!$valid) {
                         $msg = [
                             'errorpass' => $validation->getError('password'),
-                            'csrf_tokencmsikasmedia' => csrf_hash(),
+                            'csrf_tokencmsdatagoe' => csrf_hash(),
                         ];
                     } else {
                         // Update password jika valid
@@ -105,7 +105,7 @@ class Akun extends BaseController
 
                         $msg = [
                             'sukses' => 'Password berhasil diubah!',
-                            'csrf_tokencmsikasmedia' => csrf_hash(),
+                            'csrf_tokencmsdatagoe' => csrf_hash(),
                         ];
                     }
                 } elseif ($namausernew == $namauserold) {
@@ -118,7 +118,7 @@ class Akun extends BaseController
 
                     $msg = [
                         'sukses' => 'Data berhasil diubah!',
-                        'csrf_tokencmsikasmedia' => csrf_hash(),
+                        'csrf_tokencmsdatagoe' => csrf_hash(),
                     ];
                 } else {
                     // Jika username berubah, periksa duplikasi
@@ -129,7 +129,7 @@ class Akun extends BaseController
                             'error' => [
                                 'username' => 'Username sudah digunakan!',
                             ],
-                            'csrf_tokencmsikasmedia' => csrf_hash(),
+                            'csrf_tokencmsdatagoe' => csrf_hash(),
                         ];
                     } else {
                         // Update dengan username baru
@@ -142,7 +142,7 @@ class Akun extends BaseController
 
                         $msg = [
                             'sukses' => 'Data berhasil diubah!',
-                            'csrf_tokencmsikasmedia' => csrf_hash(),
+                            'csrf_tokencmsdatagoe' => csrf_hash(),
                         ];
                     }
                 }
@@ -203,7 +203,7 @@ class Akun extends BaseController
                     'error' => [
                         'fotouser' => $validation->getError('fotouser')
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
                 //check
@@ -238,7 +238,7 @@ class Akun extends BaseController
 
                 $msg = [
                     'sukses'                => 'Foto profil berhasil diganti!',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);

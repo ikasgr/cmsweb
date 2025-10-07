@@ -189,7 +189,7 @@ $db = \Config\Database::connect();
                                         "hideMethod": "fadeOut"
                                     },
                                     toastr["success"](response.sukses)
-                                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                                 listkomen();
                                 listkomennew();
                             },
@@ -217,7 +217,7 @@ $db = \Config\Database::connect();
             type: "post",
             url: "<?= site_url('berita/formkomenback') ?>",
             data: {
-                csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                 beritakomen_id: beritakomen_id
             },
             dataType: "json",
@@ -253,7 +253,7 @@ $db = \Config\Database::connect();
                         backdrop: 'static',
                         keyboard: false
                     });
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                     $('#modalkomen').modal('show');
                 }
             },
@@ -289,7 +289,7 @@ $db = \Config\Database::connect();
                     type: "post",
                     dataType: "json",
                     data: {
-                        csrf_tokencmsikasmedia: $('input[name=csrf_tokencmsikasmedia]').val(),
+                        csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                         beritakomen_id: beritakomen_id,
 
                     },
@@ -313,7 +313,7 @@ $db = \Config\Database::connect();
                                     "hideMethod": "fadeOut"
                                 },
                                 toastr["success"](response.sukses)
-                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                            $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                             listkomen();
                             listkomennew();
                         }

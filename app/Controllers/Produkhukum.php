@@ -130,7 +130,7 @@ class Produkhukum extends BaseController
             $tadmin = $this->template->tempadminaktif();
             $data = [
                 'title' => 'Tambah Produk Hukum',
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             $msg = [
                 'data' => view('backend/' . esc($tadmin['folder']) . '/' . 'informasi/produkhukum/tambah', $data)
@@ -166,7 +166,7 @@ class Produkhukum extends BaseController
                     'error' => [
                         'nama_produk'           => $validation->getError('nama_produk'),
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
                 echo json_encode($msg);
             } else {
@@ -179,7 +179,7 @@ class Produkhukum extends BaseController
                 $this->produkhukum->insert($insertdata);
                 $msg = [
                     'sukses'                => 'Data berhasil disimpan!',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
                 echo json_encode($msg);
             }
@@ -198,7 +198,7 @@ class Produkhukum extends BaseController
             $this->produkhukum->delete($id);
             $msg = [
                 'sukses'                 => 'Data Berhasil Dihapus',
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -223,7 +223,7 @@ class Produkhukum extends BaseController
             ];
             $msg = [
                 'sukses' => view('backend/' . esc($tadmin['folder']) . '/' . 'informasi/produkhukum/edit', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -255,7 +255,7 @@ class Produkhukum extends BaseController
                     'error' => [
                         'nama_produk'           => $validation->getError('nama_produk'),
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
 
@@ -266,7 +266,7 @@ class Produkhukum extends BaseController
                 $this->produkhukum->update($produk_id, $updatedata);
                 $msg = [
                     'sukses'                => 'Data berhasil diubah!',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -370,7 +370,7 @@ class Produkhukum extends BaseController
             $data = [
                 'title' => 'Tambah Sub Produk Hukum',
                 'id_produk' => $this->request->getVar('produk'),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             $tadmin = $this->template->tempadminaktif();
             $msg = [
@@ -418,7 +418,7 @@ class Produkhukum extends BaseController
                         'file_kathukum'     => $validation->getError('file_kathukum'),
 
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
                 echo json_encode($msg);
             } else {
@@ -443,7 +443,7 @@ class Produkhukum extends BaseController
 
                     $msg = [
                         'sukses' => 'Data berhasil disimpan!',
-                        'csrf_tokencmsikasmedia'  => csrf_hash(),
+                        'csrf_tokencmsdatagoe'  => csrf_hash(),
                     ];
                 } else {
 
@@ -462,7 +462,7 @@ class Produkhukum extends BaseController
 
                     $msg = [
                         'sukses'                => 'Data berhasil disimpan!',
-                        'csrf_tokencmsikasmedia'  => csrf_hash(),
+                        'csrf_tokencmsdatagoe'  => csrf_hash(),
                     ];
                 }
                 echo json_encode($msg);
@@ -493,7 +493,7 @@ class Produkhukum extends BaseController
             ];
             $msg = [
                 'sukses' => view('backend/' . esc($tadmin['folder']) . '/' . 'informasi/produkhukum/produkkathukum/edit', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -525,7 +525,7 @@ class Produkhukum extends BaseController
                     'error' => [
                         'nama_kathukum' => $validation->getError('nama_kathukum'),
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
 
@@ -559,7 +559,7 @@ class Produkhukum extends BaseController
                 $this->produkkathukum->update($kathukum_id, $updatedata);
                 $msg = [
                     'sukses'                => 'Data berhasil diubah!',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -586,7 +586,7 @@ class Produkhukum extends BaseController
             ];
             $msg = [
                 'sukses' => view('backend/' . esc($tadmin['folder']) . '/' . 'informasi/produkhukum/produkkathukum/gantifile', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -623,7 +623,7 @@ class Produkhukum extends BaseController
                     'error' => [
                         'file_kathukum' => $validation->getError('file_kathukum')
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
 
@@ -648,7 +648,7 @@ class Produkhukum extends BaseController
 
                 $msg = [
                     'sukses'                => 'File berhasil diupload!',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -693,7 +693,7 @@ class Produkhukum extends BaseController
             $this->produkkathukum->delete($id);
             $msg = [
                 'sukses'                => 'Data Berhasil Dihapus',
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -724,7 +724,7 @@ class Produkhukum extends BaseController
 
             $msg = [
                 'sukses'                => "$jmldata Data berhasil dihapus",
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -831,7 +831,7 @@ class Produkhukum extends BaseController
             $data = [
                 'title'                 => 'Tambah Detail Sub Produk Hukum',
                 'kathukum_id'           => $this->request->getVar('subproduk'),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             $tadmin = $this->template->tempadminaktif();
             $msg = [
@@ -883,7 +883,7 @@ class Produkhukum extends BaseController
                         'nama_subkathukum'  => $validation->getError('nama_subkathukum'),
                         'file_subkathukum'     => $validation->getError('file_subkathukum'),
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
 
@@ -905,7 +905,7 @@ class Produkhukum extends BaseController
 
                 $msg = [
                     'sukses'                => 'Data berhasil disimpan!',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -932,7 +932,7 @@ class Produkhukum extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'informasi/produkhukum/produkkatsubhukum/edit', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -964,7 +964,7 @@ class Produkhukum extends BaseController
                     'error' => [
                         'nama_subkathukum' => $validation->getError('nama_subkathukum'),
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
 
@@ -976,7 +976,7 @@ class Produkhukum extends BaseController
                 $this->produkkatsubhukum->update($subkathukum_id, $updatedata);
                 $msg = [
                     'sukses'                => 'Data berhasil diubah!',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -1002,7 +1002,7 @@ class Produkhukum extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'informasi/produkhukum/produkkatsubhukum/gantifile', $data),
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
 
             ];
             echo json_encode($msg);
@@ -1041,7 +1041,7 @@ class Produkhukum extends BaseController
                     'error' => [
                         'file_subkathukum' => $validation->getError('file_subkathukum')
                     ],
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             } else {
 
@@ -1093,7 +1093,7 @@ class Produkhukum extends BaseController
             $this->produkkatsubhukum->delete($id);
             $msg = [
                 'sukses' => 'Data Berhasil Dihapus',
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -1122,7 +1122,7 @@ class Produkhukum extends BaseController
 
             $msg = [
                 'sukses'                => "$jmldata Data berhasil dihapus",
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             echo json_encode($msg);
         }

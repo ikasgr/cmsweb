@@ -1,10 +1,10 @@
 <!-- =======================================================
-      * CMS ikasmedia
+      * CMS DATAGOE
       * Content Management System.
       *
-      * @author			ikasmedia <ikasmedia@gmail.com>
-      * @website		www.ikasmedia.net
-      * @copyright		(c) 2025 - ikasmedia Software
+      * @author			Vian Taum <viantaum17@gmail.com>
+      * @website		www.datagoe.com
+      * @copyright		(c) 2023 - Datagoe Software
  ======================================================== -->
 
 <?php
@@ -22,8 +22,8 @@ $konfigurasi        = $builder->select('nama,vercms,kecamatan,icon,logo')->get()
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
 
     <title>Reset Password</title>
-    <meta content="CMS ikasmedia" name="ikasmedia Software" />
-    <meta content="Themesbrand" name="ikasmedia" />
+    <meta content="CMS DATAGOE" name="Datagoe Software" />
+    <meta content="Themesbrand" name="Vian Taum" />
     <link rel="shortcut icon" href="<?= base_url('/public/img/konfigurasi/icon/' . esc($konfigurasi->icon)) ?>">
     <link href="<?= base_url('/public/template/backend/' . esc($folder) . '/assets/libs/sweetalert2/sweetalert2.min.css') ?>" rel="stylesheet" type="text/css" />
     <link href="<?= base_url('/public/template/backend/' . esc($folder) . '/assets/css/bootstrap.min.css') ?>" id="bootstrap-style" rel="stylesheet" type="text/css" />
@@ -63,7 +63,7 @@ $konfigurasi        = $builder->select('nama,vercms,kecamatan,icon,logo')->get()
                         <!-- <p class="mb-3 font-size-14">Masukkan email untuk menerima instruksi selanjutnya!</p> -->
                         <?= form_open('login/prosesgantipass', ['class' => 'formlogin']) ?>
 
-                        <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsikasmedia" />
+                        <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsdatagoe" />
 
                         <form class="mb-1" autocomplete="off | unknown-autocomplete-value">
 
@@ -222,7 +222,7 @@ $konfigurasi        = $builder->select('nama,vercms,kecamatan,icon,logo')->get()
                         $('#password_confirm').removeClass('is-invalid');
                         $('.errorpassword_confirm').html();
                     }
-                    $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                 }
 
                 if (response.sukses) {
@@ -245,7 +245,7 @@ $konfigurasi        = $builder->select('nama,vercms,kecamatan,icon,logo')->get()
                     showConfirmButton: false,
                     timer: 3100
                 });
-                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
             }
         });
         return false;

@@ -93,7 +93,7 @@ class Konfigurasi extends BaseController
                     'verbost'           => $template['verbost'],
                     'temaaktif'         => $template['nama'],
                     'fileName'          => $fileName,
-                    'csrf_tokencmsikasmedia' => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
 
                 ];
                 return view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/konfigurasi/index', $data);
@@ -231,7 +231,7 @@ class Konfigurasi extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => $this->validator->getErrors(),
-                    'csrf_tokencmsikasmedia' => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             } else {
                 $id_setaplikasi         = $this->request->getVar('id_setaplikasi');
@@ -287,7 +287,7 @@ class Konfigurasi extends BaseController
 
                 $msg = [
                     'sukses'                => 'Data berhasil diupdate',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
 
@@ -310,7 +310,7 @@ class Konfigurasi extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/konfigurasi/uploadlogo', $data),
-                'csrf_tokencmsikasmedia' => csrf_hash()
+                'csrf_tokencmsdatagoe' => csrf_hash()
             ];
             echo json_encode($msg);
         }
@@ -341,7 +341,7 @@ class Konfigurasi extends BaseController
                         'logo' => $validation->getError('logo'),
 
                     ],
-                    'csrf_tokencmsikasmedia' => csrf_hash()
+                    'csrf_tokencmsdatagoe' => csrf_hash()
                 ];
             } else {
                 $id_setaplikasi = $this->request->getVar('id_setaplikasi');
@@ -376,7 +376,7 @@ class Konfigurasi extends BaseController
 
                 $msg = [
                     'sukses'                => 'Logo berhasil diupload!',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -399,7 +399,7 @@ class Konfigurasi extends BaseController
             ];
             $msg = [
                 'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/konfigurasi/uploadicon', $data),
-                'csrf_tokencmsikasmedia' => csrf_hash()
+                'csrf_tokencmsdatagoe' => csrf_hash()
             ];
             echo json_encode($msg);
         }
@@ -432,7 +432,7 @@ class Konfigurasi extends BaseController
                         'icon' => $validation->getError('icon')
                     ],
 
-                    'csrf_tokencmsikasmedia' => csrf_hash()
+                    'csrf_tokencmsdatagoe' => csrf_hash()
                 ];
             } else {
 
@@ -458,7 +458,7 @@ class Konfigurasi extends BaseController
 
                 $msg = [
                     'sukses'                => 'Icon berhasil diupload!',
-                    'csrf_tokencmsikasmedia'  => csrf_hash()
+                    'csrf_tokencmsdatagoe'  => csrf_hash()
                 ];
             }
             echo json_encode($msg);
@@ -487,14 +487,14 @@ class Konfigurasi extends BaseController
 
                 $msg = [
                     'sukses'                => 'DB berhasil dibackup!',
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                     'file'                  => $fileName,
                 ];
             } catch (\Exception $e) {
                 // echo 'mysqldump-php error: ' . $e->getMessage();
                 $msg = [
                     'error'                 => 'mysqldump-php error:' . $e->getMessage(),
-                    'csrf_tokencmsikasmedia'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe'  => csrf_hash(),
                 ];
             }
         }
@@ -515,7 +515,7 @@ class Konfigurasi extends BaseController
 
             $msg = [
                 'sukses'                => 'file Berhasil Dihapus',
-                'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
 
             echo json_encode($msg);

@@ -23,7 +23,7 @@
                     <hr>
                     <!-- Start content -->
                     <?= form_open('bukutamu/simpanbukutamu', ['class' => 'fbk']) ?>
-                    <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsikasmedia" />
+                    <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" id="csrf_tokencmsdatagoe" />
                     <div class="modal-body">
                         <div class="alert alert-info" style='background-color:#f4f4f4; border-color:#e3e3e3;'>Terima Kasih, untuk kunjungan Anda.
                             Punya pertanyaan, masukan dan saran? Silahkan klik <b class="pointer" onclick="window.location.href='<?= base_url('masukansaran') ?>'">disini</b>, untuk Sampaikan.
@@ -168,7 +168,7 @@
                             $('.errorkeperluan').html();
                             $('#keperluan').addClass('is-valid');
                         }
-                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                        $('input[name=csrf_tokencmsdatagoe]').val(response.csrf_tokencmsdatagoe);
                     }
 
                     if (response.sukses) {
