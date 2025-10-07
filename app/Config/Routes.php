@@ -809,6 +809,7 @@ $routes->group('', ['namespace' => 'App\Controllers'], function ($routes) {
     $routes->get('pendaftaran-sidi', 'PendaftaranSidi::index');
     $routes->post('pendaftaran-sidi/simpanpendaftaran', 'PendaftaranSidi::simpanpendaftaran');
     $routes->get('pendaftaran-sidi/list', 'PendaftaranSidi::list');
+    $routes->get('pendaftaran_sidi/all', 'PendaftaranSidi::list');
     $routes->get('pendaftaran-sidi/getdata', 'PendaftaranSidi::getdata');
     $routes->post('pendaftaran-sidi/formlihat', 'PendaftaranSidi::formlihat');
     $routes->post('pendaftaran-sidi/formedit', 'PendaftaranSidi::formedit');
@@ -826,6 +827,7 @@ $routes->group('', ['namespace' => 'App\Controllers'], function ($routes) {
     $routes->get('pendaftaran-baptis', 'PendaftaranBaptis::index');
     $routes->post('pendaftaran-baptis/simpanpendaftaran', 'PendaftaranBaptis::simpanpendaftaran');
     $routes->get('pendaftaran-baptis/list', 'PendaftaranBaptis::list');
+    $routes->get('pendaftaran_baptis/all', 'PendaftaranBaptis::list');
     $routes->get('pendaftaran-baptis/getdata', 'PendaftaranBaptis::getdata');
     $routes->post('pendaftaran-baptis/formlihat', 'PendaftaranBaptis::formlihat');
     $routes->post('pendaftaran-baptis/formedit', 'PendaftaranBaptis::formedit');
@@ -843,6 +845,7 @@ $routes->group('', ['namespace' => 'App\Controllers'], function ($routes) {
     $routes->get('pendaftaran-nikah', 'PendaftaranNikah::index');
     $routes->post('pendaftaran-nikah/simpanpendaftaran', 'PendaftaranNikah::simpanpendaftaran');
     $routes->get('pendaftaran-nikah/list', 'PendaftaranNikah::list');
+    $routes->get('pendaftaran_nikah/all', 'PendaftaranNikah::list');
     $routes->get('pendaftaran-nikah/getdata', 'PendaftaranNikah::getdata');
     $routes->post('pendaftaran-nikah/formlihat', 'PendaftaranNikah::formlihat');
     $routes->post('pendaftaran-nikah/formedit', 'PendaftaranNikah::formedit');

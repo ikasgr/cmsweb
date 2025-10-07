@@ -1,4 +1,4 @@
-<?= $this->extend('backend/morvin/template') ?>
+<?= $this->extend('backend/' . $folder . '/' . 'script') ?>
 <?= $this->section('content') ?>
 
 <div class="row">

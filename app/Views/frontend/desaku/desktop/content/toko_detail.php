@@ -17,7 +17,13 @@ if (!empty($produk->harga_promo)) {
                 <ol class="breadcrumb bg-transparent">
                     <li class="breadcrumb-item"><a href="<?= base_url() ?>">Home</a></li>
                     <li class="breadcrumb-item"><a href="<?= base_url('toko') ?>">Toko</a></li>
-                    <li class="breadcrumb-item"><a href="<?= base_url('toko/kategori/' . $produk->slug_kategori) ?>"><?= esc($produk->nama_kategori) ?></a></li>
+                    <?php if (isset($produk->nama_kategori)) : ?>
+                        <?php if (isset($produk->slug_kategori)) : ?>
+                            <li class="breadcrumb-item"><a href="<?= base_url('toko/kategori/' . $produk->slug_kategori) ?>"><?= esc($produk->nama_kategori) ?></a></li>
+                        <?php else : ?>
+                            <li class="breadcrumb-item"><?= esc($produk->nama_kategori) ?></li>
+                        <?php endif; ?>
+                    <?php endif; ?>
                     <li class="breadcrumb-item active"><?= esc($produk->nama_produk) ?></li>
                 </ol>
             </nav>

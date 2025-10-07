@@ -26,6 +26,7 @@ class Pager extends BaseConfig
         'default_head'   => 'CodeIgniter\Pager\Views\default_head',
         'datagoe'        => 'App\Views\backend\pager',
         'datagoe2'       => 'App\Views\backend\bs_page',
+        'bootstrap_pagination' => 'App\Views\Pager\bootstrap_pagination',
     ];
 
     /**
