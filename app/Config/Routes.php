@@ -894,5 +894,26 @@ $routes->group('', ['namespace' => 'App\Controllers'], function ($routes) {
     $routes->get('toko/cartcount', 'Toko::cartcount');
     $routes->get('toko/(:segment)', 'Toko::detail/$1');
 
+    // Jadwal Pelayanan - Backend
+    $routes->get('jadwal-pelayanan/list', 'JadwalPelayanan::list');
+    $routes->get('jadwal-pelayanan/getdata', 'JadwalPelayanan::getdata');
+    $routes->get('jadwal-pelayanan/formtambah', 'JadwalPelayanan::formtambah');
+    $routes->post('jadwal-pelayanan/simpan', 'JadwalPelayanan::simpan');
+    $routes->post('jadwal-pelayanan/formedit', 'JadwalPelayanan::formedit');
+    $routes->post('jadwal-pelayanan/update', 'JadwalPelayanan::update');
+    $routes->post('jadwal-pelayanan/hapus', 'JadwalPelayanan::hapus');
+    $routes->post('jadwal-pelayanan/hapusall', 'JadwalPelayanan::hapusall');
+    $routes->post('jadwal-pelayanan/toggle', 'JadwalPelayanan::toggle');
+    $routes->post('jadwal-pelayanan/formlihat', 'JadwalPelayanan::formlihat');
+    $routes->get('jadwal-pelayanan/getcalendar', 'JadwalPelayanan::getcalendar');
+
+    // Jadwal - Frontend
+    $routes->get('jadwal', 'Jadwal::index');
+    $routes->get('jadwal/jenis/(:segment)', 'Jadwal::jenis/$1');
+    $routes->post('jadwal/bybulan', 'Jadwal::bybulan');
+    $routes->get('jadwal/getevents', 'Jadwal::getevents');
+    $routes->post('jadwal/detail', 'Jadwal::detail');
+    $routes->get('jadwal/widget', 'Jadwal::widget');
+
     $routes->get('(:segment)', 'Berita::detail/$1');
 });

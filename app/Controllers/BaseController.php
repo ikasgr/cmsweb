@@ -32,6 +32,7 @@ use App\Models\M_KategoriProduk;
 use App\Models\M_Keranjang;
 use App\Models\M_Pesanan;
 use App\Models\M_PesananDetail;
+use App\Models\M_JadwalPelayanan;
 
 
 use App\Models\ModelAgenda;
@@ -191,6 +192,7 @@ abstract class BaseController extends Controller
         $this->keranjang = new M_Keranjang();
         $this->pesanan = new M_Pesanan();
         $this->pesanandetail = new M_PesananDetail();
+        $this->jadwalpelayanan = new M_JadwalPelayanan();
 
         $this->user->kunjungan();
     }
