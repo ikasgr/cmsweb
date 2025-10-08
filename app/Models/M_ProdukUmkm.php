@@ -11,7 +11,8 @@ class M_ProdukUmkm extends Model
     protected $allowedFields = [
         'nama_produk', 'slug_produk', 'kategori_id', 'deskripsi', 'harga', 
         'harga_promo', 'stok', 'berat', 'satuan', 'gambar', 'galeri',
-        'status', 'featured', 'hits', 'tgl_input', 'user_id'
+        'status', 'featured', 'hits', 'whatsapp_admin', 'whatsapp_template', 
+        'whatsapp_clicks', 'tgl_input', 'user_id'
     ];
 
     // List semua produk

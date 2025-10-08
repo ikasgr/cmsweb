@@ -17,7 +17,7 @@ class Home extends BaseController
 		$beritakate   			= $this->berita->listkategori($kategori_id);
 		$beritakate6   			= $this->berita->listkategori6($kategori_id);
 		$beritakate10   		= $this->berita->listkategori10($kategori_id);
-		$pegawai 				= $this->pegawai->listpegawaipage();
+		$majelis 				= $this->majelisgereja->listaktif();
 		$faq   					= $this->faqtanya->listpublish();
 		// $layanan 				= $this->layanan->listlayananpage();
 		$data = [
@@ -43,8 +43,7 @@ class Home extends BaseController
 			'faq'			    => $faq,
 			'ebook2'          	=> $this->ebook->listebookpage()->paginate(2),
 			'ebook'          	=> $this->ebook->listebookpage()->paginate(4),
-			'pegawai'          	=> $pegawai->paginate(4, 'hal'),
-			'pegawai8'          	=> $pegawai->paginate(8, 'hal'),
+			'majelis'          	=> $majelis,
 			'terkini1' 			=> $this->berita->terkini1(),
 			'terkini6' 			=> $this->berita->published(),
 			'terkini6ptsp' 		=> $this->berita->terkini6($kategori_id),
@@ -246,7 +245,7 @@ class Home extends BaseController
 		$theme_config = [
 			'hero' => [
 				'layanan'        => $this->layanan->listlayananpage()->paginate(6),
-				'pegawai'        => $this->pegawai->listpegawaipage()->paginate(4, 'hal'),
+				'majelis'        => $this->majelisgereja->listaktif(),
 				'faq'            => $this->faqtanya->listpublish(),
 			],
 			'default' => [

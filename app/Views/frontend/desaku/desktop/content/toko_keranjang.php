@@ -146,9 +146,27 @@
                                 Rp <?= number_format($total, 0, ',', '.') ?>
                             </h5>
                         </div>
-                        <a href="<?= base_url('toko/checkout') ?>" class="btn btn-success btn-block btn-lg">
-                            <i class="fas fa-check-circle"></i> Checkout
-                        </a>
+                        
+                        <!-- Form Data Pembeli -->
+                        <div class="mb-3">
+                            <label class="form-label"><strong>Nama Anda:</strong></label>
+                            <input type="text" class="form-control" id="nama-pembeli" placeholder="Masukkan nama Anda" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label"><strong>No. HP/WhatsApp:</strong></label>
+                            <input type="text" class="form-control" id="hp-pembeli" placeholder="08xxx" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label"><strong>Alamat Pengiriman:</strong></label>
+                            <textarea class="form-control" id="alamat-pembeli" rows="2" placeholder="Alamat lengkap" required></textarea>
+                        </div>
+                        
+                        <button class="btn btn-primary btn-block btn-lg btn-checkout">
+                            <i class="fas fa-check-circle"></i> Proses Pesanan
+                        </button>
+                        <small class="text-muted text-center d-block mt-2">
+                            <i class="fas fa-info-circle"></i> Pesanan akan disimpan dan invoice akan ditampilkan
+                        </small>
                     </div>
                 </div>
 
@@ -343,6 +361,89 @@ $(document).ready(function() {
                                 icon: 'error',
                                 title: 'Gagal!',
                                 text: response.error
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: 'Terjadi kesalahan. Silahkan coba lagi.'
+                        });
+                    }
+                });
+            }
+        });
+    });
+    
+    // Proses Checkout
+    $('.btn-checkout').click(function() {
+        let nama = $('#nama-pembeli').val().trim();
+        let hp = $('#hp-pembeli').val().trim();
+        let alamat = $('#alamat-pembeli').val().trim();
+        
+        // Validasi
+        if (!nama || !hp || !alamat) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Data Belum Lengkap',
+                text: 'Mohon lengkapi nama, no HP, dan alamat pengiriman'
+            });
+            return;
+        }
+        
+        // Konfirmasi
+        Swal.fire({
+            title: 'Proses Pesanan?',
+            text: 'Pesanan akan disimpan dan invoice akan ditampilkan',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#28a745',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Ya, Proses!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Kirim data ke server
+                $.ajax({
+                    url: '<?= base_url('toko/checkout') ?>',
+                    type: 'POST',
+                    data: {
+                        <?= csrf_token() ?>: '<?= csrf_hash() ?>',
+                        nama_pembeli: nama,
+                        no_hp: hp,
+                        alamat: alamat,
+                        email: '',
+                        catatan: ''
+                    },
+                    dataType: 'json',
+                    beforeSend: function() {
+                        Swal.fire({
+                            title: 'Memproses...',
+                            text: 'Mohon tunggu',
+                            allowOutsideClick: false,
+                            didOpen: () => {
+                                Swal.showLoading();
+                            }
+                        });
+                    },
+                    success: function(response) {
+                        if (response.sukses) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Berhasil!',
+                                text: response.sukses,
+                                showConfirmButton: false,
+                                timer: 1500
+                            }).then(() => {
+                                // Redirect ke invoice
+                                window.location.href = '<?= base_url('toko/invoice/') ?>' + response.kode_pesanan;
+                            });
+                        } else if (response.error) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Gagal!',
+                                text: typeof response.error === 'object' ? Object.values(response.error).join(', ') : response.error
                             });
                         }
                     },

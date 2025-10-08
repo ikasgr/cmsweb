@@ -3,18 +3,24 @@
 <?= $this->section('content') ?>
 
 <section class="container mt-lg-0 mt-0 pb-1">
-    <div class="row">
-        <div class="col">
+    <div class="row align-items-center">
+        <div class="col-md-8">
             <h4 class="f-20 montserrat-700 text-light-blue">
-                Toko UMKM - <?= isset($kategori_nama) ? esc($kategori_nama) : 'Kategori' ?>
+                Toko UMKM - <?= isset($kategori->nama_kategori) ? esc($kategori->nama_kategori) : 'Kategori' ?>
             </h4>
             <nav aria-label="breadcrumb">
-                <ol class="breadcrumb bg-transparent p-0">
+                <ol class="breadcrumb bg-transparent p-0 mb-0">
                     <li class="breadcrumb-item"><a href="<?= base_url() ?>">Home</a></li>
                     <li class="breadcrumb-item"><a href="<?= base_url('toko') ?>">Toko</a></li>
-                    <li class="breadcrumb-item active"><?= isset($kategori_nama) ? esc($kategori_nama) : 'Kategori' ?></li>
+                    <li class="breadcrumb-item active"><?= isset($kategori->nama_kategori) ? esc($kategori->nama_kategori) : 'Kategori' ?></li>
                 </ol>
             </nav>
+        </div>
+        <div class="col-md-4 text-right">
+            <a href="<?= base_url('toko/keranjang') ?>" class="btn btn-success position-relative">
+                <i class="fas fa-shopping-cart"></i> Keranjang
+                <span class="badge badge-danger position-absolute" id="cart-count" style="top: -5px; right: -5px;">0</span>
+            </a>
         </div>
     </div>
 </section>
@@ -265,9 +271,9 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(response) {
                 if (response.count > 0) {
-                    $('.cart-count').text(response.count).show();
+                    $('#cart-count').text(response.count).show();
                 } else {
-                    $('.cart-count').hide();
+                    $('#cart-count').text('0');
                 }
             }
         });

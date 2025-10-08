@@ -349,23 +349,23 @@ if ($section4) {
 
                     <div class="box mt-2">
                         <h1 class="f-20 montserrat-800 text-blue p-2  border-bottom">
-                            Data Pegawai </h1>
+                            Majelis Gereja </h1>
 
                         <ul class="users-list clearfix">
-                            <?php if ($pegawai) {
-                                foreach ($pegawai as $data) :
+                            <?php if ($majelis) {
+                                foreach ($majelis as $data) :
                             ?>
                                     <li class="list-unstyled ml-0">
-                                        <img src="<?= base_url('/public/img/informasi/pegawai/' . esc($data['gambar'])) ?>" alt="<?= esc($data['nama']) ?>" />
-                                        <a class="users-list-name pointer" onclick="lihatpegawaix('<?= $data['pegawai_id'] ?>')"><?= esc($data['nama']) ?></a>
-                                        <!-- <span class="users-list-date"><?= esc($data['jabatan']) ?></span> -->
+                                        <img src="<?= base_url('/public/img/informasi/majelis/' . esc($data['gambar'])) ?>" alt="<?= esc($data['nama']) ?>" />
+                                        <a class="users-list-name pointer" onclick="lihatmajelisx('<?= $data['majelis_id'] ?>')"><?= esc($data['nama']) ?></a>
+                                        <span class="users-list-date"><?= esc($data['jenis_jabatan']) ?></span>
                                     </li>
                                 <?php endforeach;
                                 ?>
                         </ul><!-- /.users-list -->
 
                         <div class="box-footer text-center">
-                            <a href="pegawai" class="uppercase">Lihat semuanya</a>
+                            <a href="majelis-gereja" class="uppercase">Lihat semuanya</a>
                         </div><!-- /.box-footer -->
                     <?php  } else { ?>
                         <div class="alert alert-danger">
@@ -658,7 +658,7 @@ if ($section4) {
         <?php 
         use App\Models\M_ProdukUmkm;
         $produk_model = new M_ProdukUmkm();
-        $produk_featured = $produk_model->featured()->limit(8)->get()->getResultArray();
+        $produk_featured = $produk_model->featured()->limit(12)->get()->getResultArray();
         
         if ($produk_featured) : ?>
         
@@ -1076,7 +1076,7 @@ $(document).ready(function() {
     // Initialize Produk Slider
     $('#produk-slider').slick({
         infinite: true,
-        slidesToShow: 4,
+        slidesToShow: 5,
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 3000,
@@ -1086,7 +1086,7 @@ $(document).ready(function() {
             {
                 breakpoint: 1024,
                 settings: {
-                    slidesToShow: 3,
+                    slidesToShow: 5,
                     slidesToScroll: 1
                 }
             },

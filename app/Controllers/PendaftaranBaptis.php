@@ -8,38 +8,32 @@ class PendaftaranBaptis extends BaseController
 {
     protected $pendaftaranBaptisModel;
     protected $helpers = ['form', 'url', 'file'];
-    
-    public function __construct()
-    {
-        $this->pendaftaranBaptisModel = new PendaftaranBaptisModel();
-        
-        // Load konfigurasi
-        $this->konfigurasi = $this->konfigurasi->vkonfig();
-        $this->template = $this->template->tempaktif();
-    }
 
     /**
      * Menampilkan halaman form pendaftaran baptis untuk umum
      */
     public function index()
     {
+        $konfigurasi = $this->konfigurasi->vkonfig();
+        $template = $this->template->tempaktif();
+        
         $data = [
-            'title'         => 'Pendaftaran Baptis | ' . $this->konfigurasi->nama,
-            'deskripsi'     => $this->konfigurasi->deskripsi,
-            'url'           => $this->konfigurasi->website,
-            'img'           => base_url('/public/img/konfigurasi/logo/' . $this->konfigurasi->logo),
-            'konfigurasi'   => $this->konfigurasi,
+            'title'         => 'Pendaftaran Baptis | ' . $konfigurasi->nama,
+            'deskripsi'     => $konfigurasi->deskripsi,
+            'url'           => $konfigurasi->website,
+            'img'           => base_url('/public/img/konfigurasi/logo/' . $konfigurasi->logo),
+            'konfigurasi'   => $konfigurasi,
             'mainmenu'      => $this->menu->mainmenu(),
             'footer'        => $this->menu->footermenu(),
             'topmenu'       => $this->menu->topmenu(),
             'section'       => $this->section->list(),
-            'sitekey'       => $this->konfigurasi->g_sitekey,
+            'sitekey'       => $konfigurasi->g_sitekey,
             'linkterkaitall' => $this->linkterkait->publishlinkall(),
-            'folder'        => $this->template['folder'],
+            'folder'        => $template['folder'],
             'validation'    => \Config\Services::validation()
         ];
         
-        return view('frontend/' . $this->template['folder'] . '/content/pendaftaran_baptis', $data);
+        return view('frontend/' . $template['folder'] . '/content/pendaftaran_baptis', $data);
     }
 
     /**
@@ -47,6 +41,8 @@ class PendaftaranBaptis extends BaseController
      */
     public function simpanpendaftaran()
     {
+        $this->pendaftaranBaptisModel = new PendaftaranBaptisModel();
+        
         // Validasi CSRF Token
         if (!$this->request->isAJAX() || !$this->validate(['_method' => 'post'])) {
             return $this->response->setJSON([

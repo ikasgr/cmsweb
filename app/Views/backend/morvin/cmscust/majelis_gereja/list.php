@@ -128,7 +128,7 @@
                     <td><?= $nomor++ ?></td>
                     <td class="text-center">
                         <?php if ($data['gambar']) : ?>
-                            <img src="<?= base_url('public/img/informasi/pegawai/' . $data['gambar']) ?>" 
+                            <img src="<?= base_url('public/img/informasi/majelis/' . $data['gambar']) ?>" 
                                  class="rounded-circle" width="50" height="50" 
                                  style="object-fit: cover;" alt="Foto">
                         <?php else : ?>

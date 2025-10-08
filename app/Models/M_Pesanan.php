@@ -7,13 +7,13 @@ use CodeIgniter\Model;
 class M_Pesanan extends Model
 {
     protected $table      = 'custome__pesanan';
-    protected $primaryKey = 'id_pesanan';
+    protected $primaryKey = 'pesanan_id';
     protected $allowedFields = [
-        'no_pesanan', 'user_id', 'nama_pemesan', 'email', 'no_hp', 'alamat',
-        'provinsi', 'kota', 'kecamatan', 'kode_pos', 'total_harga', 'ongkir',
-        'grand_total', 'metode_pembayaran', 'status_pembayaran', 'status_pesanan',
-        'bukti_transfer', 'catatan', 'tgl_pesan', 'tgl_bayar', 'tgl_kirim', 'tgl_selesai',
-        'resi_pengiriman', 'kurir'
+        'kode_pesanan', 'session_id', 'user_id', 'nama_pembeli', 'no_hp', 'alamat', 'email', 'catatan',
+        'total_item', 'total_qty', 'subtotal', 'ongkir', 'total_bayar',
+        'status_pesanan', 'metode_pembayaran', 'bukti_bayar',
+        'tgl_pesanan', 'tgl_diproses', 'tgl_dikirim', 'tgl_selesai',
+        'whatsapp_sent', 'tgl_whatsapp', 'admin_id', 'keterangan'
     ];
 
     // List semua pesanan
@@ -74,26 +74,48 @@ class M_Pesanan extends Model
             ->get()->getRow();
     }
 
-    // Generate nomor pesanan
-    public function generateNoPesanan()
+    // Generate kode pesanan
+    public function generateKodePesanan()
     {
-        $prefix = 'ORD';
+        $prefix = 'PO';
         $date = date('Ymd');
         
         // Cari nomor terakhir hari ini
         $last = $this->table('custome__pesanan')
-            ->like('no_pesanan', $prefix . $date, 'after')
-            ->orderBy('id_pesanan', 'DESC')
+            ->like('kode_pesanan', $prefix . '-' . $date, 'after')
+            ->orderBy('pesanan_id', 'DESC')
             ->limit(1)
             ->get()->getRow();
         
         if ($last) {
-            $lastNumber = (int) substr($last->no_pesanan, -4);
+            $lastNumber = (int) substr($last->kode_pesanan, -4);
             $newNumber = $lastNumber + 1;
         } else {
             $newNumber = 1;
         }
         
-        return $prefix . $date . str_pad($newNumber, 4, '0', STR_PAD_LEFT);
+        return $prefix . '-' . $date . '-' . str_pad($newNumber, 4, '0', STR_PAD_LEFT);
+    }
+
+    // Get pesanan dengan detail
+    public function getPesananWithDetail($pesanan_id)
+    {
+        $pesanan = $this->find($pesanan_id);
+        if (!$pesanan) return null;
+
+        $db = \Config\Database::connect();
+        $detail = $db->table('custome__pesanan_detail')
+            ->where('pesanan_id', $pesanan_id)
+            ->get()->getResultArray();
+
+        $pesanan['detail'] = $detail;
+        return $pesanan;
+    }
+
+    // Get pesanan by kode
+    public function getByKode($kode_pesanan)
+    {
+        return $this->where('kode_pesanan', $kode_pesanan)->first();
     }
 }
+

@@ -127,7 +127,7 @@ class MajelisGereja extends BaseController
                 
                 if ($foto && $foto->isValid() && !$foto->hasMoved()) {
                     $nama_foto = $foto->getRandomName();
-                    $foto->move('public/img/informasi/pegawai/', $nama_foto);
+                    $foto->move('public/img/informasi/majelis/', $nama_foto);
                 }
 
                 // Upload file SK
@@ -136,7 +136,7 @@ class MajelisGereja extends BaseController
                 
                 if ($file_sk && $file_sk->isValid() && !$file_sk->hasMoved()) {
                     $nama_sk = $file_sk->getRandomName();
-                    $file_sk->move('public/img/informasi/pegawai/', $nama_sk);
+                    $file_sk->move('public/img/informasi/majelis/', $nama_sk);
                 }
 
                 // Upload file sertifikat
@@ -145,7 +145,7 @@ class MajelisGereja extends BaseController
                 
                 if ($file_sertifikat && $file_sertifikat->isValid() && !$file_sertifikat->hasMoved()) {
                     $nama_sertifikat = $file_sertifikat->getRandomName();
-                    $file_sertifikat->move('public/img/informasi/pegawai/', $nama_sertifikat);
+                    $file_sertifikat->move('public/img/informasi/majelis/', $nama_sertifikat);
                 }
 
                 $data = [
@@ -272,11 +272,11 @@ class MajelisGereja extends BaseController
                 
                 if ($foto && $foto->isValid() && !$foto->hasMoved()) {
                     // Hapus foto lama
-                    if ($majelis['gambar'] && file_exists('public/img/informasi/pegawai/' . $majelis['gambar'])) {
-                        unlink('public/img/informasi/pegawai/' . $majelis['gambar']);
+                    if ($majelis['gambar'] && file_exists('public/img/informasi/majelis/' . $majelis['gambar'])) {
+                        unlink('public/img/informasi/majelis/' . $majelis['gambar']);
                     }
                     $nama_foto = $foto->getRandomName();
-                    $foto->move('public/img/informasi/pegawai/', $nama_foto);
+                    $foto->move('public/img/informasi/majelis/', $nama_foto);
                 }
 
                 // Upload file SK baru
@@ -285,11 +285,11 @@ class MajelisGereja extends BaseController
                 
                 if ($file_sk && $file_sk->isValid() && !$file_sk->hasMoved()) {
                     // Hapus file lama
-                    if ($majelis['file_sk_pengangkatan'] && file_exists('public/img/informasi/pegawai/' . $majelis['file_sk_pengangkatan'])) {
-                        unlink('public/img/informasi/pegawai/' . $majelis['file_sk_pengangkatan']);
+                    if ($majelis['file_sk_pengangkatan'] && file_exists('public/img/informasi/majelis/' . $majelis['file_sk_pengangkatan'])) {
+                        unlink('public/img/informasi/majelis/' . $majelis['file_sk_pengangkatan']);
                     }
                     $nama_sk = $file_sk->getRandomName();
-                    $file_sk->move('public/img/informasi/pegawai/', $nama_sk);
+                    $file_sk->move('public/img/informasi/majelis/', $nama_sk);
                 }
 
                 // Upload file sertifikat baru
@@ -298,11 +298,11 @@ class MajelisGereja extends BaseController
                 
                 if ($file_sertifikat && $file_sertifikat->isValid() && !$file_sertifikat->hasMoved()) {
                     // Hapus file lama
-                    if ($majelis['file_sertifikat'] && file_exists('public/img/informasi/pegawai/' . $majelis['file_sertifikat'])) {
-                        unlink('public/img/informasi/pegawai/' . $majelis['file_sertifikat']);
+                    if ($majelis['file_sertifikat'] && file_exists('public/img/informasi/majelis/' . $majelis['file_sertifikat'])) {
+                        unlink('public/img/informasi/majelis/' . $majelis['file_sertifikat']);
                     }
                     $nama_sertifikat = $file_sertifikat->getRandomName();
-                    $file_sertifikat->move('public/img/informasi/pegawai/', $nama_sertifikat);
+                    $file_sertifikat->move('public/img/informasi/majelis/', $nama_sertifikat);
                 }
 
                 $data = [
@@ -349,18 +349,18 @@ class MajelisGereja extends BaseController
             $majelis = $this->majelisgereja->find($majelis_id);
 
             // Hapus file foto
-            if ($majelis['gambar'] && file_exists('public/img/informasi/pegawai/' . $majelis['gambar'])) {
-                unlink('public/img/informasi/pegawai/' . $majelis['gambar']);
+            if ($majelis['gambar'] && file_exists('public/img/informasi/majelis/' . $majelis['gambar'])) {
+                unlink('public/img/informasi/majelis/' . $majelis['gambar']);
             }
 
             // Hapus file SK
-            if ($majelis['file_sk_pengangkatan'] && file_exists('public/img/informasi/pegawai/' . $majelis['file_sk_pengangkatan'])) {
-                unlink('public/img/informasi/pegawai/' . $majelis['file_sk_pengangkatan']);
+            if ($majelis['file_sk_pengangkatan'] && file_exists('public/img/informasi/majelis/' . $majelis['file_sk_pengangkatan'])) {
+                unlink('public/img/informasi/majelis/' . $majelis['file_sk_pengangkatan']);
             }
 
             // Hapus file sertifikat
-            if ($majelis['file_sertifikat'] && file_exists('public/img/informasi/pegawai/' . $majelis['file_sertifikat'])) {
-                unlink('public/img/informasi/pegawai/' . $majelis['file_sertifikat']);
+            if ($majelis['file_sertifikat'] && file_exists('public/img/informasi/majelis/' . $majelis['file_sertifikat'])) {
+                unlink('public/img/informasi/majelis/' . $majelis['file_sertifikat']);
             }
 
             $this->majelisgereja->delete($majelis_id);
@@ -384,18 +384,18 @@ class MajelisGereja extends BaseController
                 $majelis = $this->majelisgereja->find($majelis_id[$i]);
 
                 // Hapus file foto
-                if ($majelis['gambar'] && file_exists('public/img/informasi/pegawai/' . $majelis['gambar'])) {
-                    unlink('public/img/informasi/pegawai/' . $majelis['gambar']);
+                if ($majelis['gambar'] && file_exists('public/img/informasi/majelis/' . $majelis['gambar'])) {
+                    unlink('public/img/informasi/majelis/' . $majelis['gambar']);
                 }
 
                 // Hapus file SK
-                if ($majelis['file_sk_pengangkatan'] && file_exists('public/img/informasi/pegawai/' . $majelis['file_sk_pengangkatan'])) {
-                    unlink('public/img/informasi/pegawai/' . $majelis['file_sk_pengangkatan']);
+                if ($majelis['file_sk_pengangkatan'] && file_exists('public/img/informasi/majelis/' . $majelis['file_sk_pengangkatan'])) {
+                    unlink('public/img/informasi/majelis/' . $majelis['file_sk_pengangkatan']);
                 }
 
                 // Hapus file sertifikat
-                if ($majelis['file_sertifikat'] && file_exists('public/img/informasi/pegawai/' . $majelis['file_sertifikat'])) {
-                    unlink('public/img/informasi/pegawai/' . $majelis['file_sertifikat']);
+                if ($majelis['file_sertifikat'] && file_exists('public/img/informasi/majelis/' . $majelis['file_sertifikat'])) {
+                    unlink('public/img/informasi/majelis/' . $majelis['file_sertifikat']);
                 }
 
                 $this->majelisgereja->delete($majelis_id[$i]);
@@ -447,5 +447,78 @@ class MajelisGereja extends BaseController
         ];
 
         return view('backend/morvin/cmscust/majelis_gereja/dashboard', $data);
+    }
+
+    // ============================================
+    // FRONTEND METHODS
+    // ============================================
+
+    // Frontend - List all majelis
+    public function index()
+    {
+        $konfigurasi = $this->konfigurasi->vkonfig();
+        $template = $this->template->tempaktif();
+
+        $data = [
+            'title'         => 'Majelis Gereja - ' . esc($konfigurasi->nama),
+            'deskripsi'     => 'Daftar Majelis dan Pelayan Gereja ' . esc($konfigurasi->nama),
+            'url'           => base_url('majelis-gereja'),
+            'img'           => base_url('/public/img/konfigurasi/logo/' . esc($konfigurasi->logo)),
+            'konfigurasi'   => $konfigurasi,
+            'mainmenu'      => $this->menu->mainmenu(),
+            'footer'        => $this->menu->footermenu(),
+            'topmenu'       => $this->menu->topmenu(),
+            'banner'        => $this->banner->list(),
+            'infografis'    => $this->banner->listgrafis(),
+            'infografis1'   => $this->banner->listinfo1(),
+            'infografis2'   => $this->banner->listinfo(),
+            'infografis3'   => $this->banner->listinfo3(),
+            'linkterkaitall' => $this->linkterkait->publishlinkall(),
+            // 'foto1'         => $this->galeri->fototerbaru(),
+            'folder'        => esc($template['folder']),
+            
+            // Data Majelis
+            'majelis'       => $this->majelisgereja->listMajelisPage()->paginate(12, 'majelis'),
+            'pager'         => $this->majelisgereja->pager,
+            'jabatan'       => $this->jabatanmajelis->listAktif(),
+        ];
+
+        return view('frontend/' . esc($template['folder']) . '/desktop/content/v_majelis', $data);
+    }
+
+    // Frontend - Detail majelis
+    public function detail($majelis_id)
+    {
+        $konfigurasi = $this->konfigurasi->vkonfig();
+        $template = $this->template->tempaktif();
+        $majelis = $this->majelisgereja->find($majelis_id);
+
+        if (!$majelis) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $data = [
+            'title'         => esc($majelis['nama']) . ' - Majelis Gereja',
+            'deskripsi'     => 'Profil ' . esc($majelis['nama']) . ' - ' . esc($majelis['jenis_jabatan']),
+            'url'           => base_url('majelis-gereja/detail/' . $majelis_id),
+            'img'           => base_url('/public/img/informasi/majelis/' . esc($majelis['gambar'])),
+            'konfigurasi'   => $konfigurasi,
+            'mainmenu'      => $this->menu->mainmenu(),
+            'footer'        => $this->menu->footermenu(),
+            'topmenu'       => $this->menu->topmenu(),
+            'banner'        => $this->banner->list(),
+            'infografis'    => $this->banner->listgrafis(),
+            'linkterkaitall' => $this->linkterkait->publishlinkall(),
+            'folder'        => esc($template['folder']),
+            
+            // Data Majelis
+            'majelis'       => $majelis,
+            'terkait'       => $this->majelisgereja->where('status_jabatan', 'Aktif')
+                                                    ->where('majelis_id !=', $majelis_id)
+                                                    ->limit(4)
+                                                    ->findAll(),
+        ];
+
+        return view('frontend/' . esc($template['folder']) . '/desktop/content/v_majelis_detail', $data);
     }
 }

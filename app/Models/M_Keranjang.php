@@ -14,8 +14,9 @@ class M_Keranjang extends Model
     public function bysession($session_id)
     {
         return $this->table('custome__keranjang')
-            ->select('custome__keranjang.*, custome__produk_umkm.nama_produk, custome__produk_umkm.gambar, custome__produk_umkm.stok, custome__produk_umkm.berat')
+            ->select('custome__keranjang.*, custome__produk_umkm.nama_produk, custome__produk_umkm.slug_produk, custome__produk_umkm.gambar, custome__produk_umkm.stok, custome__produk_umkm.berat, custome__produk_umkm.satuan, custome__kategori_produk.nama_kategori')
             ->join('custome__produk_umkm', 'custome__produk_umkm.id_produk = custome__keranjang.id_produk')
+            ->join('custome__kategori_produk', 'custome__kategori_produk.kategori_id = custome__produk_umkm.kategori_id', 'left')
             ->where('session_id', $session_id)
             ->get()->getResultArray();
     }

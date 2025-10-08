@@ -13,6 +13,7 @@ class JadwalPelayanan extends BaseController
         $data = [
             'title'     => 'Jadwal Pelayanan',
             'subtitle'  => 'Manajemen Jadwal',
+            'folder'    => 'morvin',
         ];
         return view('backend/morvin/cmscust/jadwal_pelayanan/index', $data);
     }

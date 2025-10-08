@@ -11,10 +11,10 @@ if (!empty($produk->harga_promo)) {
 ?>
 
 <section class="container mt-lg-0 mt-0 pb-1">
-    <div class="row">
-        <div class="col">
+    <div class="row align-items-center">
+        <div class="col-md-8">
             <nav aria-label="breadcrumb">
-                <ol class="breadcrumb bg-transparent">
+                <ol class="breadcrumb bg-transparent mb-0">
                     <li class="breadcrumb-item"><a href="<?= base_url() ?>">Home</a></li>
                     <li class="breadcrumb-item"><a href="<?= base_url('toko') ?>">Toko</a></li>
                     <?php if (isset($produk->nama_kategori)) : ?>
@@ -27,6 +27,12 @@ if (!empty($produk->harga_promo)) {
                     <li class="breadcrumb-item active"><?= esc($produk->nama_produk) ?></li>
                 </ol>
             </nav>
+        </div>
+        <div class="col-md-4 text-right">
+            <a href="<?= base_url('toko/keranjang') ?>" class="btn btn-success position-relative">
+                <i class="fas fa-shopping-cart"></i> Keranjang
+                <span class="badge badge-danger position-absolute" id="cart-count" style="top: -5px; right: -5px;">0</span>
+            </a>
         </div>
     </div>
 </section>
@@ -300,6 +306,9 @@ $(document).ready(function() {
                     
                     // Reset quantity
                     $('#jumlah').val(1);
+                    
+                    // Update cart count
+                    updateCartCount();
                 } else if (response.error) {
                     Swal.fire({
                         icon: 'error',
@@ -323,6 +332,25 @@ $(document).ready(function() {
             }
         });
     });
+    
+    // Update cart count
+    function updateCartCount() {
+        $.ajax({
+            url: '<?= base_url('toko/cartcount') ?>',
+            type: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                if (response.count > 0) {
+                    $('#cart-count').text(response.count).show();
+                } else {
+                    $('#cart-count').text('0');
+                }
+            }
+        });
+    }
+    
+    // Load cart count on page load
+    updateCartCount();
 });
 </script>
 

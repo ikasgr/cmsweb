@@ -571,4 +571,303 @@ class PendaftaranSidi extends BaseController
             echo json_encode($msg);
         }
     }
+
+    // ============================================
+    // DOCUMENT MANAGEMENT - NEW METHODS
+    // ============================================
+
+    // Upload dokumen pendukung
+    public function uploaddokumen()
+    {
+        if ($this->request->isAJAX()) {
+            $id = $this->request->getVar('id');
+            $jenis_dokumen = $this->request->getVar('jenis_dokumen');
+            
+            $validation = \Config\Services::validation();
+            $valid = $this->validate([
+                'file_dokumen' => [
+                    'rules' => 'uploaded[file_dokumen]|max_size[file_dokumen,5120]|ext_in[file_dokumen,jpg,jpeg,png,pdf]',
+                    'errors' => [
+                        'uploaded' => 'File harus diupload',
+                        'max_size' => 'Ukuran file maksimal 5MB',
+                        'ext_in' => 'Format file harus jpg, jpeg, png, atau pdf'
+                    ]
+                ]
+            ]);
+
+            if (!$valid) {
+                $msg = ['error' => $validation->getErrors()];
+                echo json_encode($msg);
+                return;
+            }
+
+            $file = $this->request->getFile('file_dokumen');
+            if ($file->isValid() && !$file->hasMoved()) {
+                // Generate nama file unik
+                $newName = 'sidi_' . $id . '_' . time() . '_' . $file->getRandomName();
+                
+                // Pindahkan file
+                $file->move(FCPATH . 'public/img/pendaftaran/sidi/', $newName);
+
+                // Simpan ke database
+                $data_dokumen = [
+                    'jenis_pendaftaran' => 'sidi',
+                    'pendaftaran_id' => $id,
+                    'jenis_dokumen' => $jenis_dokumen,
+                    'nama_file' => $file->getClientName(),
+                    'file_path' => 'public/img/pendaftaran/sidi/' . $newName,
+                    'file_size' => $file->getSize(),
+                    'file_type' => $file->getClientMimeType(),
+                    'status_dokumen' => 'pending',
+                    'uploaded_by' => session()->get('id'),
+                    'tgl_upload' => date('Y-m-d H:i:s')
+                ];
+
+                $this->pendaftarandokumen->insert($data_dokumen);
+
+                // Update kelengkapan dokumen
+                $kelengkapan = $this->pendaftarandokumen->hitungKelengkapan('sidi', $id);
+                $this->pendaftaransidi->update($id, ['kelengkapan_dokumen' => $kelengkapan]);
+
+                // Add timeline
+                $this->pendaftarantimeline->addTimeline('sidi', $id, 'Upload Dokumen', 
+                    'Upload dokumen: ' . $jenis_dokumen);
+
+                $msg = [
+                    'sukses' => 'Dokumen berhasil diupload',
+                    'kelengkapan' => $kelengkapan
+                ];
+            } else {
+                $msg = ['error' => 'Gagal upload file'];
+            }
+
+            echo json_encode($msg);
+        }
+    }
+
+    // Get list dokumen
+    public function getdokumen()
+    {
+        if ($this->request->isAJAX()) {
+            $id = $this->request->getVar('id');
+            
+            $dokumen = $this->pendaftarandokumen->getDokumenWithUser('sidi', $id);
+            $master = $this->masterdokumen->getByJenisPendaftaran('sidi');
+            
+            $data = [
+                'dokumen' => $dokumen,
+                'master' => $master,
+                'id' => $id
+            ];
+
+            $tadmin = $this->template->tempadminaktif();
+            $msg = [
+                'sukses' => view('backend/' . $tadmin['folder'] . '/cmscust/pendaftaran_sidi/dokumen', $data)
+            ];
+
+            echo json_encode($msg);
+        }
+    }
+
+    // Verifikasi dokumen
+    public function verifydokumen()
+    {
+        if ($this->request->isAJAX()) {
+            $dokumen_id = $this->request->getVar('dokumen_id');
+            $status = $this->request->getVar('status');
+            $keterangan = $this->request->getVar('keterangan');
+
+            $dokumen = $this->pendaftarandokumen->find($dokumen_id);
+            if (!$dokumen) {
+                $msg = ['error' => 'Dokumen tidak ditemukan'];
+                echo json_encode($msg);
+                return;
+            }
+
+            // Update status dokumen
+            $this->pendaftarandokumen->updateStatus($dokumen_id, $status, $keterangan, session()->get('id'));
+
+            // Update kelengkapan
+            $kelengkapan = $this->pendaftarandokumen->hitungKelengkapan('sidi', $dokumen['pendaftaran_id']);
+            $this->pendaftaransidi->update($dokumen['pendaftaran_id'], ['kelengkapan_dokumen' => $kelengkapan]);
+
+            // Add timeline
+            $status_text = [
+                'valid' => 'Dokumen disetujui',
+                'invalid' => 'Dokumen ditolak',
+                'revisi' => 'Dokumen perlu revisi'
+            ];
+            $this->pendaftarantimeline->addTimeline('sidi', $dokumen['pendaftaran_id'], 
+                $status_text[$status], $dokumen['jenis_dokumen'] . ': ' . $keterangan);
+
+            $msg = [
+                'sukses' => 'Status dokumen berhasil diupdate',
+                'kelengkapan' => $kelengkapan
+            ];
+
+            echo json_encode($msg);
+        }
+    }
+
+    // Hapus dokumen
+    public function hapusdokumen()
+    {
+        if ($this->request->isAJAX()) {
+            $dokumen_id = $this->request->getVar('dokumen_id');
+            
+            $dokumen = $this->pendaftarandokumen->find($dokumen_id);
+            if (!$dokumen) {
+                $msg = ['error' => 'Dokumen tidak ditemukan'];
+                echo json_encode($msg);
+                return;
+            }
+
+            // Hapus file fisik dan record
+            $this->pendaftarandokumen->hapusDokumen($dokumen_id);
+
+            // Update kelengkapan
+            $kelengkapan = $this->pendaftarandokumen->hitungKelengkapan('sidi', $dokumen['pendaftaran_id']);
+            $this->pendaftaransidi->update($dokumen['pendaftaran_id'], ['kelengkapan_dokumen' => $kelengkapan]);
+
+            // Add timeline
+            $this->pendaftarantimeline->addTimeline('sidi', $dokumen['pendaftaran_id'], 
+                'Hapus Dokumen', 'Dokumen ' . $dokumen['jenis_dokumen'] . ' dihapus');
+
+            $msg = ['sukses' => 'Dokumen berhasil dihapus'];
+            echo json_encode($msg);
+        }
+    }
+
+    // Get timeline
+    public function gettimeline()
+    {
+        if ($this->request->isAJAX()) {
+            $id = $this->request->getVar('id');
+            
+            $timeline = $this->pendaftarantimeline->getTimelineByPendaftaran('sidi', $id);
+            
+            $data = ['timeline' => $timeline];
+
+            $tadmin = $this->template->tempadminaktif();
+            $msg = [
+                'sukses' => view('backend/' . $tadmin['folder'] . '/cmscust/pendaftaran_sidi/timeline', $data)
+            ];
+
+            echo json_encode($msg);
+        }
+    }
+
+    // Add catatan
+    public function addcatatan()
+    {
+        if ($this->request->isAJAX()) {
+            $id = $this->request->getVar('id');
+            $catatan = $this->request->getVar('catatan');
+            $tipe = $this->request->getVar('tipe');
+
+            if (empty($catatan)) {
+                $msg = ['error' => 'Catatan tidak boleh kosong'];
+                echo json_encode($msg);
+                return;
+            }
+
+            $this->pendaftarancatatan->addCatatan('sidi', $id, $catatan, $tipe);
+
+            // Add timeline
+            $this->pendaftarantimeline->addTimeline('sidi', $id, 'Catatan Ditambahkan', 
+                'Catatan ' . $tipe . ' ditambahkan');
+
+            $msg = ['sukses' => 'Catatan berhasil ditambahkan'];
+            echo json_encode($msg);
+        }
+    }
+
+    // Get catatan
+    public function getcatatan()
+    {
+        if ($this->request->isAJAX()) {
+            $id = $this->request->getVar('id');
+            
+            $catatan = $this->pendaftarancatatan->getCatatanByPendaftaran('sidi', $id);
+            
+            $data = ['catatan' => $catatan, 'id' => $id];
+
+            $tadmin = $this->template->tempadminaktif();
+            $msg = [
+                'sukses' => view('backend/' . $tadmin['folder'] . '/cmscust/pendaftaran_sidi/catatan', $data)
+            ];
+
+            echo json_encode($msg);
+        }
+    }
+
+    // Approve pendaftaran
+    public function approve()
+    {
+        if ($this->request->isAJAX()) {
+            $id = $this->request->getVar('id');
+            $keterangan = $this->request->getVar('keterangan');
+
+            // Check kelengkapan dokumen
+            if (!$this->pendaftarandokumen->isDokumenLengkap('sidi', $id)) {
+                $msg = ['error' => 'Dokumen belum lengkap! Tidak dapat disetujui.'];
+                echo json_encode($msg);
+                return;
+            }
+
+            $data = [
+                'status' => 'Disetujui',
+                'tgl_disetujui' => date('Y-m-d H:i:s'),
+                'approved_by' => session()->get('id')
+            ];
+
+            $this->pendaftaransidi->update($id, $data);
+
+            // Add timeline
+            $this->pendaftarantimeline->addTimeline('sidi', $id, 'Disetujui', $keterangan);
+
+            // Add catatan eksternal
+            if ($keterangan) {
+                $this->pendaftarancatatan->addCatatan('sidi', $id, 
+                    'Pendaftaran disetujui. ' . $keterangan, 'eksternal');
+            }
+
+            $msg = ['sukses' => 'Pendaftaran berhasil disetujui'];
+            echo json_encode($msg);
+        }
+    }
+
+    // Reject pendaftaran
+    public function reject()
+    {
+        if ($this->request->isAJAX()) {
+            $id = $this->request->getVar('id');
+            $alasan = $this->request->getVar('alasan');
+
+            if (empty($alasan)) {
+                $msg = ['error' => 'Alasan penolakan harus diisi'];
+                echo json_encode($msg);
+                return;
+            }
+
+            $data = [
+                'status' => 'Ditolak',
+                'tgl_ditolak' => date('Y-m-d H:i:s'),
+                'approved_by' => session()->get('id'),
+                'alasan_tolak' => $alasan
+            ];
+
+            $this->pendaftaransidi->update($id, $data);
+
+            // Add timeline
+            $this->pendaftarantimeline->addTimeline('sidi', $id, 'Ditolak', $alasan);
+
+            // Add catatan eksternal
+            $this->pendaftarancatatan->addCatatan('sidi', $id, 
+                'Pendaftaran ditolak. Alasan: ' . $alasan, 'eksternal');
+
+            $msg = ['sukses' => 'Pendaftaran berhasil ditolak'];
+            echo json_encode($msg);
+        }
+    }
 }

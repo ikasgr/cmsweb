@@ -3,9 +3,15 @@
 <?= $this->section('content') ?>
 
 <section class="container mt-lg-0 mt-0 pb-1">
-    <div class="row">
-        <div class="col">
+    <div class="row align-items-center">
+        <div class="col-md-6">
             <h4 class="f-20 montserrat-700 text-light-blue">Toko UMKM</h4>
+        </div>
+        <div class="col-md-6 text-right">
+            <a href="<?= base_url('toko/keranjang') ?>" class="btn btn-success btn-lg position-relative">
+                <i class="fas fa-shopping-cart"></i> Keranjang Saya
+                <span class="badge badge-danger position-absolute cart-badge" id="cart-count" style="top: -5px; right: -5px;">0</span>
+            </a>
         </div>
     </div>
 </section>
@@ -246,9 +252,9 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(response) {
                 if (response.count > 0) {
-                    $('.cart-count').text(response.count).show();
+                    $('#cart-count').text(response.count).show();
                 } else {
-                    $('.cart-count').hide();
+                    $('#cart-count').text('0');
                 }
             }
         });
@@ -258,5 +264,27 @@ $(document).ready(function() {
     updateCartCount();
 });
 </script>
+
+<style>
+.btn.position-relative {
+    overflow: visible;
+}
+
+.cart-badge {
+    min-width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    font-size: 11px;
+    line-height: 20px;
+    padding: 0 6px;
+}
+
+@media (max-width: 768px) {
+    .btn-success.btn-lg {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+}
+</style>
 
 <?= $this->endSection() ?>

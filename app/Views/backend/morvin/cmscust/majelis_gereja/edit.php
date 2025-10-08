@@ -190,7 +190,7 @@
                                             <label>Foto Profil</label>
                                             <?php if ($data['gambar']) : ?>
                                                 <div class="mb-2">
-                                                    <img src="<?= base_url('public/img/informasi/pegawai/' . $data['gambar']) ?>" class="img-thumbnail" width="150">
+                                                    <img src="<?= base_url('public/img/informasi/majelis/' . $data['gambar']) ?>" class="img-thumbnail" width="150">
                                                 </div>
                                             <?php endif; ?>
                                             <input type="file" class="form-control" name="gambar" accept="image/*">

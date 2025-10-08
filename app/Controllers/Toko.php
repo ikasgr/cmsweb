@@ -146,8 +146,9 @@ class Toko extends BaseController
         $template = $this->template->tempaktif();
         $session_id = session()->get('cart_session') ?? session()->session_id;
 
-        $keranjang = $this->keranjang->bysession($session_id);
-        $total = $this->keranjang->totalharga($session_id);
+        $cart = $this->keranjang->bysession($session_id);
+        $total_obj = $this->keranjang->totalharga($session_id);
+        $total = $total_obj->subtotal ?? 0;
 
         $data = [
             'title'         => 'Keranjang Belanja | Toko UMKM',
@@ -161,7 +162,7 @@ class Toko extends BaseController
             'section'       => $this->section->list(),
             'linkterkaitall' => $this->linkterkait->publishlinkall(),
             'folder'        => $template['folder'],
-            'keranjang'     => $keranjang,
+            'cart'          => $cart,
             'total'         => $total,
         ];
 
@@ -238,10 +239,15 @@ class Toko extends BaseController
     public function updatecart()
     {
         if ($this->request->isAJAX()) {
-            $id_keranjang = $this->request->getVar('id_keranjang');
+            $id_produk = $this->request->getVar('id_produk');
             $jumlah = $this->request->getVar('jumlah');
+            $session_id = session()->get('cart_session');
 
-            $keranjang = $this->keranjang->find($id_keranjang);
+            // Cari item di keranjang berdasarkan id_produk dan session_id
+            $keranjang = $this->keranjang->where('session_id', $session_id)
+                                         ->where('id_produk', $id_produk)
+                                         ->first();
+            
             if (!$keranjang) {
                 $msg = ['error' => 'Item tidak ditemukan!'];
                 echo json_encode($msg);
@@ -249,7 +255,7 @@ class Toko extends BaseController
             }
 
             // Cek stok
-            $produk = $this->produkumkm->find($keranjang['id_produk']);
+            $produk = $this->produkumkm->find($id_produk);
             if ($produk['stok'] < $jumlah) {
                 $msg = ['error' => 'Stok tidak mencukupi! Stok tersedia: ' . $produk['stok']];
                 echo json_encode($msg);
@@ -258,19 +264,12 @@ class Toko extends BaseController
 
             $subtotal = $keranjang['harga'] * $jumlah;
 
-            $this->keranjang->update($id_keranjang, [
+            $this->keranjang->update($keranjang['id_keranjang'], [
                 'jumlah' => $jumlah,
                 'subtotal' => $subtotal
             ]);
 
-            $session_id = session()->get('cart_session');
-            $total = $this->keranjang->totalharga($session_id);
-
-            $msg = [
-                'sukses' => 'Keranjang berhasil diupdate!',
-                'subtotal' => number_format($subtotal, 0, ',', '.'),
-                'total' => number_format($total->subtotal, 0, ',', '.')
-            ];
+            $msg = ['sukses' => 'Keranjang berhasil diupdate!'];
             echo json_encode($msg);
         }
     }
@@ -279,19 +278,15 @@ class Toko extends BaseController
     public function removecart()
     {
         if ($this->request->isAJAX()) {
-            $id_keranjang = $this->request->getVar('id_keranjang');
-
-            $this->keranjang->delete($id_keranjang);
-
+            $id_produk = $this->request->getVar('id_produk');
             $session_id = session()->get('cart_session');
-            $total_item = $this->keranjang->totalitem($session_id);
-            $total = $this->keranjang->totalharga($session_id);
 
-            $msg = [
-                'sukses' => 'Item berhasil dihapus!',
-                'total_item' => $total_item,
-                'total' => $total->subtotal ?? 0
-            ];
+            // Hapus berdasarkan id_produk dan session_id
+            $this->keranjang->where('session_id', $session_id)
+                           ->where('id_produk', $id_produk)
+                           ->delete();
+
+            $msg = ['sukses' => 'Item berhasil dihapus!'];
             echo json_encode($msg);
         }
     }
@@ -308,4 +303,175 @@ class Toko extends BaseController
         $count = $this->keranjang->totalitem($session_id);
         echo json_encode(['count' => $count]);
     }
+
+    // Clear cart
+    public function clearcart()
+    {
+        if ($this->request->isAJAX()) {
+            $session_id = session()->get('cart_session');
+            
+            if ($session_id) {
+                $this->keranjang->where('session_id', $session_id)->delete();
+            }
+
+            $msg = ['sukses' => 'Keranjang berhasil dikosongkan!'];
+            echo json_encode($msg);
+        }
+    }
+
+    // Checkout - Simpan pesanan ke database
+    public function checkout()
+    {
+        if ($this->request->isAJAX()) {
+            $validation = \Config\Services::validation();
+            
+            $validation->setRules([
+                'nama_pembeli' => [
+                    'rules' => 'required',
+                    'errors' => ['required' => 'Nama harus diisi']
+                ],
+                'no_hp' => [
+                    'rules' => 'required|numeric',
+                    'errors' => [
+                        'required' => 'No. HP harus diisi',
+                        'numeric' => 'No. HP harus berupa angka'
+                    ]
+                ],
+                'alamat' => [
+                    'rules' => 'required',
+                    'errors' => ['required' => 'Alamat harus diisi']
+                ]
+            ]);
+
+            if (!$validation->withRequest($this->request)->run()) {
+                $msg = ['error' => $validation->getErrors()];
+                echo json_encode($msg);
+                return;
+            }
+
+            $session_id = session()->get('cart_session');
+            if (!$session_id) {
+                $msg = ['error' => 'Keranjang kosong!'];
+                echo json_encode($msg);
+                return;
+            }
+
+            // Get cart items
+            $cart = $this->keranjang->bysession($session_id);
+            if (empty($cart)) {
+                $msg = ['error' => 'Keranjang kosong!'];
+                echo json_encode($msg);
+                return;
+            }
+
+            // Calculate totals
+            $total_item = count($cart);
+            $total_qty = 0;
+            $subtotal = 0;
+            foreach ($cart as $item) {
+                $total_qty += $item['jumlah'];
+                $subtotal += $item['subtotal'];
+            }
+
+            // Generate kode pesanan
+            $kode_pesanan = $this->pesanan->generateKodePesanan();
+
+            // Insert pesanan
+            $data_pesanan = [
+                'kode_pesanan' => $kode_pesanan,
+                'session_id' => $session_id,
+                'user_id' => session()->get('id'),
+                'nama_pembeli' => $this->request->getVar('nama_pembeli'),
+                'no_hp' => $this->request->getVar('no_hp'),
+                'alamat' => $this->request->getVar('alamat'),
+                'email' => $this->request->getVar('email'),
+                'catatan' => $this->request->getVar('catatan'),
+                'total_item' => $total_item,
+                'total_qty' => $total_qty,
+                'subtotal' => $subtotal,
+                'ongkir' => 0,
+                'total_bayar' => $subtotal,
+                'status_pesanan' => 'Pending',
+                'tgl_pesanan' => date('Y-m-d H:i:s')
+            ];
+
+            $pesanan_id = $this->pesanan->insert($data_pesanan);
+
+            if (!$pesanan_id) {
+                $msg = ['error' => 'Gagal menyimpan pesanan!'];
+                echo json_encode($msg);
+                return;
+            }
+
+            // Insert detail pesanan
+            $db = \Config\Database::connect();
+            foreach ($cart as $item) {
+                $data_detail = [
+                    'pesanan_id' => $pesanan_id,
+                    'id_produk' => $item['id_produk'],
+                    'nama_produk' => $item['nama_produk'],
+                    'harga' => $item['harga'],
+                    'jumlah' => $item['jumlah'],
+                    'subtotal' => $item['subtotal']
+                ];
+                $db->table('custome__pesanan_detail')->insert($data_detail);
+            }
+
+            // Insert tracking
+            $db->table('custome__pesanan_tracking')->insert([
+                'pesanan_id' => $pesanan_id,
+                'status' => 'Pending',
+                'keterangan' => 'Pesanan dibuat',
+                'user_id' => session()->get('id'),
+                'tgl_update' => date('Y-m-d H:i:s')
+            ]);
+
+            // Clear cart
+            $this->keranjang->where('session_id', $session_id)->delete();
+
+            $msg = [
+                'sukses' => 'Pesanan berhasil dibuat!',
+                'kode_pesanan' => $kode_pesanan,
+                'pesanan_id' => $pesanan_id
+            ];
+            echo json_encode($msg);
+        }
+    }
+
+    // Invoice - Tampilkan invoice pesanan
+    public function invoice($kode_pesanan)
+    {
+        $konfigurasi = $this->konfigurasi->vkonfig();
+        $template = $this->template->tempaktif();
+        
+        $pesanan = $this->pesanan->getByKode($kode_pesanan);
+        if (!$pesanan) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        // Get detail
+        $db = \Config\Database::connect();
+        $detail = $db->table('custome__pesanan_detail')
+            ->where('pesanan_id', $pesanan['pesanan_id'])
+            ->get()->getResultArray();
+
+        $data = [
+            'title' => 'Invoice #' . $kode_pesanan,
+            'deskripsi' => 'Invoice Pesanan UMKM',
+            'url' => base_url('toko/invoice/' . $kode_pesanan),
+            'img' => base_url('/public/img/konfigurasi/logo/' . $konfigurasi->logo),
+            'konfigurasi' => $konfigurasi,
+            'mainmenu' => $this->menu->mainmenu(),
+            'footer' => $this->menu->footermenu(),
+            'topmenu' => $this->menu->topmenu(),
+            'section' => $this->section->list(),
+            'linkterkaitall' => $this->linkterkait->publishlinkall(),
+            'folder' => $template['folder'],
+            'pesanan' => $pesanan,
+            'detail' => $detail
+        ];
+
+        return view('frontend/' . $template['folder'] . '/desktop/content/toko_invoice', $data);
+    }
 }
+

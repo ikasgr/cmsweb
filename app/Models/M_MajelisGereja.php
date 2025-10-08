@@ -39,6 +39,17 @@ class M_MajelisGereja extends Model
             ->orderBy('custome__majelis_gereja.majelis_id', 'ASC');
     }
 
+    // Frontend - List active majelis for homepage
+    public function listaktif()
+    {
+        return $this->select('custome__majelis_gereja.*, custome__jabatan_majelis.nama_jabatan')
+            ->join('custome__jabatan_majelis', 'custome__jabatan_majelis.jabatan_id = custome__majelis_gereja.jabatan_id', 'left')
+            ->where('custome__majelis_gereja.status_jabatan', 'Aktif')
+            ->orderBy('custome__majelis_gereja.majelis_id', 'ASC')
+            ->limit(8)
+            ->findAll();
+    }
+
     // Get total majelis count
     public function totMajelis()
     {

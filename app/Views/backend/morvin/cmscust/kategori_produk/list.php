@@ -1,3 +1,5 @@
+<?= csrf_field(); ?>
+
 <div class="row">
     <div class="col-sm-12">
         <div class="float-right">
@@ -30,7 +32,7 @@
             ?>
                     <tr>
                         <td>
-                            <input type="checkbox" class="checkboxes" name="id[]" value="<?= $data['id_kategori'] ?>">
+                            <input type="checkbox" class="checkboxes" name="id[]" value="<?= $data['kategori_id'] ?>">
                         </td>
                         <td><?= $no++ ?></td>
                         <td>
@@ -43,7 +45,7 @@
                             <code><?= esc($data['slug_kategori']) ?></code>
                         </td>
                         <td>
-                            <span class="badge badge-primary"><?= $data['jml_produk'] ?> produk</span>
+                            <span class="badge badge-primary">0 produk</span>
                         </td>
                         <td>
                             <?php if ($data['status'] == 1) : ?>
@@ -53,13 +55,10 @@
                             <?php endif; ?>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-info btn-sm" onclick="lihat('<?= $data['id_kategori'] ?>')">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button type="button" class="btn btn-warning btn-sm" onclick="edit('<?= $data['id_kategori'] ?>')">
+                            <button type="button" class="btn btn-warning btn-sm" onclick="edit('<?= $data['kategori_id'] ?>')">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button type="button" class="btn btn-danger btn-sm" onclick="hapus('<?= $data['id_kategori'] ?>')">
+                            <button type="button" class="btn btn-danger btn-sm" onclick="hapus('<?= $data['kategori_id'] ?>')">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </td>
@@ -100,7 +99,7 @@
     function tambah() {
         $.ajax({
             type: 'get',
-            url: '<?= base_url('kategori-produk/formtambah') ?>',
+            url: '<?= site_url('kategori-produk/formtambah') ?>',
             dataType: 'json',
             success: function(response) {
                 $('.viewmodal').html(response.data).show();
@@ -112,34 +111,13 @@
         });
     }
 
-    function lihat(id) {
-        $.ajax({
-            type: 'post',
-            url: '<?= base_url('kategori-produk/formlihat') ?>',
-            data: {
-                csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
-                id: id
-            },
-            dataType: 'json',
-            success: function(response) {
-                if (response.sukses) {
-                    $('.viewmodal').html(response.sukses).show();
-                    $('#modallihat').modal('show');
-                }
-            },
-            error: function(xhr, ajaxOptions, thrownError) {
-                alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
-            }
-        });
-    }
-
     function edit(id) {
         $.ajax({
             type: 'post',
-            url: '<?= base_url('kategori-produk/formedit') ?>',
+            url: '<?= site_url('kategori-produk/formedit') ?>',
             data: {
                 csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
-                id: id
+                kategori_id: id
             },
             dataType: 'json',
             success: function(response) {
@@ -168,10 +146,10 @@
             if (result.isConfirmed) {
                 $.ajax({
                     type: 'post',
-                    url: '<?= base_url('kategori-produk/hapus') ?>',
+                    url: '<?= site_url('kategori-produk/hapus') ?>',
                     data: {
                         csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
-                        id: id
+                        kategori_id: id
                     },
                     dataType: 'json',
                     success: function(response) {
@@ -220,7 +198,7 @@
             if (result.isConfirmed) {
                 $.ajax({
                     type: 'post',
-                    url: '<?= base_url('kategori-produk/hapusall') ?>',
+                    url: '<?= site_url('kategori-produk/hapusall') ?>',
                     data: {
                         csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                         id: id

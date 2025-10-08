@@ -16,7 +16,7 @@
                         <div class="card">
                             <div class="card-body text-center">
                                 <?php if ($data['gambar']) : ?>
-                                    <img src="<?= base_url('public/img/informasi/pegawai/' . $data['gambar']) ?>" 
+                                    <img src="<?= base_url('public/img/informasi/majelis/' . $data['gambar']) ?>" 
                                          class="rounded-circle img-thumbnail mb-3" 
                                          width="200" height="200" 
                                          style="object-fit: cover;" 

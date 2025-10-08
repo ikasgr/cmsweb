@@ -1,4 +1,9 @@
 <?= $this->extend('backend/' . esc($folder) . '/template-backend') ?>
+
+<?= $this->section('menu') ?>
+<?= $this->include('backend/' . esc($folder) . '/menu') ?>
+<?= $this->endSection() ?>
+
 <?= $this->section('content') ?>
 
 <div class="page-content">

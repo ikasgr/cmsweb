@@ -822,6 +822,16 @@ $routes->group('', ['namespace' => 'App\Controllers'], function ($routes) {
     $routes->post('pendaftaran-sidi/formupload', 'PendaftaranSidi::formupload');
     $routes->post('pendaftaran-sidi/simpanupload', 'PendaftaranSidi::simpanupload');
     $routes->post('pendaftaran-sidi/hapusfile', 'PendaftaranSidi::hapusfile');
+    // Document Management - New Routes
+    $routes->post('pendaftaran-sidi/uploaddokumen', 'PendaftaranSidi::uploaddokumen');
+    $routes->post('pendaftaran-sidi/getdokumen', 'PendaftaranSidi::getdokumen');
+    $routes->post('pendaftaran-sidi/verifydokumen', 'PendaftaranSidi::verifydokumen');
+    $routes->post('pendaftaran-sidi/hapusdokumen', 'PendaftaranSidi::hapusdokumen');
+    $routes->post('pendaftaran-sidi/gettimeline', 'PendaftaranSidi::gettimeline');
+    $routes->post('pendaftaran-sidi/addcatatan', 'PendaftaranSidi::addcatatan');
+    $routes->post('pendaftaran-sidi/getcatatan', 'PendaftaranSidi::getcatatan');
+    $routes->post('pendaftaran-sidi/approve', 'PendaftaranSidi::approve');
+    $routes->post('pendaftaran-sidi/reject', 'PendaftaranSidi::reject');
 
     // Pendaftaran Baptis
     $routes->get('pendaftaran-baptis', 'PendaftaranBaptis::index');
@@ -864,9 +874,11 @@ $routes->group('', ['namespace' => 'App\Controllers'], function ($routes) {
     $routes->get('produk-umkm/getdata', 'ProdukUmkm::getdata');
     $routes->get('produk-umkm/formtambah', 'ProdukUmkm::formtambah');
     $routes->post('produk-umkm/simpan', 'ProdukUmkm::simpan');
+    $routes->post('produk-umkm/formlihat', 'ProdukUmkm::formlihat');
     $routes->post('produk-umkm/formedit', 'ProdukUmkm::formedit');
     $routes->post('produk-umkm/update', 'ProdukUmkm::update');
     $routes->post('produk-umkm/hapus', 'ProdukUmkm::hapus');
+    $routes->post('produk-umkm/hapusall', 'ProdukUmkm::hapusall');
     $routes->post('produk-umkm/gantigambar', 'ProdukUmkm::gantigambar');
     $routes->post('produk-umkm/toggle', 'ProdukUmkm::toggle');
 
@@ -878,13 +890,18 @@ $routes->group('', ['namespace' => 'App\Controllers'], function ($routes) {
     $routes->post('kategori-produk/formedit', 'KategoriProduk::formedit');
     $routes->post('kategori-produk/update', 'KategoriProduk::update');
     $routes->post('kategori-produk/hapus', 'KategoriProduk::hapus');
+    $routes->post('kategori-produk/hapusall', 'KategoriProduk::hapusall');
 
-    // Pesanan - Backend
-    $routes->get('pesanan/list', 'Pesanan::list');
-    $routes->get('pesanan/getdata', 'Pesanan::getdata');
-    $routes->post('pesanan/detail', 'Pesanan::detail');
-    $routes->post('pesanan/updatestatus', 'Pesanan::updatestatus');
-    $routes->post('pesanan/hapus', 'Pesanan::hapus');
+    // Pesanan UMKM - Backend
+    $routes->get('pesanan-umkm/list', 'PesananUmkm::list');
+    $routes->get('pesanan-umkm/dashboard', 'PesananUmkm::dashboard');
+    $routes->get('pesanan-umkm/getdata', 'PesananUmkm::getdata');
+    $routes->post('pesanan-umkm/formlihat', 'PesananUmkm::formlihat');
+    $routes->post('pesanan-umkm/updatestatus', 'PesananUmkm::updatestatus');
+    $routes->post('pesanan-umkm/hapus', 'PesananUmkm::hapus');
+    $routes->post('pesanan-umkm/hapusall', 'PesananUmkm::hapusall');
+    $routes->get('pesanan-umkm/print/(:num)', 'PesananUmkm::print/$1');
+    $routes->get('pesanan-umkm/export', 'PesananUmkm::export');
 
     // Toko - Frontend
     $routes->get('toko', 'Toko::index');
@@ -894,6 +911,9 @@ $routes->group('', ['namespace' => 'App\Controllers'], function ($routes) {
     $routes->post('toko/addtocart', 'Toko::addtocart');
     $routes->post('toko/updatecart', 'Toko::updatecart');
     $routes->post('toko/removecart', 'Toko::removecart');
+    $routes->post('toko/clearcart', 'Toko::clearcart');
+    $routes->post('toko/checkout', 'Toko::checkout');
+    $routes->get('toko/invoice/(:segment)', 'Toko::invoice/$1');
     $routes->get('toko/cartcount', 'Toko::cartcount');
     $routes->get('toko/(:segment)', 'Toko::detail/$1');
 
@@ -936,6 +956,10 @@ $routes->group('', ['namespace' => 'App\Controllers'], function ($routes) {
     $routes->post('manajemen-jemaat/cari', 'ManajemenJemaat::cari');
     $routes->get('manajemen-jemaat/dashboard', 'ManajemenJemaat::dashboard');
 
+    // Majelis Gereja - Frontend
+    $routes->get('majelis-gereja', 'MajelisGereja::index');
+    $routes->get('majelis-gereja/detail/(:num)', 'MajelisGereja::detail/$1');
+    
     // Majelis Gereja - Backend
     $routes->get('majelis-gereja/list', 'MajelisGereja::list');
     $routes->get('majelis_gereja/all', 'MajelisGereja::list');

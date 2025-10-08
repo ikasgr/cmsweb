@@ -24,6 +24,7 @@
                 <th>Email</th>
                 <th>Tgl Baptis</th>
                 <th>Tgl Daftar</th>
+                <th width="12%" class="text-center">Kelengkapan</th>
                 <th width="10%" class="text-center">Status</th>
                 <th width="15%" class="text-center">Aksi</th>
             </tr>
@@ -68,6 +69,21 @@
                     <td><?= esc($value['email']) ?></td>
                     <td><?= date_indo($value['tgl_baptis']) ?></td>
                     <td><?= date_indo($value['tgl_daftar']) ?></td>
+                    <td class="text-center">
+                        <?php 
+                        $kelengkapan = isset($value['kelengkapan_dokumen']) ? $value['kelengkapan_dokumen'] : 0;
+                        $color = 'danger';
+                        if ($kelengkapan >= 80) $color = 'success';
+                        elseif ($kelengkapan >= 50) $color = 'warning';
+                        ?>
+                        <div class="progress" style="height: 20px;">
+                            <div class="progress-bar bg-<?= $color ?>" role="progressbar" 
+                                 style="width: <?= $kelengkapan ?>%" 
+                                 aria-valuenow="<?= $kelengkapan ?>" aria-valuemin="0" aria-valuemax="100">
+                                <?= $kelengkapan ?>%
+                            </div>
+                        </div>
+                    </td>
                     <td class="text-center"><?= $badge ?></td>
                     <td class="text-center">
                         <button type="button" onclick="lihat('<?= $value['id_sidi'] ?>')" 

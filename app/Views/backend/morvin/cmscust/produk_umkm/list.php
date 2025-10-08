@@ -1,3 +1,5 @@
+<?= csrf_field(); ?>
+
 <div class="row">
     <div class="col-sm-12">
         <div class="float-right">
@@ -42,8 +44,10 @@
                                  style="width: 60px; height: 60px; object-fit: cover;">
                         </td>
                         <td>
-                            <strong><?= esc($data['nama_produk']) ?></strong><br>
-                            <small class="text-muted">SKU: <?= esc($data['sku']) ?></small>
+                            <strong><?= esc($data['nama_produk']) ?></strong>
+                            <?php if (!empty($data['featured']) && $data['featured'] == '1') : ?>
+                                <span class="badge bg-warning text-dark">Featured</span>
+                            <?php endif; ?>
                         </td>
                         <td>
                             <span class="badge badge-info"><?= esc($data['nama_kategori']) ?></span>
@@ -119,7 +123,7 @@
     function tambah() {
         $.ajax({
             type: 'get',
-            url: '<?= base_url('produk-umkm/formtambah') ?>',
+            url: '<?= site_url('produk-umkm/formtambah') ?>',
             dataType: 'json',
             success: function(response) {
                 $('.viewmodal').html(response.data).show();
@@ -134,10 +138,10 @@
     function lihat(id) {
         $.ajax({
             type: 'post',
-            url: '<?= base_url('produk-umkm/formlihat') ?>',
+            url: '<?= site_url('produk-umkm/formlihat') ?>',
             data: {
                 csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
-                id: id
+                id_produk: id
             },
             dataType: 'json',
             success: function(response) {
@@ -155,10 +159,10 @@
     function edit(id) {
         $.ajax({
             type: 'post',
-            url: '<?= base_url('produk-umkm/formedit') ?>',
+            url: '<?= site_url('produk-umkm/formedit') ?>',
             data: {
                 csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
-                id: id
+                id_produk: id
             },
             dataType: 'json',
             success: function(response) {
@@ -187,10 +191,10 @@
             if (result.isConfirmed) {
                 $.ajax({
                     type: 'post',
-                    url: '<?= base_url('produk-umkm/hapus') ?>',
+                    url: '<?= site_url('produk-umkm/hapus') ?>',
                     data: {
                         csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
-                        id: id
+                        id_produk: id
                     },
                     dataType: 'json',
                     success: function(response) {
@@ -239,7 +243,7 @@
             if (result.isConfirmed) {
                 $.ajax({
                     type: 'post',
-                    url: '<?= base_url('produk-umkm/hapusall') ?>',
+                    url: '<?= site_url('produk-umkm/hapusall') ?>',
                     data: {
                         csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                         id: id

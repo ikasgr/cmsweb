@@ -114,32 +114,32 @@
     </div>
 </section>
 
-<!-- Data Pegawai -->
-<?php if ($pegawai) : ?>
-<section class="pegawai-section py-5">
+<!-- Majelis Gereja -->
+<?php if ($majelis) : ?>
+<section class="majelis-section py-5">
     <div class="container">
         <div class="section-title text-center mb-4" data-aos="fade-up">
-            <h2>Data Pegawai</h2>
+            <h2>Majelis Gereja</h2>
             <div class="title-divider"></div>
         </div>
         <div class="row">
-            <?php foreach (array_slice($pegawai, 0, 4) as $peg) : ?>
+            <?php foreach (array_slice($majelis, 0, 4) as $peg) : ?>
                 <div class="col-md-3 mb-4" data-aos="fade-up" data-aos-delay="100">
                     <div class="card text-center h-100">
-                        <img src="<?= base_url('/public/img/informasi/pegawai/' . esc($peg['gambar'])) ?>" 
+                        <img src="<?= base_url('/public/img/informasi/majelis/' . esc($peg['gambar'])) ?>" 
                              class="card-img-top" alt="<?= esc($peg['nama']) ?>"
                              style="height: 250px; object-fit: cover;">
                         <div class="card-body">
                             <h6><?= esc($peg['nama']) ?></h6>
-                            <small class="text-muted"><?= esc($peg['jabatan']) ?></small>
+                            <small class="text-muted"><?= esc($peg['jenis_jabatan']) ?></small>
                         </div>
                     </div>
                 </div>
             <?php endforeach; ?>
         </div>
         <div class="text-center mt-4">
-            <a href="<?= base_url('pegawai') ?>" class="btn btn-primary">
-                Lihat Semua Pegawai <i class="fas fa-arrow-right"></i>
+            <a href="<?= base_url('majelis-gereja') ?>" class="btn btn-primary">
+                Lihat Semua Majelis <i class="fas fa-arrow-right"></i>
             </a>
         </div>
     </div>
@@ -248,14 +248,14 @@
 /* Cards */
 .berita-section .card,
 .info-section .card,
-.pegawai-section .card,
+.majelis-section .card,
 .galeri-section .card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .berita-section .card:hover,
 .info-section .card:hover,
-.pegawai-section .card:hover,
+.majelis-section .card:hover,
 .galeri-section .card:hover {
     transform: translateY(-10px);
     box-shadow: 0 10px 30px rgba(0,0,0,0.2) !important;

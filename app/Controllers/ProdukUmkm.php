@@ -13,6 +13,7 @@ class ProdukUmkm extends BaseController
         $data = [
             'title'     => 'Produk UMKM',
             'subtitle'  => 'Manajemen Produk',
+            'folder'    => 'morvin',
         ];
         return view('backend/morvin/cmscust/produk_umkm/index', $data);
     }
@@ -134,23 +135,30 @@ class ProdukUmkm extends BaseController
                 $slug = url_title($this->request->getVar('nama_produk'), '-', true);
 
                 $insertdata = [
-                    'nama_produk'   => $this->request->getVar('nama_produk'),
-                    'slug_produk'   => $slug,
-                    'kategori_id'   => $this->request->getVar('kategori_id'),
-                    'deskripsi'     => $this->request->getVar('deskripsi'),
-                    'harga'         => $this->request->getVar('harga'),
-                    'harga_promo'   => $this->request->getVar('harga_promo'),
-                    'stok'          => $this->request->getVar('stok'),
-                    'berat'         => $this->request->getVar('berat'),
-                    'satuan'        => $this->request->getVar('satuan'),
-                    'gambar'        => $nama_file,
-                    'status'        => $this->request->getVar('status'),
-                    'featured'      => $this->request->getVar('featured'),
-                    'tgl_input'     => date('Y-m-d H:i:s'),
-                    'user_id'       => session()->get('id'),
+                    'nama_produk'       => $this->request->getVar('nama_produk'),
+                    'slug_produk'       => $slug,
+                    'kategori_id'       => $this->request->getVar('kategori_id'),
+                    'deskripsi'         => $this->request->getVar('deskripsi'),
+                    'harga'             => $this->request->getVar('harga'),
+                    'harga_promo'       => $this->request->getVar('harga_promo'),
+                    'stok'              => $this->request->getVar('stok'),
+                    'berat'             => $this->request->getVar('berat'),
+                    'satuan'            => $this->request->getVar('satuan'),
+                    'gambar'            => $nama_file,
+                    'status'            => $this->request->getVar('status'),
+                    'featured'          => $this->request->getVar('featured'),
+                    'whatsapp_admin'    => $this->request->getVar('whatsapp_admin'),
+                    'whatsapp_template' => $this->request->getVar('whatsapp_template'),
+                    'tgl_input'         => date('Y-m-d H:i:s'),
+                    'user_id'           => session()->get('id'),
                 ];
 
                 $this->produkumkm->insert($insertdata);
+                
+                // Pastikan folder ada
+                if (!is_dir('public/img/produk')) {
+                    mkdir('public/img/produk', 0755, true);
+                }
                 
                 // Upload gambar
                 \Config\Services::image()
@@ -162,6 +170,24 @@ class ProdukUmkm extends BaseController
                     'sukses' => 'Produk berhasil ditambahkan!'
                 ];
             }
+            echo json_encode($msg);
+        }
+    }
+
+    // Backend - Form lihat
+    public function formlihat()
+    {
+        if ($this->request->isAJAX()) {
+            $id_produk = $this->request->getVar('id_produk');
+            $list =  $this->produkumkm->find($id_produk);
+
+            $data = [
+                'title' => 'Detail Produk',
+                'data'  => $list
+            ];
+            $msg = [
+                'sukses' => view('backend/morvin/cmscust/produk_umkm/lihat', $data)
+            ];
             echo json_encode($msg);
         }
     }
@@ -222,18 +248,66 @@ class ProdukUmkm extends BaseController
                 $slug = url_title($this->request->getVar('nama_produk'), '-', true);
 
                 $updatedata = [
-                    'nama_produk'   => $this->request->getVar('nama_produk'),
-                    'slug_produk'   => $slug,
-                    'kategori_id'   => $this->request->getVar('kategori_id'),
-                    'deskripsi'     => $this->request->getVar('deskripsi'),
-                    'harga'         => $this->request->getVar('harga'),
-                    'harga_promo'   => $this->request->getVar('harga_promo'),
-                    'stok'          => $this->request->getVar('stok'),
-                    'berat'         => $this->request->getVar('berat'),
-                    'satuan'        => $this->request->getVar('satuan'),
-                    'status'        => $this->request->getVar('status'),
-                    'featured'      => $this->request->getVar('featured'),
+                    'nama_produk'       => $this->request->getVar('nama_produk'),
+                    'slug_produk'       => $slug,
+                    'kategori_id'       => $this->request->getVar('kategori_id'),
+                    'deskripsi'         => $this->request->getVar('deskripsi'),
+                    'harga'             => $this->request->getVar('harga'),
+                    'harga_promo'       => $this->request->getVar('harga_promo'),
+                    'stok'              => $this->request->getVar('stok'),
+                    'berat'             => $this->request->getVar('berat'),
+                    'satuan'            => $this->request->getVar('satuan'),
+                    'status'            => $this->request->getVar('status'),
+                    'featured'          => $this->request->getVar('featured'),
+                    'whatsapp_admin'    => $this->request->getVar('whatsapp_admin'),
+                    'whatsapp_template' => $this->request->getVar('whatsapp_template'),
                 ];
+
+                // Cek apakah ada gambar baru yang diupload
+                $file = $this->request->getFile('gambar');
+                if ($file && $file->isValid() && !$file->hasMoved()) {
+                    // Validasi gambar
+                    if ($file->getSize() > 2048000) { // 2MB
+                        $msg = [
+                            'error' => [
+                                'gambar' => 'Ukuran gambar maksimal 2 MB'
+                            ]
+                        ];
+                        echo json_encode($msg);
+                        return;
+                    }
+
+                    $allowedTypes = ['image/png', 'image/jpg', 'image/jpeg'];
+                    if (!in_array($file->getMimeType(), $allowedTypes)) {
+                        $msg = [
+                            'error' => [
+                                'gambar' => 'Format gambar harus PNG, JPG, atau JPEG'
+                            ]
+                        ];
+                        echo json_encode($msg);
+                        return;
+                    }
+
+                    // Hapus gambar lama
+                    $gambar_lama = $this->request->getVar('gambar_lama');
+                    if ($gambar_lama && file_exists('public/img/produk/' . $gambar_lama)) {
+                        unlink('public/img/produk/' . $gambar_lama);
+                    }
+
+                    // Pastikan folder ada
+                    if (!is_dir('public/img/produk')) {
+                        mkdir('public/img/produk', 0755, true);
+                    }
+
+                    // Upload gambar baru
+                    $nama_file = $file->getRandomName();
+                    \Config\Services::image()
+                        ->withFile($file)
+                        ->resize(800, 800, true, 'height')
+                        ->save('public/img/produk/' . $nama_file, 80);
+
+                    $updatedata['gambar'] = $nama_file;
+                }
 
                 $this->produkumkm->update($id_produk, $updatedata);
 
@@ -308,8 +382,13 @@ class ProdukUmkm extends BaseController
                 ];
 
                 $this->produkumkm->update($id_produk, $updatedata);
-                
-                // Upload gambar baru
+
+                // Pastikan folder ada
+                if (!is_dir('public/img/produk')) {
+                    mkdir('public/img/produk', 0755, true);
+                }
+
+                // Upload gambar
                 \Config\Services::image()
                     ->withFile($file)
                     ->resize(800, 800, true, 'height')
@@ -319,6 +398,32 @@ class ProdukUmkm extends BaseController
                     'sukses' => 'Gambar berhasil diupdate!',
                 ];
             }
+            echo json_encode($msg);
+        }
+    }
+
+    // Backend - Hapus multiple produk
+    public function hapusall()
+    {
+        if ($this->request->isAJAX()) {
+            $id = $this->request->getVar('id');
+            $jmldata = count($id);
+
+            foreach ($id as $i) {
+                $cekdata = $this->produkumkm->find($i);
+                
+                // Hapus gambar
+                if (!empty($cekdata['gambar']) && file_exists('public/img/produk/' . $cekdata['gambar'])) {
+                    unlink('public/img/produk/' . $cekdata['gambar']);
+                }
+                
+                $this->produkumkm->delete($i);
+            }
+
+            $msg = [
+                'sukses' => "$jmldata Produk berhasil dihapus!"
+            ];
+
             echo json_encode($msg);
         }
     }
