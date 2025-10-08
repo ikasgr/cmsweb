@@ -198,6 +198,7 @@ class PendaftaranNikah extends BaseController
         $data = [
             'title'     => 'Pendaftaran Pernikahan',
             'subtitle'  => 'Manajemen Data',
+            'folder'    => 'morvin',
         ];
         return view('backend/morvin/cmscust/pendaftaran_nikah/index', $data);
     }

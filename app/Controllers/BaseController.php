@@ -33,6 +33,23 @@ use App\Models\M_Keranjang;
 use App\Models\M_Pesanan;
 use App\Models\M_PesananDetail;
 use App\Models\M_JadwalPelayanan;
+use App\Models\M_Jemaat;
+use App\Models\M_JadwalIbadah;
+use App\Models\M_JenisIbadah;
+use App\Models\M_PelayanIbadah;
+use App\Models\M_JabatanPelayanan;
+use App\Models\M_MusikIbadah;
+use App\Models\M_PengumumanIbadah;
+use App\Models\M_KeuanganGereja;
+use App\Models\M_KategoriKeuangan;
+use App\Models\M_KasGereja;
+use App\Models\M_MutasiKas;
+use App\Models\M_InventarisGereja;
+use App\Models\M_KategoriAset;
+use App\Models\M_LokasiAset;
+use App\Models\M_VendorMaintenance;
+use App\Models\M_MaintenanceAset;
+use App\Models\M_PerbaikanAset;
 
 
 use App\Models\ModelAgenda;
@@ -193,6 +210,23 @@ abstract class BaseController extends Controller
         $this->pesanan = new M_Pesanan();
         $this->pesanandetail = new M_PesananDetail();
         $this->jadwalpelayanan = new M_JadwalPelayanan();
+        $this->jemaat = new M_Jemaat();
+        $this->jadwalibadah = new M_JadwalIbadah();
+        $this->jenisibadah = new M_JenisIbadah();
+        $this->pelayanibadah = new M_PelayanIbadah();
+        $this->jabatanpelayanan = new M_JabatanPelayanan();
+        $this->musikibadah = new M_MusikIbadah();
+        $this->pengumumanibadah = new M_PengumumanIbadah();
+        $this->keuangangereja = new M_KeuanganGereja();
+        $this->kategorikeuangan = new M_KategoriKeuangan();
+        $this->kasgereja = new M_KasGereja();
+        $this->mutasikas = new M_MutasiKas();
+        $this->inventarisgereja = new M_InventarisGereja();
+        $this->kategoriaset = new M_KategoriAset();
+        $this->lokasiaset = new M_LokasiAset();
+        $this->vendormaintenance = new M_VendorMaintenance();
+        $this->maintenanceaset = new M_MaintenanceAset();
+        $this->perbaikanaset = new M_PerbaikanAset();
 
         $this->user->kunjungan();
     }

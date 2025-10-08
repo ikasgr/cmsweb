@@ -2,167 +2,325 @@
 
 namespace App\Controllers;
 
+use App\Models\M_PendaftaranBaptis as PendaftaranBaptisModel;
+
 class PendaftaranBaptis extends BaseController
 {
-    // Frontend - Halaman form pendaftaran publik
+    protected $pendaftaranBaptisModel;
+    protected $helpers = ['form', 'url', 'file'];
+    
+    public function __construct()
+    {
+        $this->pendaftaranBaptisModel = new PendaftaranBaptisModel();
+        
+        // Load konfigurasi
+        $this->konfigurasi = $this->konfigurasi->vkonfig();
+        $this->template = $this->template->tempaktif();
+    }
+
+    /**
+     * Menampilkan halaman form pendaftaran baptis untuk umum
+     */
     public function index()
     {
-        $konfigurasi    = $this->konfigurasi->vkonfig();
-        $template = $this->template->tempaktif();
-        
         $data = [
-            'title'         => 'Pendaftaran Baptis | ' . $konfigurasi->nama,
-            'deskripsi'     => $konfigurasi->deskripsi,
-            'url'           => $konfigurasi->website,
-            'img'           => base_url('/public/img/konfigurasi/logo/' . $konfigurasi->logo),
-            'konfigurasi'   => $konfigurasi,
+            'title'         => 'Pendaftaran Baptis | ' . $this->konfigurasi->nama,
+            'deskripsi'     => $this->konfigurasi->deskripsi,
+            'url'           => $this->konfigurasi->website,
+            'img'           => base_url('/public/img/konfigurasi/logo/' . $this->konfigurasi->logo),
+            'konfigurasi'   => $this->konfigurasi,
             'mainmenu'      => $this->menu->mainmenu(),
             'footer'        => $this->menu->footermenu(),
             'topmenu'       => $this->menu->topmenu(),
             'section'       => $this->section->list(),
-            'sitekey'       => $konfigurasi->g_sitekey,
+            'sitekey'       => $this->konfigurasi->g_sitekey,
             'linkterkaitall' => $this->linkterkait->publishlinkall(),
-            'folder'        => $template['folder']
+            'folder'        => $this->template['folder'],
+            'validation'    => \Config\Services::validation()
         ];
-        return view('frontend/' . $template['folder'] . '/content/pendaftaran_baptis', $data);
+        
+        return view('frontend/' . $this->template['folder'] . '/content/pendaftaran_baptis', $data);
     }
 
-    // Frontend - Simpan pendaftaran dari publik
+    /**
+     * Menyimpan data pendaftaran baptis dari form
+     */
     public function simpanpendaftaran()
     {
-        if ($this->request->isAJAX()) {
-            $validation = \Config\Services::validation();
-            $valid = $this->validate([
-                'nama_lengkap' => [
-                    'label' => 'Nama Lengkap',
-                    'rules' => 'required',
-                    'errors' => [
-                        'required' => '{field} tidak boleh kosong!',
-                    ]
-                ],
-                'tempat_lahir' => [
-                    'label' => 'Tempat Lahir',
-                    'rules' => 'required',
-                    'errors' => [
-                        'required' => '{field} tidak boleh kosong!',
-                    ]
-                ],
-                'tgl_lahir' => [
-                    'label' => 'Tanggal Lahir',
-                    'rules' => 'required',
-                    'errors' => [
-                        'required' => '{field} tidak boleh kosong!',
-                    ]
-                ],
-                'jenis_kelamin' => [
-                    'label' => 'Jenis Kelamin',
-                    'rules' => 'required',
-                    'errors' => [
-                        'required' => 'Silahkan pilih {field}!',
-                    ]
-                ],
-                'alamat' => [
-                    'label' => 'Alamat',
-                    'rules' => 'required',
-                    'errors' => [
-                        'required' => '{field} tidak boleh kosong!',
-                    ]
-                ],
-                'no_hp' => [
-                    'label' => 'No HP',
-                    'rules' => 'required',
-                    'errors' => [
-                        'required' => '{field} tidak boleh kosong!',
-                    ]
-                ],
-                'email' => [
-                    'label' => 'Email',
-                    'rules' => 'required|valid_email',
-                    'errors' => [
-                        'required' => '{field} tidak boleh kosong!',
-                        'valid_email' => '{field} tidak valid!',
-                    ]
-                ],
-                'jenis_baptis' => [
-                    'label' => 'Jenis Baptis',
-                    'rules' => 'required',
-                    'errors' => [
-                        'required' => 'Silahkan pilih {field}!',
-                    ]
-                ],
+        // Validasi CSRF Token
+        if (!$this->request->isAJAX() || !$this->validate(['_method' => 'post'])) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Permintaan tidak valid atau sesi telah berakhir. Silakan refresh halaman dan coba lagi.'
             ]);
+        }
 
-            if (!$valid) {
-                $msg = [
-                    'error' => [
-                        'nama_lengkap'  => $validation->getError('nama_lengkap'),
-                        'tempat_lahir'  => $validation->getError('tempat_lahir'),
-                        'tgl_lahir'     => $validation->getError('tgl_lahir'),
-                        'jenis_kelamin' => $validation->getError('jenis_kelamin'),
-                        'alamat'        => $validation->getError('alamat'),
-                        'no_hp'         => $validation->getError('no_hp'),
-                        'email'         => $validation->getError('email'),
-                        'jenis_baptis'  => $validation->getError('jenis_baptis'),
-                    ]
-                ];
-            } else {
-                $konfigurasi = $this->konfigurasi->orderBy('id_setaplikasi')->first();
-                $secretkey = $konfigurasi['google_secret'];
-                $g_sitekey = $konfigurasi['g_sitekey'];
+        // Validasi reCAPTCHA jika aktif
+        if ($this->konfigurasi->recaptcha == 1) {
+            $recaptcha = \Config\Services::recaptcha();
+            $recaptchaResponse = $this->request->getPost('g-recaptcha-response');
+            
+            if (!$recaptcha->verify($recaptchaResponse)) {
+                return $this->response->setJSON([
+                    'status' => 'error',
+                    'message' => 'Verifikasi reCAPTCHA gagal. Silakan coba lagi.'
+                ]);
+            }
+        }
 
-                // Google reCAPTCHA
-                $recaptchaResponse = trim($this->request->getVar('g-recaptcha-response'));
-                $secret = $secretkey;
+        // Aturan validasi
+        $rules = [
+            'nama_lengkap' => [
+                'label' => 'Nama Lengkap',
+                'rules' => 'required|max_length[255]',
+                'errors' => [
+                    'required' => '{field} tidak boleh kosong!',
+                    'max_length' => '{field} maksimal 255 karakter!'
+                ]
+            ],
+            'tempat_lahir' => [
+                'label' => 'Tempat Lahir',
+                'rules' => 'required|max_length[100]',
+                'errors' => [
+                    'required' => '{field} tidak boleh kosong!',
+                    'max_length' => '{field} maksimal 100 karakter!'
+                ]
+            ],
+            'tgl_lahir' => [
+                'label' => 'Tanggal Lahir',
+                'rules' => 'required|valid_date',
+                'errors' => [
+                    'required' => '{field} tidak boleh kosong!',
+                    'valid_date' => 'Format {field} tidak valid!'
+                ]
+            ],
+            'jenis_kelamin' => [
+                'label' => 'Jenis Kelamin',
+                'rules' => 'required|in_list[Laki-laki,Perempuan]',
+                'errors' => [
+                    'required' => '{field} harus dipilih!',
+                    'in_list' => '{field} tidak valid!'
+                ]
+            ],
+            'alamat' => [
+                'label' => 'Alamat',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '{field} tidak boleh kosong!'
+                ]
+            ],
+            'no_hp' => [
+                'label' => 'Nomor HP',
+                'rules' => 'required|max_length[20]',
+                'errors' => [
+                    'required' => '{field} tidak boleh kosong!',
+                    'max_length' => '{field} maksimal 20 karakter!'
+                ]
+            ],
+            'email' => [
+                'label' => 'Email',
+                'rules' => 'required|valid_email|max_length[100]',
+                'errors' => [
+                    'required' => '{field} tidak boleh kosong!',
+                    'valid_email' => 'Format {field} tidak valid!',
+                    'max_length' => '{field} maksimal 100 karakter!'
+                ]
+            ],
+            'nama_ayah' => [
+                'label' => 'Nama Ayah',
+                'rules' => 'max_length[255]',
+                'errors' => [
+                    'max_length' => '{field} maksimal 255 karakter!'
+                ]
+            ],
+            'nama_ibu' => [
+                'label' => 'Nama Ibu',
+                'rules' => 'max_length[255]',
+                'errors' => [
+                    'max_length' => '{field} maksimal 255 karakter!'
+                ]
+            ],
+            'jenis_baptis' => [
+                'label' => 'Jenis Baptis',
+                'rules' => 'required|in_list[Baptis Anak,Baptis Dewasa]',
+                'errors' => [
+                    'required' => '{field} harus dipilih!',
+                    'in_list' => '{field} tidak valid!'
+                ]
+            ],
+            'dok_ktp' => [
+                'label' => 'Dokumen KTP',
+                'rules' => 'uploaded[dok_ktp]|max_size[dok_ktp,2048]|mime_in[dok_ktp,image/jpeg,image/png,application/pdf]',
+                'errors' => [
+                    'uploaded' => '{field} wajib diunggah!',
+                    'max_size' => 'Ukuran {field} maksimal 2MB!',
+                    'mime_in' => 'Format {field} harus JPG, PNG, atau PDF!'
+                ]
+            ],
+            'dok_kk' => [
+                'label' => 'Dokumen KK',
+                'rules' => 'uploaded[dok_kk]|max_size[dok_kk,2048]|mime_in[dok_kk,image/jpeg,image/png,application/pdf]',
+                'errors' => [
+                    'uploaded' => '{field} wajib diunggah!',
+                    'max_size' => 'Ukuran {field} maksimal 2MB!',
+                    'mime_in' => 'Format {field} harus JPG, PNG, atau PDF!'
+                ]
+            ],
+            'dok_akta_lahir' => [
+                'label' => 'Dokumen Akta Lahir',
+                'rules' => 'uploaded[dok_akta_lahir]|max_size[dok_akta_lahir,2048]|mime_in[dok_akta_lahir,image/jpeg,image/png,application/pdf]',
+                'errors' => [
+                    'uploaded' => '{field} wajib diunggah!',
+                    'max_size' => 'Ukuran {field} maksimal 2MB!',
+                    'mime_in' => 'Format {field} harus JPG, PNG, atau PDF!'
+                ]
+            ],
+            'dok_foto' => [
+                'label' => 'Foto',
+                'rules' => 'uploaded[dok_foto]|max_size[dok_foto,1024]|is_image[dok_foto]|mime_in[dok_foto,image/jpeg,image/png]',
+                'errors' => [
+                    'uploaded' => '{field} wajib diunggah!',
+                    'max_size' => 'Ukuran {field} maksimal 1MB!',
+                    'is_image' => 'File yang diunggah harus berupa gambar!',
+                    'mime_in' => 'Format {field} harus JPG atau PNG!'
+                ]
+            ]
+        ];
 
-                if ($secretkey != '' && $g_sitekey != '') {
-                    $credential = array(
-                        'secret' => $secret,
-                        'response' => $recaptchaResponse
-                    );
+        // Hanya validasi dokumen pernikahan ortu jika baptis anak
+        if ($this->request->getPost('jenis_baptis') === 'Baptis Anak') {
+            $rules['dok_surat_nikah_ortu'] = [
+                'label' => 'Dokumen Surat Nikah Orang Tua',
+                'rules' => 'uploaded[dok_surat_nikah_ortu]|max_size[dok_surat_nikah_ortu,2048]|mime_in[dok_surat_nikah_ortu,image/jpeg,image/png,application/pdf]',
+                'errors' => [
+                    'uploaded' => '{field} wajib diunggah untuk baptis anak!',
+                    'max_size' => 'Ukuran {field} maksimal 2MB!',
+                    'mime_in' => 'Format {field} harus JPG, PNG, atau PDF!'
+                ]
+            ];
+        }
 
-                    $verify = curl_init();
-                    curl_setopt($verify, CURLOPT_URL, "https://www.google.com/recaptcha/api/siteverify");
-                    curl_setopt($verify, CURLOPT_POST, true);
-                    curl_setopt($verify, CURLOPT_POSTFIELDS, http_build_query($credential));
-                    curl_setopt($verify, CURLOPT_SSL_VERIFYPEER, false);
-                    curl_setopt($verify, CURLOPT_RETURNTRANSFER, true);
-                    $response = curl_exec($verify);
+        // Jalankan validasi
+        if (!$this->validate($rules)) {
+            $errors = $this->validator->getErrors();
+            return $this->response->setJSON([
+                'status' => 'error',
+                'errors' => $errors,
+                'message' => 'Terdapat kesalahan pada form. Silakan periksa kembali.'
+            ]);
+        }
 
-                    $status = json_decode($response, true);
-                    if (!$status['success']) {
-                        $msg = [
-                            'gagal' => 'Gagal verifikasi reCAPTCHA. Silahkan coba lagi!'
-                        ];
-                        echo json_encode($msg);
-                        return;
+        // Proses upload file
+        $uploadedFiles = [];
+        $uploadPath = WRITEPATH . 'uploads/pendaftaran_baptis/' . date('Y/m/d');
+        
+        // Buat direktori jika belum ada
+        if (!is_dir($uploadPath)) {
+            mkdir($uploadPath, 0777, true);
+        }
+
+        // Daftar field file yang akan diupload
+        $fileFields = ['dok_ktp', 'dok_kk', 'dok_akta_lahir', 'dok_foto', 'dok_surat_nikah_ortu'];
+        
+        foreach ($fileFields as $field) {
+            $file = $this->request->getFile($field);
+            
+            // Skip jika tidak ada file yang diupload
+            if ($file && $file->isValid() && !$file->hasMoved()) {
+                $newName = $file->getRandomName();
+                $file->move($uploadPath, $newName);
+                $uploadedFiles[$field] = 'pendaftaran_baptis/' . date('Y/m/d') . '/' . $newName;
+            } elseif ($field === 'dok_surat_nikah_ortu' && $this->request->getPost('jenis_baptis') !== 'Baptis Anak') {
+                // Skip validasi untuk dokumen pernikahan ortu jika bukan baptis anak
+                continue;
+            }
+        }
+
+        // Siapkan data untuk disimpan
+        $data = [
+            'no_pendaftaran' => $this->pendaftaranBaptisModel->generateNoPendaftaran(),
+            'nama_lengkap' => $this->request->getPost('nama_lengkap'),
+            'tempat_lahir' => $this->request->getPost('tempat_lahir'),
+            'tgl_lahir' => $this->request->getPost('tgl_lahir'),
+            'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
+            'alamat' => $this->request->getPost('alamat'),
+            'no_hp' => $this->request->getPost('no_hp'),
+            'email' => $this->request->getPost('email'),
+            'nama_ayah' => $this->request->getPost('nama_ayah'),
+            'nama_ibu' => $this->request->getPost('nama_ibu'),
+            'jenis_baptis' => $this->request->getPost('jenis_baptis'),
+            'nama_pendamping' => $this->request->getPost('nama_pendamping'),
+            'hubungan_pendamping' => $this->request->getPost('hubungan_pendamping'),
+            'tgl_daftar' => date('Y-m-d'),
+            'status' => '0', // Status pending
+            'keterangan' => 'Pendaftaran baru'
+        ];
+
+        // Gabungkan data file yang sudah diupload
+        $data = array_merge($data, $uploadedFiles);
+
+        // Simpan ke database
+        try {
+            // Simpan data
+            $saved = $this->pendaftaranBaptisModel->save($data);
+            
+            if (!$saved) {
+                // Hapus file yang sudah diupload jika gagal menyimpan ke database
+                foreach ($uploadedFiles as $file) {
+                    if (file_exists(WRITEPATH . 'uploads/' . $file)) {
+                        unlink(WRITEPATH . 'uploads/' . $file);
                     }
                 }
-
-                $insertdata = [
-                    'nama_lengkap'          => $this->request->getVar('nama_lengkap'),
-                    'tempat_lahir'          => $this->request->getVar('tempat_lahir'),
-                    'tgl_lahir'             => date('Y-m-d', strtotime($this->request->getVar('tgl_lahir'))),
-                    'jenis_kelamin'         => $this->request->getVar('jenis_kelamin'),
-                    'alamat'                => $this->request->getVar('alamat'),
-                    'no_hp'                 => $this->request->getVar('no_hp'),
-                    'email'                 => $this->request->getVar('email'),
-                    'nama_ayah'             => $this->request->getVar('nama_ayah'),
-                    'nama_ibu'              => $this->request->getVar('nama_ibu'),
-                    'jenis_baptis'          => $this->request->getVar('jenis_baptis'),
-                    'nama_pendamping'       => $this->request->getVar('nama_pendamping'),
-                    'hubungan_pendamping'   => $this->request->getVar('hubungan_pendamping'),
-                    'tgl_daftar'            => date('Y-m-d'),
-                    'status'                => '0',
-                ];
-
-                $this->pendaftaranbaptis->insert($insertdata);
-
-                $msg = [
-                    'sukses' => 'Pendaftaran Baptis Anda berhasil terkirim. Kami akan menghubungi Anda segera!'
-                ];
+                
+                throw new \RuntimeException('Gagal menyimpan data pendaftaran');
             }
-            echo json_encode($msg);
+
+            // Kirim email notifikasi jika diperlukan
+            $this->_sendNotificationEmail($data);
+
+            return $this->response->setJSON([
+                'status' => 'success',
+                'message' => 'Pendaftaran berhasil disimpan. Nomor pendaftaran Anda: ' . $data['no_pendaftaran'],
+                'no_pendaftaran' => $data['no_pendaftaran']
+            ]);
+
+        } catch (\Exception $e) {
+            // Hapus file yang sudah diupload jika terjadi error
+            foreach ($uploadedFiles as $file) {
+                if (file_exists(WRITEPATH . 'uploads/' . $file)) {
+                    unlink(WRITEPATH . 'uploads/' . $file);
+                }
+            }
+
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Terjadi kesalahan: ' . $e->getMessage()
+            ])->setStatusCode(500);
         }
+    }
+
+    /**
+     * Send notification email for new registration
+     */
+    private function _sendNotificationEmail($data)
+    {
+        // Skip if email notification is disabled
+        if (!$this->konfigurasi->email_notification) {
+            return false;
+        }
+
+        $email = \Config\Services::email();
+        $template = view('emails/pendaftaran_baptis', $data);
+        
+        $email->setTo($data['email']);
+        $email->setFrom($this->konfigurasi->email_from, $this->konfigurasi->nama);
+        $email->setSubject('Konfirmasi Pendaftaran Baptis - ' . $data['no_pendaftaran']);
+        $email->setMessage($template);
+        
+        // Attach files if needed
+        // $email->attach(WRITEPATH . 'uploads/' . $data['dok_ktp']);
+        
+        return $email->send();
     }
 
     // Backend - List data pendaftaran
@@ -174,6 +332,7 @@ class PendaftaranBaptis extends BaseController
         $data = [
             'title'     => 'Pendaftaran Baptis',
             'subtitle'  => 'Manajemen Data',
+            'folder'    => 'morvin',
         ];
         return view('backend/morvin/cmscust/pendaftaran_baptis/index', $data);
     }

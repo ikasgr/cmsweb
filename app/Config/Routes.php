@@ -918,5 +918,83 @@ $routes->group('', ['namespace' => 'App\Controllers'], function ($routes) {
     $routes->post('jadwal/detail', 'Jadwal::detail');
     $routes->get('jadwal/widget', 'Jadwal::widget');
 
+    // Manajemen Jemaat - Backend
+    $routes->get('manajemen-jemaat/list', 'ManajemenJemaat::list');
+    $routes->get('manajemen_jemaat/all', 'ManajemenJemaat::list');
+    $routes->get('manajemen-jemaat/getdata', 'ManajemenJemaat::getdata');
+    $routes->post('manajemen-jemaat/formlihat', 'ManajemenJemaat::formlihat');
+    $routes->post('manajemen-jemaat/formedit', 'ManajemenJemaat::formedit');
+    $routes->post('manajemen-jemaat/update', 'ManajemenJemaat::update');
+    $routes->get('manajemen-jemaat/formtambah', 'ManajemenJemaat::formtambah');
+    $routes->post('manajemen-jemaat/simpan', 'ManajemenJemaat::simpan');
+    $routes->post('manajemen-jemaat/hapus', 'ManajemenJemaat::hapus');
+    $routes->post('manajemen-jemaat/hapusall', 'ManajemenJemaat::hapusall');
+    $routes->post('manajemen-jemaat/toggle', 'ManajemenJemaat::toggle');
+    $routes->post('manajemen-jemaat/formupload', 'ManajemenJemaat::formupload');
+    $routes->post('manajemen-jemaat/simpanupload', 'ManajemenJemaat::simpanupload');
+    $routes->post('manajemen-jemaat/hapusfoto', 'ManajemenJemaat::hapusfoto');
+    $routes->post('manajemen-jemaat/cari', 'ManajemenJemaat::cari');
+    $routes->get('manajemen-jemaat/dashboard', 'ManajemenJemaat::dashboard');
+
+    // Jadwal Ibadah & Pelayanan - Backend
+    $routes->get('jadwal-ibadah/list', 'JadwalIbadah::list');
+    $routes->get('jadwal_ibadah/all', 'JadwalIbadah::list');
+    $routes->get('jadwal-ibadah/getdata', 'JadwalIbadah::getdata');
+    $routes->post('jadwal-ibadah/formlihat', 'JadwalIbadah::formlihat');
+    $routes->post('jadwal-ibadah/formedit', 'JadwalIbadah::formedit');
+    $routes->post('jadwal-ibadah/update', 'JadwalIbadah::update');
+    $routes->get('jadwal-ibadah/formtambah', 'JadwalIbadah::formtambah');
+    $routes->post('jadwal-ibadah/simpan', 'JadwalIbadah::simpan');
+    $routes->post('jadwal-ibadah/hapus', 'JadwalIbadah::hapus');
+    $routes->post('jadwal-ibadah/hapusall', 'JadwalIbadah::hapusall');
+    $routes->post('jadwal-ibadah/toggle', 'JadwalIbadah::toggle');
+    $routes->get('jadwal-ibadah/getcalendar', 'JadwalIbadah::getcalendar');
+    $routes->post('jadwal-ibadah/copy', 'JadwalIbadah::copy');
+    $routes->get('jadwal-ibadah/dashboard', 'JadwalIbadah::dashboard');
+    $routes->post('jadwal-ibadah/search', 'JadwalIbadah::search');
+    $routes->post('jadwal-ibadah/filterbymonth', 'JadwalIbadah::filterbymonth');
+
+    // Keuangan Gereja - Backend
+    $routes->get('keuangan-gereja/list', 'KeuanganGereja::list');
+    $routes->get('keuangan_gereja/all', 'KeuanganGereja::list');
+    $routes->get('keuangan-gereja/getdata', 'KeuanganGereja::getdata');
+    $routes->post('keuangan-gereja/formlihat', 'KeuanganGereja::formlihat');
+    $routes->post('keuangan-gereja/formedit', 'KeuanganGereja::formedit');
+    $routes->post('keuangan-gereja/update', 'KeuanganGereja::update');
+    $routes->get('keuangan-gereja/formtambah', 'KeuanganGereja::formtambah');
+    $routes->post('keuangan-gereja/simpan', 'KeuanganGereja::simpan');
+    $routes->post('keuangan-gereja/hapus', 'KeuanganGereja::hapus');
+    $routes->post('keuangan-gereja/hapusall', 'KeuanganGereja::hapusall');
+    $routes->post('keuangan-gereja/formapprove', 'KeuanganGereja::formapprove');
+    $routes->post('keuangan-gereja/approve', 'KeuanganGereja::approve');
+    $routes->get('keuangan-gereja/dashboard', 'KeuanganGereja::dashboard');
+    $routes->post('keuangan-gereja/search', 'KeuanganGereja::search');
+    $routes->post('keuangan-gereja/filterbyperiode', 'KeuanganGereja::filterbyperiode');
+    $routes->post('keuangan-gereja/laporan', 'KeuanganGereja::laporan');
+    $routes->post('keuangan-gereja/uploadbukti', 'KeuanganGereja::uploadbukti');
+
+    // Inventaris Gereja - Backend
+    $routes->get('inventaris-gereja/list', 'InventarisGereja::list');
+    $routes->get('inventaris_gereja/all', 'InventarisGereja::list');
+    $routes->get('inventaris-gereja/getdata', 'InventarisGereja::getdata');
+    $routes->post('inventaris-gereja/formlihat', 'InventarisGereja::formlihat');
+    $routes->post('inventaris-gereja/formedit', 'InventarisGereja::formedit');
+    $routes->post('inventaris-gereja/update', 'InventarisGereja::update');
+    $routes->get('inventaris-gereja/formtambah', 'InventarisGereja::formtambah');
+    $routes->post('inventaris-gereja/simpan', 'InventarisGereja::simpan');
+    $routes->post('inventaris-gereja/hapus', 'InventarisGereja::hapus');
+    $routes->post('inventaris-gereja/hapusall', 'InventarisGereja::hapusall');
+    $routes->post('inventaris-gereja/toggle', 'InventarisGereja::toggle');
+    $routes->get('inventaris-gereja/dashboard', 'InventarisGereja::dashboard');
+    $routes->post('inventaris-gereja/search', 'InventarisGereja::search');
+    $routes->post('inventaris-gereja/filterbykategori', 'InventarisGereja::filterByKategori');
+    $routes->post('inventaris-gereja/filterbylokasi', 'InventarisGereja::filterByLokasi');
+    $routes->post('inventaris-gereja/filterbystatus', 'InventarisGereja::filterByStatus');
+    $routes->post('inventaris-gereja/getbyqrcode', 'InventarisGereja::getByQRCode');
+    $routes->get('inventaris-gereja/export', 'InventarisGereja::export');
+    $routes->get('inventaris-gereja/print', 'InventarisGereja::print');
+    $routes->get('inventaris-gereja/printqr/(:num)', 'InventarisGereja::printqr/$1');
+    $routes->post('inventaris-gereja/generateqr', 'InventarisGereja::generateqr');
+
     $routes->get('(:segment)', 'Berita::detail/$1');
 });

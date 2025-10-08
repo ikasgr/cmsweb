@@ -1,5 +1,5 @@
+<?= $this->extend('backend/' . esc($folder) . '/template-backend') ?>
 <?= $this->section('content') ?>
-<?= $this->extend('backend/' . esc($folder) . '/' . 'script'); ?>
 
 <div class="page-content">
     <div class="container-fluid">

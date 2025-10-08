@@ -1,4 +1,4 @@
-<?= $this->extend('backend/' . $folder . '/' . 'script') ?>
+<?= $this->extend('backend/' . esc($folder) . '/template-backend') ?>
 <?= $this->section('content') ?>
 
 <div class="row">

@@ -173,6 +173,7 @@ class PendaftaranSidi extends BaseController
         $data = [
             'title'     => 'Pendaftaran Sidi',
             'subtitle'  => 'Manajemen Data',
+            'folder'    => 'morvin',
         ];
         return view('backend/morvin/cmscust/pendaftaran_sidi/index', $data);
     }
