@@ -936,6 +936,20 @@ $routes->group('', ['namespace' => 'App\Controllers'], function ($routes) {
     $routes->post('manajemen-jemaat/cari', 'ManajemenJemaat::cari');
     $routes->get('manajemen-jemaat/dashboard', 'ManajemenJemaat::dashboard');
 
+    // Majelis Gereja - Backend
+    $routes->get('majelis-gereja/list', 'MajelisGereja::list');
+    $routes->get('majelis_gereja/all', 'MajelisGereja::list');
+    $routes->get('majelis-gereja/getdata', 'MajelisGereja::getdata');
+    $routes->post('majelis-gereja/formlihat', 'MajelisGereja::formlihat');
+    $routes->post('majelis-gereja/formedit', 'MajelisGereja::formedit');
+    $routes->post('majelis-gereja/update', 'MajelisGereja::update');
+    $routes->get('majelis-gereja/formtambah', 'MajelisGereja::formtambah');
+    $routes->post('majelis-gereja/simpan', 'MajelisGereja::simpan');
+    $routes->post('majelis-gereja/hapus', 'MajelisGereja::hapus');
+    $routes->post('majelis-gereja/hapusall', 'MajelisGereja::hapusall');
+    $routes->post('majelis-gereja/toggle', 'MajelisGereja::toggle');
+    $routes->get('majelis-gereja/dashboard', 'MajelisGereja::dashboard');
+
     // Jadwal Ibadah & Pelayanan - Backend
     $routes->get('jadwal-ibadah/list', 'JadwalIbadah::list');
     $routes->get('jadwal_ibadah/all', 'JadwalIbadah::list');

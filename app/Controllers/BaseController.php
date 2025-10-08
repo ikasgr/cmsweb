@@ -50,6 +50,10 @@ use App\Models\M_LokasiAset;
 use App\Models\M_VendorMaintenance;
 use App\Models\M_MaintenanceAset;
 use App\Models\M_PerbaikanAset;
+use App\Models\M_MajelisGereja;
+use App\Models\M_JabatanMajelis;
+use App\Models\M_MasaJabatanMajelis;
+use App\Models\M_KomisiMajelis;
 
 
 use App\Models\ModelAgenda;
@@ -227,6 +231,10 @@ abstract class BaseController extends Controller
         $this->vendormaintenance = new M_VendorMaintenance();
         $this->maintenanceaset = new M_MaintenanceAset();
         $this->perbaikanaset = new M_PerbaikanAset();
+        $this->majelisgereja = new M_MajelisGereja();
+        $this->jabatanmajelis = new M_JabatanMajelis();
+        $this->masajabatanmajelis = new M_MasaJabatanMajelis();
+        $this->komisimajelis = new M_KomisiMajelis();
 
         $this->user->kunjungan();
     }
