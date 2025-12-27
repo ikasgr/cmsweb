@@ -7,24 +7,24 @@ class PendaftaranNikah extends BaseController
     // Frontend - Halaman form pendaftaran publik
     public function index()
     {
-        $konfigurasi    = $this->konfigurasi->vkonfig();
-        $template = $this->template->tempaktif();
-        
+        $konfigurasi = $this->konfigurasi->vkonfig();
+
+
         $data = [
-            'title'         => 'Pendaftaran Pernikahan | ' . $konfigurasi->nama,
-            'deskripsi'     => $konfigurasi->deskripsi,
-            'url'           => $konfigurasi->website,
-            'img'           => base_url('/public/img/konfigurasi/logo/' . $konfigurasi->logo),
-            'konfigurasi'   => $konfigurasi,
-            'mainmenu'      => $this->menu->mainmenu(),
-            'footer'        => $this->menu->footermenu(),
-            'topmenu'       => $this->menu->topmenu(),
-            'section'       => $this->section->list(),
-            'sitekey'       => $konfigurasi->g_sitekey,
+            'title' => 'Pendaftaran Pernikahan | ' . $konfigurasi->nama,
+            'deskripsi' => $konfigurasi->deskripsi,
+            'url' => $konfigurasi->website,
+            'img' => base_url('/public/img/konfigurasi/logo/' . $konfigurasi->logo),
+            'konfigurasi' => $konfigurasi,
+            'mainmenu' => $this->menu->mainmenu(),
+            'footer' => $this->menu->footermenu(),
+            'topmenu' => $this->menu->topmenu(),
+            'section' => $this->section->list(),
+            'sitekey' => $konfigurasi->g_sitekey,
             'linkterkaitall' => $this->linkterkait->publishlinkall(),
-            'folder'        => $template['folder']
+
         ];
-        return view('frontend/' . $template['folder'] . '/content/pendaftaran_nikah', $data);
+        return view('frontend/desktop/content/pendaftaran_nikah', $data);
     }
 
     // Frontend - Simpan pendaftaran dari publik
@@ -103,15 +103,15 @@ class PendaftaranNikah extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'nama_pria'             => $validation->getError('nama_pria'),
-                        'tgl_lahir_pria'        => $validation->getError('tgl_lahir_pria'),
-                        'no_hp_pria'            => $validation->getError('no_hp_pria'),
-                        'email_pria'            => $validation->getError('email_pria'),
-                        'nama_wanita'           => $validation->getError('nama_wanita'),
-                        'tgl_lahir_wanita'      => $validation->getError('tgl_lahir_wanita'),
-                        'no_hp_wanita'          => $validation->getError('no_hp_wanita'),
-                        'email_wanita'          => $validation->getError('email_wanita'),
-                        'tgl_nikah_diinginkan'  => $validation->getError('tgl_nikah_diinginkan'),
+                        'nama_pria' => $validation->getError('nama_pria'),
+                        'tgl_lahir_pria' => $validation->getError('tgl_lahir_pria'),
+                        'no_hp_pria' => $validation->getError('no_hp_pria'),
+                        'email_pria' => $validation->getError('email_pria'),
+                        'nama_wanita' => $validation->getError('nama_wanita'),
+                        'tgl_lahir_wanita' => $validation->getError('tgl_lahir_wanita'),
+                        'no_hp_wanita' => $validation->getError('no_hp_wanita'),
+                        'email_wanita' => $validation->getError('email_wanita'),
+                        'tgl_nikah_diinginkan' => $validation->getError('tgl_nikah_diinginkan'),
                     ]
                 ];
             } else {
@@ -149,34 +149,34 @@ class PendaftaranNikah extends BaseController
 
                 $insertdata = [
                     // Data Calon Suami
-                    'nama_pria'             => $this->request->getVar('nama_pria'),
-                    'tempat_lahir_pria'     => $this->request->getVar('tempat_lahir_pria'),
-                    'tgl_lahir_pria'        => date('Y-m-d', strtotime($this->request->getVar('tgl_lahir_pria'))),
-                    'alamat_pria'           => $this->request->getVar('alamat_pria'),
-                    'no_hp_pria'            => $this->request->getVar('no_hp_pria'),
-                    'email_pria'            => $this->request->getVar('email_pria'),
-                    'pekerjaan_pria'        => $this->request->getVar('pekerjaan_pria'),
-                    'status_baptis_pria'    => $this->request->getVar('status_baptis_pria'),
-                    'gereja_baptis_pria'    => $this->request->getVar('gereja_baptis_pria'),
-                    'nama_ayah_pria'        => $this->request->getVar('nama_ayah_pria'),
-                    'nama_ibu_pria'         => $this->request->getVar('nama_ibu_pria'),
+                    'nama_pria' => $this->request->getVar('nama_pria'),
+                    'tempat_lahir_pria' => $this->request->getVar('tempat_lahir_pria'),
+                    'tgl_lahir_pria' => date('Y-m-d', strtotime($this->request->getVar('tgl_lahir_pria'))),
+                    'alamat_pria' => $this->request->getVar('alamat_pria'),
+                    'no_hp_pria' => $this->request->getVar('no_hp_pria'),
+                    'email_pria' => $this->request->getVar('email_pria'),
+                    'pekerjaan_pria' => $this->request->getVar('pekerjaan_pria'),
+                    'status_baptis_pria' => $this->request->getVar('status_baptis_pria'),
+                    'gereja_baptis_pria' => $this->request->getVar('gereja_baptis_pria'),
+                    'nama_ayah_pria' => $this->request->getVar('nama_ayah_pria'),
+                    'nama_ibu_pria' => $this->request->getVar('nama_ibu_pria'),
                     // Data Calon Istri
-                    'nama_wanita'           => $this->request->getVar('nama_wanita'),
-                    'tempat_lahir_wanita'   => $this->request->getVar('tempat_lahir_wanita'),
-                    'tgl_lahir_wanita'      => date('Y-m-d', strtotime($this->request->getVar('tgl_lahir_wanita'))),
-                    'alamat_wanita'         => $this->request->getVar('alamat_wanita'),
-                    'no_hp_wanita'          => $this->request->getVar('no_hp_wanita'),
-                    'email_wanita'          => $this->request->getVar('email_wanita'),
-                    'pekerjaan_wanita'      => $this->request->getVar('pekerjaan_wanita'),
-                    'status_baptis_wanita'  => $this->request->getVar('status_baptis_wanita'),
-                    'gereja_baptis_wanita'  => $this->request->getVar('gereja_baptis_wanita'),
-                    'nama_ayah_wanita'      => $this->request->getVar('nama_ayah_wanita'),
-                    'nama_ibu_wanita'       => $this->request->getVar('nama_ibu_wanita'),
+                    'nama_wanita' => $this->request->getVar('nama_wanita'),
+                    'tempat_lahir_wanita' => $this->request->getVar('tempat_lahir_wanita'),
+                    'tgl_lahir_wanita' => date('Y-m-d', strtotime($this->request->getVar('tgl_lahir_wanita'))),
+                    'alamat_wanita' => $this->request->getVar('alamat_wanita'),
+                    'no_hp_wanita' => $this->request->getVar('no_hp_wanita'),
+                    'email_wanita' => $this->request->getVar('email_wanita'),
+                    'pekerjaan_wanita' => $this->request->getVar('pekerjaan_wanita'),
+                    'status_baptis_wanita' => $this->request->getVar('status_baptis_wanita'),
+                    'gereja_baptis_wanita' => $this->request->getVar('gereja_baptis_wanita'),
+                    'nama_ayah_wanita' => $this->request->getVar('nama_ayah_wanita'),
+                    'nama_ibu_wanita' => $this->request->getVar('nama_ibu_wanita'),
                     // Data Pernikahan
-                    'tgl_daftar'            => date('Y-m-d'),
-                    'tgl_nikah_diinginkan'  => date('Y-m-d', strtotime($this->request->getVar('tgl_nikah_diinginkan'))),
-                    'tempat_nikah'          => $this->request->getVar('tempat_nikah'),
-                    'status'                => '0',
+                    'tgl_daftar' => date('Y-m-d'),
+                    'tgl_nikah_diinginkan' => date('Y-m-d', strtotime($this->request->getVar('tgl_nikah_diinginkan'))),
+                    'tempat_nikah' => $this->request->getVar('tempat_nikah'),
+                    'status' => '0',
                 ];
 
                 $this->pendaftarannikah->insert($insertdata);
@@ -196,11 +196,11 @@ class PendaftaranNikah extends BaseController
             return redirect()->to('');
         }
         $data = [
-            'title'     => 'Pendaftaran Pernikahan',
-            'subtitle'  => 'Manajemen Data',
-            'folder'    => 'morvin',
+            'title' => 'Pendaftaran Pernikahan',
+            'subtitle' => 'Manajemen Data',
+            'folder' => 'morvin',
         ];
-        return view('backend/morvin/cmscust/pendaftaran_nikah/index', $data);
+        return view('backend/cmscust/pendaftaran_nikah/index', $data);
     }
 
     // Backend - Get data untuk datatables
@@ -209,21 +209,21 @@ class PendaftaranNikah extends BaseController
         if ($this->request->isAJAX()) {
             $id_grup = session()->get('id_grup');
             $url = 'pendaftaran-nikah/list';
-            $listgrupf =  $this->grupakses->listgrupakses($id_grup, $url);
+            $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
 
-            foreach ($listgrupf as $data) :
+            foreach ($listgrupf as $data):
                 $akses = $data['akses'];
             endforeach;
 
             if ($listgrupf) {
                 if ($akses == '1' || $akses == '2') {
                     $data = [
-                        'title'     => 'Pendaftaran Pernikahan',
-                        'list'      => $this->pendaftarannikah->list(),
-                        'akses'     => $akses
+                        'title' => 'Pendaftaran Pernikahan',
+                        'list' => $this->pendaftarannikah->list(),
+                        'akses' => $akses
                     ];
                     $msg = [
-                        'data' => view('backend/morvin/cmscust/pendaftaran_nikah/list', $data)
+                        'data' => view('backend/cmscust/pendaftaran_nikah/list', $data)
                     ];
                 } else {
                     $msg = [
@@ -245,14 +245,14 @@ class PendaftaranNikah extends BaseController
     {
         if ($this->request->isAJAX()) {
             $id_nikah = $this->request->getVar('id_nikah');
-            $list =  $this->pendaftarannikah->find($id_nikah);
+            $list = $this->pendaftarannikah->find($id_nikah);
 
             $data = [
                 'title' => 'Detail Pendaftaran Pernikahan',
-                'data'  => $list
+                'data' => $list
             ];
             $msg = [
-                'sukses' => view('backend/morvin/cmscust/pendaftaran_nikah/lihat', $data)
+                'sukses' => view('backend/cmscust/pendaftaran_nikah/lihat', $data)
             ];
             echo json_encode($msg);
         }
@@ -263,14 +263,14 @@ class PendaftaranNikah extends BaseController
     {
         if ($this->request->isAJAX()) {
             $id_nikah = $this->request->getVar('id_nikah');
-            $list =  $this->pendaftarannikah->find($id_nikah);
+            $list = $this->pendaftarannikah->find($id_nikah);
 
             $data = [
                 'title' => 'Edit Pendaftaran Pernikahan',
-                'data'  => $list
+                'data' => $list
             ];
             $msg = [
-                'sukses' => view('backend/morvin/cmscust/pendaftaran_nikah/edit', $data)
+                'sukses' => view('backend/cmscust/pendaftaran_nikah/edit', $data)
             ];
             echo json_encode($msg);
         }
@@ -303,41 +303,41 @@ class PendaftaranNikah extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'nama_pria'     => $validation->getError('nama_pria'),
-                        'nama_wanita'   => $validation->getError('nama_wanita'),
+                        'nama_pria' => $validation->getError('nama_pria'),
+                        'nama_wanita' => $validation->getError('nama_wanita'),
                     ]
                 ];
             } else {
                 $updatedata = [
                     // Data Calon Suami
-                    'nama_pria'             => $this->request->getVar('nama_pria'),
-                    'tempat_lahir_pria'     => $this->request->getVar('tempat_lahir_pria'),
-                    'tgl_lahir_pria'        => date('Y-m-d', strtotime($this->request->getVar('tgl_lahir_pria'))),
-                    'alamat_pria'           => $this->request->getVar('alamat_pria'),
-                    'no_hp_pria'            => $this->request->getVar('no_hp_pria'),
-                    'email_pria'            => $this->request->getVar('email_pria'),
-                    'pekerjaan_pria'        => $this->request->getVar('pekerjaan_pria'),
-                    'status_baptis_pria'    => $this->request->getVar('status_baptis_pria'),
-                    'gereja_baptis_pria'    => $this->request->getVar('gereja_baptis_pria'),
-                    'nama_ayah_pria'        => $this->request->getVar('nama_ayah_pria'),
-                    'nama_ibu_pria'         => $this->request->getVar('nama_ibu_pria'),
+                    'nama_pria' => $this->request->getVar('nama_pria'),
+                    'tempat_lahir_pria' => $this->request->getVar('tempat_lahir_pria'),
+                    'tgl_lahir_pria' => date('Y-m-d', strtotime($this->request->getVar('tgl_lahir_pria'))),
+                    'alamat_pria' => $this->request->getVar('alamat_pria'),
+                    'no_hp_pria' => $this->request->getVar('no_hp_pria'),
+                    'email_pria' => $this->request->getVar('email_pria'),
+                    'pekerjaan_pria' => $this->request->getVar('pekerjaan_pria'),
+                    'status_baptis_pria' => $this->request->getVar('status_baptis_pria'),
+                    'gereja_baptis_pria' => $this->request->getVar('gereja_baptis_pria'),
+                    'nama_ayah_pria' => $this->request->getVar('nama_ayah_pria'),
+                    'nama_ibu_pria' => $this->request->getVar('nama_ibu_pria'),
                     // Data Calon Istri
-                    'nama_wanita'           => $this->request->getVar('nama_wanita'),
-                    'tempat_lahir_wanita'   => $this->request->getVar('tempat_lahir_wanita'),
-                    'tgl_lahir_wanita'      => date('Y-m-d', strtotime($this->request->getVar('tgl_lahir_wanita'))),
-                    'alamat_wanita'         => $this->request->getVar('alamat_wanita'),
-                    'no_hp_wanita'          => $this->request->getVar('no_hp_wanita'),
-                    'email_wanita'          => $this->request->getVar('email_wanita'),
-                    'pekerjaan_wanita'      => $this->request->getVar('pekerjaan_wanita'),
-                    'status_baptis_wanita'  => $this->request->getVar('status_baptis_wanita'),
-                    'gereja_baptis_wanita'  => $this->request->getVar('gereja_baptis_wanita'),
-                    'nama_ayah_wanita'      => $this->request->getVar('nama_ayah_wanita'),
-                    'nama_ibu_wanita'       => $this->request->getVar('nama_ibu_wanita'),
+                    'nama_wanita' => $this->request->getVar('nama_wanita'),
+                    'tempat_lahir_wanita' => $this->request->getVar('tempat_lahir_wanita'),
+                    'tgl_lahir_wanita' => date('Y-m-d', strtotime($this->request->getVar('tgl_lahir_wanita'))),
+                    'alamat_wanita' => $this->request->getVar('alamat_wanita'),
+                    'no_hp_wanita' => $this->request->getVar('no_hp_wanita'),
+                    'email_wanita' => $this->request->getVar('email_wanita'),
+                    'pekerjaan_wanita' => $this->request->getVar('pekerjaan_wanita'),
+                    'status_baptis_wanita' => $this->request->getVar('status_baptis_wanita'),
+                    'gereja_baptis_wanita' => $this->request->getVar('gereja_baptis_wanita'),
+                    'nama_ayah_wanita' => $this->request->getVar('nama_ayah_wanita'),
+                    'nama_ibu_wanita' => $this->request->getVar('nama_ibu_wanita'),
                     // Data Pernikahan
-                    'tgl_nikah_diinginkan'  => date('Y-m-d', strtotime($this->request->getVar('tgl_nikah_diinginkan'))),
-                    'tempat_nikah'          => $this->request->getVar('tempat_nikah'),
-                    'status'                => $this->request->getVar('status'),
-                    'keterangan'            => $this->request->getVar('keterangan'),
+                    'tgl_nikah_diinginkan' => date('Y-m-d', strtotime($this->request->getVar('tgl_nikah_diinginkan'))),
+                    'tempat_nikah' => $this->request->getVar('tempat_nikah'),
+                    'status' => $this->request->getVar('status'),
+                    'keterangan' => $this->request->getVar('keterangan'),
                 ];
 
                 $this->pendaftarannikah->update($id_nikah, $updatedata);
@@ -358,7 +358,7 @@ class PendaftaranNikah extends BaseController
                 'title' => 'Tambah Pendaftaran Pernikahan',
             ];
             $msg = [
-                'data' => view('backend/morvin/cmscust/pendaftaran_nikah/tambah', $data)
+                'data' => view('backend/cmscust/pendaftaran_nikah/tambah', $data)
             ];
             echo json_encode($msg);
         }
@@ -389,42 +389,42 @@ class PendaftaranNikah extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'nama_pria'     => $validation->getError('nama_pria'),
-                        'nama_wanita'   => $validation->getError('nama_wanita'),
+                        'nama_pria' => $validation->getError('nama_pria'),
+                        'nama_wanita' => $validation->getError('nama_wanita'),
                     ]
                 ];
             } else {
                 $insertdata = [
                     // Data Calon Suami
-                    'nama_pria'             => $this->request->getVar('nama_pria'),
-                    'tempat_lahir_pria'     => $this->request->getVar('tempat_lahir_pria'),
-                    'tgl_lahir_pria'        => date('Y-m-d', strtotime($this->request->getVar('tgl_lahir_pria'))),
-                    'alamat_pria'           => $this->request->getVar('alamat_pria'),
-                    'no_hp_pria'            => $this->request->getVar('no_hp_pria'),
-                    'email_pria'            => $this->request->getVar('email_pria'),
-                    'pekerjaan_pria'        => $this->request->getVar('pekerjaan_pria'),
-                    'status_baptis_pria'    => $this->request->getVar('status_baptis_pria'),
-                    'gereja_baptis_pria'    => $this->request->getVar('gereja_baptis_pria'),
-                    'nama_ayah_pria'        => $this->request->getVar('nama_ayah_pria'),
-                    'nama_ibu_pria'         => $this->request->getVar('nama_ibu_pria'),
+                    'nama_pria' => $this->request->getVar('nama_pria'),
+                    'tempat_lahir_pria' => $this->request->getVar('tempat_lahir_pria'),
+                    'tgl_lahir_pria' => date('Y-m-d', strtotime($this->request->getVar('tgl_lahir_pria'))),
+                    'alamat_pria' => $this->request->getVar('alamat_pria'),
+                    'no_hp_pria' => $this->request->getVar('no_hp_pria'),
+                    'email_pria' => $this->request->getVar('email_pria'),
+                    'pekerjaan_pria' => $this->request->getVar('pekerjaan_pria'),
+                    'status_baptis_pria' => $this->request->getVar('status_baptis_pria'),
+                    'gereja_baptis_pria' => $this->request->getVar('gereja_baptis_pria'),
+                    'nama_ayah_pria' => $this->request->getVar('nama_ayah_pria'),
+                    'nama_ibu_pria' => $this->request->getVar('nama_ibu_pria'),
                     // Data Calon Istri
-                    'nama_wanita'           => $this->request->getVar('nama_wanita'),
-                    'tempat_lahir_wanita'   => $this->request->getVar('tempat_lahir_wanita'),
-                    'tgl_lahir_wanita'      => date('Y-m-d', strtotime($this->request->getVar('tgl_lahir_wanita'))),
-                    'alamat_wanita'         => $this->request->getVar('alamat_wanita'),
-                    'no_hp_wanita'          => $this->request->getVar('no_hp_wanita'),
-                    'email_wanita'          => $this->request->getVar('email_wanita'),
-                    'pekerjaan_wanita'      => $this->request->getVar('pekerjaan_wanita'),
-                    'status_baptis_wanita'  => $this->request->getVar('status_baptis_wanita'),
-                    'gereja_baptis_wanita'  => $this->request->getVar('gereja_baptis_wanita'),
-                    'nama_ayah_wanita'      => $this->request->getVar('nama_ayah_wanita'),
-                    'nama_ibu_wanita'       => $this->request->getVar('nama_ibu_wanita'),
+                    'nama_wanita' => $this->request->getVar('nama_wanita'),
+                    'tempat_lahir_wanita' => $this->request->getVar('tempat_lahir_wanita'),
+                    'tgl_lahir_wanita' => date('Y-m-d', strtotime($this->request->getVar('tgl_lahir_wanita'))),
+                    'alamat_wanita' => $this->request->getVar('alamat_wanita'),
+                    'no_hp_wanita' => $this->request->getVar('no_hp_wanita'),
+                    'email_wanita' => $this->request->getVar('email_wanita'),
+                    'pekerjaan_wanita' => $this->request->getVar('pekerjaan_wanita'),
+                    'status_baptis_wanita' => $this->request->getVar('status_baptis_wanita'),
+                    'gereja_baptis_wanita' => $this->request->getVar('gereja_baptis_wanita'),
+                    'nama_ayah_wanita' => $this->request->getVar('nama_ayah_wanita'),
+                    'nama_ibu_wanita' => $this->request->getVar('nama_ibu_wanita'),
                     // Data Pernikahan
-                    'tgl_daftar'            => date('Y-m-d'),
-                    'tgl_nikah_diinginkan'  => date('Y-m-d', strtotime($this->request->getVar('tgl_nikah_diinginkan'))),
-                    'tempat_nikah'          => $this->request->getVar('tempat_nikah'),
-                    'status'                => $this->request->getVar('status'),
-                    'keterangan'            => $this->request->getVar('keterangan'),
+                    'tgl_daftar' => date('Y-m-d'),
+                    'tgl_nikah_diinginkan' => date('Y-m-d', strtotime($this->request->getVar('tgl_nikah_diinginkan'))),
+                    'tempat_nikah' => $this->request->getVar('tempat_nikah'),
+                    'status' => $this->request->getVar('status'),
+                    'keterangan' => $this->request->getVar('keterangan'),
                 ];
 
                 $this->pendaftarannikah->insert($insertdata);
@@ -446,9 +446,18 @@ class PendaftaranNikah extends BaseController
 
             // Hapus file dokumen jika ada
             $dokumen = [
-                'dok_ktp_pria', 'dok_kk_pria', 'dok_baptis_pria', 'dok_sidi_pria', 'dok_foto_pria',
-                'dok_ktp_wanita', 'dok_kk_wanita', 'dok_baptis_wanita', 'dok_sidi_wanita', 'dok_foto_wanita',
-                'dok_surat_izin_ortu', 'dok_surat_keterangan_gereja'
+                'dok_ktp_pria',
+                'dok_kk_pria',
+                'dok_baptis_pria',
+                'dok_sidi_pria',
+                'dok_foto_pria',
+                'dok_ktp_wanita',
+                'dok_kk_wanita',
+                'dok_baptis_wanita',
+                'dok_sidi_wanita',
+                'dok_foto_wanita',
+                'dok_surat_izin_ortu',
+                'dok_surat_keterangan_gereja'
             ];
             foreach ($dokumen as $dok) {
                 if (!empty($cekdata[$dok]) && file_exists('public/file/dokumen/nikah/' . $cekdata[$dok])) {
@@ -471,22 +480,31 @@ class PendaftaranNikah extends BaseController
         if ($this->request->isAJAX()) {
             $id_nikah = $this->request->getVar('id_nikah');
             $jmldata = count($id_nikah);
-            
+
             for ($i = 0; $i < $jmldata; $i++) {
                 $cekdata = $this->pendaftarannikah->find($id_nikah[$i]);
-                
+
                 // Hapus file dokumen jika ada
                 $dokumen = [
-                    'dok_ktp_pria', 'dok_kk_pria', 'dok_baptis_pria', 'dok_sidi_pria', 'dok_foto_pria',
-                    'dok_ktp_wanita', 'dok_kk_wanita', 'dok_baptis_wanita', 'dok_sidi_wanita', 'dok_foto_wanita',
-                    'dok_surat_izin_ortu', 'dok_surat_keterangan_gereja'
+                    'dok_ktp_pria',
+                    'dok_kk_pria',
+                    'dok_baptis_pria',
+                    'dok_sidi_pria',
+                    'dok_foto_pria',
+                    'dok_ktp_wanita',
+                    'dok_kk_wanita',
+                    'dok_baptis_wanita',
+                    'dok_sidi_wanita',
+                    'dok_foto_wanita',
+                    'dok_surat_izin_ortu',
+                    'dok_surat_keterangan_gereja'
                 ];
                 foreach ($dokumen as $dok) {
                     if (!empty($cekdata[$dok]) && file_exists('public/file/dokumen/nikah/' . $cekdata[$dok])) {
                         unlink('public/file/dokumen/nikah/' . $cekdata[$dok]);
                     }
                 }
-                
+
                 $this->pendaftarannikah->delete($id_nikah[$i]);
             }
 
@@ -508,7 +526,7 @@ class PendaftaranNikah extends BaseController
                 'status' => $status,
             ];
             $this->pendaftarannikah->update($id, $updatedata);
-            
+
             $statusText = ['Pending', 'Disetujui', 'Ditolak'];
             $msg = [
                 'sukses' => 'Status berhasil diubah menjadi: ' . $statusText[$status]
@@ -523,14 +541,14 @@ class PendaftaranNikah extends BaseController
     {
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('id_nikah');
-            $list =  $this->pendaftarannikah->find($id);
-            
+            $list = $this->pendaftarannikah->find($id);
+
             $data = [
                 'title' => 'Upload Dokumen',
-                'data'  => $list
+                'data' => $list
             ];
             $msg = [
-                'sukses' => view('backend/morvin/cmscust/pendaftaran_nikah/upload', $data)
+                'sukses' => view('backend/cmscust/pendaftaran_nikah/upload', $data)
             ];
             echo json_encode($msg);
         }
@@ -542,7 +560,7 @@ class PendaftaranNikah extends BaseController
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('id_nikah');
             $jenis_dok = $this->request->getVar('jenis_dok');
-            
+
             $validation = \Config\Services::validation();
             $valid = $this->validate([
                 'file_dokumen' => [
@@ -595,7 +613,7 @@ class PendaftaranNikah extends BaseController
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('id_nikah');
             $jenis_dok = $this->request->getVar('jenis_dok');
-            
+
             $cekdata = $this->pendaftarannikah->find($id);
             $file = $cekdata[$jenis_dok];
 

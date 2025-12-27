@@ -12,7 +12,7 @@ class Daftar extends BaseController
         $konfigurasi    = $this->konfigurasi->vkonfig();
         $kategori = $this->kategori->list();
         $agenda = $this->agenda->listagendapage();
-        $template = $this->template->tempaktif();
+        
         $pengumuman = $this->pengumuman->listpengumumanpage();
         $data = [
             'title'         => 'Formulir Pendaftaran | ' . $konfigurasi->nama,
@@ -35,7 +35,7 @@ class Daftar extends BaseController
             'section'       => $this->section->list(),
             'sitekey'        => $konfigurasi->g_sitekey,
             'linkterkaitall'    => $this->linkterkait->publishlinkall(),
-            'folder'        => $template['folder']
+            
         ];
         return view('' . $template['folder'] . '/' . 'content/daftar', $data);
     }

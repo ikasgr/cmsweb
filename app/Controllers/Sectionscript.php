@@ -10,14 +10,14 @@ class Sectionscript extends BaseController
         if (!session()->get('id')) {
             return redirect()->to('');
         }
-        $tadmin = $this->template->tempadminaktif();
+
         $data = [
-            'title'           => 'Set Konten',
-            'subtitle'        => 'Section',
-            'folder'          => esc($tadmin['folder'])
+            'title' => 'Set Konten',
+            'subtitle' => 'Section',
+
         ];
 
-        return view('backend/' . esc($tadmin['folder']) . '/' . 'setkonten/section-script/index', $data);
+        return view('backend/' . 'setkonten/section-script/index', $data);
     }
 
     public function getdata()
@@ -29,7 +29,7 @@ class Sectionscript extends BaseController
         if ($this->request->isAJAX()) {
             $id_grup = session()->get('id_grup');
             $url = 'section-script';
-            $tadminFolder = $this->template->tempadminaktif()['folder'];
+
 
             // Ambil grup akses
             $listgrupf = $this->grupakses->viewgrupakses($id_grup, $url);
@@ -64,7 +64,7 @@ class Sectionscript extends BaseController
 
             // Kirimkan data melalui respons JSON
             $msg = [
-                'data' => view("backend/$tadminFolder/setkonten/section-script/list", $data)
+                'data' => view("backend/setkonten/section-script/list", $data)
             ];
 
             echo json_encode($msg);
@@ -77,14 +77,14 @@ class Sectionscript extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            $tadmin = $this->template->tempadminaktif();
+
             $data = [
-                'title'             => 'Tambah Section',
-                'template'          => $this->template->list(),
+                'title' => 'Tambah Section',
+                'template' => $this->template->list(),
             ];
             $msg = [
-                'data'                  => view('backend/' . esc($tadmin['folder']) . '/' . 'setkonten/section-script/tambah', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'data' => view('backend/' . 'setkonten/section-script/tambah', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -135,62 +135,62 @@ class Sectionscript extends BaseController
                     'errors' => [
                         // 'uploaded' => 'Masukkan gambar',
                         'max_size' => 'Ukuran {field} Maksimal 2024 KB..!!',
-                        'mime_in'  => 'Format file {field} PNG, Jpeg, Jpg, atau Gif..!!'
+                        'mime_in' => 'Format file {field} PNG, Jpeg, Jpg, atau Gif..!!'
                     ]
                 ]
             ]);
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'nama_section'  => $validation->getError('nama_section'),
-                        'template_id'   => $validation->getError('template_id'),
-                        'urutan'        => $validation->getError('urutan'),
-                        'isi_script'    => $validation->getError('isi_script'),
-                        'gambar'        => $validation->getError('gambar')
+                        'nama_section' => $validation->getError('nama_section'),
+                        'template_id' => $validation->getError('template_id'),
+                        'urutan' => $validation->getError('urutan'),
+                        'isi_script' => $validation->getError('isi_script'),
+                        'gambar' => $validation->getError('gambar')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
-                $filegambar     = $this->request->getFile('gambar');
-                $nama_file      = $filegambar->getRandomName();
-                $template_id    = $this->request->getVar('template_id');
-                $urutan         = $this->request->getVar('urutan');
+                $filegambar = $this->request->getFile('gambar');
+                $nama_file = $filegambar->getRandomName();
+                $template_id = $this->request->getVar('template_id');
+                $urutan = $this->request->getVar('urutan');
 
                 $cekdata = $this->section->cektemaurut($template_id, $urutan);
                 if ($cekdata) {
                     $msg = [
-                        'setganda'              => 'Posisi untuk tema ini sudah ada',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'setganda' => 'Posisi untuk tema ini sudah ada',
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                 } else {
                     //jika gambar tidak ada
                     if ($filegambar->GetError() == 4) {
                         $insertdata = [
-                            'nama_section'  => $this->request->getVar('nama_section'),
-                            'template_id'   => $template_id,
-                            'urutan'        => $urutan,
-                            'isi_script'    => $this->request->getVar('isi_script'),
-                            'deskripsi'     => $this->request->getVar('deskripsi'),
-                            'jns'           => '1',
+                            'nama_section' => $this->request->getVar('nama_section'),
+                            'template_id' => $template_id,
+                            'urutan' => $urutan,
+                            'isi_script' => $this->request->getVar('isi_script'),
+                            'deskripsi' => $this->request->getVar('deskripsi'),
+                            'jns' => '1',
                         ];
 
                         $this->section->insert($insertdata);
 
                         $msg = [
-                            'sukses'                => 'Data berhasil disimpan!',
-                            'csrf_tokencmsdatagoe'  => csrf_hash(),
+                            'sukses' => 'Data berhasil disimpan!',
+                            'csrf_tokencmsikasmedia' => csrf_hash(),
                         ];
                     } else {
                         // ada
                         $insertdata = [
-                            'nama_section'  => $this->request->getVar('nama_section'),
-                            'template_id'   => $template_id,
-                            'urutan'        => $urutan,
-                            'isi_script'    => $this->request->getVar('isi_script'),
-                            'deskripsi'     => $this->request->getVar('deskripsi'),
-                            'gambar'        => $nama_file,
-                            'jns'           => '1',
+                            'nama_section' => $this->request->getVar('nama_section'),
+                            'template_id' => $template_id,
+                            'urutan' => $urutan,
+                            'isi_script' => $this->request->getVar('isi_script'),
+                            'deskripsi' => $this->request->getVar('deskripsi'),
+                            'gambar' => $nama_file,
+                            'jns' => '1',
 
                         ];
 
@@ -198,11 +198,11 @@ class Sectionscript extends BaseController
                         \Config\Services::image()
                             ->withFile($filegambar)
                             // ->fit(300, 300, 'center')
-                            ->save('public/img/section/' .  $nama_file, 70);
+                            ->save('public/img/section/' . $nama_file, 70);
 
                         $msg = [
-                            'sukses'                => 'Data berhasil disimpan!',
-                            'csrf_tokencmsdatagoe'  => csrf_hash(),
+                            'sukses' => 'Data berhasil disimpan!',
+                            'csrf_tokencmsikasmedia' => csrf_hash(),
                         ];
                     }
                 }
@@ -218,23 +218,23 @@ class Sectionscript extends BaseController
         }
         if ($this->request->isAJAX()) {
             $section_id = $this->request->getVar('section_id');
-            $list =  $this->section->find($section_id);
-            $tadmin = $this->template->tempadminaktif();
+            $list = $this->section->find($section_id);
+
             $data = [
-                'title'         => 'Edit section',
-                'section_id'    => $list['section_id'],
-                'template_id'   => $list['template_id'],
-                'isi_script'    => $list['isi_script'],
-                'urutan'        => $list['urutan'],
-                'nama_section'  => $list['nama_section'],
-                'deskripsi'     => $list['deskripsi'],
-                'gambar'        => $list['gambar'],
-                'template'      => $this->template->list(),
+                'title' => 'Edit section',
+                'section_id' => $list['section_id'],
+                'template_id' => $list['template_id'],
+                'isi_script' => $list['isi_script'],
+                'urutan' => $list['urutan'],
+                'nama_section' => $list['nama_section'],
+                'deskripsi' => $list['deskripsi'],
+                'gambar' => $list['gambar'],
+                'template' => $this->template->list(),
 
             ];
             $msg = [
-                'sukses' => view('backend/' . esc($tadmin['folder']) . '/' . 'setkonten/section-script/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/' . 'setkonten/section-script/edit', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -266,51 +266,51 @@ class Sectionscript extends BaseController
                     'error' => [
                         'nama' => $validation->getError('nama'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
-                $template_id    = $this->request->getVar('template_id');
-                $urutan         = $this->request->getVar('urutan');
-                $template_idold    = $this->request->getVar('template_idold');
-                $urutanold         = $this->request->getVar('urutanold');
+                $template_id = $this->request->getVar('template_id');
+                $urutan = $this->request->getVar('urutan');
+                $template_idold = $this->request->getVar('template_idold');
+                $urutanold = $this->request->getVar('urutanold');
 
                 // jika sama tidak cek dan simpan tema / urutan
                 if ($template_id == $template_idold && $urutan == $urutanold) {
                     $updatedata = [
                         // 'template_id'   => $template_id,
                         // 'urutan'        => $urutan,
-                        'isi_script'    => $this->request->getVar('isi_script'),
-                        'nama_section'  => $this->request->getVar('nama_section'),
-                        'deskripsi'     => $this->request->getVar('deskripsi'),
+                        'isi_script' => $this->request->getVar('isi_script'),
+                        'nama_section' => $this->request->getVar('nama_section'),
+                        'deskripsi' => $this->request->getVar('deskripsi'),
                     ];
 
                     $this->section->update($section_id, $updatedata);
                     $msg = [
-                        'sukses'                => 'section berhasil diganti!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'sukses' => 'section berhasil diganti!',
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                 } else {
                     // jika tidak sama maka cek
                     $cekdata = $this->section->cektemaurut($template_id, $urutan);
                     if ($cekdata) {
                         $msg = [
-                            'setganda'              => 'Posisi untuk tema ini sudah ada',
-                            'csrf_tokencmsdatagoe'  => csrf_hash(),
+                            'setganda' => 'Posisi untuk tema ini sudah ada',
+                            'csrf_tokencmsikasmedia' => csrf_hash(),
                         ];
                     } else {
                         $updatedata = [
-                            'nama_section'   => $this->request->getVar('nama_section'),
-                            'template_id'   => $template_id,
-                            'urutan'        => $urutan,
-                            'isi_script'    => $this->request->getVar('isi_script'),
-                            'deskripsi'     => $this->request->getVar('deskripsi'),
+                            'nama_section' => $this->request->getVar('nama_section'),
+                            'template_id' => $template_id,
+                            'urutan' => $urutan,
+                            'isi_script' => $this->request->getVar('isi_script'),
+                            'deskripsi' => $this->request->getVar('deskripsi'),
                         ];
 
                         $this->section->update($section_id, $updatedata);
                         $msg = [
-                            'sukses'                => 'section berhasil diganti!',
-                            'csrf_tokencmsdatagoe'  => csrf_hash(),
+                            'sukses' => 'section berhasil diganti!',
+                            'csrf_tokencmsikasmedia' => csrf_hash(),
                         ];
                     }
                 }
@@ -337,8 +337,8 @@ class Sectionscript extends BaseController
             }
             $this->section->delete($id);
             $msg = [
-                'sukses'                => 'Data Section berhasil dihapus.',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => 'Data Section berhasil dihapus.',
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -366,8 +366,8 @@ class Sectionscript extends BaseController
             }
 
             $msg = [
-                'sukses'                => "$jmldata Data section berhasil dihapus",
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => "$jmldata Data section berhasil dihapus",
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -379,19 +379,19 @@ class Sectionscript extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            $id         = $this->request->getVar('section_id');
-            $list       = $this->section->find($id);
-            $tadmin     = $this->template->tempadminaktif();
+            $id = $this->request->getVar('section_id');
+            $list = $this->section->find($id);
+
 
             $data = [
-                'title'       => 'Ganti Gambar',
-                'id'          => $list['section_id'],
-                'gambar'      => $list['gambar']
+                'title' => 'Ganti Gambar',
+                'id' => $list['section_id'],
+                'gambar' => $list['gambar']
 
             ];
             $msg = [
-                'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'setkonten/section-script/gantifoto', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/' . 'setkonten/section-script/gantifoto', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -426,7 +426,7 @@ class Sectionscript extends BaseController
                     'error' => [
                         'gambar' => $validation->getError('gambar')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 

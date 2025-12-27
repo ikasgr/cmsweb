@@ -10,22 +10,22 @@ class Akun extends BaseController
             return redirect()->to('');
         }
         $userid = session()->get('id');
-        $list =  $this->user->find($userid);
-        $tadmin = $this->template->tempadminaktif();
+        $list = $this->user->find($userid);
+
         $data = [
-            'title'      => 'Akun',
-            'subtitle'   => 'Update Profile',
+            'title' => 'Akun',
+            'subtitle' => 'Update Profile',
             // 'subtitle'   => ($list['fullname']),
-            'id'         => $list['id'],
-            'username'   => $list['username'],
-            'email'      => ($list['email']),
-            'fullname'   => esc($list['fullname']),
-            'level'      => $list['level'],
-            'user_image'  => $list['user_image'],
-            'role'       => $this->grupuser->listbyid($list['id_grup']),
-            'folder'        => $tadmin['folder'],
+            'id' => $list['id'],
+            'username' => $list['username'],
+            'email' => ($list['email']),
+            'fullname' => esc($list['fullname']),
+            'level' => $list['level'],
+            'user_image' => $list['user_image'],
+            'role' => $this->grupuser->listbyid($list['id_grup']),
+
         ];
-        return view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/user/akun/akun', $data);
+        return view('backend/pengaturan/user/akun/akun', $data);
     }
 
     public function updateuser()
@@ -66,15 +66,15 @@ class Akun extends BaseController
                 $msg = [
                     'error' => [
                         'username' => $validation->getError('username'),
-                        'email'    => $validation->getError('email'),
+                        'email' => $validation->getError('email'),
                         'fullname' => $validation->getError('fullname'),
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 $namausernew = $this->request->getVar('username');
                 $namauserold = $this->request->getPost('userold');
-                $pass        = $this->request->getPost('password');
+                $pass = $this->request->getPost('password');
 
                 if ($pass != '') {
                     // Validasi password jika ada input
@@ -93,32 +93,32 @@ class Akun extends BaseController
                     if (!$valid) {
                         $msg = [
                             'errorpass' => $validation->getError('password'),
-                            'csrf_tokencmsdatagoe' => csrf_hash(),
+                            'csrf_tokencmsikasmedia' => csrf_hash(),
                         ];
                     } else {
                         // Update password jika valid
                         $data = [
                             // 'password_hash' => password_hash($pass, PASSWORD_BCRYPT),
-                            'password_hash'  => (password_hash($this->request->getVar('password'), PASSWORD_BCRYPT)),
+                            'password_hash' => (password_hash($this->request->getVar('password'), PASSWORD_BCRYPT)),
                         ];
                         $this->user->update($user_id, $data);
 
                         $msg = [
                             'sukses' => 'Password berhasil diubah!',
-                            'csrf_tokencmsdatagoe' => csrf_hash(),
+                            'csrf_tokencmsikasmedia' => csrf_hash(),
                         ];
                     }
                 } elseif ($namausernew == $namauserold) {
                     // Jika username tidak berubah, update data lainnya
                     $updatedata = [
-                        'email'    => $this->request->getVar('email'),
+                        'email' => $this->request->getVar('email'),
                         'fullname' => esc($this->request->getVar('fullname')),
                     ];
                     $this->user->update($user_id, $updatedata);
 
                     $msg = [
                         'sukses' => 'Data berhasil diubah!',
-                        'csrf_tokencmsdatagoe' => csrf_hash(),
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                 } else {
                     // Jika username berubah, periksa duplikasi
@@ -129,20 +129,20 @@ class Akun extends BaseController
                             'error' => [
                                 'username' => 'Username sudah digunakan!',
                             ],
-                            'csrf_tokencmsdatagoe' => csrf_hash(),
+                            'csrf_tokencmsikasmedia' => csrf_hash(),
                         ];
                     } else {
                         // Update dengan username baru
                         $updatedata = [
                             'username' => $namausernew,
-                            'email'    => $this->request->getVar('email'),
+                            'email' => $this->request->getVar('email'),
                             'fullname' => esc($this->request->getVar('fullname')),
                         ];
                         $this->user->update($user_id, $updatedata);
 
                         $msg = [
                             'sukses' => 'Data berhasil diubah!',
-                            'csrf_tokencmsdatagoe' => csrf_hash(),
+                            'csrf_tokencmsikasmedia' => csrf_hash(),
                         ];
                     }
                 }
@@ -160,17 +160,17 @@ class Akun extends BaseController
         }
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('id');
-            $list =  $this->user->find($id);
-            $tadmin = $this->template->tempadminaktif();
+            $list = $this->user->find($id);
+
             $data = [
-                'title'       => 'Ganti Foto Profil',
-                'id'          => $list['id'],
-                'user_image'  => $list['user_image'],
-                'username'    => $list['username']
+                'title' => 'Ganti Foto Profil',
+                'id' => $list['id'],
+                'user_image' => $list['user_image'],
+                'username' => $list['username']
 
             ];
             $msg = [
-                'sukses' => view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/user/akun/gantifoto', $data)
+                'sukses' => view('backend/pengaturan/user/akun/gantifoto', $data)
 
             ];
             echo json_encode($msg);
@@ -203,7 +203,7 @@ class Akun extends BaseController
                     'error' => [
                         'fotouser' => $validation->getError('fotouser')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 //check
@@ -230,15 +230,15 @@ class Akun extends BaseController
                 unset($_SESSION['user_image']);
 
                 $simpan_session = [
-                    'user_image'  => $nama_file,
-                    'fullname'       => $this->request->getVar('fullname'),
+                    'user_image' => $nama_file,
+                    'fullname' => $this->request->getVar('fullname'),
                 ];
 
                 $this->session->set($simpan_session);
 
                 $msg = [
-                    'sukses'                => 'Foto profil berhasil diganti!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Foto profil berhasil diganti!',
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);

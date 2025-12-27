@@ -10,44 +10,44 @@ class Kritiksaran extends BaseController
     //front end
     public function masukansaran()
     {
-        $konfigurasi        = $this->konfigurasi->vkonfig();
-        $suaraanda          = $this->kritiksaran->listsuaraanda();
-        $template           = $this->template->tempaktif();
+        $konfigurasi = $this->konfigurasi->vkonfig();
+        $suaraanda = $this->kritiksaran->listsuaraanda();
+        
         $data = [
-            'title'         => 'Masukan & Saran ' . esc($konfigurasi->nama),
-            'deskripsi'     => esc($konfigurasi->deskripsi),
-            'url'           => esc($konfigurasi->website),
-            'img'           => base_url('/public/img/konfigurasi/logo/' . esc($konfigurasi->logo)),
-            'konfigurasi'   => $konfigurasi,
-            'mainmenu'      => $this->menu->mainmenu(),
-            'footer'        => $this->menu->footermenu(),
-            'topmenu'       => $this->menu->topmenu(),
-            'suaraanda'     => $suaraanda->paginate(4, 'hal'),
-            'pager'         => $suaraanda->pager,
-            'jum'           => $this->kritiksaran->totsuaraanda(),
-            'banner'        => $this->banner->list(),
-            'infografis'    => $this->banner->listinfo(),
-            'infografis1'   => $this->banner->listinfo1(),
-            'kategori'      => $this->kategori->list(),
-            'agenda'        => $this->agenda->listagendapage()->paginate(4),
-            'pengumuman'    => $this->pengumuman->listpengumumanpage()->paginate(10),
+            'title' => 'Masukan & Saran ' . esc($konfigurasi->nama),
+            'deskripsi' => esc($konfigurasi->deskripsi),
+            'url' => esc($konfigurasi->website),
+            'img' => base_url('/public/img/konfigurasi/logo/' . esc($konfigurasi->logo)),
+            'konfigurasi' => $konfigurasi,
+            'mainmenu' => $this->menu->mainmenu(),
+            'footer' => $this->menu->footermenu(),
+            'topmenu' => $this->menu->topmenu(),
+            'suaraanda' => $suaraanda->paginate(4, 'hal'),
+            'pager' => $suaraanda->pager,
+            'jum' => $this->kritiksaran->totsuaraanda(),
+            'banner' => $this->banner->list(),
+            'infografis' => $this->banner->listinfo(),
+            'infografis1' => $this->banner->listinfo1(),
+            'kategori' => $this->kategori->list(),
+            'agenda' => $this->agenda->listagendapage()->paginate(4),
+            'pengumuman' => $this->pengumuman->listpengumumanpage()->paginate(10),
             'beritapopuler' => $this->berita->populer()->paginate(4),
-            'section'       => $this->section->list(),
-            'linkterkaitall'    => $this->linkterkait->publishlinkall(),
-            'sitekey'        => $konfigurasi->g_sitekey,
-            'infografis10'    => $this->banner->listinfopage()->paginate(10),
-            'grafisrandom'         => $this->banner->grafisrandom(),
-            'folder'        => $template['folder']
+            'section' => $this->section->list(),
+            'linkterkaitall' => $this->linkterkait->publishlinkall(),
+            'sitekey' => $konfigurasi->g_sitekey,
+            'infografis10' => $this->banner->listinfopage()->paginate(10),
+            'grafisrandom' => $this->banner->grafisrandom(),
+            
         ];
-        if ($template['duatema'] == 1) {
+        if (0) {
             $agent = $this->request->getUserAgent();
             if ($agent->isMobile()) {
-                return view('frontend/' . $template['folder'] . '/mobile/' . 'content/masukansaran', $data);
+                return view('frontend/desktop/' . 'content/masukansaran', $data);
             } else {
-                return view('frontend/' . $template['folder'] . '/desktop/' . 'content/masukansaran', $data);
+                return view('frontend/desktop/' . 'content/masukansaran', $data);
             }
         } else {
-            return view('frontend/' . $template['folder'] . '/desktop/' . 'content/masukansaran', $data);
+            return view('frontend/desktop/' . 'content/masukansaran', $data);
         }
     }
 
@@ -55,19 +55,19 @@ class Kritiksaran extends BaseController
     {
 
         if ($this->request->isAJAX()) {
-            $konfigurasi    = $this->konfigurasi->orderBy('id_setaplikasi')->first();
-            $g_sitekey      = $konfigurasi['g_sitekey'];
-            $tadmin         = $this->template->tempadminaktif();
+            $konfigurasi = $this->konfigurasi->orderBy('id_setaplikasi')->first();
+            $g_sitekey = $konfigurasi['g_sitekey'];
+            
             $data = [
-                'title'       => 'Masukan Saran',
+                'title' => 'Masukan Saran',
                 'konfigurasi' => $konfigurasi,
-                'sitekey'     => $g_sitekey,
+                'sitekey' => $g_sitekey,
 
             ];
             $msg = [
 
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
-                'data' => view('backend/' . $tadmin['folder'] . '/' . 'modal/kritiksaranmd', $data),
+                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'data' => view('backend/modal/kritiksaranmd', $data),
 
             ];
             echo json_encode($msg);
@@ -80,14 +80,14 @@ class Kritiksaran extends BaseController
         if (!session()->get('id')) {
             return redirect()->to('');
         }
-        $tadmin = $this->template->tempadminaktif();
+        
         $data = [
-            'title'           => 'Masukan',
-            'subtitle'        => 'Saran',
-            'folder'          => $tadmin['folder'],
+            'title' => 'Masukan',
+            'subtitle' => 'Saran',
+
         ];
 
-        return view('backend/' . $tadmin['folder'] . '/' . 'interaksi/kritiksaran/index', $data);
+        return view('backend/interaksi/kritiksaran/index', $data);
     }
 
     public function getdataAs()
@@ -96,30 +96,30 @@ class Kritiksaran extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            $id_grup    = session()->get('id_grup');
+            $id_grup = session()->get('id_grup');
 
-            $url        = 'kritiksaran/list';
-            $listgrupf  =  $this->grupakses->viewgrupakses($id_grup, $url);
+            $url = 'kritiksaran/list';
+            $listgrupf = $this->grupakses->viewgrupakses($id_grup, $url);
 
-            $akses  = $listgrupf->akses;
-            $hapus  = $listgrupf->hapus;
-            $ubah   = $listgrupf->ubah;
+            $akses = $listgrupf->akses;
+            $hapus = $listgrupf->hapus;
+            $ubah = $listgrupf->ubah;
             $tambah = $listgrupf->tambah;
             // jika temukan maka eksekusi
-            $tadmin = $this->template->tempadminaktif();
+            
             if ($listgrupf) {
                 # cek akses
                 if ($akses == '1' || $akses == '2') {
                     $data = [
-                        'title'     => 'Masukan Saran',
-                        'list'      => $this->kritiksaran->list(),
-                        'akses'     => $akses,
-                        'hapus'     => $hapus,
-                        'ubah'      => $ubah,
-                        'tambah'    => $tambah,
+                        'title' => 'Masukan Saran',
+                        'list' => $this->kritiksaran->list(),
+                        'akses' => $akses,
+                        'hapus' => $hapus,
+                        'ubah' => $ubah,
+                        'tambah' => $tambah,
                     ];
                     $msg = [
-                        'data' => view('backend/' . $tadmin['folder'] . '/' . 'interaksi/kritiksaran/list', $data),
+                        'data' => view('backend/interaksi/kritiksaran/list', $data),
 
                     ];
                 } else {
@@ -177,11 +177,11 @@ class Kritiksaran extends BaseController
             'tambah' => $listgrupf->tambah,
         ];
 
-        $tadmin = $this->template->tempadminaktif();
+        
 
         // Siapkan respons JSON dengan data tampilan
         $msg = [
-            'data' => view('backend/' . esc($tadmin['folder']) . '/interaksi/kritiksaran/list', $data)
+            'data' => view('backend/interaksi/kritiksaran/list', $data)
         ];
 
         echo json_encode($msg);
@@ -193,13 +193,13 @@ class Kritiksaran extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            $tadmin             = $this->template->tempadminaktif();
+            
             $data = [
-                'list'      => $this->kritiksaran->listkritiknew(),
+                'list' => $this->kritiksaran->listkritiknew(),
                 'totkritik' => $this->kritiksaran->totkritik()
             ];
             $msg = [
-                'data' => view('backend/' . $tadmin['folder'] . '/' . 'interaksi/kritiksaran/vmenukritik', $data)
+                'data' => view('backend/interaksi/kritiksaran/vmenukritik', $data)
             ];
             echo json_encode($msg);
         }
@@ -257,7 +257,7 @@ class Kritiksaran extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'nama'           => $validation->getError('nama'),
+                        'nama' => $validation->getError('nama'),
                         'email' => $validation->getError('email'),
                         'no_hpusr' => $validation->getError('no_hpusr'),
                         'judul' => $validation->getError('judul'),
@@ -265,17 +265,17 @@ class Kritiksaran extends BaseController
                     ]
                 ];
             } else {
-                $email          = $this->request->getVar('email');
-                $hpuser         = $this->request->getVar('no_hpusr');
-                $nama           = $this->request->getVar('nama');
-                $isi_kritik     = $this->request->getVar('isi_kritik');
-                $nm             = htmlspecialchars($nama, ENT_QUOTES);
-                $isi            = htmlspecialchars($isi_kritik, ENT_QUOTES);
-                $konfigurasi    = $this->konfigurasi->orderBy('id_setaplikasi')->first();
-                $apikey         = $konfigurasi['wa_token'];
-                $phone          = $konfigurasi['wa_sender_number'];
-                $secretkey      = $konfigurasi['google_secret'];
-                $g_sitekey      = $konfigurasi['g_sitekey'];
+                $email = $this->request->getVar('email');
+                $hpuser = $this->request->getVar('no_hpusr');
+                $nama = $this->request->getVar('nama');
+                $isi_kritik = $this->request->getVar('isi_kritik');
+                $nm = htmlspecialchars($nama, ENT_QUOTES);
+                $isi = htmlspecialchars($isi_kritik, ENT_QUOTES);
+                $konfigurasi = $this->konfigurasi->orderBy('id_setaplikasi')->first();
+                $apikey = $konfigurasi['wa_token'];
+                $phone = $konfigurasi['wa_sender_number'];
+                $secretkey = $konfigurasi['google_secret'];
+                $g_sitekey = $konfigurasi['g_sitekey'];
 
                 // gcaptcha
                 $secret = $secretkey;
@@ -301,13 +301,13 @@ class Kritiksaran extends BaseController
                     if ($status['success']) {
 
                         $insertdata = [
-                            'nama'         => $nm,
-                            'email'        => $email,
-                            'judul'        => $this->request->getVar('judul'),
-                            'no_hpusr'     => $hpuser,
-                            'isi_kritik'   => $isi,
-                            'tanggal'      => date('Y-m-d'),
-                            'status'       => '0'
+                            'nama' => $nm,
+                            'email' => $email,
+                            'judul' => $this->request->getVar('judul'),
+                            'no_hpusr' => $hpuser,
+                            'isi_kritik' => $isi,
+                            'tanggal' => date('Y-m-d'),
+                            'status' => '0'
 
                         ];
                         $this->kritiksaran->insert($insertdata);
@@ -328,13 +328,13 @@ class Kritiksaran extends BaseController
                 } else {
 
                     $insertdata = [
-                        'nama'         => $nm,
-                        'email'        => $email,
-                        'judul'        => $this->request->getVar('judul'),
-                        'no_hpusr'     => $hpuser,
-                        'isi_kritik'   => $isi,
-                        'tanggal'      => date('Y-m-d'),
-                        'status'       => '0'
+                        'nama' => $nm,
+                        'email' => $email,
+                        'judul' => $this->request->getVar('judul'),
+                        'no_hpusr' => $hpuser,
+                        'isi_kritik' => $isi,
+                        'tanggal' => date('Y-m-d'),
+                        'status' => '0'
 
                     ];
                     $this->kritiksaran->insert($insertdata);
@@ -364,15 +364,15 @@ class Kritiksaran extends BaseController
         }
         if ($this->request->isAJAX()) {
 
-            $id_grup        = session()->get('id_grup');
+            $id_grup = session()->get('id_grup');
             $kritiksaran_id = $this->request->getVar('kritiksaran_id');
-            $list           = $this->kritiksaran->find($kritiksaran_id);
-            $url            = 'kritiksaran/list';
-            $listgrupf      = $this->grupakses->listgrupakses($id_grup, $url);
-            $tadmin         = $this->template->tempadminaktif();
-            $konfigurasi    = $this->konfigurasi->orderBy('id_setaplikasi')->first();
+            $list = $this->kritiksaran->find($kritiksaran_id);
+            $url = 'kritiksaran/list';
+            $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
+            
+            $konfigurasi = $this->konfigurasi->orderBy('id_setaplikasi')->first();
 
-            foreach ($listgrupf as $data) :
+            foreach ($listgrupf as $data):
                 $akses = $data['akses'];
             endforeach;
             // jika temukan maka eksekusi
@@ -380,23 +380,23 @@ class Kritiksaran extends BaseController
                 # cek akses
                 if ($akses == '1' || $akses == '2') {
                     $data = [
-                        'title'             => 'Detail Kritik Saran',
-                        'kritiksaran_id'    => $list['kritiksaran_id'],
-                        'nama'              => $list['nama'],
-                        'email'             => $list['email'],
-                        'judul'             => $list['judul'],
-                        'no_hpusr'          => $list['no_hpusr'],
-                        'isi_kritik'        => $list['isi_kritik'],
-                        'tanggal'           => $list['tanggal'],
-                        'status'            => $list['status'],
-                        'balas'             => $list['balas'],
-                        'pesanbalas'        => esc($konfigurasi['smtp_pesanbalas']),
-                        'akses'             => $akses,
+                        'title' => 'Detail Kritik Saran',
+                        'kritiksaran_id' => $list['kritiksaran_id'],
+                        'nama' => $list['nama'],
+                        'email' => $list['email'],
+                        'judul' => $list['judul'],
+                        'no_hpusr' => $list['no_hpusr'],
+                        'isi_kritik' => $list['isi_kritik'],
+                        'tanggal' => $list['tanggal'],
+                        'status' => $list['status'],
+                        'balas' => $list['balas'],
+                        'pesanbalas' => esc($konfigurasi['smtp_pesanbalas']),
+                        'akses' => $akses,
 
                     ];
                     $msg = [
-                        'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'interaksi/kritiksaran/edit', $data),
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'sukses' => view('backend/interaksi/kritiksaran/edit', $data),
+                        'csrf_tokencmsdatagoe' => csrf_hash(),
                         // 'sukses' => view('admin/interaksi/kritiksaran/edit', $data)
                     ];
                 } else {
@@ -435,27 +435,27 @@ class Kritiksaran extends BaseController
                     'error' => [
                         'balas' => $validation->getError('balas'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             } else {
 
-                $konfigurasi    = $this->konfigurasi->orderBy('id_setaplikasi')->first();
-                $balasbuka      = $konfigurasi['smtp_pesanbalas']; //email dinas penyamaran
-                $apikey         = $konfigurasi['wa_token'];
-                $phone          = $konfigurasi['wa_sender_number']; //nomor wa gateway
+                $konfigurasi = $this->konfigurasi->orderBy('id_setaplikasi')->first();
+                $balasbuka = $konfigurasi['smtp_pesanbalas']; //email dinas penyamaran
+                $apikey = $konfigurasi['wa_token'];
+                $phone = $konfigurasi['wa_sender_number']; //nomor wa gateway
 
-                $logoUrl        = base_url('/public/img/konfigurasi/logo/' . $konfigurasi['logo']);
-                $namaweb        = esc($konfigurasi['nama']);
-                $smtp_pass      = esc($konfigurasi['smtp_pass']);
-                $noHpSupport    = ($konfigurasi['no_telp']);
+                $logoUrl = base_url('/public/img/konfigurasi/logo/' . $konfigurasi['logo']);
+                $namaweb = esc($konfigurasi['nama']);
+                $smtp_pass = esc($konfigurasi['smtp_pass']);
+                $noHpSupport = ($konfigurasi['no_telp']);
                 $kritiksaran_id = $this->request->getVar('kritiksaran_id');
-                $emailusr       = $this->request->getVar('email'); //email user
-                $nama           = $this->request->getVar('nama'); //nama user
-                $no_hpusr       = $this->request->getVar('no_hpusr');
-                $isi_kritik     = esc($this->request->getVar('isi_kritik'));
-                $balas          = strip_tags($this->request->getVar('balas')); // Menghapus tag HTML
+                $emailusr = $this->request->getVar('email'); //email user
+                $nama = $this->request->getVar('nama'); //nama user
+                $no_hpusr = $this->request->getVar('no_hpusr');
+                $isi_kritik = esc($this->request->getVar('isi_kritik'));
+                $balas = strip_tags($this->request->getVar('balas')); // Menghapus tag HTML
                 // $balas          = $this->request->getVar('balas'); //isi balasan
-                $title          = 'Balasan Masukan dan Saran'; //nama email
+                $title = 'Balasan Masukan dan Saran'; //nama email
 
                 # template new email 
                 $pesanbalas = '
@@ -545,13 +545,13 @@ class Kritiksaran extends BaseController
                 </body>
                 </html>';
 
-                $isibalas       = 'Hallo, *' . $nama . '*.. ' . $balasbuka . 'Berikut Jawaban kami.. *' . $balas . '* _Jangan balas pesan ini, karena otomatis dari Sistem_ ' . $konfigurasi['website'];
+                $isibalas = 'Hallo, *' . $nama . '*.. ' . $balasbuka . 'Berikut Jawaban kami.. *' . $balas . '* _Jangan balas pesan ini, karena otomatis dari Sistem_ ' . $konfigurasi['website'];
 
                 $data = [
-                    'status'       => '1',
-                    'balas'        => $balas,
-                    'isi_kritik'   => $isi_kritik,
-                    'tgl_bls'      => date('Y-m-d'),
+                    'status' => '1',
+                    'balas' => $balas,
+                    'isi_kritik' => $isi_kritik,
+                    'tgl_bls' => date('Y-m-d'),
                 ];
 
                 $this->kritiksaran->update($kritiksaran_id, $data);
@@ -568,8 +568,8 @@ class Kritiksaran extends BaseController
                 }
 
                 $msg = [
-                    'sukses'                => $pesan,
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => $pesan,
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -578,18 +578,18 @@ class Kritiksaran extends BaseController
 
     public function kirimWA($isipesan, $no_hpusr = null)
     {
-        $konfigurasi    = $this->konfigurasi->orderBy('id_setaplikasi')->first();
-        $apikey         = $konfigurasi['wa_token']; // API Key WhatsApp
-        $phone          = $konfigurasi['wa_sender_number']; // Nomor WA Gateway
-        $urlserver      = $konfigurasi['urlserver']; // Server Layanan
+        $konfigurasi = $this->konfigurasi->orderBy('id_setaplikasi')->first();
+        $apikey = $konfigurasi['wa_token']; // API Key WhatsApp
+        $phone = $konfigurasi['wa_sender_number']; // Nomor WA Gateway
+        $urlserver = $konfigurasi['urlserver']; // Server Layanan
 
         // Jika nomor pengguna tidak disertakan, gunakan nomor admin dari konfigurasi
         $hpuser = $no_hpusr ?? $konfigurasi['wa_receiver'];
 
         $data = [
             'api_key' => $apikey,
-            'sender'  => $phone, // Dari WA gateway
-            'number'  => $hpuser, // Penerima WA (bisa admin atau pengguna)
+            'sender' => $phone, // Dari WA gateway
+            'number' => $hpuser, // Penerima WA (bisa admin atau pengguna)
             'message' => $isipesan
         ];
 
@@ -620,7 +620,7 @@ class Kritiksaran extends BaseController
         }
         if ($this->request->isAJAX()) {
             $kritiksaran_id = $this->request->getVar('kritiksaran_id');
-            $cari           = $this->kritiksaran->find($kritiksaran_id);
+            $cari = $this->kritiksaran->find($kritiksaran_id);
 
             if (!$cari) {
                 echo json_encode(['error' => 'Data tidak ditemukan!']);
@@ -652,8 +652,8 @@ class Kritiksaran extends BaseController
 
             $this->kritiksaran->delete($kritiksaran_id);
             $msg = [
-                'sukses'                => 'Data berhasil dihapus!',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => 'Data berhasil dihapus!',
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ];
 
             echo json_encode($msg);

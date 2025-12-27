@@ -11,11 +11,11 @@ class InventarisGereja extends BaseController
             return redirect()->to('');
         }
         $data = [
-            'title'     => 'Inventaris Gereja',
-            'subtitle'  => 'Manajemen Aset & Inventaris',
-            'folder'    => 'morvin',
+            'title' => 'Inventaris Gereja',
+            'subtitle' => 'Manajemen Aset & Inventaris',
+            'folder' => 'morvin',
         ];
-        return view('backend/morvin/cmscust/inventaris_gereja/index', $data);
+        return view('backend/cmscust/inventaris_gereja/index', $data);
     }
 
     // Backend - Get data untuk datatables
@@ -26,20 +26,20 @@ class InventarisGereja extends BaseController
             $url = 'inventaris-gereja/list';
             $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
 
-            foreach ($listgrupf as $data) :
+            foreach ($listgrupf as $data):
                 $akses = $data['akses'];
             endforeach;
 
             if ($listgrupf) {
                 if ($akses == '1' || $akses == '2') {
                     $data = [
-                        'title'     => 'Inventaris Gereja',
-                        'list'      => $this->inventarisgereja->list(),
-                        'akses'     => $akses,
+                        'title' => 'Inventaris Gereja',
+                        'list' => $this->inventarisgereja->list(),
+                        'akses' => $akses,
                         'statistik' => $this->inventarisgereja->getStatistik()
                     ];
                     $msg = [
-                        'data' => view('backend/morvin/cmscust/inventaris_gereja/list', $data)
+                        'data' => view('backend/cmscust/inventaris_gereja/list', $data)
                     ];
                 } else {
                     $msg = [
@@ -60,14 +60,14 @@ class InventarisGereja extends BaseController
     {
         if ($this->request->isAJAX()) {
             $data = [
-                'title'                => 'Tambah Aset Baru',
-                'kode_aset_baru'       => $this->inventarisgereja->generateKodeAset(),
-                'kategori_list'        => $this->kategoriaset->listAktif(),
-                'lokasi_list'          => $this->lokasiaset->listAktif(),
-                'vendor_list'          => $this->vendormaintenance->getByJenis('Supplier')
+                'title' => 'Tambah Aset Baru',
+                'kode_aset_baru' => $this->inventarisgereja->generateKodeAset(),
+                'kategori_list' => $this->kategoriaset->listAktif(),
+                'lokasi_list' => $this->lokasiaset->listAktif(),
+                'vendor_list' => $this->vendormaintenance->getByJenis('Supplier')
             ];
             $msg = [
-                'data' => view('backend/morvin/cmscust/inventaris_gereja/tambah', $data)
+                'data' => view('backend/cmscust/inventaris_gereja/tambah', $data)
             ];
             echo json_encode($msg);
         }
@@ -78,7 +78,7 @@ class InventarisGereja extends BaseController
     {
         if ($this->request->isAJAX()) {
             $validation = \Config\Services::validation();
-            
+
             $valid = $this->validate([
                 'nama_aset' => [
                     'label' => 'Nama Aset',
@@ -164,34 +164,34 @@ class InventarisGereja extends BaseController
                 $nilai_buku = $harga_perolehan; // Initial book value
 
                 $simpandata = [
-                    'kode_aset'             => $kode_aset,
-                    'nama_aset'             => $this->request->getVar('nama_aset'),
-                    'id_kategori'           => $this->request->getVar('id_kategori'),
-                    'id_lokasi'             => $this->request->getVar('id_lokasi'),
-                    'merk'                  => $this->request->getVar('merk'),
-                    'model'                 => $this->request->getVar('model'),
-                    'serial_number'         => $serial_number,
-                    'tahun_pembuatan'       => $this->request->getVar('tahun_pembuatan'),
-                    'tanggal_pembelian'     => $this->request->getVar('tanggal_pembelian'),
-                    'harga_perolehan'       => $harga_perolehan,
-                    'nilai_residu'          => $nilai_residu,
-                    'masa_pakai'            => $masa_pakai,
-                    'metode_depreciation'   => $metode_depreciation,
-                    'nilai_buku'            => $nilai_buku,
+                    'kode_aset' => $kode_aset,
+                    'nama_aset' => $this->request->getVar('nama_aset'),
+                    'id_kategori' => $this->request->getVar('id_kategori'),
+                    'id_lokasi' => $this->request->getVar('id_lokasi'),
+                    'merk' => $this->request->getVar('merk'),
+                    'model' => $this->request->getVar('model'),
+                    'serial_number' => $serial_number,
+                    'tahun_pembuatan' => $this->request->getVar('tahun_pembuatan'),
+                    'tanggal_pembelian' => $this->request->getVar('tanggal_pembelian'),
+                    'harga_perolehan' => $harga_perolehan,
+                    'nilai_residu' => $nilai_residu,
+                    'masa_pakai' => $masa_pakai,
+                    'metode_depreciation' => $metode_depreciation,
+                    'nilai_buku' => $nilai_buku,
                     'akumulasi_depreciation' => 0,
-                    'supplier'              => $this->request->getVar('supplier'),
-                    'no_faktur'             => $this->request->getVar('no_faktur'),
-                    'warranty_start'        => $this->request->getVar('warranty_start'),
-                    'warranty_end'          => $this->request->getVar('warranty_end'),
-                    'insurance_company'     => $this->request->getVar('insurance_company'),
-                    'insurance_policy'      => $this->request->getVar('insurance_policy'),
-                    'insurance_value'       => $this->request->getVar('insurance_value') ?: 0,
-                    'kondisi'               => $this->request->getVar('kondisi') ?: 'Baik',
-                    'status'                => 'Aktif',
-                    'qr_code'               => $qr_code,
-                    'spesifikasi'           => $this->request->getVar('spesifikasi'),
-                    'keterangan'            => $this->request->getVar('keterangan'),
-                    'created_by'            => session()->get('id')
+                    'supplier' => $this->request->getVar('supplier'),
+                    'no_faktur' => $this->request->getVar('no_faktur'),
+                    'warranty_start' => $this->request->getVar('warranty_start'),
+                    'warranty_end' => $this->request->getVar('warranty_end'),
+                    'insurance_company' => $this->request->getVar('insurance_company'),
+                    'insurance_policy' => $this->request->getVar('insurance_policy'),
+                    'insurance_value' => $this->request->getVar('insurance_value') ?: 0,
+                    'kondisi' => $this->request->getVar('kondisi') ?: 'Baik',
+                    'status' => 'Aktif',
+                    'qr_code' => $qr_code,
+                    'spesifikasi' => $this->request->getVar('spesifikasi'),
+                    'keterangan' => $this->request->getVar('keterangan'),
+                    'created_by' => session()->get('id')
                 ];
 
                 $this->inventarisgereja->insert($simpandata);
@@ -210,22 +210,22 @@ class InventarisGereja extends BaseController
         if ($this->request->isAJAX()) {
             $id_aset = $this->request->getVar('id_aset');
             $aset = $this->inventarisgereja->getAsetById($id_aset);
-            
+
             if ($aset) {
                 // Get riwayat maintenance
                 $riwayat_maintenance = $this->maintenanceaset->getByAset($id_aset);
-                
+
                 // Get riwayat perbaikan
                 $riwayat_perbaikan = $this->perbaikanaset->getByAset($id_aset);
-                
+
                 $data = [
-                    'title'              => 'Detail Aset',
-                    'aset'               => $aset,
+                    'title' => 'Detail Aset',
+                    'aset' => $aset,
                     'riwayat_maintenance' => $riwayat_maintenance,
-                    'riwayat_perbaikan'  => $riwayat_perbaikan
+                    'riwayat_perbaikan' => $riwayat_perbaikan
                 ];
                 $msg = [
-                    'sukses' => view('backend/morvin/cmscust/inventaris_gereja/lihat', $data)
+                    'sukses' => view('backend/cmscust/inventaris_gereja/lihat', $data)
                 ];
             } else {
                 $msg = [
@@ -242,17 +242,17 @@ class InventarisGereja extends BaseController
         if ($this->request->isAJAX()) {
             $id_aset = $this->request->getVar('id_aset');
             $aset = $this->inventarisgereja->find($id_aset);
-            
+
             if ($aset) {
                 $data = [
-                    'title'         => 'Edit Aset',
-                    'aset'          => $aset,
+                    'title' => 'Edit Aset',
+                    'aset' => $aset,
                     'kategori_list' => $this->kategoriaset->listAktif(),
-                    'lokasi_list'   => $this->lokasiaset->listAktif(),
-                    'vendor_list'   => $this->vendormaintenance->getByJenis('Supplier')
+                    'lokasi_list' => $this->lokasiaset->listAktif(),
+                    'vendor_list' => $this->vendormaintenance->getByJenis('Supplier')
                 ];
                 $msg = [
-                    'sukses' => view('backend/morvin/cmscust/inventaris_gereja/edit', $data)
+                    'sukses' => view('backend/cmscust/inventaris_gereja/edit', $data)
                 ];
             } else {
                 $msg = [
@@ -268,7 +268,7 @@ class InventarisGereja extends BaseController
     {
         if ($this->request->isAJAX()) {
             $validation = \Config\Services::validation();
-            
+
             $valid = $this->validate([
                 'nama_aset' => [
                     'label' => 'Nama Aset',
@@ -304,7 +304,7 @@ class InventarisGereja extends BaseController
                 ];
             } else {
                 $id_aset = $this->request->getVar('id_aset');
-                
+
                 // Check duplicate serial number
                 $serial_number = $this->request->getVar('serial_number');
                 if ($serial_number && $this->inventarisgereja->checkDuplicateSerial($serial_number, $id_aset)) {
@@ -318,24 +318,24 @@ class InventarisGereja extends BaseController
                 }
 
                 $updatedata = [
-                    'nama_aset'         => $this->request->getVar('nama_aset'),
-                    'id_kategori'       => $this->request->getVar('id_kategori'),
-                    'id_lokasi'         => $this->request->getVar('id_lokasi'),
-                    'merk'              => $this->request->getVar('merk'),
-                    'model'             => $this->request->getVar('model'),
-                    'serial_number'     => $serial_number,
-                    'tahun_pembuatan'   => $this->request->getVar('tahun_pembuatan'),
-                    'supplier'          => $this->request->getVar('supplier'),
-                    'no_faktur'         => $this->request->getVar('no_faktur'),
-                    'warranty_start'    => $this->request->getVar('warranty_start'),
-                    'warranty_end'      => $this->request->getVar('warranty_end'),
+                    'nama_aset' => $this->request->getVar('nama_aset'),
+                    'id_kategori' => $this->request->getVar('id_kategori'),
+                    'id_lokasi' => $this->request->getVar('id_lokasi'),
+                    'merk' => $this->request->getVar('merk'),
+                    'model' => $this->request->getVar('model'),
+                    'serial_number' => $serial_number,
+                    'tahun_pembuatan' => $this->request->getVar('tahun_pembuatan'),
+                    'supplier' => $this->request->getVar('supplier'),
+                    'no_faktur' => $this->request->getVar('no_faktur'),
+                    'warranty_start' => $this->request->getVar('warranty_start'),
+                    'warranty_end' => $this->request->getVar('warranty_end'),
                     'insurance_company' => $this->request->getVar('insurance_company'),
-                    'insurance_policy'  => $this->request->getVar('insurance_policy'),
-                    'insurance_value'   => $this->request->getVar('insurance_value') ?: 0,
-                    'kondisi'           => $this->request->getVar('kondisi'),
-                    'spesifikasi'       => $this->request->getVar('spesifikasi'),
-                    'keterangan'        => $this->request->getVar('keterangan'),
-                    'updated_by'        => session()->get('id')
+                    'insurance_policy' => $this->request->getVar('insurance_policy'),
+                    'insurance_value' => $this->request->getVar('insurance_value') ?: 0,
+                    'kondisi' => $this->request->getVar('kondisi'),
+                    'spesifikasi' => $this->request->getVar('spesifikasi'),
+                    'keterangan' => $this->request->getVar('keterangan'),
+                    'updated_by' => session()->get('id')
                 ];
 
                 $this->inventarisgereja->update($id_aset, $updatedata);
@@ -353,11 +353,11 @@ class InventarisGereja extends BaseController
     {
         if ($this->request->isAJAX()) {
             $id_aset = $this->request->getVar('id_aset');
-            
+
             // Check apakah aset memiliki riwayat maintenance/perbaikan
             $maintenance_count = $this->maintenanceaset->where('id_aset', $id_aset)->countAllResults();
             $perbaikan_count = $this->perbaikanaset->where('id_aset', $id_aset)->countAllResults();
-            
+
             if ($maintenance_count > 0 || $perbaikan_count > 0) {
                 $msg = [
                     'error' => 'Aset tidak dapat dihapus karena memiliki riwayat maintenance atau perbaikan'
@@ -378,17 +378,17 @@ class InventarisGereja extends BaseController
         if ($this->request->isAJAX()) {
             $id_aset = $this->request->getVar('id_aset');
             $jmldata = count($id_aset);
-            
+
             foreach ($id_aset as $id) {
                 // Check riwayat untuk setiap aset
                 $maintenance_count = $this->maintenanceaset->where('id_aset', $id)->countAllResults();
                 $perbaikan_count = $this->perbaikanaset->where('id_aset', $id)->countAllResults();
-                
+
                 if ($maintenance_count == 0 && $perbaikan_count == 0) {
                     $this->inventarisgereja->delete($id);
                 }
             }
-            
+
             $msg = [
                 'sukses' => "$jmldata aset berhasil dihapus"
             ];
@@ -402,9 +402,9 @@ class InventarisGereja extends BaseController
         if ($this->request->isAJAX()) {
             $id_aset = $this->request->getVar('id_aset');
             $status = $this->request->getVar('status');
-            
+
             $this->inventarisgereja->toggleStatus($id_aset, $status);
-            
+
             $msg = [
                 'sukses' => 'Status aset berhasil diubah'
             ];
@@ -417,16 +417,16 @@ class InventarisGereja extends BaseController
     {
         if ($this->request->isAJAX()) {
             $data = [
-                'title'                 => 'Dashboard Inventaris',
-                'statistik'             => $this->inventarisgereja->getStatistik(),
-                'aset_per_kategori'     => $this->inventarisgereja->getAsetPerKategori(),
-                'aset_per_lokasi'       => $this->inventarisgereja->getAsetPerLokasi(),
+                'title' => 'Dashboard Inventaris',
+                'statistik' => $this->inventarisgereja->getStatistik(),
+                'aset_per_kategori' => $this->inventarisgereja->getAsetPerKategori(),
+                'aset_per_lokasi' => $this->inventarisgereja->getAsetPerLokasi(),
                 'aset_perlu_maintenance' => $this->inventarisgereja->getAsetPerluMaintenance(),
-                'warranty_expiring'     => $this->inventarisgereja->getWarrantyExpiringSoon(),
-                'top_aset_by_value'     => $this->inventarisgereja->getTopAsetByValue(5)
+                'warranty_expiring' => $this->inventarisgereja->getWarrantyExpiringSoon(),
+                'top_aset_by_value' => $this->inventarisgereja->getTopAsetByValue(5)
             ];
             $msg = [
-                'data' => view('backend/morvin/cmscust/inventaris_gereja/dashboard', $data)
+                'data' => view('backend/cmscust/inventaris_gereja/dashboard', $data)
             ];
             echo json_encode($msg);
         }
@@ -439,11 +439,11 @@ class InventarisGereja extends BaseController
             $keyword = $this->request->getVar('keyword');
             $data = [
                 'title' => 'Hasil Pencarian: ' . $keyword,
-                'list'  => $this->inventarisgereja->searchAset($keyword),
+                'list' => $this->inventarisgereja->searchAset($keyword),
                 'akses' => '1'
             ];
             $msg = [
-                'data' => view('backend/morvin/cmscust/inventaris_gereja/list', $data)
+                'data' => view('backend/cmscust/inventaris_gereja/list', $data)
             ];
             echo json_encode($msg);
         }
@@ -455,14 +455,14 @@ class InventarisGereja extends BaseController
         if ($this->request->isAJAX()) {
             $id_kategori = $this->request->getVar('id_kategori');
             $kategori = $this->kategoriaset->find($id_kategori);
-            
+
             $data = [
                 'title' => 'Filter Kategori: ' . $kategori['nama_kategori'],
-                'list'  => $this->inventarisgereja->filterByKategori($id_kategori),
+                'list' => $this->inventarisgereja->filterByKategori($id_kategori),
                 'akses' => '1'
             ];
             $msg = [
-                'data' => view('backend/morvin/cmscust/inventaris_gereja/list', $data)
+                'data' => view('backend/cmscust/inventaris_gereja/list', $data)
             ];
             echo json_encode($msg);
         }
@@ -474,14 +474,14 @@ class InventarisGereja extends BaseController
         if ($this->request->isAJAX()) {
             $id_lokasi = $this->request->getVar('id_lokasi');
             $lokasi = $this->lokasiaset->find($id_lokasi);
-            
+
             $data = [
                 'title' => 'Filter Lokasi: ' . $lokasi['nama_lokasi'],
-                'list'  => $this->inventarisgereja->filterByLokasi($id_lokasi),
+                'list' => $this->inventarisgereja->filterByLokasi($id_lokasi),
                 'akses' => '1'
             ];
             $msg = [
-                'data' => view('backend/morvin/cmscust/inventaris_gereja/list', $data)
+                'data' => view('backend/cmscust/inventaris_gereja/list', $data)
             ];
             echo json_encode($msg);
         }
@@ -492,14 +492,14 @@ class InventarisGereja extends BaseController
     {
         if ($this->request->isAJAX()) {
             $status = $this->request->getVar('status');
-            
+
             $data = [
                 'title' => 'Filter Status: ' . $status,
-                'list'  => $this->inventarisgereja->filterByStatus($status),
+                'list' => $this->inventarisgereja->filterByStatus($status),
                 'akses' => '1'
             ];
             $msg = [
-                'data' => view('backend/morvin/cmscust/inventaris_gereja/list', $data)
+                'data' => view('backend/cmscust/inventaris_gereja/list', $data)
             ];
             echo json_encode($msg);
         }
@@ -556,9 +556,19 @@ class InventarisGereja extends BaseController
 
         // Headers
         fputcsv($output, [
-            'Kode Aset', 'Nama Aset', 'Kategori', 'Lokasi', 'Merk', 'Model',
-            'Serial Number', 'Tanggal Pembelian', 'Harga Perolehan', 'Nilai Buku',
-            'Status', 'Kondisi', 'Supplier'
+            'Kode Aset',
+            'Nama Aset',
+            'Kategori',
+            'Lokasi',
+            'Merk',
+            'Model',
+            'Serial Number',
+            'Tanggal Pembelian',
+            'Harga Perolehan',
+            'Nilai Buku',
+            'Status',
+            'Kondisi',
+            'Supplier'
         ]);
 
         // Data
@@ -610,7 +620,7 @@ class InventarisGereja extends BaseController
             'statistik' => $this->inventarisgereja->getStatistik()
         ];
 
-        return view('backend/morvin/cmscust/inventaris_gereja/print', $printData);
+        return view('backend/cmscust/inventaris_gereja/print', $printData);
     }
 
     // Print QR Code
@@ -623,7 +633,7 @@ class InventarisGereja extends BaseController
                     'aset' => $aset,
                     'qr_code' => $aset->qr_code ?: 'QR' . $aset->kode_aset . time()
                 ];
-                return view('backend/morvin/cmscust/inventaris_gereja/print_qr', $data);
+                return view('backend/cmscust/inventaris_gereja/print_qr', $data);
             }
         }
         return redirect()->back();

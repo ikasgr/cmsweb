@@ -7,47 +7,35 @@ class Bankdata extends BaseController
     public function index()
     {
 
-        $konfigurasi        = $this->konfigurasi->vkonfig();
-        $template           = $this->template->tempaktif();
-        $bankdata                 = $this->bankdata->listbankdatapage();
-        $data = [
-            'title'         => 'Bank Data',
-            'deskripsi'     => $konfigurasi->deskripsi,
-            'url'           => $konfigurasi->website,
-            'img'           => base_url('/public/img/konfigurasi/logo/' . $konfigurasi->logo),
-            'konfigurasi'   => $konfigurasi,
-            'mainmenu'      => $this->menu->mainmenu(),
-            'footer'        => $this->menu->footermenu(),
-            'topmenu'       => $this->menu->topmenu(),
-            // new temp
-            'bankdata'          => $bankdata->paginate(6, 'hal'),
-            'pager'             => $bankdata->pager,
-            'list'          => $this->bankdata->listbankdata(),
-            'beritapopuler' => $this->berita->populer()->paginate(8),
-            'kategori'      => $this->kategori->list(),
-            'banner'        => $this->banner->list(),
-            'infografis'    => $this->banner->listinfo(),
-            'infografis1'   => $this->banner->listinfo1(),
-            'agenda'        => $this->agenda->listagendapage()->paginate(4),
-            'section'       => $this->section->list(),
-            'linkterkaitall'    => $this->linkterkait->publishlinkall(),
-            'infografis10'    => $this->banner->listinfopage()->paginate(10),
-            'kategori'      => $this->kategori->list(),
-            'grafisrandom'         => $this->banner->grafisrandom(),
-            'terkini3'       => $this->berita->terkini3(),
-            'folder'        => $template['folder'],
+        $konfigurasi = $this->konfigurasi->vkonfig();
 
+        $bankdata = $this->bankdata->listbankdatapage();
+        $data = [
+            'title' => 'Bank Data',
+            'deskripsi' => $konfigurasi->deskripsi,
+            'url' => $konfigurasi->website,
+            'img' => base_url('/public/img/konfigurasi/logo/' . $konfigurasi->logo),
+            'konfigurasi' => $konfigurasi,
+            'mainmenu' => $this->menu->mainmenu(),
+            'footer' => $this->menu->footermenu(),
+            'topmenu' => $this->menu->topmenu(),
+            // new temp
+            'bankdata' => $bankdata->paginate(6, 'hal'),
+            'pager' => $bankdata->pager,
+            'list' => $this->bankdata->listbankdata(),
+            'beritapopuler' => $this->berita->populer()->paginate(8),
+            'kategori' => $this->kategori->list(),
+            'banner' => $this->banner->list(),
+            'infografis' => $this->banner->listinfo(),
+            'infografis1' => $this->banner->listinfo1(),
+            'agenda' => $this->agenda->listagendapage()->paginate(4),
+            'section' => $this->section->list(),
+            'linkterkaitall' => $this->linkterkait->publishlinkall(),
+            'infografis10' => $this->banner->listinfopage()->paginate(10),
+            'grafisrandom' => $this->banner->grafisrandom(),
+            'terkini3' => $this->berita->terkini3(),
         ];
-        if ($template['duatema'] == 1) {
-            $agent = $this->request->getUserAgent();
-            if ($agent->isMobile()) {
-                return view('frontend/' . $template['folder'] . '/mobile/' . 'content/semua_bankdata', $data);
-            } else {
-                return view('frontend/' . $template['folder'] . '/desktop/' . 'content/semua_bankdata', $data);
-            }
-        } else {
-            return view('frontend/' . $template['folder'] . '/desktop/' . 'content/semua_bankdata', $data);
-        }
+        return view('frontend/content/semua_bankdata', $data);
     }
 
     //list semua bankdata
@@ -56,14 +44,14 @@ class Bankdata extends BaseController
         if (!session()->get('id')) {
             return redirect()->to('');
         }
-        $tadmin = $this->template->tempadminaktif();
+
         $data = [
-            'title'     => 'Informasi',
-            'subtitle'  => 'Bank Data',
-            'folder'    =>  $tadmin['folder'],
+            'title' => 'Informasi',
+            'subtitle' => 'Bank Data',
+
 
         ];
-        return view('backend/' . $tadmin['folder'] . '/' . 'informasi/bankdata/index', $data);
+        return view('backend/informasi/bankdata/index', $data);
     }
 
     public function getdata($id = null)
@@ -100,7 +88,7 @@ class Bankdata extends BaseController
             }
 
             // Siapkan data untuk view
-            $tadminFolder = $this->template->tempadminaktif()['folder'];
+
             $data = [
                 'title' => 'Bank Data',
                 'list' => $list,
@@ -112,7 +100,7 @@ class Bankdata extends BaseController
 
             // Kirimkan data melalui respons JSON
             $msg = [
-                'data' => view("backend/$tadminFolder/informasi/bankdata/list", $data)
+                'data' => view("backend/informasi/bankdata/list", $data)
             ];
 
             echo json_encode($msg);
@@ -125,13 +113,13 @@ class Bankdata extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            $tadmin = $this->template->tempadminaktif();
+
             $data = [
                 'title' => 'Tambah Bank Data',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             $msg = [
-                'data' => view('backend/' . $tadmin['folder'] . '/' . 'informasi/bankdata/tambah', $data)
+                'data' => view('backend/informasi/bankdata/tambah', $data)
             ];
             echo json_encode($msg);
         }
@@ -172,11 +160,11 @@ class Bankdata extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'nama_bankdata'  => $validation->getError('nama_bankdata'),
-                        'fileupload'     => $validation->getError('fileupload'),
+                        'nama_bankdata' => $validation->getError('nama_bankdata'),
+                        'fileupload' => $validation->getError('fileupload'),
 
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
                 echo json_encode($msg);
             } else {
@@ -197,18 +185,18 @@ class Bankdata extends BaseController
                         $dtfileupload->move(ROOTPATH . 'public/unduh/bankdata/', $nama_file); //folder gambar
                         $insertdata = [
                             'nama_bankdata' => $this->request->getVar('nama_bankdata'),
-                            'slug_bank'     => mb_url_title($this->request->getVar('nama_bankdata'), '-', TRUE),
-                            'fileupload'    => $nama_file,
-                            'tgl_upload'    => date('Y-m-d'),
-                            'id'            => $userid,
-                            'hits'          => '0'
+                            'slug_bank' => mb_url_title($this->request->getVar('nama_bankdata'), '-', TRUE),
+                            'fileupload' => $nama_file,
+                            'tgl_upload' => date('Y-m-d'),
+                            'id' => $userid,
+                            'hits' => '0'
                         ];
                         $this->bankdata->insert($insertdata);
                     }
 
                     $msg = [
                         'sukses' => 'Bank data berhasil disimpan!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                 }
                 echo json_encode($msg);
@@ -233,7 +221,7 @@ class Bankdata extends BaseController
             $this->bankdata->delete($id);
             $msg = [
                 'sukses' => 'Data Berhasil Dihapus',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
 
             ];
 
@@ -260,8 +248,8 @@ class Bankdata extends BaseController
             }
 
             $msg = [
-                'sukses'                => "$jmldata Data berhasil dihapus",
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => "$jmldata Data berhasil dihapus",
+                'csrf_tokencmsikasmedia' => csrf_hash(),
 
             ];
             echo json_encode($msg);
@@ -276,20 +264,20 @@ class Bankdata extends BaseController
         if ($this->request->isAJAX()) {
 
             $bankdata_id = $this->request->getVar('bankdata_id');
-            $list =  $this->bankdata->find($bankdata_id);
+            $list = $this->bankdata->find($bankdata_id);
             // $size_mb = $list['fileupload']->getSize('mb'); // 
-            $tadmin = $this->template->tempadminaktif();
+
 
             $data = [
-                'title'          => 'Edit Data',
-                'bankdata_id'    => $list['bankdata_id'],
-                'nama_bankdata'  => $list['nama_bankdata'],
-                'ket'            => $list['ket'],
+                'title' => 'Edit Data',
+                'bankdata_id' => $list['bankdata_id'],
+                'nama_bankdata' => $list['nama_bankdata'],
+                'ket' => $list['ket'],
 
             ];
             $msg = [
-                'sukses' => view('backend/' . $tadmin['folder'] . '/' . 'informasi/bankdata/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/informasi/bankdata/edit', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
 
             ];
             echo json_encode($msg);
@@ -319,24 +307,24 @@ class Bankdata extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'nama_bankdata'           => $validation->getError('nama_bankdata'),
+                        'nama_bankdata' => $validation->getError('nama_bankdata'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
                 $updatedata = [
 
                     'nama_bankdata' => $this->request->getVar('nama_bankdata'),
-                    'slug_bank'     => mb_url_title($this->request->getVar('nama_bankdata'), '-', TRUE),
+                    'slug_bank' => mb_url_title($this->request->getVar('nama_bankdata'), '-', TRUE),
 
                 ];
 
                 $this->bankdata->update($bankdata_id, $updatedata);
 
                 $msg = [
-                    'sukses'                => 'Data berhasil diubah!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Data berhasil diubah!',
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -350,18 +338,18 @@ class Bankdata extends BaseController
         }
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('bankdata_id');
-            $list =  $this->bankdata->find($id);
-            $tadmin = $this->template->tempadminaktif();
+            $list = $this->bankdata->find($id);
+
 
             $data = [
-                'title'       => 'Upload File',
-                'id'          => $list['bankdata_id'],
-                'fileupload'   => $list['fileupload']
+                'title' => 'Upload File',
+                'id' => $list['bankdata_id'],
+                'fileupload' => $list['fileupload']
 
             ];
             $msg = [
-                'sukses' => view('backend/' . $tadmin['folder'] . '/' . 'informasi/bankdata/gantifile', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/informasi/bankdata/gantifile', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -399,7 +387,7 @@ class Bankdata extends BaseController
                     'error' => [
                         'fileupload' => $validation->getError('fileupload')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
@@ -410,7 +398,7 @@ class Bankdata extends BaseController
                 if ($ext == 'php' || $ext == 'js') {
                     $msg = [
                         'nofile' => 'File tidak diijinkan!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                 } else {
 
@@ -432,8 +420,8 @@ class Bankdata extends BaseController
                     }
 
                     $msg = [
-                        'sukses'                => 'File berhasil diupload!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'sukses' => 'File berhasil diupload!',
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                 }
             }
@@ -448,9 +436,9 @@ class Bankdata extends BaseController
         if ($this->request->isAJAX()) {
 
             $bankdata_id = $this->request->getVar('bankdata_id');
-            $list =  $this->bankdata->find($bankdata_id);
+            $list = $this->bankdata->find($bankdata_id);
             $data = [
-                'hits'        => $list['hits'] + 1
+                'hits' => $list['hits'] + 1
             ];
             $this->bankdata->update($list['bankdata_id'], $data);
             $msg = [
@@ -463,10 +451,10 @@ class Bankdata extends BaseController
     function download($fileupload)
     {
 
-        $list =  $this->bankdata->downloadfile($fileupload);
+        $list = $this->bankdata->downloadfile($fileupload);
         if ($list) {
             $datahits = [
-                'hits'        => $list['hits'] + 1
+                'hits' => $list['hits'] + 1
             ];
             $this->bankdata->update($list['bankdata_id'], $datahits);
             return $this->response->download('public/unduh/bankdata/' . $list['fileupload'], null);

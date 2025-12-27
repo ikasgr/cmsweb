@@ -10,19 +10,19 @@ class Template extends BaseController
         if (!session()->get('id')) {
             return redirect()->to('');
         }
-        $konfigurasi    = $this->konfigurasi->orderBy('id_setaplikasi')->first();
-        $tadmin         = $this->template->tempadminaktif();
-        $jtemaback      = $this->template->where('jtema =', 0)->get()->getNumRows();
-        $jtemafront     = $this->template->where('jtema =', 1)->get()->getNumRows();
+        $konfigurasi = $this->konfigurasi->orderBy('id_setaplikasi')->first();
+        $tadmin = $this->template->tempadminaktif();
+        $jtemaback = $this->template->where('jtema =', 0)->get()->getNumRows();
+        $jtemafront = $this->template->where('jtema =', 1)->get()->getNumRows();
         $data = [
-            'title'       => 'Setting Template ',
-            'subtitle'    => esc($konfigurasi['nama']),
-            'folder'      => esc($tadmin['folder']),
-            'jtemaback'   => $jtemaback,
-            'jtemafront'  => $jtemafront,
+            'title' => 'Setting Template ',
+            'subtitle' => esc($konfigurasi['nama']),
+
+            'jtemaback' => $jtemaback,
+            'jtemafront' => $jtemafront,
 
         ];
-        return view('backend/' . esc($tadmin['folder']) . '/' . 'pengaturan/template/index', $data);
+        return view('backend/' . 'pengaturan/template/index', $data);
     }
 
     public function front()
@@ -33,12 +33,12 @@ class Template extends BaseController
         $konfigurasi = $this->konfigurasi->orderBy('id_setaplikasi')->first();
         $tadmin = $this->template->tempadminaktif();
         $data = [
-            'title'       => 'Tema Website ',
-            'subtitle'    => esc($konfigurasi['nama']),
-            'folder'      => esc($tadmin['folder'])
+            'title' => 'Tema Website ',
+            'subtitle' => esc($konfigurasi['nama']),
+
 
         ];
-        return view('backend/' . esc($tadmin['folder']) . '/' . 'pengaturan/template/front/index', $data);
+        return view('backend/' . 'pengaturan/template/front/index', $data);
     }
 
     public function toggle()
@@ -47,8 +47,8 @@ class Template extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            $id     = $this->request->getVar('template_id');
-            $cari   = $this->template->find($id);
+            $id = $this->request->getVar('template_id');
+            $cari = $this->template->find($id);
             $folder = $this->request->getVar('folder');
 
             if ($cari['status'] == '1') {
@@ -59,16 +59,16 @@ class Template extends BaseController
                 $stsket = 'Berhasil menerapkan template!';
                 $this->template->resetstatus();
                 $logos = [
-                    'plus1'     => 'p1.png',
-                    'yayasan'   => 'p1.png',
-                    'plus2'     => 'p3.png',
-                    'plus3'     => 'p3.png',
-                    'basic'     => 'bs.png',
-                    'herobiz'   => 'bs.png',
-                    'desaku'    => 'p2.png',
-                    'company'   => 'p2.png',
+                    'plus1' => 'p1.png',
+                    'yayasan' => 'p1.png',
+                    'plus2' => 'p3.png',
+                    'plus3' => 'p3.png',
+                    'basic' => 'bs.png',
+                    'herobiz' => 'bs.png',
+                    'desaku' => 'p2.png',
+                    'company' => 'p2.png',
                     'perijinan' => 'pnpt.png',
-                    'plus4'     => 'p4.png',
+                    'plus4' => 'p4.png',
                 ];
                 if (isset($logos[$folder])) {
                     $uptema = [
@@ -78,13 +78,13 @@ class Template extends BaseController
                 }
             }
             $updatedata = [
-                'status'        => $sts,
+                'status' => $sts,
             ];
 
             $this->template->update($id, $updatedata);
             $msg = [
-                'sukses'                => $stsket,
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => $stsket,
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -124,18 +124,18 @@ class Template extends BaseController
 
         // Ambil data template
         $data = [
-            'title'     => 'Template Website',
-            'list'      => $this->template->list(),
-            'akses'     => $akses,
-            'hapus'     => $listgrupf->hapus,
-            'ubah'      => $listgrupf->ubah,
-            'tambah'    => $listgrupf->tambah,
+            'title' => 'Template Website',
+            'list' => $this->template->list(),
+            'akses' => $akses,
+            'hapus' => $listgrupf->hapus,
+            'ubah' => $listgrupf->ubah,
+            'tambah' => $listgrupf->tambah,
         ];
 
         // Siapkan dan kirimkan respons
         echo json_encode([
-            'data' => view('backend/' . esc($tadmin['folder']) . '/pengaturan/template/front/list', $data),
-            'csrf_tokencmsdatagoe' => csrf_hash(),
+            'data' => view('backend/pengaturan/template/front/list', $data),
+            'csrf_tokencmsikasmedia' => csrf_hash(),
         ]);
     }
 
@@ -151,7 +151,7 @@ class Template extends BaseController
                 'title' => 'Tambah Template',
             ];
             $msg = [
-                'data' => view('backend/' . esc($tadmin['folder']) . '/' . 'pengaturan/template/front/tambah', $data)
+                'data' => view('backend/' . 'pengaturan/template/front/tambah', $data)
             ];
             echo json_encode($msg);
         }
@@ -176,7 +176,7 @@ class Template extends BaseController
         if (!$datatema) {
             echo json_encode([
                 'nodata' => 'Data tidak ditemukan',
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ]);
             return;
         }
@@ -215,7 +215,7 @@ class Template extends BaseController
         // Kirim respons sukses
         echo json_encode([
             'sukses' => 'Tema berhasil di duplikasi!',
-            'csrf_tokencmsdatagoe' => csrf_hash(),
+            'csrf_tokencmsikasmedia' => csrf_hash(),
         ]);
     }
 
@@ -248,18 +248,18 @@ class Template extends BaseController
                     ]
                 ],
                 'pembuat' => [
-                    'label'         => 'Sumber',
-                    'rules'         => 'required|max_length[15]',
-                    'errors'        => [
+                    'label' => 'Sumber',
+                    'rules' => 'required|max_length[15]',
+                    'errors' => [
                         'required' => '{field} tidak boleh kosong',
                         'max_length' => 'Masukkan {field} maksimal 15 Karakter!',
                     ]
                 ],
-                'wllogo'    => ['label' => 'Lebar Logo', 'rules' => 'required', 'errors' => ['required' => '{field} tidak boleh kosong']],
-                'hplogo'    => ['label' => 'Tinggi Logo', 'rules' => 'required', 'errors' => ['required' => '{field} tidak boleh kosong']],
-                'wlbanner'  => ['label' => 'Lebar Banner', 'rules' => 'required', 'errors' => ['required' => '{field} tidak boleh kosong']],
-                'hpbanner'  => ['label' => 'Panjang Banner', 'rules' => 'required', 'errors' => ['required' => '{field} tidak boleh kosong']],
-                'img'       => [
+                'wllogo' => ['label' => 'Lebar Logo', 'rules' => 'required', 'errors' => ['required' => '{field} tidak boleh kosong']],
+                'hplogo' => ['label' => 'Tinggi Logo', 'rules' => 'required', 'errors' => ['required' => '{field} tidak boleh kosong']],
+                'wlbanner' => ['label' => 'Lebar Banner', 'rules' => 'required', 'errors' => ['required' => '{field} tidak boleh kosong']],
+                'hpbanner' => ['label' => 'Panjang Banner', 'rules' => 'required', 'errors' => ['required' => '{field} tidak boleh kosong']],
+                'img' => [
                     'label' => 'Cover',
                     'rules' => 'max_size[img,3024]|mime_in[img,image/png,image/jpg,image/jpeg,image/gif]|is_image[img]',
                     'errors' => [
@@ -271,8 +271,8 @@ class Template extends BaseController
 
             if (!$valid) {
                 echo json_encode([
-                    'error'                => $validation->getErrors(),
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'error' => $validation->getErrors(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ]);
                 return;
             }
@@ -281,20 +281,20 @@ class Template extends BaseController
             $nama_file = $filegambar->isValid() ? $filegambar->getRandomName() : 'default.png';
 
             $this->template->insert([
-                'nama'          => $this->request->getVar('nama'),
-                'pembuat'       => $this->request->getVar('pembuat'),
-                'folder'        => $this->request->getVar('folder'),
-                'ket'           => $this->request->getVar('ket'),
-                'status'        => '0',
-                'id'            => session()->get('id'),
-                'img'           => $nama_file,
-                'wllogo'        => $this->request->getVar('wllogo'),
-                'hplogo'        => $this->request->getVar('hplogo'),
-                'wlbanner'      => $this->request->getVar('wlbanner'),
-                'hpbanner'      => $this->request->getVar('hpbanner'),
-                'verbost'       => $this->request->getVar('verbost'),
-                'duatema'       => $this->request->getVar('duatema'),
-                'warna_topbar'  => '-'
+                'nama' => $this->request->getVar('nama'),
+                'pembuat' => $this->request->getVar('pembuat'),
+                'folder' => $this->request->getVar('folder'),
+                'ket' => $this->request->getVar('ket'),
+                'status' => '0',
+                'id' => session()->get('id'),
+                'img' => $nama_file,
+                'wllogo' => $this->request->getVar('wllogo'),
+                'hplogo' => $this->request->getVar('hplogo'),
+                'wlbanner' => $this->request->getVar('wlbanner'),
+                'hpbanner' => $this->request->getVar('hpbanner'),
+                'verbost' => $this->request->getVar('verbost'),
+                'duatema' => $this->request->getVar('duatema'),
+                'warna_topbar' => '-'
             ]);
 
             if ($filegambar->isValid()) {
@@ -305,7 +305,7 @@ class Template extends BaseController
 
             echo json_encode([
                 'sukses' => 'Data berhasil disimpan!',
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ]);
         }
     }
@@ -323,14 +323,14 @@ class Template extends BaseController
             $cekdata = $this->template->find($id);
             $fotolama = $cekdata['img'];
 
-            if ($fotolama != 'default.png'  && file_exists('public/img/template/' . $fotolama)) {
+            if ($fotolama != 'default.png' && file_exists('public/img/template/' . $fotolama)) {
                 unlink('public/img/template/' . $fotolama);
             }
 
             $this->template->delete($id);
             $msg = [
                 'sukses' => 'Data Berhasil Dihapus',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -345,28 +345,28 @@ class Template extends BaseController
         if ($this->request->isAJAX()) {
 
             $template_id = $this->request->getVar('template_id');
-            $list =  $this->template->find($template_id);
+            $list = $this->template->find($template_id);
             $tadmin = $this->template->tempadminaktif();
             $data = [
-                'title'             => 'Edit Template',
-                'template_id'       => $list['template_id'],
-                'nama'              => $list['nama'],
-                'pembuat'           => $list['pembuat'],
-                'folder'            => $list['folder'],
-                'ket'               => $list['ket'],
-                'img'               => $list['img'],
-                'wllogo'            => $list['wllogo'],
-                'hplogo'            => $list['hplogo'],
-                'wlbanner'          => $list['wlbanner'],
-                'hpbanner'          => $list['hpbanner'],
-                'verbost'           => $list['verbost'],
-                'duatema'           => $list['duatema'],
-                'video_bag'         => $list['video_bag'],
+                'title' => 'Edit Template',
+                'template_id' => $list['template_id'],
+                'nama' => $list['nama'],
+                'pembuat' => $list['pembuat'],
+                'folder' => $list['folder'],
+                'ket' => $list['ket'],
+                'img' => $list['img'],
+                'wllogo' => $list['wllogo'],
+                'hplogo' => $list['hplogo'],
+                'wlbanner' => $list['wlbanner'],
+                'hpbanner' => $list['hpbanner'],
+                'verbost' => $list['verbost'],
+                'duatema' => $list['duatema'],
+                'video_bag' => $list['video_bag'],
 
             ];
             $msg = [
-                'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'pengaturan/template/front/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/' . 'pengaturan/template/front/edit', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -387,24 +387,24 @@ class Template extends BaseController
                     'label' => 'Nama Template',
                     'rules' => 'required|max_length[20]',
                     'errors' => [
-                        'required'      => '{field} tidak boleh kosong',
-                        'max_length'    => 'Masukkan {field} maksimal 20 Karakter!',
+                        'required' => '{field} tidak boleh kosong',
+                        'max_length' => 'Masukkan {field} maksimal 20 Karakter!',
                     ]
                 ],
                 'pembuat' => [
                     'label' => 'Sumber',
                     'rules' => 'required|max_length[15]',
                     'errors' => [
-                        'required'      => '{field} tidak boleh kosong',
-                        'max_length'    => 'Masukkan {field} maksimal 15 Karakter!',
+                        'required' => '{field} tidak boleh kosong',
+                        'max_length' => 'Masukkan {field} maksimal 15 Karakter!',
                     ]
                 ],
                 'folder' => [
                     'label' => 'Folder',
                     'rules' => 'required|max_length[10]',
                     'errors' => [
-                        'required'      => '{field} tidak boleh kosong',
-                        'max_length'    => 'Masukkan {field} maksimal 10 Karakter!',
+                        'required' => '{field} tidak boleh kosong',
+                        'max_length' => 'Masukkan {field} maksimal 10 Karakter!',
                     ]
                 ],
                 'wllogo' => [
@@ -449,15 +449,15 @@ class Template extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'nama'          => $validation->getError('nama'),
-                        'pembuat'       => $validation->getError('pembuat'),
-                        'folder'        => $validation->getError('folder'),
-                        'wllogo'        => $validation->getError('wllogo'),
-                        'hplogo'        => $validation->getError('hplogo'),
-                        'wlbanner'      => $validation->getError('wlbanner'),
-                        'hpbanner'      => $validation->getError('hpbanner'),
+                        'nama' => $validation->getError('nama'),
+                        'pembuat' => $validation->getError('pembuat'),
+                        'folder' => $validation->getError('folder'),
+                        'wllogo' => $validation->getError('wllogo'),
+                        'hplogo' => $validation->getError('hplogo'),
+                        'wlbanner' => $validation->getError('wlbanner'),
+                        'hpbanner' => $validation->getError('hpbanner'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 $filegambar = $this->request->getFile('img');
@@ -465,22 +465,22 @@ class Template extends BaseController
 
                 if ($filegambar->GetError() == 4) {
                     $updatedata = [
-                        'nama'          => $this->request->getVar('nama'),
-                        'pembuat'       => $this->request->getVar('pembuat'),
-                        'folder'        => $this->request->getVar('folder'),
-                        'ket'           => $this->request->getVar('ket'),
-                        'wllogo'        => $this->request->getVar('wllogo'),
-                        'hplogo'        => $this->request->getVar('hplogo'),
-                        'wlbanner'      => $this->request->getVar('wlbanner'),
-                        'hpbanner'      => $this->request->getVar('hpbanner'),
-                        'verbost'       => $this->request->getVar('verbost'),
-                        'duatema'       => $this->request->getVar('duatema'),
-                        'video_bag'     => $this->request->getVar('video_bag'),
+                        'nama' => $this->request->getVar('nama'),
+                        'pembuat' => $this->request->getVar('pembuat'),
+                        'folder' => $this->request->getVar('folder'),
+                        'ket' => $this->request->getVar('ket'),
+                        'wllogo' => $this->request->getVar('wllogo'),
+                        'hplogo' => $this->request->getVar('hplogo'),
+                        'wlbanner' => $this->request->getVar('wlbanner'),
+                        'hpbanner' => $this->request->getVar('hpbanner'),
+                        'verbost' => $this->request->getVar('verbost'),
+                        'duatema' => $this->request->getVar('duatema'),
+                        'video_bag' => $this->request->getVar('video_bag'),
                     ];
                     $this->template->update($template_id, $updatedata);
                     $msg = [
-                        'sukses'                => 'Data berhasil diubah!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'sukses' => 'Data berhasil diubah!',
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                 } else {
                     //check
@@ -491,18 +491,18 @@ class Template extends BaseController
                     }
 
                     $updatedata = [
-                        'nama'      => $this->request->getVar('nama'),
-                        'pembuat'   => $this->request->getVar('pembuat'),
-                        'folder'    => $this->request->getVar('folder'),
-                        'ket'       => $this->request->getVar('ket'),
-                        'img'       => $nama_file,
-                        'wllogo'    => $this->request->getVar('wllogo'),
-                        'hplogo'    => $this->request->getVar('hplogo'),
-                        'wlbanner'  => $this->request->getVar('wlbanner'),
-                        'hpbanner'  => $this->request->getVar('hpbanner'),
-                        'verbost'   => $this->request->getVar('verbost'),
-                        'duatema'   => $this->request->getVar('duatema'),
-                        'video_bag'   => $this->request->getVar('video_bag'),
+                        'nama' => $this->request->getVar('nama'),
+                        'pembuat' => $this->request->getVar('pembuat'),
+                        'folder' => $this->request->getVar('folder'),
+                        'ket' => $this->request->getVar('ket'),
+                        'img' => $nama_file,
+                        'wllogo' => $this->request->getVar('wllogo'),
+                        'hplogo' => $this->request->getVar('hplogo'),
+                        'wlbanner' => $this->request->getVar('wlbanner'),
+                        'hpbanner' => $this->request->getVar('hpbanner'),
+                        'verbost' => $this->request->getVar('verbost'),
+                        'duatema' => $this->request->getVar('duatema'),
+                        'video_bag' => $this->request->getVar('video_bag'),
                     ];
 
                     $this->template->update($template_id, $updatedata);
@@ -513,7 +513,7 @@ class Template extends BaseController
 
                     $msg = [
                         'sukses' => 'Data berhasil diubah!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                 }
             }
@@ -528,17 +528,17 @@ class Template extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            $template_id    = $this->request->getVar('template_id');
-            $list =  $this->template->find($template_id);
+            $template_id = $this->request->getVar('template_id');
+            $list = $this->template->find($template_id);
             $tadmin = $this->template->tempadminaktif();
             $data = [
-                'title'          => 'Upload Video',
-                'video_bag'      => $list['video_bag'],
-                'id'             => $list['template_id'],
+                'title' => 'Upload Video',
+                'video_bag' => $list['video_bag'],
+                'id' => $list['template_id'],
             ];
             $msg = [
-                'sukses'               => view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/template/front/gantifile', $data),
-                'csrf_tokencmsdatagoe' => csrf_hash()
+                'sukses' => view('backend/pengaturan/template/front/gantifile', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash()
             ];
             echo json_encode($msg);
         }
@@ -573,27 +573,27 @@ class Template extends BaseController
                     'error' => [
                         'video_bag' => $validation->getError('video_bag'),
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash()
+                    'csrf_tokencmsikasmedia' => csrf_hash()
                 ];
             } else {
                 // $fileunduhan = $this->request->getFile('video_bag');
                 // $ext = $fileunduhan->getClientExtension();
-                $filevideo  = $this->request->getFile('video_bag');
-                $mimeType   = $filevideo->getMimeType();
+                $filevideo = $this->request->getFile('video_bag');
+                $mimeType = $filevideo->getMimeType();
 
                 // Allowed video MIME types
                 $allowedMimeTypes = ['video/mp4', 'video/avi', 'video/mpeg', 'video/quicktime', 'video/x-matroska'];
 
                 if (!in_array($mimeType, $allowedMimeTypes)) {
                     $msg = [
-                        'nofile'                => 'Hanya file video yang diizinkan!',
-                        'csrf_tokencmsdatagoe' => csrf_hash()
+                        'nofile' => 'Hanya file video yang diizinkan!',
+                        'csrf_tokencmsikasmedia' => csrf_hash()
                     ];
                 } else {
                     // Proceed with video file processing
-                    $template_id    = $this->request->getVar('template_id');
-                    $cekdata        = $this->template->find($template_id);
-                    $vidlama        = $cekdata['video_bag'];
+                    $template_id = $this->request->getVar('template_id');
+                    $cekdata = $this->template->find($template_id);
+                    $vidlama = $cekdata['video_bag'];
 
                     if ($vidlama != '' && file_exists('public/file/' . $vidlama)) {
                         unlink('public/file/' . $vidlama);
@@ -611,7 +611,7 @@ class Template extends BaseController
 
                     $msg = [
                         'sukses' => 'Video berhasil diupload!',
-                        'csrf_tokencmsdatagoe' => csrf_hash()
+                        'csrf_tokencmsikasmedia' => csrf_hash()
                     ];
                 }
             }
@@ -629,14 +629,14 @@ class Template extends BaseController
         if ($tadmin) {
             $folder = esc($tadmin['folder']);
         } else {
-            $folder = 'standar';
+            $folder = '';
         }
         $data = [
-            'title'       => 'Tema Dashboard Admin',
-            'subtitle'    => esc($konfigurasi['nama']),
-            'folder'      => $folder
+            'title' => 'Tema Dashboard Admin',
+            'subtitle' => esc($konfigurasi['nama']),
+            'folder' => $folder
         ];
-        return view('backend/' . $folder . '/' . 'pengaturan/template/back/index', $data);
+        return view('backend/pengaturan/template/back/index', $data);
     }
 
     public function getdataback()
@@ -680,7 +680,7 @@ class Template extends BaseController
         ];
 
         echo json_encode([
-            'data' => view('backend/' . esc($tadmin['folder']) . '/pengaturan/template/back/list', $data),
+            'data' => view('backend/pengaturan/template/back/list', $data),
         ]);
     }
 
@@ -695,7 +695,7 @@ class Template extends BaseController
                 'title' => 'Tambah Template Admin',
             ];
             $msg = [
-                'data' => view('backend/' . esc($tadmin['folder']) . '/' . 'pengaturan/template/back/tambah', $data)
+                'data' => view('backend/' . 'pengaturan/template/back/tambah', $data)
             ];
             echo json_encode($msg);
         }
@@ -717,7 +717,7 @@ class Template extends BaseController
                     'errors' => [
                         'required' => '{field} tidak boleh kosong',
                         'is_unique' => '{field} tidak boleh sama',
-                        'max_length'    => 'Masukkan {field} maksimal 20 Karakter!',
+                        'max_length' => 'Masukkan {field} maksimal 20 Karakter!',
                     ]
                 ],
                 'folder' => [
@@ -726,7 +726,7 @@ class Template extends BaseController
                     'errors' => [
                         'required' => '{field} tidak boleh kosong',
                         'is_unique' => '{field} tidak boleh sama',
-                        'max_length'    => 'Masukkan {field} maksimal 10 Karakter!',
+                        'max_length' => 'Masukkan {field} maksimal 10 Karakter!',
                     ]
                 ],
                 'pembuat' => [
@@ -734,7 +734,7 @@ class Template extends BaseController
                     'rules' => 'required|max_length[15]',
                     'errors' => [
                         'required' => '{field} tidak boleh kosong',
-                        'max_length'    => 'Masukkan {field} maksimal 15 Karakter!',
+                        'max_length' => 'Masukkan {field} maksimal 15 Karakter!',
                     ]
                 ],
                 'img' => [
@@ -751,12 +751,12 @@ class Template extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'nama'    => $validation->getError('nama'),
-                        'pembuat'        => $validation->getError('pembuat'),
-                        'folder'         => $validation->getError('folder'),
-                        'img'         => $validation->getError('img'),
+                        'nama' => $validation->getError('nama'),
+                        'pembuat' => $validation->getError('pembuat'),
+                        'folder' => $validation->getError('folder'),
+                        'img' => $validation->getError('img'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
                 echo json_encode($msg);
             } else {
@@ -764,36 +764,36 @@ class Template extends BaseController
                 $nama_file = $filegambar->getRandomName();
                 if ($filegambar->GetError() == 4) {
                     $insertdata = [
-                        'nama'          => $this->request->getVar('nama'),
-                        'pembuat'       => $this->request->getVar('pembuat'),
-                        'folder'        => $this->request->getVar('folder'),
-                        'ket'           => $this->request->getVar('ket'),
-                        'status'        => '0',
-                        'jtema'         => '0',
-                        'id'            => session()->get('id'),
-                        'img'           => 'default.png',
-                        'sidebar_mode'  => $this->request->getVar('sidebar_mode'),
-                        'warna_topbar'  => $this->request->getVar('warna_topbar'),
+                        'nama' => $this->request->getVar('nama'),
+                        'pembuat' => $this->request->getVar('pembuat'),
+                        'folder' => $this->request->getVar('folder'),
+                        'ket' => $this->request->getVar('ket'),
+                        'status' => '0',
+                        'jtema' => '0',
+                        'id' => session()->get('id'),
+                        'img' => 'default.png',
+                        'sidebar_mode' => $this->request->getVar('sidebar_mode'),
+                        'warna_topbar' => $this->request->getVar('warna_topbar'),
 
                     ];
                     $this->template->insert($insertdata);
 
                     $msg = [
-                        'sukses'                => 'Data berhasil disimpan!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'sukses' => 'Data berhasil disimpan!',
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                 } else {
                     $insertdata = [
-                        'nama'          => $this->request->getVar('nama'),
-                        'pembuat'       => $this->request->getVar('pembuat'),
-                        'folder'        => $this->request->getVar('folder'),
-                        'ket'           => $this->request->getVar('ket'),
-                        'status'        => '0',
-                        'jtema'         => '0',
-                        'id'            => session()->get('id'),
-                        'img'           => $nama_file,
-                        'sidebar_mode'  => $this->request->getVar('sidebar_mode'),
-                        'warna_topbar'  => $this->request->getVar('warna_topbar'),
+                        'nama' => $this->request->getVar('nama'),
+                        'pembuat' => $this->request->getVar('pembuat'),
+                        'folder' => $this->request->getVar('folder'),
+                        'ket' => $this->request->getVar('ket'),
+                        'status' => '0',
+                        'jtema' => '0',
+                        'id' => session()->get('id'),
+                        'img' => $nama_file,
+                        'sidebar_mode' => $this->request->getVar('sidebar_mode'),
+                        'warna_topbar' => $this->request->getVar('warna_topbar'),
 
                     ];
                     $this->template->insert($insertdata);
@@ -802,8 +802,8 @@ class Template extends BaseController
                         ->withFile($filegambar)
                         ->save('public/img/template/' . $nama_file, 70);
                     $msg = [
-                        'sukses'                => 'Data berhasil disimpan!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'sukses' => 'Data berhasil disimpan!',
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                 }
                 echo json_encode($msg);
@@ -819,23 +819,23 @@ class Template extends BaseController
         if ($this->request->isAJAX()) {
 
             $template_id = $this->request->getVar('template_id');
-            $list =  $this->template->find($template_id);
+            $list = $this->template->find($template_id);
             $tadmin = $this->template->tempadminaktif();
             $data = [
-                'title'             => 'Edit Template Admin',
-                'template_id'       => $list['template_id'],
-                'nama'               => $list['nama'],
-                'pembuat'           => $list['pembuat'],
-                'folder'             => $list['folder'],
-                'ket'               => $list['ket'],
-                'img'               => $list['img'],
-                'sidebar_mode'     => $list['sidebar_mode'],
-                'warna_topbar'     => $list['warna_topbar'],
+                'title' => 'Edit Template Admin',
+                'template_id' => $list['template_id'],
+                'nama' => $list['nama'],
+                'pembuat' => $list['pembuat'],
+                'folder' => $list['folder'],
+                'ket' => $list['ket'],
+                'img' => $list['img'],
+                'sidebar_mode' => $list['sidebar_mode'],
+                'warna_topbar' => $list['warna_topbar'],
 
             ];
             $msg = [
-                'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'pengaturan/template/back/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/' . 'pengaturan/template/back/edit', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -857,7 +857,7 @@ class Template extends BaseController
                     'rules' => 'required|max_length[20]',
                     'errors' => [
                         'required' => '{field} tidak boleh kosong',
-                        'max_length'    => 'Masukkan {field} maksimal 20 Karakter!',
+                        'max_length' => 'Masukkan {field} maksimal 20 Karakter!',
                     ]
                 ],
                 'pembuat' => [
@@ -865,15 +865,15 @@ class Template extends BaseController
                     'rules' => 'required|max_length[15]',
                     'errors' => [
                         'required' => '{field} tidak boleh kosong',
-                        'max_length'    => 'Masukkan {field} maksimal 15 Karakter!',
+                        'max_length' => 'Masukkan {field} maksimal 15 Karakter!',
                     ]
                 ],
                 'folder' => [
                     'label' => 'Folder',
                     'rules' => 'required|max_length[10]',
                     'errors' => [
-                        'required'      => '{field} tidak boleh kosong',
-                        'max_length'    => 'Masukkan {field} maksimal 10 Karakter!',
+                        'required' => '{field} tidak boleh kosong',
+                        'max_length' => 'Masukkan {field} maksimal 10 Karakter!',
                     ]
                 ],
                 'img' => [
@@ -890,11 +890,11 @@ class Template extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'nama'           => $validation->getError('nama'),
-                        'pembuat'        => $validation->getError('pembuat'),
-                        'folder'         => $validation->getError('folder'),
+                        'nama' => $validation->getError('nama'),
+                        'pembuat' => $validation->getError('pembuat'),
+                        'folder' => $validation->getError('folder'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 $filegambar = $this->request->getFile('img');
@@ -902,18 +902,18 @@ class Template extends BaseController
 
                 if ($filegambar->GetError() == 4) {
                     $updatedata = [
-                        'nama'          => $this->request->getVar('nama'),
-                        'pembuat'       => $this->request->getVar('pembuat'),
-                        'folder'        => $this->request->getVar('folder'),
-                        'ket'           => $this->request->getVar('ket'),
-                        'sidebar_mode'  => $this->request->getVar('sidebar_mode'),
-                        'warna_topbar'  => $this->request->getVar('warna_topbar'),
+                        'nama' => $this->request->getVar('nama'),
+                        'pembuat' => $this->request->getVar('pembuat'),
+                        'folder' => $this->request->getVar('folder'),
+                        'ket' => $this->request->getVar('ket'),
+                        'sidebar_mode' => $this->request->getVar('sidebar_mode'),
+                        'warna_topbar' => $this->request->getVar('warna_topbar'),
 
                     ];
                     $this->template->update($template_id, $updatedata);
                     $msg = [
                         'sukses' => 'Data berhasil diubah!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                 } else {
                     //check
@@ -924,13 +924,13 @@ class Template extends BaseController
                     }
 
                     $updatedata = [
-                        'nama'          => $this->request->getVar('nama'),
-                        'pembuat'       => $this->request->getVar('pembuat'),
-                        'folder'        => $this->request->getVar('folder'),
-                        'ket'           => $this->request->getVar('ket'),
-                        'img'           => $nama_file,
-                        'sidebar_mode'  => $this->request->getVar('sidebar_mode'),
-                        'warna_topbar'  => $this->request->getVar('warna_topbar'),
+                        'nama' => $this->request->getVar('nama'),
+                        'pembuat' => $this->request->getVar('pembuat'),
+                        'folder' => $this->request->getVar('folder'),
+                        'ket' => $this->request->getVar('ket'),
+                        'img' => $nama_file,
+                        'sidebar_mode' => $this->request->getVar('sidebar_mode'),
+                        'warna_topbar' => $this->request->getVar('warna_topbar'),
                     ];
 
                     $this->template->update($template_id, $updatedata);
@@ -940,8 +940,8 @@ class Template extends BaseController
                         ->save('public/img/template/' . $nama_file, 65);
 
                     $msg = [
-                        'sukses'                => 'Data berhasil diubah!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'sukses' => 'Data berhasil diubah!',
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                 }
             }
@@ -975,8 +975,8 @@ class Template extends BaseController
 
             // Kirim respons JSON
             echo json_encode([
-                'sukses'                => $stsket,
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => $stsket,
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ]);
         }
     }

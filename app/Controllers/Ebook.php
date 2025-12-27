@@ -7,57 +7,57 @@ class Ebook extends BaseController
 
     public function index()
     {
-        $konfigurasi        = $this->konfigurasi->vkonfig();
+        $konfigurasi = $this->konfigurasi->vkonfig();
         $ebook = $this->ebook->listebookpage();
-        $template = $this->template->tempaktif();
+        
         $data = [
-            'title'         => 'E-Book | ' . esc($konfigurasi->nama),
-            'deskripsi'     => esc($konfigurasi->deskripsi),
-            'url'           => esc($konfigurasi->website),
-            'img'           => base_url('/public/img/konfigurasi/logo/' . esc($konfigurasi->logo)),
-            'konfigurasi'   => $konfigurasi,
-            'mainmenu'      => $this->menu->mainmenu(),
-            'footer'        => $this->menu->footermenu(),
-            'topmenu'       => $this->menu->topmenu(),
-            'ebook'         => $ebook->paginate(6, 'hal'),
-            'pager'         => $ebook->pager,
-            'jum'           => $this->ebook->totebook(),
-            'banner'        => $this->banner->list(),
-            'infografis'    => $this->banner->listinfo(),
-            'infografis1'   => $this->banner->listinfo1(),
-            'agenda'        => $this->agenda->listagendapage()->paginate(4),
-            'section'       => $this->section->list(),
-            'linkterkaitall'    => $this->linkterkait->publishlinkall(),
+            'title' => 'E-Book | ' . esc($konfigurasi->nama),
+            'deskripsi' => esc($konfigurasi->deskripsi),
+            'url' => esc($konfigurasi->website),
+            'img' => base_url('/public/img/konfigurasi/logo/' . esc($konfigurasi->logo)),
+            'konfigurasi' => $konfigurasi,
+            'mainmenu' => $this->menu->mainmenu(),
+            'footer' => $this->menu->footermenu(),
+            'topmenu' => $this->menu->topmenu(),
+            'ebook' => $ebook->paginate(6, 'hal'),
+            'pager' => $ebook->pager,
+            'jum' => $this->ebook->totebook(),
+            'banner' => $this->banner->list(),
+            'infografis' => $this->banner->listinfo(),
+            'infografis1' => $this->banner->listinfo1(),
+            'agenda' => $this->agenda->listagendapage()->paginate(4),
+            'section' => $this->section->list(),
+            'linkterkaitall' => $this->linkterkait->publishlinkall(),
             'beritaterkini' => $this->berita->terkini(),
             'kategori' => $this->kategoriebook->orderBy('kategoriebook_id', 'ASC')->findAll(),
-            'infografis10'    => $this->banner->listinfopage()->paginate(10),
-            'kategoriberita'      => $this->kategori->list(),
-            'folder'        => $template['folder']
+            'infografis10' => $this->banner->listinfopage()->paginate(10),
+            'kategoriberita' => $this->kategori->list(),
+            
         ];
-        if ($template['duatema'] == 1) {
+        if (0) {
             $agent = $this->request->getUserAgent();
             if ($agent->isMobile()) {
-                return view('frontend/' . $template['folder'] . '/mobile/' . 'content/semua_ebook', $data);
+                return view('frontend/desktop/' . 'content/semua_ebook', $data);
             } else {
-                return view('frontend/' . $template['folder'] . '/desktop/' . 'content/semua_ebook', $data);
+                return view('frontend/desktop/' . 'content/semua_ebook', $data);
             }
         } else {
-            return view('frontend/' . $template['folder'] . '/desktop/' . 'content/semua_ebook', $data);
+            return view('frontend/desktop/' . 'content/semua_ebook', $data);
         }
     }
 
     public function bacaebook($fileebook = null)
     {
         $konfigurasi = $this->konfigurasi->orderBy('id_setaplikasi')->first();
-        $tadmin = $this->template->tempadminaktif();
+        
         $data = [
-            'title'         => 'Baca Buku',
-            'fileebok'      => $fileebook,
-            'konfigurasi'   => $konfigurasi,
+            'title' => 'Baca Buku',
+            'fileebok' => $fileebook,
+            'konfigurasi' => $konfigurasi,
 
         ];
 
-        return view('backend/' . $tadmin['folder'] . '/' . 'modal/flipbook', $data);
+        return view('backend/modal/flipbook', $data);
     }
 
     //update hit
@@ -66,13 +66,13 @@ class Ebook extends BaseController
         if ($this->request->isAJAX()) {
 
             $ebook_id = $this->request->getVar('ebook_id');
-            $list =  $this->ebook->find($ebook_id);
+            $list = $this->ebook->find($ebook_id);
             $data = [
-                'hits'        => $list['hits'] + 1
+                'hits' => $list['hits'] + 1
             ];
             $this->ebook->update($list['ebook_id'], $data);
             $msg = [
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -83,14 +83,14 @@ class Ebook extends BaseController
         if (!session()->get('id')) {
             return redirect()->to('');
         }
-        $tadmin             = $this->template->tempadminaktif();
+        
 
         $data = [
-            'title'       => 'E-book',
-            'subtitle'    => 'Data E-book',
-            'folder'      => $tadmin['folder'],
+            'title' => 'E-book',
+            'subtitle' => 'Data E-book',
+
         ];
-        return view('backend/' . $tadmin['folder'] . '/' . 'cmscust/ebook/index', $data);
+        return view('backend/cmscust/ebook/index', $data);
     }
 
     public function getdata()
@@ -126,10 +126,10 @@ class Ebook extends BaseController
             'tambah' => $listgrupf->tambah,
         ];
 
-        $tadmin = $this->template->tempadminaktif();
+        
 
         $msg = [
-            'data' => view('backend/' . esc($tadmin['folder']) . '/cmscust/ebook/list', $data)
+            'data' => view('backend/cmscust/ebook/list', $data)
         ];
 
         echo json_encode($msg);
@@ -141,14 +141,14 @@ class Ebook extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            $tadmin             = $this->template->tempadminaktif();
+            
             $data = [
-                'title'                 => 'Tambah Ebook',
-                'kategori'              => $this->kategoriebook->orderBy('kategoriebook_id', 'ASC')->findAll(),
+                'title' => 'Tambah Ebook',
+                'kategori' => $this->kategoriebook->orderBy('kategoriebook_id', 'ASC')->findAll(),
                 // 'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
             $msg = [
-                'data' => view('backend/' . $tadmin['folder'] . '/' . 'cmscust/ebook/tambah', $data)
+                'data' => view('backend/cmscust/ebook/tambah', $data)
 
             ];
             echo json_encode($msg);
@@ -207,12 +207,12 @@ class Ebook extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'judul'             => $validation->getError('judul'),
-                        'kategoriebook_id'  => $validation->getError('kategoriebook_id'),
-                        'fileebook'         => $validation->getError('fileebook'),
-                        'gambar'            => $validation->getError('gambar'),
+                        'judul' => $validation->getError('judul'),
+                        'kategoriebook_id' => $validation->getError('kategoriebook_id'),
+                        'fileebook' => $validation->getError('fileebook'),
+                        'gambar' => $validation->getError('gambar'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
                 echo json_encode($msg);
             } else {
@@ -230,9 +230,9 @@ class Ebook extends BaseController
                 // cek role berita
                 $id_grup = session()->get('id_grup');
                 $urlget = 'ebook/all';
-                $listgrupf =  $this->grupakses->listgrupakses($id_grup, $urlget);
+                $listgrupf = $this->grupakses->listgrupakses($id_grup, $urlget);
 
-                foreach ($listgrupf as $data) :
+                foreach ($listgrupf as $data):
                     $akses = $data['akses'];
                 endforeach;
 
@@ -253,16 +253,16 @@ class Ebook extends BaseController
 
                     $insertdata = [
 
-                        'kategoriebook_id'   => $this->request->getVar('kategoriebook_id'),
-                        'judul'              => $this->request->getVar('judul'),
-                        'gambar'             => 'default.png',
-                        'fileebook'          => $nama_ebook,
-                        'penulis'            => $this->request->getVar('penulis'),
-                        'j_hal'              => $this->request->getVar('j_hal'),
-                        'tanggal'            => date('Y-m-d'),
-                        'hits'               => '0',
-                        'status'             => $stspos,
-                        'id'                 => $userid,
+                        'kategoriebook_id' => $this->request->getVar('kategoriebook_id'),
+                        'judul' => $this->request->getVar('judul'),
+                        'gambar' => 'default.png',
+                        'fileebook' => $nama_ebook,
+                        'penulis' => $this->request->getVar('penulis'),
+                        'j_hal' => $this->request->getVar('j_hal'),
+                        'tanggal' => date('Y-m-d'),
+                        'hits' => '0',
+                        'status' => $stspos,
+                        'id' => $userid,
 
                     ];
 
@@ -272,22 +272,22 @@ class Ebook extends BaseController
 
                     $msg = [
                         'sukses' => 'E-Book berhasil disimpan!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'csrf_tokencmsdatagoe' => csrf_hash(),
                     ];
                 } else {
 
                     $insertdata = [
 
-                        'kategoriebook_id'   => $this->request->getVar('kategoriebook_id'),
-                        'judul'              => $this->request->getVar('judul'),
-                        'gambar'             => $nama_cover,
-                        'fileebook'          => $nama_ebook,
-                        'penulis'            => $this->request->getVar('penulis'),
-                        'j_hal'              => $this->request->getVar('j_hal'),
-                        'tanggal'            => date('Y-m-d'),
-                        'hits'               => '0',
-                        'status'             => $stspos,
-                        'id'                 => $userid,
+                        'kategoriebook_id' => $this->request->getVar('kategoriebook_id'),
+                        'judul' => $this->request->getVar('judul'),
+                        'gambar' => $nama_cover,
+                        'fileebook' => $nama_ebook,
+                        'penulis' => $this->request->getVar('penulis'),
+                        'j_hal' => $this->request->getVar('j_hal'),
+                        'tanggal' => date('Y-m-d'),
+                        'hits' => '0',
+                        'status' => $stspos,
+                        'id' => $userid,
                     ];
 
                     $this->ebook->insert($insertdata);
@@ -295,14 +295,14 @@ class Ebook extends BaseController
                     \Config\Services::image()
                         ->withFile($filegambar)
                         ->fit(774, 1000, 'center')
-                        ->save('public/img/ebook/thumb/' . 'thumb_' .  $nama_cover, 65);
+                        ->save('public/img/ebook/thumb/' . 'thumb_' . $nama_cover, 65);
 
                     $filegambar->move('public/img/ebook/', $nama_cover); //folder cover
                     $fileebook->move('public/deploy/pdf/', $nama_ebook); //pdf ebook
 
                     $msg = [
-                        'sukses'                => 'E-Book berhasil disimpan!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'sukses' => 'E-Book berhasil disimpan!',
+                        'csrf_tokencmsdatagoe' => csrf_hash(),
                     ];
                 }
                 echo json_encode($msg);
@@ -318,26 +318,26 @@ class Ebook extends BaseController
         if ($this->request->isAJAX()) {
             $ebook_id = $this->request->getVar('ebook_id');
             $kat = $this->request->getVar('kategoriebook_nama');
-            $list =  $this->ebook->find($ebook_id);
-            $tadmin             = $this->template->tempadminaktif();
+            $list = $this->ebook->find($ebook_id);
+            
             $data = [
-                'title'      => 'Detail Book',
-                'ebook_id'   => $list['ebook_id'],
-                'judul'      => $list['judul'],
-                'kategori'   => $kat,
-                'fileebook'  => $list['fileebook'],
-                'penulis'    => $list['penulis'],
-                'j_hal'      => $list['j_hal'],
-                'hits'       => $list['hits'],
-                'tanggal'    => $list['tanggal'],
-                'gambar'     => $list['gambar']
+                'title' => 'Detail Book',
+                'ebook_id' => $list['ebook_id'],
+                'judul' => $list['judul'],
+                'kategori' => $kat,
+                'fileebook' => $list['fileebook'],
+                'penulis' => $list['penulis'],
+                'j_hal' => $list['j_hal'],
+                'hits' => $list['hits'],
+                'tanggal' => $list['tanggal'],
+                'gambar' => $list['gambar']
 
             ];
-            $tadmin = $this->template->tempadminaktif();
+            
             $msg = [
 
-                'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'cmscust/ebook/lihatbook', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/cmscust/ebook/lihatbook', $data),
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -350,21 +350,21 @@ class Ebook extends BaseController
         }
         if ($this->request->isAJAX()) {
             $ebook_id = $this->request->getVar('ebook_id');
-            $list =  $this->ebook->find($ebook_id);
-            $tadmin             = $this->template->tempadminaktif();
+            $list = $this->ebook->find($ebook_id);
+            
             $data = [
-                'title'               => 'Edit Ebook',
-                'ebook_id'            => $list['ebook_id'],
-                'judul'               => $list['judul'],
-                'fileebook'           => $list['fileebook'],
-                'penulis'             => $list['penulis'],
-                'j_hal'               => $list['j_hal'],
-                'kategoriebook_id'    => $list['kategoriebook_id'],
-                'kategoriebook'        => $this->kategoriebook->list()
+                'title' => 'Edit Ebook',
+                'ebook_id' => $list['ebook_id'],
+                'judul' => $list['judul'],
+                'fileebook' => $list['fileebook'],
+                'penulis' => $list['penulis'],
+                'j_hal' => $list['j_hal'],
+                'kategoriebook_id' => $list['kategoriebook_id'],
+                'kategoriebook' => $this->kategoriebook->list()
             ];
             $msg = [
-                'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'cmscust/ebook/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/cmscust/ebook/edit', $data),
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -417,7 +417,7 @@ class Ebook extends BaseController
                         'kategorifoto_id' => $validation->getError('kategorifoto_id'),
                         'fileebook' => $validation->getError('fileebook')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             } else {
 
@@ -427,16 +427,16 @@ class Ebook extends BaseController
                 if ($fileebook->GetError() == 4) {
                     $data = [
 
-                        'kategoriebook_id'   => $this->request->getVar('kategoriebook_id'),
-                        'judul'              => $this->request->getVar('judul'),
-                        'penulis'            => $this->request->getVar('penulis'),
-                        'j_hal'              => $this->request->getVar('j_hal'),
+                        'kategoriebook_id' => $this->request->getVar('kategoriebook_id'),
+                        'judul' => $this->request->getVar('judul'),
+                        'penulis' => $this->request->getVar('penulis'),
+                        'j_hal' => $this->request->getVar('j_hal'),
                     ];
 
                     $this->ebook->update($ebook_id, $data);
                     $msg = [
-                        'sukses'                => 'Data berhasil diubah!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'sukses' => 'Data berhasil diubah!',
+                        'csrf_tokencmsdatagoe' => csrf_hash(),
                     ];
                 } else {
 
@@ -453,17 +453,17 @@ class Ebook extends BaseController
 
                         $fileebook->move(ROOTPATH . 'public/deploy/pdf/', $nama_ebook);
                         $updatedata = [
-                            'kategoriebook_id'   => $this->request->getVar('kategoriebook_id'),
-                            'judul'              => $this->request->getVar('judul'),
-                            'penulis'            => $this->request->getVar('penulis'),
-                            'j_hal'              => $this->request->getVar('j_hal'),
-                            'fileebook'          => $nama_ebook,
+                            'kategoriebook_id' => $this->request->getVar('kategoriebook_id'),
+                            'judul' => $this->request->getVar('judul'),
+                            'penulis' => $this->request->getVar('penulis'),
+                            'j_hal' => $this->request->getVar('j_hal'),
+                            'fileebook' => $nama_ebook,
                         ];
                         $this->ebook->update($ebook_id, $updatedata);
                     }
                     $msg = [
-                        'sukses'                => 'Data berhasil diubah!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'sukses' => 'Data berhasil diubah!',
+                        'csrf_tokencmsdatagoe' => csrf_hash(),
                     ];
                 }
             }
@@ -478,17 +478,17 @@ class Ebook extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            $id     = $this->request->getVar('ebook_id');
-            $cari   = $this->ebook->find($id);
+            $id = $this->request->getVar('ebook_id');
+            $cari = $this->ebook->find($id);
 
-            $sts    = $cari['status'] == '1' ? 0 : 1;
+            $sts = $cari['status'] == '1' ? 0 : 1;
             $stsket = $sts ? 'Berhasil Aktifkan!' : 'Berhasil Non Aktifkan!';
 
             $this->ebook->update($id, ['status' => $sts]);
 
             echo json_encode([
-                'sukses'                => $stsket,
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => $stsket,
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ]);
         }
     }
@@ -501,17 +501,17 @@ class Ebook extends BaseController
         }
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('ebook_id');
-            $list =  $this->ebook->find($id);
+            $list = $this->ebook->find($id);
             $data = [
-                'title'    => 'Upload Cover',
-                'id'       => $list['ebook_id'],
-                'gambar'   => $list['gambar']
+                'title' => 'Upload Cover',
+                'id' => $list['ebook_id'],
+                'gambar' => $list['gambar']
 
             ];
-            $tadmin          = $this->template->tempadminaktif();
+            
             $msg = [
-                'sukses' => view('backend/' . $tadmin['folder'] . '/' . 'cmscust/ebook/ganticover', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/cmscust/ebook/ganticover', $data),
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -545,7 +545,7 @@ class Ebook extends BaseController
                     'error' => [
                         'gambar' => $validation->getError('gambar')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             } else {
 
@@ -570,13 +570,13 @@ class Ebook extends BaseController
                 \Config\Services::image()
                     ->withFile($filegambar)
                     ->fit(774, 1000, 'center')
-                    ->save('public/img/ebook/thumb/' . 'thumb_' .  $nama_file, 65);
+                    ->save('public/img/ebook/thumb/' . 'thumb_' . $nama_file, 65);
 
                 $filegambar->move('public/img/ebook/', $nama_file); //folder foto
 
                 $msg = [
-                    'sukses'                => 'Cover berhasil diganti!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Cover berhasil diganti!',
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -611,8 +611,8 @@ class Ebook extends BaseController
 
             $this->ebook->delete($ebook_id);
             $msg = [
-                'sukses'                => 'Data berhasil dihapus!',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => 'Data berhasil dihapus!',
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -650,7 +650,7 @@ class Ebook extends BaseController
 
             $msg = [
                 'sukses' => "$jmldata data berhasil dihapus",
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -662,14 +662,14 @@ class Ebook extends BaseController
         if (!session()->get('id')) {
             return redirect()->to('');
         }
-        $tadmin             = $this->template->tempadminaktif();
+        
 
         $data = [
-            'title'       => 'Ebook',
-            'subtitle'    => 'Kategori',
-            'folder'      => $tadmin['folder'],
+            'title' => 'Ebook',
+            'subtitle' => 'Kategori',
+
         ];
-        return view('backend/' . $tadmin['folder'] . '/' . 'cmscust/ebook/kategoriebook/index', $data);
+        return view('backend/cmscust/ebook/kategoriebook/index', $data);
     }
 
     public function getkategori()
@@ -703,11 +703,11 @@ class Ebook extends BaseController
             'tambah' => $listgrupf->tambah,
         ];
 
-        $tadmin = $this->template->tempadminaktif();
+        
 
         // Siapkan respons JSON dengan data tampilan
         $msg = [
-            'data' => view('backend/' . esc($tadmin['folder']) . '/cmscust/ebook/kategoriebook/list', $data)
+            'data' => view('backend/cmscust/ebook/kategoriebook/list', $data)
         ];
 
         echo json_encode($msg);
@@ -722,10 +722,10 @@ class Ebook extends BaseController
             $data = [
                 'title' => 'Tambah Kategori'
             ];
-            $tadmin             = $this->template->tempadminaktif();
+            
 
             $msg = [
-                'data' => view('backend/' . $tadmin['folder'] . '/' . 'cmscust/ebook/kategoriebook/tambah', $data)
+                'data' => view('backend/cmscust/ebook/kategoriebook/tambah', $data)
 
             ];
             echo json_encode($msg);
@@ -754,7 +754,7 @@ class Ebook extends BaseController
                     'error' => [
                         'kategoriebook_nama' => $validation->getError('kategoriebook_nama'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             } else {
                 $simpandata = [
@@ -764,8 +764,8 @@ class Ebook extends BaseController
 
                 $this->kategoriebook->insert($simpandata);
                 $msg = [
-                    'sukses'                => 'Data berhasil disimpan',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Data berhasil disimpan',
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -779,16 +779,16 @@ class Ebook extends BaseController
         }
         if ($this->request->isAJAX()) {
             $kategoriebook_id = $this->request->getVar('kategoriebook_id');
-            $list =  $this->kategoriebook->find($kategoriebook_id);
+            $list = $this->kategoriebook->find($kategoriebook_id);
             $data = [
-                'title'                 => 'Edit Kategori',
-                'kategoriebook_id'     => $list['kategoriebook_id'],
-                'kategoriebook_nama'   => $list['kategoriebook_nama'],
+                'title' => 'Edit Kategori',
+                'kategoriebook_id' => $list['kategoriebook_id'],
+                'kategoriebook_nama' => $list['kategoriebook_nama'],
             ];
-            $tadmin             = $this->template->tempadminaktif();
+            
             $msg = [
-                'sukses' => view('backend/' . $tadmin['folder'] . '/' . 'cmscust/ebook/kategoriebook/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/cmscust/ebook/kategoriebook/edit', $data),
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -815,7 +815,7 @@ class Ebook extends BaseController
                     'error' => [
                         'kategoriebook_nama' => $validation->getError('kategoriebook_nama'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             } else {
                 $updatedata = [
@@ -826,8 +826,8 @@ class Ebook extends BaseController
                 $kategoriebook_id = $this->request->getVar('kategoriebook_id');
                 $this->kategoriebook->update($kategoriebook_id, $updatedata);
                 $msg = [
-                    'sukses'                => 'Data berhasil diupdate',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Data berhasil diupdate',
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -845,8 +845,8 @@ class Ebook extends BaseController
 
             $this->kategoriebook->delete($kategoriebook_id);
             $msg = [
-                'sukses'                => 'Kategori Berhasil Dihapus',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => 'Kategori Berhasil Dihapus',
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ];
 
             echo json_encode($msg);

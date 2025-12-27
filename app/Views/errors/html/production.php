@@ -1,12 +1,3 @@
-<!-- =======================================================
-      * CMS DATAGOE
-      * Content Management System.
-      *
-      * @author			Vian Taum <viantaum17@gmail.com>
-      * @website		www.datagoe.com
-      * @copyright		(c) 2023 - Datagoe Software
- ======================================================== -->
-
 <!DOCTYPE html>
 <html lang="en">
 

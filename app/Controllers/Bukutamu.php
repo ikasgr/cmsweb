@@ -8,36 +8,36 @@ class Bukutamu extends BaseController
     public function index()
     {
 
-        $konfigurasi    = $this->konfigurasi->vkonfig();
-        $kategori       = $this->kategori->list();
-        $agenda         = $this->agenda->listagendapage();
-        $template       = $this->template->tempaktif();
-        $pengumuman     = $this->pengumuman->listpengumumanpage();
+        $konfigurasi = $this->konfigurasi->vkonfig();
+        $kategori = $this->kategori->list();
+        $agenda = $this->agenda->listagendapage();
+
+        $pengumuman = $this->pengumuman->listpengumumanpage();
         $data = [
-            'title'         => 'Buku Tamu | ' . esc($konfigurasi->nama),
-            'deskripsi'     => esc($konfigurasi->deskripsi),
-            'url'           => esc($konfigurasi->website),
-            'img'           => base_url('/public/img/konfigurasi/logo/' . esc($konfigurasi->logo)),
-            'konfigurasi'   => $konfigurasi,
-            'mbidang'       => $this->bidang->list(),
+            'title' => 'Buku Tamu | ' . esc($konfigurasi->nama),
+            'deskripsi' => esc($konfigurasi->deskripsi),
+            'url' => esc($konfigurasi->website),
+            'img' => base_url('/public/img/konfigurasi/logo/' . esc($konfigurasi->logo)),
+            'konfigurasi' => $konfigurasi,
+            'mbidang' => $this->bidang->list(),
 
             'beritapopuler' => $this->berita->populer()->paginate(4),
-            'kategori'      => $kategori,
-            'banner'        => $this->banner->list(),
-            'infografis'    => $this->banner->listinfo(),
-            'pengumuman'    => $pengumuman->paginate(2),
-            'agenda'        => $agenda->paginate(4),
-            'infografis1'   => $this->banner->listinfo1(),
-            'mainmenu'      => $this->menu->mainmenu(),
-            'footer'        => $this->menu->footermenu(),
-            'topmenu'       => $this->menu->topmenu(),
-            'section'       => $this->section->list(),
-            'sitekey'        => $konfigurasi->g_sitekey,
-            'linkterkaitall'    => $this->linkterkait->publishlinkall(),
-            'infografis10'    => $this->banner->listinfopage()->paginate(10),
-            'grafisrandom'         => $this->banner->grafisrandom(),
-            'terkini3'       => $this->berita->terkini3(),
-            'folder'        => $template['folder']
+            'kategori' => $kategori,
+            'banner' => $this->banner->list(),
+            'infografis' => $this->banner->listinfo(),
+            'pengumuman' => $pengumuman->paginate(2),
+            'agenda' => $agenda->paginate(4),
+            'infografis1' => $this->banner->listinfo1(),
+            'mainmenu' => $this->menu->mainmenu(),
+            'footer' => $this->menu->footermenu(),
+            'topmenu' => $this->menu->topmenu(),
+            'section' => $this->section->list(),
+            'sitekey' => $konfigurasi->g_sitekey,
+            'linkterkaitall' => $this->linkterkait->publishlinkall(),
+            'infografis10' => $this->banner->listinfopage()->paginate(10),
+            'grafisrandom' => $this->banner->grafisrandom(),
+            'terkini3' => $this->berita->terkini3(),
+            'folder' => $template['folder']
         ];
         if ($template['duatema'] == 1) {
             $agent = $this->request->getUserAgent();
@@ -101,13 +101,13 @@ class Bukutamu extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'nama'       => $validation->getError('nama'),
-                        'telp'       => $validation->getError('telp'),
-                        'bidang_id'  => $validation->getError('bidang_id'),
-                        'instansi'   => $validation->getError('instansi'),
-                        'keperluan'  => $validation->getError('keperluan'),
+                        'nama' => $validation->getError('nama'),
+                        'telp' => $validation->getError('telp'),
+                        'bidang_id' => $validation->getError('bidang_id'),
+                        'instansi' => $validation->getError('instansi'),
+                        'keperluan' => $validation->getError('keperluan'),
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
@@ -138,37 +138,37 @@ class Bukutamu extends BaseController
                     if ($status['success']) {
 
                         $insertdata = [
-                            'nama'         => $this->request->getVar('nama'),
-                            'bidang_id'        => $this->request->getVar('bidang_id'),
-                            'telp'          => $this->request->getVar('telp'),
-                            'instansi'        => $this->request->getVar('instansi'),
-                            'keperluan'   => $this->request->getVar('keperluan'),
-                            'tanggal'      => date('Y-m-d'),
-                            'status'       => '0'
+                            'nama' => $this->request->getVar('nama'),
+                            'bidang_id' => $this->request->getVar('bidang_id'),
+                            'telp' => $this->request->getVar('telp'),
+                            'instansi' => $this->request->getVar('instansi'),
+                            'keperluan' => $this->request->getVar('keperluan'),
+                            'tanggal' => date('Y-m-d'),
+                            'status' => '0'
 
                         ];
 
                         $this->bukutamu->insert($insertdata);
 
                         $msg = [
-                            'sukses'                => 'Pesan Anda sukses terkirim..!',
-                            'csrf_tokencmsdatagoe' => csrf_hash(),
+                            'sukses' => 'Pesan Anda sukses terkirim..!',
+                            'csrf_tokencmsikasmedia' => csrf_hash(),
                         ];
                     } else {
                         $msg = [
                             'gagal' => 'Gagal kirim pesan Silahkan periksa Kembali!',
-                            'csrf_tokencmsdatagoe' => csrf_hash(),
+                            'csrf_tokencmsikasmedia' => csrf_hash(),
                         ];
                     }
                 } else {
                     $insertdata = [
-                        'nama'         => $this->request->getVar('nama'),
-                        'bidang_id'        => $this->request->getVar('bidang_id'),
-                        'telp'          => $this->request->getVar('telp'),
-                        'instansi'        => $this->request->getVar('instansi'),
-                        'keperluan'   => $this->request->getVar('keperluan'),
-                        'tanggal'      => date('Y-m-d'),
-                        'status'       => '0'
+                        'nama' => $this->request->getVar('nama'),
+                        'bidang_id' => $this->request->getVar('bidang_id'),
+                        'telp' => $this->request->getVar('telp'),
+                        'instansi' => $this->request->getVar('instansi'),
+                        'keperluan' => $this->request->getVar('keperluan'),
+                        'tanggal' => date('Y-m-d'),
+                        'status' => '0'
 
                     ];
                     $this->bukutamu->insert($insertdata);
@@ -187,13 +187,13 @@ class Bukutamu extends BaseController
         if (!session()->get('id')) {
             return redirect()->to('');
         }
-        $tadmin           = $this->template->tempadminaktif();
+
         $data = [
-            'title'       => 'Buku',
-            'subtitle'    => 'Tamu',
-            'folder'      => $tadmin['folder'],
+            'title' => 'Buku',
+            'subtitle' => 'Tamu',
+
         ];
-        return view('backend/' . $tadmin['folder'] . '/' . 'interaksi/bukutamu/index', $data);
+        return view('backend/interaksi/bukutamu/index', $data);
     }
 
 
@@ -232,7 +232,7 @@ class Bukutamu extends BaseController
         $list = $this->bukutamu->list();
 
         // Ambil template admin aktif
-        $tadmin = $this->template->tempadminaktif();
+
 
         // Siapkan data untuk tampilan
         $data = [
@@ -246,8 +246,8 @@ class Bukutamu extends BaseController
 
         // Siapkan respons JSON dengan data tampilan dan csrf token
         $msg = [
-            'data' => view('backend/' . esc($tadmin['folder']) . '/interaksi/bukutamu/list', $data),
-            'csrf_tokencmsdatagoe' => csrf_hash(),
+            'data' => view('backend/interaksi/bukutamu/list', $data),
+            'csrf_tokencmsikasmedia' => csrf_hash(),
         ];
 
         echo json_encode($msg);
@@ -263,10 +263,10 @@ class Bukutamu extends BaseController
             'list' => $this->bukutamu->listkritiknew(),
             'totkritik' => $this->bukutamu->totkritik(),
         ];
-        $tadmin = $this->template->tempadminaktif();
+
 
         $msg = [
-            'data' => view('backend/' . esc($tadmin['folder']) . '/interaksi/bukutamu/vmenukritik', $data),
+            'data' => view('backend/interaksi/bukutamu/vmenukritik', $data),
         ];
         echo json_encode($msg);
     }
@@ -279,25 +279,25 @@ class Bukutamu extends BaseController
         if ($this->request->isAJAX()) {
             $bukutamu_id = $this->request->getVar('bukutamu_id');
             $bidang_id = $this->request->getVar('bidang_id');
-            $list =  $this->bukutamu->find($bukutamu_id);
-            $cari =  $this->bidang->find($bidang_id);
-            $tadmin = $this->template->tempadminaktif();
+            $list = $this->bukutamu->find($bukutamu_id);
+            $cari = $this->bidang->find($bidang_id);
+
 
             $data = [
-                'title'       => 'Detail Buku Tamu',
+                'title' => 'Detail Buku Tamu',
                 'bukutamu_id' => $list['bukutamu_id'],
-                'nama'        => $list['nama'],
-                'instansi'         => $list['instansi'],
-                'bidang'         => $cari['nama_bidang'],
-                'keperluan'      => $list['keperluan'],
-                'tanggal'      => $list['tanggal'],
-                'status'      => $list['status'],
-                'telp'      => $list['telp'],
+                'nama' => $list['nama'],
+                'instansi' => $list['instansi'],
+                'bidang' => $cari['nama_bidang'],
+                'keperluan' => $list['keperluan'],
+                'tanggal' => $list['tanggal'],
+                'status' => $list['status'],
+                'telp' => $list['telp'],
 
             ];
             $msg = [
-                'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'interaksi/bukutamu/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/interaksi/bukutamu/edit', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -314,8 +314,8 @@ class Bukutamu extends BaseController
 
             $this->bukutamu->delete($bukutamu_id);
             $msg = [
-                'sukses'                => 'Data berhasil dihapus!',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => 'Data berhasil dihapus!',
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -336,8 +336,8 @@ class Bukutamu extends BaseController
             }
 
             $msg = [
-                'sukses'                => "$jmldata data berhasil dihapus",
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => "$jmldata data berhasil dihapus",
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -349,13 +349,13 @@ class Bukutamu extends BaseController
         if (!session()->get('id')) {
             return redirect()->to('');
         }
-        $tadmin             = $this->template->tempadminaktif();
+
         $data = [
-            'title'       => 'Master',
-            'subtitle'    => 'Bidang',
-            'folder'      => $tadmin['folder'],
+            'title' => 'Master',
+            'subtitle' => 'Bidang',
+
         ];
-        return view('backend/' . $tadmin['folder'] . '/' . 'interaksi/bukutamu/bt_bidang/index', $data);
+        return view('backend/interaksi/bukutamu/bt_bidang/index', $data);
     }
 
     public function getbidang()
@@ -380,7 +380,7 @@ class Bukutamu extends BaseController
             // Cek akses pengguna
             if (in_array($akses, ['1', '2'])) {
                 // Ambil template admin aktif
-                $tadmin = $this->template->tempadminaktif();
+
 
                 // Siapkan data untuk dikirim ke tampilan
                 $data = [
@@ -394,7 +394,7 @@ class Bukutamu extends BaseController
 
                 // Buat respons untuk AJAX
                 $msg = [
-                    'data' => view('backend/' . esc($tadmin['folder']) . '/interaksi/bukutamu/bt_bidang/list', $data),
+                    'data' => view('backend/interaksi/bukutamu/bt_bidang/list', $data),
                 ];
             } else {
                 // Jika tidak memiliki akses
@@ -422,11 +422,11 @@ class Bukutamu extends BaseController
             $data = [
                 'title' => 'Tambah Bidang'
             ];
-            $tadmin             = $this->template->tempadminaktif();
+
 
             $msg = [
-                'data'                  => view('backend/' . $tadmin['folder'] . '/' . 'interaksi/bukutamu/bt_bidang/tambah', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'data' => view('backend/interaksi/bukutamu/bt_bidang/tambah', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -454,7 +454,7 @@ class Bukutamu extends BaseController
                     'error' => [
                         'nama_bidang' => $validation->getError('nama_bidang'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 $simpandata = [
@@ -464,8 +464,8 @@ class Bukutamu extends BaseController
 
                 $this->bidang->insert($simpandata);
                 $msg = [
-                    'sukses'                => 'Data berhasil disimpan',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Data berhasil disimpan',
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -479,16 +479,16 @@ class Bukutamu extends BaseController
         }
         if ($this->request->isAJAX()) {
             $bidang_id = $this->request->getVar('bidang_id');
-            $list =  $this->bidang->find($bidang_id);
-            $tadmin             = $this->template->tempadminaktif();
+            $list = $this->bidang->find($bidang_id);
+
             $data = [
-                'title'           => 'Edit Bidang',
-                'bidang_id'     => $list['bidang_id'],
-                'nama_bidang'   => $list['nama_bidang'],
+                'title' => 'Edit Bidang',
+                'bidang_id' => $list['bidang_id'],
+                'nama_bidang' => $list['nama_bidang'],
             ];
             $msg = [
-                'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'interaksi/bukutamu/bt_bidang/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/interaksi/bukutamu/bt_bidang/edit', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -515,7 +515,7 @@ class Bukutamu extends BaseController
                     'error' => [
                         'nama_bidang' => $validation->getError('nama_bidang'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 $updatedata = [
@@ -526,8 +526,8 @@ class Bukutamu extends BaseController
                 $this->bidang->update($bidang_id, $updatedata);
 
                 $msg = [
-                    'sukses'                => 'Data berhasil diupdate',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Data berhasil diupdate',
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -543,8 +543,8 @@ class Bukutamu extends BaseController
             $bidang_id = $this->request->getVar('bidang_id');
             $this->bidang->delete($bidang_id);
             $msg = [
-                'sukses'                => 'Data Berhasil Dihapus',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => 'Data Berhasil Dihapus',
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);

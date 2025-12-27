@@ -12,32 +12,32 @@ class Sambutan extends BaseController
         }
         $id_grup = session()->get('id_grup');
         $url = 'sambutan';
-        $listgrupf =  $this->grupakses->listgrupakses($id_grup, $url);
+        $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
 
-        foreach ($listgrupf as $data) :
+        foreach ($listgrupf as $data):
             $akses = $data['akses'];
         endforeach;
         // jika temukan maka eksekusi
-        $tadmin = $this->template->tempadminaktif();
+
         if ($listgrupf) {
             # cek akses
             if ($akses == '1' || $akses == '2') {
 
-                $list =  $this->konfigurasi->orderBy('id_setaplikasi ')->first();
+                $list = $this->konfigurasi->orderBy('id_setaplikasi ')->first();
                 $data = [
-                    'title'              => 'Dashboard',
-                    'subtitle'           => 'Kata Sambutan',
-                    'konfigurasi'        => $this->konfigurasi->list(),
-                    'id_setaplikasi'     => $list['id_setaplikasi'],
-                    'sambutan'           => esc($list['sambutan']),
-                    'gbr_sambutan'       => $list['gbr_sambutan'],
-                    'nama_pimpinan'      => $list['nama_pimpinan'],
-                    'jabatan_pimpinan'   => $list['jabatan_pimpinan'],
-                    'sts_sambutan'       => $list['sts_sambutan'],
-                    'akses'              => $akses,
-                    'folder'             =>  $tadmin['folder'],
+                    'title' => 'Dashboard',
+                    'subtitle' => 'Kata Sambutan',
+                    'konfigurasi' => $this->konfigurasi->list(),
+                    'id_setaplikasi' => $list['id_setaplikasi'],
+                    'sambutan' => esc($list['sambutan']),
+                    'gbr_sambutan' => $list['gbr_sambutan'],
+                    'nama_pimpinan' => $list['nama_pimpinan'],
+                    'jabatan_pimpinan' => $list['jabatan_pimpinan'],
+                    'sts_sambutan' => $list['sts_sambutan'],
+                    'akses' => $akses,
+
                 ];
-                return view('backend/' . $tadmin['folder'] . '/' . 'lembaga/sambutan/sambutan', $data);
+                return view('backend/lembaga/sambutan/sambutan', $data);
             } else {
 
                 return redirect()->to(base_url('dashboard'));
@@ -82,24 +82,24 @@ class Sambutan extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'sambutan'          => $validation->getError('sambutan'),
-                        'nama_pimpinan'     => $validation->getError('nama_pimpinan'),
-                        'jabatan_pimpinan'  => $validation->getError('jabatan_pimpinan')
+                        'sambutan' => $validation->getError('sambutan'),
+                        'nama_pimpinan' => $validation->getError('nama_pimpinan'),
+                        'jabatan_pimpinan' => $validation->getError('jabatan_pimpinan')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 $simpandata = [
-                    'sambutan'               => $this->request->getVar('sambutan'),
-                    'nama_pimpinan'          => $this->request->getVar('nama_pimpinan'),
-                    'jabatan_pimpinan'       => $this->request->getVar('jabatan_pimpinan'),
-                    'sts_sambutan'           => $this->request->getVar('sts_sambutan')
+                    'sambutan' => $this->request->getVar('sambutan'),
+                    'nama_pimpinan' => $this->request->getVar('nama_pimpinan'),
+                    'jabatan_pimpinan' => $this->request->getVar('jabatan_pimpinan'),
+                    'sts_sambutan' => $this->request->getVar('sts_sambutan')
                 ];
-                $id_setaplikasi  = $this->request->getVar('id_setaplikasi ');
+                $id_setaplikasi = $this->request->getVar('id_setaplikasi ');
                 $this->konfigurasi->update(1, $simpandata);
                 $msg = [
                     'sukses' => 'Data berhasil diupdate',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -112,17 +112,17 @@ class Sambutan extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            $tadmin = $this->template->tempadminaktif();
+
             $id_setaplikasi = $this->request->getVar('id_setaplikasi');
             $list = $this->konfigurasi->find($id_setaplikasi);
             $data = [
-                'title'          => 'Upload Gambar',
-                'list'           => $list,
+                'title' => 'Upload Gambar',
+                'list' => $list,
                 'id_setaplikasi' => $list['id_setaplikasi']
             ];
             $msg = [
-                'sukses' => view('backend/' . $tadmin['folder'] . '/' . 'lembaga/sambutan/uploadlogo', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/lembaga/sambutan/uploadlogo', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
 
             ];
             echo json_encode($msg);
@@ -153,7 +153,7 @@ class Sambutan extends BaseController
                     'error' => [
                         'gbr_sambutan' => $validation->getError('gbr_sambutan')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 //check
@@ -176,8 +176,8 @@ class Sambutan extends BaseController
                     ->fit(215, 230, 'center')
                     ->save('public/img/konfigurasi/pimpinan/' . $nama_file, 90);
                 $msg = [
-                    'sukses'                => 'Gambar berhasil diupload!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Gambar berhasil diupload!',
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);

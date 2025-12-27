@@ -13,75 +13,76 @@ class Admin extends BaseController
 		if (!session()->get('id')) {
 			return redirect()->to('');
 		}
-		$id_grup 	 = session()->get('id_grup');
-		$id 		 = session()->get('id');
+		$id_grup = session()->get('id_grup');
+		$id = session()->get('id');
 		// berita
-		$urlgetberita 		= 'berita/all';
-		$listgrupfberita  	= $this->grupakses->listgrupakses($id_grup, $urlgetberita);
-		$aksesberita 		= isset($listgrupfberita[0]['akses']) ? $listgrupfberita[0]['akses'] : null;
+		$urlgetberita = 'berita/all';
+		$listgrupfberita = $this->grupakses->listgrupakses($id_grup, $urlgetberita);
+		$aksesberita = isset($listgrupfberita[0]['akses']) ? $listgrupfberita[0]['akses'] : null;
 
 		if ($aksesberita == '1') {
-			$populer 			= $this->berita->populer()->paginate(8);
-			$hitsberita 		= $this->berita->selectSum('hits')->where('jenis_berita', 'Berita')->first();
-			$komentarberita 	= $this->berita->selectCount('berita.berita_id')->join('berita_komen', 'berita_komen.berita_id = berita.berita_id')->where('jenis_berita', 'Berita')->first();
-			$beritapublish 		= $this->berita->selectCount('berita_id')->where('jenis_berita', 'Berita')->where('status', 1)->first();
-			$beritaunpublish 	= $this->berita->selectCount('berita_id')->where('jenis_berita', 'Berita')->where('status', 0)->first();
+			$populer = $this->berita->populer()->paginate(8);
+			$hitsberita = $this->berita->selectSum('hits')->where('jenis_berita', 'Berita')->first();
+			$komentarberita = $this->berita->selectCount('berita.berita_id')->join('berita_komen', 'berita_komen.berita_id = berita.berita_id')->where('jenis_berita', 'Berita')->first();
+			$beritapublish = $this->berita->selectCount('berita_id')->where('jenis_berita', 'Berita')->where('status', 1)->first();
+			$beritaunpublish = $this->berita->selectCount('berita_id')->where('jenis_berita', 'Berita')->where('status', 0)->first();
 		} else {
-			$populer 			= $this->berita->populerbyid($id)->paginate(8);
-			$hitsberita 		= $this->berita->selectSum('hits')->where('jenis_berita', 'Berita')->where('id', $id)->first();
-			$komentarberita 	= $this->berita->selectCount('berita.berita_id')->join('berita_komen', 'berita_komen.berita_id = berita.berita_id')->where('jenis_berita', 'Berita')->where('berita.id', $id)->first();
-			$beritapublish 		= $this->berita->selectCount('berita_id')->where('jenis_berita', 'Berita')->where('id', $id)->where('status', 1)->first();
-			$beritaunpublish 	= $this->berita->selectCount('berita_id')->where('jenis_berita', 'Berita')->where('id', $id)->where('status', 0)->first();
+			$populer = $this->berita->populerbyid($id)->paginate(8);
+			$hitsberita = $this->berita->selectSum('hits')->where('jenis_berita', 'Berita')->where('id', $id)->first();
+			$komentarberita = $this->berita->selectCount('berita.berita_id')->join('berita_komen', 'berita_komen.berita_id = berita.berita_id')->where('jenis_berita', 'Berita')->where('berita.id', $id)->first();
+			$beritapublish = $this->berita->selectCount('berita_id')->where('jenis_berita', 'Berita')->where('id', $id)->where('status', 1)->first();
+			$beritaunpublish = $this->berita->selectCount('berita_id')->where('jenis_berita', 'Berita')->where('id', $id)->where('status', 0)->first();
 		}
 
-		$beritaall 				= $this->getDataCountByAkses($id_grup, 'berita/all', 'berita', 'berita_id', $id, 'jenis_berita', 'Berita');
+		$beritaall = $this->getDataCountByAkses($id_grup, 'berita/all', 'berita', 'berita_id', $id, 'jenis_berita', 'Berita');
 		// Untuk menghitung jumlah kritik dengan status 0 (baru) untuk kritiksaran
-		$kritiknew 				= $this->getDataCountByAkses(null, '', 'kritiksaran', 'kritiksaran_id', null, 'status', 0);
-		$kritikunpublish 		= $this->getDataCountByAkses(null, '', 'kritiksaran', 'kritiksaran_id', null, 'status', '1');
-		$kritikpublish 			= $this->getDataCountByAkses(null, '', 'kritiksaran', 'kritiksaran_id', null, 'status', '2');
+		$kritiknew = $this->getDataCountByAkses(null, '', 'kritiksaran', 'kritiksaran_id', null, 'status', 0);
+		$kritikunpublish = $this->getDataCountByAkses(null, '', 'kritiksaran', 'kritiksaran_id', null, 'status', '1');
+		$kritikpublish = $this->getDataCountByAkses(null, '', 'kritiksaran', 'kritiksaran_id', null, 'status', '2');
 		// Untuk menghitung jumlah semua kritik (tanpa filter)
-		$kritikall 				= $this->getDataCountByAkses(null, '', 'kritiksaran', 'kritiksaran_id');
+		$kritikall = $this->getDataCountByAkses(null, '', 'kritiksaran', 'kritiksaran_id');
 
 		# -------------------------------------------------------id_grup,   url_akses,     namamodel,    kolom_id, id_login
-		$bank 						= $this->getDataCountByAkses($id_grup, 'bankdata/all', 'bankdata', 'bankdata_id', $id);
+		$bank = $this->getDataCountByAkses($id_grup, 'bankdata/all', 'bankdata', 'bankdata_id', $id);
 		# -------------------------------------------------------id_grup,   url_akses,     namamodel,  kolom_id, id_login, type, nilainya
-		$layanan 					= $this->getDataCountByAkses($id_grup, 'layanan/all', 'layanan', 'informasi_id', $id, 'type', '0');
-		$pengumuman 				= $this->getDataCountByAkses($id_grup, 'pengumuman/all', 'pengumuman', 'informasi_id', $id, 'type', '1');
-		$gm							= 'Pengaturan';
-		$konfigurasi 				= $this->konfigurasi->vkonfig();
-		$grupakses   				= $this->grupakses->grupaksessubmenu($id_grup, $gm);
-		$tadmin 					= $this->template->tempadminaktif();
+		$layanan = $this->getDataCountByAkses($id_grup, 'layanan/all', 'layanan', 'informasi_id', $id, 'type', '0');
+		$pengumuman = $this->getDataCountByAkses($id_grup, 'pengumuman/all', 'pengumuman', 'informasi_id', $id, 'type', '1');
+		$gm = 'Pengaturan';
+		$konfigurasi = $this->konfigurasi->vkonfig();
+		$grupakses = $this->grupakses->grupaksessubmenu($id_grup, $gm);
+
 
 		$data = [
-			'title'					=> 'Dashboard',
-			'subtitle'				=> $konfigurasi->nama,
-			'beritapopuler' 		=> $populer,
+			'title' => 'Dashboard',
+			'subtitle' => $konfigurasi->nama,
+			'beritapopuler' => $populer,
 			// 'berita'				=> $berita,
-			'tagar' 				=> $this->getDataCountByAkses(null, '', 'tag', 'tag_id'),
-			'kategori' 				=> $this->getDataCountByAkses(null, '', 'kategori', 'kategori_id', null, 'kategori_id !=', 0),
-			'totlayanan' 			=> $layanan,
-			'totpengumuman' 		=> $pengumuman,
-			'bankdata' 				=> $bank,
-			'agenda'      			=> $this->agenda->listagendapage()->paginate(1),
-			'grupakses'     		=> $grupakses,
-			'csrf_tokencmsdatagoe' 	=> csrf_hash(),
-			'folder'                => $tadmin['folder'],
-			'warna_topbar'          => $tadmin['warna_topbar'],
-			'sidebar_mode'          => $tadmin['sidebar_mode'],
+			'tagar' => $this->getDataCountByAkses(null, '', 'tag', 'tag_id'),
+			'kategori' => $this->getDataCountByAkses(null, '', 'kategori', 'kategori_id', null, 'kategori_id !=', 0),
+			'totlayanan' => $layanan,
+			'totpengumuman' => $pengumuman,
+			'bankdata' => $bank,
+			'agenda' => $this->agenda->listagendapage()->paginate(1),
+			'grupakses' => $grupakses,
+			'csrf_tokencmsikasmedia' => csrf_hash(),
+
+
+			'warna_topbar' => '#ffffff',
+			'sidebar_mode' => 0,
 			# new tema
-			'agenda5'      			=> $this->agenda->listagendapage()->paginate(5),
-			'suaraanda'     		=> $this->kritiksaran->listsuaraandaall()->paginate(6),
-			'beritaall'             => $beritaall,
-			'beritapublish'         => $beritapublish['berita_id'],
-			'beritaunpublish'       => $beritaunpublish['berita_id'],
-			'komentarberita'        => $komentarberita['berita_id'],
-			'hitsberita'            => $hitsberita['hits'],
-			'kritiknew'             => $kritiknew,
-			'kritikunpublish'       => $kritikunpublish,
-			'kritikpublish'       	=> $kritikpublish,
-			'kritikall'       		=> $kritikall,
+			'agenda5' => $this->agenda->listagendapage()->paginate(5),
+			'suaraanda' => $this->kritiksaran->listsuaraandaall()->paginate(6),
+			'beritaall' => $beritaall,
+			'beritapublish' => $beritapublish['berita_id'],
+			'beritaunpublish' => $beritaunpublish['berita_id'],
+			'komentarberita' => $komentarberita['berita_id'],
+			'hitsberita' => $hitsberita['hits'],
+			'kritiknew' => $kritiknew,
+			'kritikunpublish' => $kritikunpublish,
+			'kritikpublish' => $kritikpublish,
+			'kritikall' => $kritikall,
 		];
-		return view('backend/' . $tadmin['folder'] . '/' . 'v_dashboard', $data);
+		return view('backend/v_dashboard', $data);
 	}
 
 	function TampilkanGrafik()
@@ -89,19 +90,19 @@ class Admin extends BaseController
 
 		$db = \Config\Database::connect();
 		$query = $db->query("SELECT count(*) as jumlah, tgl FROM visitor GROUP BY tgl ORDER BY tgl DESC LIMIT 14")->getResult();
-		$tadmin 			= $this->template->tempadminaktif();
-		$data = [
-			'grafik' 				=> $query,
-			'pengunjungon' 	   		=> $this->user->totonline(),
-			'pengunjungblnini' 		=> $this->user->pengunjungblnini(),
-			'totkunjungan'     		=> $this->db->query("SELECT hits FROM visitor")->getNumRows(),
 
-			'csrf_tokencmsdatagoe' 	=> csrf_hash()
+		$data = [
+			'grafik' => $query,
+			'pengunjungon' => $this->user->totonline(),
+			'pengunjungblnini' => $this->user->pengunjungblnini(),
+			'totkunjungan' => $db->query("SELECT hits FROM visitor")->getNumRows(),
+
+			'csrf_tokencmsikasmedia' => csrf_hash()
 		];
 
 		$dgrafik = [
-			'data'   				=> view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/user/vgrafik', $data),
-			'csrf_tokencmsdatagoe' 	=> csrf_hash()
+			'data' => view('backend/pengaturan/user/vgrafik', $data),
+			'csrf_tokencmsikasmedia' => csrf_hash()
 		];
 
 		echo json_encode($dgrafik, true);
@@ -114,14 +115,14 @@ class Admin extends BaseController
 			return redirect()->to('');
 		}
 		$id = session()->get('id');
-		$konfigurasi         = $this->konfigurasi->vkonfig();
+		$konfigurasi = $this->konfigurasi->vkonfig();
 		if ($this->request->isAJAX()) {
-			$tadmin = $this->template->tempadminaktif();
-			$cari =  $this->user->find($id);
+
+			$cari = $this->user->find($id);
 			if ($cari['sts_on'] == '0') {
 
 				$onsts = [
-					'sts_on'      => '1',
+					'sts_on' => '1',
 				];
 
 				$this->user->update($id, $onsts);
@@ -132,21 +133,20 @@ class Admin extends BaseController
 			$sessionFilesCount = $this->getFilesCount($dirSessions, 1);
 			$logFilesCount = $this->getFilesCount($dirLogs, 1);
 
+			$db = \Config\Database::connect();
 			$data = [
-				'user'	     	   	=> $this->user->getaktif5(),
-				'useron'	   	   	=> $this->user->getonline5($id),
-				'template'		   	=> $this->template->tempaktif(),
-				'pengunjungon' 	   	=> $this->user->totonline(),
-				'pengunjungblnini' 	=> $this->user->pengunjungblnini(),
-				'totkunjungan'     	=> $this->db->query("SELECT hits FROM visitor")->getNumRows(),
+				'user' => $this->user->getaktif5(),
+				'pengunjungon' => $this->user->totonline(),
+				'pengunjungblnini' => $this->user->pengunjungblnini(),
+				'totkunjungan' => $db->query("SELECT hits FROM visitor")->getNumRows(),
 				'sessionFilesCount' => $sessionFilesCount, // Tambahkan jumlah file sesi
-				'logFilesCount' 	=> $logFilesCount, // Tambahkan jumlah file log
-				'vercms' 		   	=> $konfigurasi->vercms
+				'logFilesCount' => $logFilesCount, // Tambahkan jumlah file log
+				'vercms' => $konfigurasi->vercms
 			];
 
 			$msg = [
-				'data'   				=> view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/user/vonline', $data),
-				'csrf_tokencmsdatagoe' 	=> csrf_hash()
+				'data' => view('backend/pengaturan/user/vonline', $data),
+				'csrf_tokencmsikasmedia' => csrf_hash()
 			];
 
 			echo json_encode($msg);
@@ -184,7 +184,7 @@ class Admin extends BaseController
 	public function hapusfile()
 	{
 		if ($this->request->isAJAX()) {
-			$namaDir 	= $this->request->getPost('dir');
+			$namaDir = $this->request->getPost('dir');
 			$timeLimit = $this->request->getPost('timeLimit') ?? 1;
 
 			if (!$namaDir || !$this->isValidDir($namaDir)) {
@@ -291,14 +291,14 @@ class Admin extends BaseController
 
 			// Kirimkan respons JSON sebagai feedback ke klien
 			return $this->response->setJSON([
-				'status' 	=> 'success',
-				'message' 	=> 'Status user berhasil direset.'
+				'status' => 'success',
+				'message' => 'Status user berhasil direset.'
 			]);
 		}
 
 		return $this->response->setJSON([
-			'status' 	=> 'error',
-			'message' 	=> 'Permintaan hanya dapat dilakukan melalui AJAX.'
+			'status' => 'error',
+			'message' => 'Permintaan hanya dapat dilakukan melalui AJAX.'
 		]);
 	}
 
@@ -308,7 +308,7 @@ class Admin extends BaseController
 	public function hapusfilex()
 	{
 		if ($this->request->isAJAX()) {
-			$namaDir 	= $this->request->getPost('dir');
+			$namaDir = $this->request->getPost('dir');
 			$timeLimit = $this->request->getPost('timeLimit') ?? 10; // Default: 10 jam
 
 			// log_message('debug', 'Nama Direktori: ' . $namaDir);
@@ -369,8 +369,8 @@ class Admin extends BaseController
 		]);
 
 		if ($validated) {
-			$file 		= $this->request->getFile('file');
-			$newName 	= $file->getRandomName();
+			$file = $this->request->getFile('file');
+			$newName = $file->getRandomName();
 			$file->move(ROOTPATH . 'public/img/galeri/', $newName);
 
 			$response = [

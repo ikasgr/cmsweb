@@ -6,25 +6,24 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\Filters\FilterInterface;
 use App\Models\ModelKonfigurasi;
-use App\Models\M_Dge_grupakses;
 
 class Validasilogin implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
-        $db                 = \Config\Database::connect();
-        $builder            = $db->table('cms__usersessions');
-        $builkonfig         = $db->table('tbl_setaplikasi');
-        $session            = session();
-        $userId             = $session->get('id'); // ID pengguna dari sesi
-        $sessionId          = session_id();        // ID sesi PHP
-        $uri                = service('uri');
-        $currentSegment     = $uri->getSegment(1);
-        $this->grupakses    = new M_Dge_grupakses();
-        $id_grup            = $session->get('id_grup');
-        $listgrupf          = $this->grupakses->viewgrupakses($id_grup, 'konfigurasi');
-        $maintenanceStatus  = $builkonfig->select('kecamatan,is_maintenance')->get()->getRow();
-        $hallogin           = $maintenanceStatus->kecamatan;
+        $db = \Config\Database::connect();
+        $builder = $db->table('cms__usersessions');
+        $builkonfig = $db->table('tbl_setaplikasi');
+        $session = session();
+        $userId = $session->get('id'); // ID pengguna dari sesi
+        $sessionId = session_id();        // ID sesi PHP
+        $uri = service('uri');
+        $currentSegment = $uri->getSegment(1);
+        $grupakses = new \App\Models\M_Ikasmedia_grupakses();
+        $id_grup = $session->get('id_grup');
+        $listgrupf = $grupakses->viewgrupakses($id_grup, 'konfigurasi');
+        $maintenanceStatus = $builkonfig->select('kecamatan,is_maintenance')->get()->getRow();
+        $hallogin = $maintenanceStatus->kecamatan;
 
         // Langkah 1: Cek halaman login (Pastikan login diperbolehkan meskipun dalam mode maintenance)
         if ($currentSegment === $hallogin) {
@@ -79,11 +78,11 @@ class Validasilogin implements FilterInterface
             } else {
                 // Jika sesi tidak ditemukan, buat sesi baru
                 $inserted = $builder->insert([
-                    'user_id'      => $userId,
-                    'session_id'   => $sessionId,
+                    'user_id' => $userId,
+                    'session_id' => $sessionId,
                     'session_hash' => $this->generateSessionHash($sessionId, $userId),
-                    'created_at'   => date('Y-m-d H:i:s'),
-                    'updated_at'   => date('Y-m-d H:i:s')
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s')
                 ]);
                 if (!$inserted) {
                     // log_message('error', "Failed to insert session for user_id: {$userId}");
@@ -127,9 +126,9 @@ class Validasilogin implements FilterInterface
         // $expiredTime            = time() - (1800); // Expired time 30 mnt
         // $expiredTime            = time() - (7200); // Expired time 2jm
         $expiredTime = time() - 3600; // 1 jam
-        $expiredTimeFormatted   = date('Y-m-d H:i:s', $expiredTime);
-        $db                     = \Config\Database::connect();
-        $builder                = $db->table('cms__usersessions');
+        $expiredTimeFormatted = date('Y-m-d H:i:s', $expiredTime);
+        $db = \Config\Database::connect();
+        $builder = $db->table('cms__usersessions');
         $builder->where('created_at <', $expiredTimeFormatted)->delete();
         $db->query("ALTER TABLE cms__usersessions AUTO_INCREMENT = 1");
     }

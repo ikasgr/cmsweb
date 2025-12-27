@@ -7,44 +7,44 @@ class Video extends BaseController
     //list semua video
     public function index()
     {
-        $konfigurasi    = $this->konfigurasi->vkonfig();
-        $video          = $this->video->listvideopage();
-        $template       = $this->template->tempaktif();
+        $konfigurasi = $this->konfigurasi->vkonfig();
+        $video = $this->video->listvideopage();
+        
         $data = [
-            'title'         => 'Galeri Video | ' . esc($konfigurasi->nama),
-            'deskripsi'     => esc($konfigurasi->deskripsi),
-            'url'           => esc($konfigurasi->website),
-            'img'           => base_url('/public/img/konfigurasi/logo/' . esc($konfigurasi->logo)),
-            'konfigurasi'   => $konfigurasi,
-            'mainmenu'      => $this->menu->mainmenu(),
-            'footer'        => $this->menu->footermenu(),
-            'topmenu'       => $this->menu->topmenu(),
-            'video'         => $video->paginate(6, 'hal'),
-            'pager'         => $video->pager,
+            'title' => 'Galeri Video | ' . esc($konfigurasi->nama),
+            'deskripsi' => esc($konfigurasi->deskripsi),
+            'url' => esc($konfigurasi->website),
+            'img' => base_url('/public/img/konfigurasi/logo/' . esc($konfigurasi->logo)),
+            'konfigurasi' => $konfigurasi,
+            'mainmenu' => $this->menu->mainmenu(),
+            'footer' => $this->menu->footermenu(),
+            'topmenu' => $this->menu->topmenu(),
+            'video' => $video->paginate(6, 'hal'),
+            'pager' => $video->pager,
             'kategori_video' => $this->kategorivideo->orderBy('kategorivideo_id', 'ASC')->findAll(),
-            'jum'           => $this->video->totvideo(),
-            'banner'        => $this->banner->list(),
-            'infografis'    => $this->banner->listinfo(),
-            'infografis1'   => $this->banner->listinfo1(),
-            'agenda'        => $this->agenda->listagendapage()->paginate(4),
-            'foto'          => $this->foto->listfotopage()->paginate(6),
-            'section'       => $this->section->list(),
-            'linkterkaitall'    => $this->linkterkait->publishlinkall(),
-            'infografis10'    => $this->banner->listinfopage()->paginate(10),
-            'kategori'      => $this->kategori->list(),
-            'grafisrandom'         => $this->banner->grafisrandom(),
-            'folder'        => $template['folder']
+            'jum' => $this->video->totvideo(),
+            'banner' => $this->banner->list(),
+            'infografis' => $this->banner->listinfo(),
+            'infografis1' => $this->banner->listinfo1(),
+            'agenda' => $this->agenda->listagendapage()->paginate(4),
+            'foto' => $this->foto->listfotopage()->paginate(6),
+            'section' => $this->section->list(),
+            'linkterkaitall' => $this->linkterkait->publishlinkall(),
+            'infografis10' => $this->banner->listinfopage()->paginate(10),
+            'kategori' => $this->kategori->list(),
+            'grafisrandom' => $this->banner->grafisrandom(),
+            
 
         ];
-        if ($template['duatema'] == 1) {
+        if (0) {
             $agent = $this->request->getUserAgent();
             if ($agent->isMobile()) {
-                return view('frontend/' . $template['folder'] . '/mobile/' . 'content/semua_video', $data);
+                return view('frontend/desktop/' . 'content/semua_video', $data);
             } else {
-                return view('frontend/' . $template['folder'] . '/desktop/' . 'content/semua_video', $data);
+                return view('frontend/desktop/' . 'content/semua_video', $data);
             }
         } else {
-            return view('frontend/' . $template['folder'] . '/desktop/' . 'content/semua_video', $data);
+            return view('frontend/desktop/' . 'content/semua_video', $data);
         }
     }
     public function all()
@@ -52,14 +52,14 @@ class Video extends BaseController
         if (!session()->get('id')) {
             return redirect()->to('');
         }
-        $tadmin             = $this->template->tempadminaktif();
+        
 
         $data = [
-            'title'       => 'Galeri',
-            'subtitle'    => 'Video',
-            'folder'      => esc($tadmin['folder']),
+            'title' => 'Galeri',
+            'subtitle' => 'Video',
+
         ];
-        return view('backend/' . esc($tadmin['folder']) . '/' . 'galeri/video/index', $data);
+        return view('backend/' . 'galeri/video/index', $data);
     }
 
     public function getdata($id = null)
@@ -72,7 +72,7 @@ class Video extends BaseController
         $id_grup = session()->get('id_grup');
         $id = session()->get('id');
         $url = 'video/all';
-        $tadmin = $this->template->tempadminaktif();
+        
 
         // Ambil grup akses berdasarkan id_grup dan url
         $listgrupf = $this->grupakses->viewgrupakses($id_grup, $url);
@@ -103,7 +103,7 @@ class Video extends BaseController
 
                 // Siapkan respon data
                 $msg = [
-                    'data' => view('backend/' . esc($tadmin['folder']) . '/galeri/video/list', $data),
+                    'data' => view('backend/galeri/video/list', $data),
                 ];
             } else {
                 // Jika tidak ada akses
@@ -124,14 +124,14 @@ class Video extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            $tadmin = $this->template->tempadminaktif();
+            
 
             $data = [
                 'title' => 'Tambah Video',
                 'kategori' => $this->kategorivideo->orderBy('kategorivideo_id', 'ASC')->findAll()
             ];
             $msg = [
-                'data'     => view('backend/' . esc($tadmin['folder']) . '/' . 'galeri/video/tambah', $data),
+                'data' => view('backend/' . 'galeri/video/tambah', $data),
 
             ];
             echo json_encode($msg);
@@ -172,11 +172,11 @@ class Video extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'judul'           => $validation->getError('judul'),
+                        'judul' => $validation->getError('judul'),
                         'video_link' => $validation->getError('video_link'),
                         'kategorivideo_id' => $validation->getError('kategorivideo_id'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             } else {
 
@@ -188,9 +188,9 @@ class Video extends BaseController
                 // cek role video
                 $id_grup = session()->get('id_grup');
                 $urlget = 'video/all';
-                $listgrupf =  $this->grupakses->listgrupakses($id_grup, $urlget);
+                $listgrupf = $this->grupakses->listgrupakses($id_grup, $urlget);
 
-                foreach ($listgrupf as $data) :
+                foreach ($listgrupf as $data):
                     $akses = $data['akses'];
                 endforeach;
 
@@ -206,19 +206,19 @@ class Video extends BaseController
                     }
                 }
                 $insertdata = [
-                    'judul'             => $this->request->getVar('judul'),
-                    'kategorivideo_id'  => $this->request->getVar('kategorivideo_id'),
-                    'video_link'        => $this->request->getVar('video_link'),
-                    'tanggal'           => date('Y-m-d'),
-                    'id'                => $userid,
-                    'sts_v'             => $stspos,
-                    'ket_video'   => $this->request->getVar('ket_video'),
+                    'judul' => $this->request->getVar('judul'),
+                    'kategorivideo_id' => $this->request->getVar('kategorivideo_id'),
+                    'video_link' => $this->request->getVar('video_link'),
+                    'tanggal' => date('Y-m-d'),
+                    'id' => $userid,
+                    'sts_v' => $stspos,
+                    'ket_video' => $this->request->getVar('ket_video'),
                 ];
 
                 $this->video->insert($insertdata);
                 $msg = [
-                    'sukses'                => 'Video berhasil diupload!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Video berhasil diupload!',
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -232,22 +232,22 @@ class Video extends BaseController
         }
         if ($this->request->isAJAX()) {
             $video_id = $this->request->getVar('video_id');
-            $list =  $this->video->find($video_id);
-            $tadmin             = $this->template->tempadminaktif();
+            $list = $this->video->find($video_id);
+            
 
             $data = [
-                'title'       => 'Edit Galeri Video',
-                'video_id'    => $list['video_id'],
-                'judul'         => $list['judul'],
-                'video_link'      => $list['video_link'],
-                'kategorivideo_id'    => $list['kategorivideo_id'],
-                'ket_video'      => $list['ket_video'],
+                'title' => 'Edit Galeri Video',
+                'video_id' => $list['video_id'],
+                'judul' => $list['judul'],
+                'video_link' => $list['video_link'],
+                'kategorivideo_id' => $list['kategorivideo_id'],
+                'ket_video' => $list['ket_video'],
                 'kategorivideo' => $this->kategorivideo->list(),
 
             ];
             $msg = [
-                'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'galeri/video/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/' . 'galeri/video/edit', $data),
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -292,20 +292,20 @@ class Video extends BaseController
                         'video_link' => $validation->getError('video_link'),
                         'kategorivideo_id' => $validation->getError('kategorivideo_id')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             } else {
 
                 $updatedata = [
-                    'judul'   => $this->request->getVar('judul'),
-                    'kategorivideo_id'   => $this->request->getVar('kategorivideo_id'),
-                    'video_link'   => $this->request->getVar('video_link'),
-                    'ket_video'   => $this->request->getVar('ket_video'),
+                    'judul' => $this->request->getVar('judul'),
+                    'kategorivideo_id' => $this->request->getVar('kategorivideo_id'),
+                    'video_link' => $this->request->getVar('video_link'),
+                    'ket_video' => $this->request->getVar('ket_video'),
                 ];
                 $this->video->update($video_id, $updatedata);
                 $msg = [
-                    'sukses'                => 'Data berhasil diubah!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Data berhasil diubah!',
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -319,15 +319,15 @@ class Video extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            $tadmin = $this->template->tempadminaktif();
+            
 
             $data = [
                 'title' => 'Tambah Video',
                 'kategori' => $this->kategorivideo->orderBy('kategorivideo_id', 'ASC')->findAll()
             ];
             $msg = [
-                'data'                  => view('backend/' . esc($tadmin['folder']) . '/' . 'galeri/video/formmultiadd', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'data' => view('backend/' . 'galeri/video/formmultiadd', $data),
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -368,18 +368,18 @@ class Video extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'judul'       => $validation->getError('judul'),
-                        'video_link'  => $validation->getError('video_link'),
-                        'kategorivideo_id'  => $validation->getError('kategorivideo_id')
+                        'judul' => $validation->getError('judul'),
+                        'video_link' => $validation->getError('video_link'),
+                        'kategorivideo_id' => $validation->getError('kategorivideo_id')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             } else {
 
-                $judul  = $this->request->getVar('judul');
-                $video_link  = $this->request->getVar('video_link');
-                $ket_video  = $this->request->getVar('ket_video');
-                $kategorivideo_id  = $this->request->getVar('kategorivideo_id');
+                $judul = $this->request->getVar('judul');
+                $video_link = $this->request->getVar('video_link');
+                $ket_video = $this->request->getVar('ket_video');
+                $kategorivideo_id = $this->request->getVar('kategorivideo_id');
                 $userid = session()->get('id');
                 $video_id = $this->request->getVar('video_id');
 
@@ -390,9 +390,9 @@ class Video extends BaseController
                 // cek role video
                 $id_grup = session()->get('id_grup');
                 $urlget = 'video/all';
-                $listgrupf =  $this->grupakses->listgrupakses($id_grup, $urlget);
+                $listgrupf = $this->grupakses->listgrupakses($id_grup, $urlget);
 
-                foreach ($listgrupf as $data) :
+                foreach ($listgrupf as $data):
                     $akses = $data['akses'];
                 endforeach;
 
@@ -411,26 +411,26 @@ class Video extends BaseController
                 for ($i = 0; $i < $jdata; $i++) {
 
                     $insertdata = [
-                        'judul'             => $judul[$i],
-                        'video_link'        => $video_link[$i],
-                        'kategorivideo_id'  => $kategorivideo_id[$i],
-                        'tanggal'           => date('Y-m-d'),
-                        'id'                => $userid,
-                        'sts_v'             => $stspos,
-                        'ket_video'        => $ket_video,
+                        'judul' => $judul[$i],
+                        'video_link' => $video_link[$i],
+                        'kategorivideo_id' => $kategorivideo_id[$i],
+                        'tanggal' => date('Y-m-d'),
+                        'id' => $userid,
+                        'sts_v' => $stspos,
+                        'ket_video' => $ket_video,
                     ];
 
                     $this->video->insert($insertdata);
 
                     $msg = [
-                        'sukses'                => "$jdata Video berhasil ditambahkan !",
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'sukses' => "$jdata Video berhasil ditambahkan !",
+                        'csrf_tokencmsdatagoe' => csrf_hash(),
                     ];
                 }
 
                 $msg = [
-                    'sukses'                => 'Data berhasil disimpan!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Data berhasil disimpan!',
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -449,7 +449,7 @@ class Video extends BaseController
             $this->video->delete($video_id);
             $msg = [
                 'sukses' => 'Data berhasil dihapus!',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -468,8 +468,8 @@ class Video extends BaseController
                 $this->video->delete($video_id[$i]);
             }
             $msg = [
-                'sukses'                => "$jmldata video berhasil dihapus",
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => "$jmldata video berhasil dihapus",
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -482,17 +482,17 @@ class Video extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            $id     = $this->request->getVar('video_id');
-            $cari   = $this->video->find($id);
+            $id = $this->request->getVar('video_id');
+            $cari = $this->video->find($id);
 
-            $sts    = $cari['sts_v'] == '1' ? 0 : 1;
+            $sts = $cari['sts_v'] == '1' ? 0 : 1;
             $stsket = $sts ? 'Berhasil Aktifkan!' : 'Berhasil Non Aktifkan!';
 
             $this->video->update($id, ['sts_v' => $sts]);
 
             echo json_encode([
-                'sukses'                => $stsket,
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => $stsket,
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ]);
         }
     }
@@ -503,13 +503,13 @@ class Video extends BaseController
         if (!session()->get('id')) {
             return redirect()->to('');
         }
-        $tadmin = $this->template->tempadminaktif();
+        
         $data = [
-            'title'       => 'Galeri - Video',
-            'subtitle'    => 'Kategori',
-            'folder'      => esc($tadmin['folder']),
+            'title' => 'Galeri - Video',
+            'subtitle' => 'Kategori',
+
         ];
-        return view('backend/' . esc($tadmin['folder']) . '/' . 'galeri/video/kategorivideo/index', $data);
+        return view('backend/' . 'galeri/video/kategorivideo/index', $data);
     }
 
     public function getkategori()
@@ -521,7 +521,7 @@ class Video extends BaseController
 
         $id_grup = session()->get('id_grup');
         $url = 'video/all';
-        $tadmin = $this->template->tempadminaktif();
+        
 
         // Ambil grup akses berdasarkan id_grup dan url
         $listgrupf = $this->grupakses->viewgrupakses($id_grup, $url);
@@ -543,7 +543,7 @@ class Video extends BaseController
 
                 // Siapkan respons dengan data
                 $msg = [
-                    'data' => view('backend/' . esc($tadmin['folder']) . '/galeri/video/kategorivideo/list', $data),
+                    'data' => view('backend/galeri/video/kategorivideo/list', $data),
                 ];
             } else {
                 // Jika tidak ada akses yang sesuai
@@ -568,11 +568,11 @@ class Video extends BaseController
                 'title' => 'Tambah Kategori',
                 // 'csrf_tokencmsdatagoe'  => csrf_hash(),
             ];
-            $tadmin = $this->template->tempadminaktif();
+            
 
             $msg = [
-                'data'                  => view('backend/' . esc($tadmin['folder']) . '/' . 'galeri/video/kategorivideo/tambah', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'data' => view('backend/' . 'galeri/video/kategorivideo/tambah', $data),
+                'csrf_tokencmsdatagoe' => csrf_hash(),
 
             ];
             echo json_encode($msg);
@@ -601,7 +601,7 @@ class Video extends BaseController
                     'error' => [
                         'nama_kategori_video' => $validation->getError('nama_kategori_video'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             } else {
                 $simpandata = [
@@ -612,8 +612,8 @@ class Video extends BaseController
 
                 $this->kategorivideo->insert($simpandata);
                 $msg = [
-                    'sukses'                => 'Data berhasil disimpan',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Data berhasil disimpan',
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -627,17 +627,17 @@ class Video extends BaseController
         }
         if ($this->request->isAJAX()) {
             $kategorivideo_id = $this->request->getVar('kategorivideo_id');
-            $list =  $this->kategorivideo->find($kategorivideo_id);
-            $tadmin = $this->template->tempadminaktif();
+            $list = $this->kategorivideo->find($kategorivideo_id);
+            
             $data = [
-                'title'           => 'Edit Kategori',
-                'kategorivideo_id'     => $list['kategorivideo_id'],
-                'nama_kategori_video'   => $list['nama_kategori_video'],
+                'title' => 'Edit Kategori',
+                'kategorivideo_id' => $list['kategorivideo_id'],
+                'nama_kategori_video' => $list['nama_kategori_video'],
 
             ];
             $msg = [
-                'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'galeri/video/kategorivideo/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/' . 'galeri/video/kategorivideo/edit', $data),
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -664,7 +664,7 @@ class Video extends BaseController
                     'error' => [
                         'nama_kategori_video' => $validation->getError('nama_kategori_video'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             } else {
                 $updatedata = [
@@ -675,8 +675,8 @@ class Video extends BaseController
                 $kategorivideo_id = $this->request->getVar('kategorivideo_id');
                 $this->kategorivideo->update($kategorivideo_id, $updatedata);
                 $msg = [
-                    'sukses'                => 'Data berhasil diupdate',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Data berhasil diupdate',
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -694,8 +694,8 @@ class Video extends BaseController
 
             $this->kategorivideo->delete($kategorivideo_id);
             $msg = [
-                'sukses'                => 'Kategori Berhasil Dihapus',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => 'Kategori Berhasil Dihapus',
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -706,10 +706,11 @@ class Video extends BaseController
     //Detail berita front end
     public function detail($video_id = null)
     {
-        if (!isset($video_id)) return redirect()->to('/home#video');
+        if (!isset($video_id))
+            return redirect()->to('/home#video');
 
-        $konfigurasi    = $this->konfigurasi->vkonfig();
-        $template = $this->template->tempaktif();
+        $konfigurasi = $this->konfigurasi->vkonfig();
+        
 
         $video = $this->video->detail_video($video_id);
         $videolain = $this->video->videolainnya($video_id);
@@ -719,41 +720,41 @@ class Video extends BaseController
 
             // Update hits
             $data = [
-                'hits'        => $video->hits + 1
+                'hits' => $video->hits + 1
             ];
             $this->video->update($video->video_id, $data);
 
             $data = [
-                'title'          => $video->judul,
-                'deskripsi'      => $video->ket_video,
-                'url'           => base_url('video/detail/' . $video->video_id),
-                'img'           => 'https://img.youtube.com/vi/' . $video->video_link . '/mqdefault.jpg',
-                'konfigurasi'    => $konfigurasi,
-                'video'         => $video,
+                'title' => $video->judul,
+                'deskripsi' => $video->ket_video,
+                'url' => base_url('video/detail/' . $video->video_id),
+                'img' => 'https://img.youtube.com/vi/' . $video->video_link . '/mqdefault.jpg',
+                'konfigurasi' => $konfigurasi,
+                'video' => $video,
                 'beritapopuler' => $this->berita->populer()->paginate(8),
-                'videolain'     => $videolain,
-                'kategori'       => $this->kategorivideo->orderBy('kategorivideo_id', 'ASC')->findAll(),
-                'mainmenu'       => $this->menu->mainmenu(),
-                'footer'         => $this->menu->footermenu(),
-                'topmenu'        => $this->menu->topmenu(),
-                'banner'         => $this->banner->list(),
-                'infografis'     => $this->banner->listinfo(),
-                'infografis1'    => $this->banner->listinfo1(),
-                'agenda'         => $this->agenda->listagendapage()->paginate(4),
-                'linkterkaitall'    => $this->linkterkait->publishlinkall(),
-                'grafisrandom'         => $this->banner->grafisrandom(),
-                'folder'        => $template['folder'],
+                'videolain' => $videolain,
+                'kategori' => $this->kategorivideo->orderBy('kategorivideo_id', 'ASC')->findAll(),
+                'mainmenu' => $this->menu->mainmenu(),
+                'footer' => $this->menu->footermenu(),
+                'topmenu' => $this->menu->topmenu(),
+                'banner' => $this->banner->list(),
+                'infografis' => $this->banner->listinfo(),
+                'infografis1' => $this->banner->listinfo1(),
+                'agenda' => $this->agenda->listagendapage()->paginate(4),
+                'linkterkaitall' => $this->linkterkait->publishlinkall(),
+                'grafisrandom' => $this->banner->grafisrandom(),
+                
 
             ];
-            if ($template['duatema'] == 1) {
+            if (0) {
                 $agent = $this->request->getUserAgent();
                 if ($agent->isMobile()) {
-                    return view('frontend/' . $template['folder'] . '/mobile/' . 'content/detailvideo', $data);
+                    return view('frontend/desktop/' . 'content/detailvideo', $data);
                 } else {
-                    return view('frontend/' . $template['folder'] . '/desktop/' . 'content/detailvideo', $data);
+                    return view('frontend/desktop/' . 'content/detailvideo', $data);
                 }
             } else {
-                return view('frontend/' . $template['folder'] . '/desktop/' . 'content/detailvideo', $data);
+                return view('frontend/desktop/' . 'content/detailvideo', $data);
             }
             // return view('' . $template['folder'] . '/' . 'content/detailvideo', $data);
         } else {
@@ -767,16 +768,16 @@ class Video extends BaseController
     {
         if ($this->request->isAJAX()) {
             $video_id = $this->request->getVar('video_id');
-            $cari =  $this->video->find($video_id);
+            $cari = $this->video->find($video_id);
             $postlike = $cari['likevideo'];
             $data = [
-                'likevideo'        => $postlike + 1,
+                'likevideo' => $postlike + 1,
             ];
             $this->video->update($video_id, $data);
 
             $msg = [
-                'sukses'                => 'Anda menyukai video ini',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => 'Anda menyukai video ini',
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ];
 
             echo json_encode($msg);

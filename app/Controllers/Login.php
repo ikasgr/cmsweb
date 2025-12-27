@@ -19,37 +19,37 @@ class Login extends BaseController
         if (session('login')) {
             return redirect()->to(base_url('dashboard'));
         }
-        $konfigurasi        = $this->konfigurasi->vkonfig();
+        $konfigurasi = $this->konfigurasi->vkonfig();
 
-        $tadmin = $this->template->tempadminaktif();
+
         $data = [
-            'title'         => 'Login',
-            'konfigurasi'   => $konfigurasi,
-            'folder'        => esc($tadmin['folder']),
-            'sitekey'       => $konfigurasi->g_sitekey,
+            'title' => 'Login',
+            'konfigurasi' => $konfigurasi,
+
+            'sitekey' => $konfigurasi->g_sitekey,
         ];
 
-        $db      = \Config\Database::connect();
+        $db = \Config\Database::connect();
         $builder = $db->table('users');
 
-        $offkan = ['sts_on'      => '0'];
+        $offkan = ['sts_on' => '0'];
 
         $builder->update($offkan, "sts_on != 'x'");
 
-        return view('backend/' . esc($tadmin['folder']) . '/' . 'auth/v_login_user', $data);
+        return view('backend/auth/v_login_user', $data);
     }
 
 
     public function validasi()
     {
         if ($this->request->isAJAX()) {
-            $username          = esc($this->request->getVar('username'));
-            $password_hash     = esc($this->request->getVar('password_hash'));
-            $otp_input         = esc($this->request->getVar('otp')); // Input OTP
+            $username = esc($this->request->getVar('username'));
+            $password_hash = esc($this->request->getVar('password_hash'));
+            $otp_input = esc($this->request->getVar('otp')); // Input OTP
             $recaptchaResponse = trim($this->request->getVar('g-recaptcha-response'));
-            $session           = session();
-            $validation        = \Config\Services::validation();
-            $db                = \Config\Database::connect();
+            $session = session();
+            $validation = \Config\Services::validation();
+            $db = \Config\Database::connect();
 
             // Validasi input username dan password
             $isValidInput = $this->validate([
@@ -68,25 +68,25 @@ class Login extends BaseController
             if (!$isValidInput) {
                 echo json_encode([
                     'error' => [
-                        'username'      => $validation->getError('username'),
+                        'username' => $validation->getError('username'),
                         'password_hash' => $validation->getError('password_hash'),
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ]);
                 return;
             }
 
             // Konfigurasi reCAPTCHA
-            $konfigurasi   = $this->konfigurasi->vkonfig();
-            $secretkey     = esc($konfigurasi->google_secret);
-            $g_sitekey     = esc($konfigurasi->g_sitekey);
+            $konfigurasi = $this->konfigurasi->vkonfig();
+            $secretkey = esc($konfigurasi->google_secret);
+            $g_sitekey = esc($konfigurasi->g_sitekey);
 
             // Validasi reCAPTCHA hanya jika belum ada OTP
             if ($secretkey && $g_sitekey && empty($otp_input)) {
                 if (!$this->validateRecaptcha($recaptchaResponse, $secretkey)) {
                     echo json_encode([
-                        'gagalcap'          => 'Validasi reCAPTCHA gagal. Silakan coba lagi!',
-                        'csrf_tokencmsdatagoe' => csrf_hash(),
+                        'gagalcap' => 'Validasi reCAPTCHA gagal. Silakan coba lagi!',
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ]);
                     return;
                 }
@@ -98,19 +98,19 @@ class Login extends BaseController
             if (!$user) {
                 echo json_encode([
                     'error' => ['username' => 'Username/Password salah!'],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ]);
                 return;
             }
 
-            $builder     = $db->table('cms__usersessions');
+            $builder = $db->table('cms__usersessions');
             $sessionData = $builder->where('user_id', $user['id'])->get()->getRow();
 
             if ($sessionData) {
                 // Jika session ditemukan, berarti pengguna sudah login di lokasi lain
                 echo json_encode([
-                    'sumasuk'              => 'Pengguna sudah login di lokasi lain!',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'sumasuk' => 'Pengguna sudah login di lokasi lain!',
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ]);
                 return;
             }
@@ -118,16 +118,16 @@ class Login extends BaseController
             // Periksa status aktif
             if ($user['active'] != 1) {
                 echo json_encode([
-                    'nonactive'              => 'Status akun Anda tidak aktif, silakan hubungi admin!',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'nonactive' => 'Status akun Anda tidak aktif, silakan hubungi admin!',
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ]);
                 return;
             }
 
             // Konfigurasi OTP
             $otp_akses = esc($konfigurasi->otp_akses);
-            $otpCode   = rand(100000, 999999);
-            $title     = 'Kode OTP Login - ' . esc($konfigurasi->nama);
+            $otpCode = rand(100000, 999999);
+            $title = 'Kode OTP Login - ' . esc($konfigurasi->nama);
 
             // Validasi password jika OTP belum diinput
             if (empty($otp_input) && !password_verify($password_hash, $user['password_hash'])) {
@@ -141,28 +141,28 @@ class Login extends BaseController
                         $emailContent = $this->generateOtpEmail($otpCode, base_url('/public/img/konfigurasi/logo/' . esc($konfigurasi->logo)), esc($konfigurasi->nama), esc($konfigurasi->no_telp));
                         if (sendEmail($user['email'], $title, $emailContent)) {
                             echo json_encode([
-                                'otp_needed'           => 'Kode OTP telah dikirim ke email Anda.',
-                                'csrf_tokencmsdatagoe' => csrf_hash(),
+                                'otp_needed' => 'Kode OTP telah dikirim ke email Anda.',
+                                'csrf_tokencmsikasmedia' => csrf_hash(),
                             ]);
                         } else {
                             echo json_encode([
-                                'emailerr'             => 'Gagal mengirim kode OTP ke email!',
-                                'csrf_tokencmsdatagoe' => csrf_hash(),
+                                'emailerr' => 'Gagal mengirim kode OTP ke email!',
+                                'csrf_tokencmsikasmedia' => csrf_hash(),
                             ]);
                         }
                         return;
                     }
 
                     echo json_encode([
-                        'usahalebih'            => 'Terlalu banyak upaya login. Coba lagi nanti!',
-                        'csrf_tokencmsdatagoe' => csrf_hash(),
+                        'usahalebih' => 'Terlalu banyak upaya login. Coba lagi nanti!',
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ]);
                     return;
                 }
 
                 echo json_encode([
                     'error' => ['password_hash' => 'Username/Password salah!'],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ]);
                 return;
             }
@@ -171,8 +171,8 @@ class Login extends BaseController
             if ($otp_akses == 1 && !empty($otp_input)) {
                 if ($otp_input !== $user['otp_code']) {
                     echo json_encode([
-                        'otpsalah'             => 'Kode OTP salah!',
-                        'csrf_tokencmsdatagoe' => csrf_hash(),
+                        'otpsalah' => 'Kode OTP salah!',
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ]);
                     return;
                 }
@@ -197,19 +197,19 @@ class Login extends BaseController
 
         // Set session data setelah login
         $simpan_session = [
-            'login'         => true,
-            'id'            => $user['id'],
-            'username'      => $user['username'],
-            'fullname'      => esc($user['fullname']),
-            'user_image'    => esc($user['user_image']),
-            'id_grup'       => esc($user['id_grup']),
-            'setweb'        => 'https://cms.datagoe.com/',
-            'session_id'    => session_id(),
+            'login' => true,
+            'id' => $user['id'],
+            'username' => $user['username'],
+            'fullname' => esc($user['fullname']),
+            'user_image' => esc($user['user_image']),
+            'id_grup' => esc($user['id_grup']),
+            'setweb' => 'https://cms.datagoe.com/',
+            'session_id' => session_id(),
         ];
         $session->set($simpan_session);
 
         echo json_encode([
-            'sukses' => ['csrf_tokencmsdatagoe' => csrf_hash()],
+            'sukses' => ['csrf_tokencmsikasmedia' => csrf_hash()],
         ]);
     }
 
@@ -218,12 +218,12 @@ class Login extends BaseController
     {
         if ($this->request->isAJAX()) {
             // Ambil data input
-            $username      = esc($this->request->getVar('username'));
+            $username = esc($this->request->getVar('username'));
             $password_hash = esc($this->request->getVar('password_hash'));
-            $otp_input     = esc($this->request->getVar('otp')); // Input OTP
-            $session       = session();
-            $validation    = \Config\Services::validation();
-            $db            = \Config\Database::connect();
+            $otp_input = esc($this->request->getVar('otp')); // Input OTP
+            $session = session();
+            $validation = \Config\Services::validation();
+            $db = \Config\Database::connect();
 
             // Validasi input username dan password
             $isValidInput = $this->validate([
@@ -246,10 +246,10 @@ class Login extends BaseController
             if (!$isValidInput) {
                 echo json_encode([
                     'error' => [
-                        'username'      => $validation->getError('username'),
+                        'username' => $validation->getError('username'),
                         'password_hash' => $validation->getError('password_hash'),
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ]);
                 return;
             }
@@ -262,30 +262,30 @@ class Login extends BaseController
                     'error' => [
                         'username' => 'Username/Password salah!',
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ]);
                 return;
             }
 
             // Cek apakah pengguna sudah login di lokasi lain
-            $konfigurasi        = $this->konfigurasi->vkonfig();
-            $secretkey          = esc($konfigurasi->google_secret);  // reCAPTCHA secret key
-            $g_sitekey          = esc($konfigurasi->g_sitekey);    // reCAPTCHA site key
-            $otp_akses          = esc($konfigurasi->otp_akses);    // Apakah OTP diaktifkan
-            $img                = base_url('/public/img/konfigurasi/logo/' . esc($konfigurasi->logo));
-            $namaweb            = esc($konfigurasi->nama);
-            $noHpSupport        = esc($konfigurasi->no_telp);
-            $sessionId          = session_id();
-            $otpCode            = rand(100000, 999999);
-            $title              = 'Kode OTP Login - ' . esc($konfigurasi->nama);
-            $builder            = $db->table('cms__usersessions');
+            $konfigurasi = $this->konfigurasi->vkonfig();
+            $secretkey = esc($konfigurasi->google_secret);  // reCAPTCHA secret key
+            $g_sitekey = esc($konfigurasi->g_sitekey);    // reCAPTCHA site key
+            $otp_akses = esc($konfigurasi->otp_akses);    // Apakah OTP diaktifkan
+            $img = base_url('/public/img/konfigurasi/logo/' . esc($konfigurasi->logo));
+            $namaweb = esc($konfigurasi->nama);
+            $noHpSupport = esc($konfigurasi->no_telp);
+            $sessionId = session_id();
+            $otpCode = rand(100000, 999999);
+            $title = 'Kode OTP Login - ' . esc($konfigurasi->nama);
+            $builder = $db->table('cms__usersessions');
             $sessionData = $builder->where('user_id', $user['id'])->get()->getRow();
 
             if ($sessionData) {
                 // Jika session ditemukan, berarti pengguna sudah login di lokasi lain
                 echo json_encode([
-                    'sumasuk'              => 'Pengguna sudah login di lokasi lain!',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'sumasuk' => 'Pengguna sudah login di lokasi lain!',
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ]);
                 return;
             }
@@ -295,15 +295,15 @@ class Login extends BaseController
                 $this->user->update($user['id'], ['login_attempts' => $user['login_attempts'] + 1]);
                 if ($user['login_attempts'] >= 2) {
                     echo json_encode([
-                        'usahalebih'            => 'Terlalu banyak upaya login. Coba lagi nanti!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'usahalebih' => 'Terlalu banyak upaya login. Coba lagi nanti!',
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ]);
                 } else {
                     echo json_encode([
                         'error' => [
                             'password_hash' => 'Username/Password salah!',
                         ],
-                        'csrf_tokencmsdatagoe' => csrf_hash(),
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ]);
                 }
                 return;
@@ -318,7 +318,7 @@ class Login extends BaseController
                     'error' => [
                         'nonactive' => 'Status akun Anda tidak aktif, silakan hubungi admin!',
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ]);
                 return;
             }
@@ -341,13 +341,13 @@ class Login extends BaseController
                     // Kirim OTP via email
                     if (sendEmail($user['email'], $title, $emailContent)) {
                         echo json_encode([
-                            'otp_needed'           => 'Kode OTP telah dikirim ke email Anda. Masukkan kode OTP.',
-                            'csrf_tokencmsdatagoe' => csrf_hash(),
+                            'otp_needed' => 'Kode OTP telah dikirim ke email Anda. Masukkan kode OTP.',
+                            'csrf_tokencmsikasmedia' => csrf_hash(),
                         ]);
                     } else {
                         echo json_encode([
-                            'emailerr'             => 'Gagal mengirim kode OTP ke email!',
-                            'csrf_tokencmsdatagoe' => csrf_hash(),
+                            'emailerr' => 'Gagal mengirim kode OTP ke email!',
+                            'csrf_tokencmsikasmedia' => csrf_hash(),
                         ]);
                     }
                     return; // Hentikan eksekusi jika OTP perlu diverifikasi
@@ -356,8 +356,8 @@ class Login extends BaseController
                 // Jika OTP telah ada, periksa input OTP pengguna
                 if ($otp_input !== $user['otp_code']) {
                     echo json_encode([
-                        'otpsalah'             => 'Kode OTP salah!',
-                        'csrf_tokencmsdatagoe' => csrf_hash(),
+                        'otpsalah' => 'Kode OTP salah!',
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ]);
                     return;
                 }
@@ -370,8 +370,8 @@ class Login extends BaseController
                 $recaptchaResponse = trim($this->request->getVar('g-recaptcha-response'));
                 if (!$this->validateRecaptcha($recaptchaResponse, $secretkey)) {
                     echo json_encode([
-                        'gagalcap'             => 'Validasi reCAPTCHA gagal. Silakan coba lagi.',
-                        'csrf_tokencmsdatagoe' => csrf_hash(),
+                        'gagalcap' => 'Validasi reCAPTCHA gagal. Silakan coba lagi.',
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ]);
                     return;
                 }
@@ -380,29 +380,29 @@ class Login extends BaseController
             // Regenerate session ID untuk menghindari session fixation
             $session->regenerate();
             // Set session data setelah login
-            $sessionId          = session_id();
+            $sessionId = session_id();
             $data = [
-                'last_login'     => date('Y-m-d H:i:s'),
-                'sts_on'         => '1',
+                'last_login' => date('Y-m-d H:i:s'),
+                'sts_on' => '1',
                 'login_attempts' => 0,
             ];
             $this->user->update($user['id'], $data); // Update data user di database
 
             // Simpan session data
             $simpan_session = [
-                'login'         => true,
-                'id'            => $user['id'],
-                'username'      => $username,
-                'fullname'      => esc($user['fullname']),
-                'user_image'    => esc($user['user_image']),
-                'id_grup'       => esc($user['id_grup']),
-                'setweb'        => 'https://cms.datagoe.com/',
-                'session_id'    => $sessionId,
+                'login' => true,
+                'id' => $user['id'],
+                'username' => $username,
+                'fullname' => esc($user['fullname']),
+                'user_image' => esc($user['user_image']),
+                'id_grup' => esc($user['id_grup']),
+                'setweb' => 'https://cms.datagoe.com/',
+                'session_id' => $sessionId,
             ];
             $session->set($simpan_session); // Menyimpan session data
 
             echo json_encode([
-                'sukses' => ['csrf_tokencmsdatagoe' => csrf_hash()],
+                'sukses' => ['csrf_tokencmsikasmedia' => csrf_hash()],
             ]);
         }
     }
@@ -496,9 +496,9 @@ class Login extends BaseController
 
             // Kirimkan respons JSON
             $data = [
-                'respond'               => 'success',
-                'message'               => 'Anda berhasil Keluar..!',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'respond' => 'success',
+                'message' => 'Anda berhasil Keluar..!',
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             return $this->response->setJSON($data);
         }
@@ -510,20 +510,20 @@ class Login extends BaseController
         if (session('login')) {
             return redirect()->to(base_url('dashboard'));
         }
-        $tadmin = $this->template->tempadminaktif();
+
         $data = [
-            'title'                 => 'Lupa Password',
-            'folder'                => esc($tadmin['folder']),
-            'csrf_tokencmsdatagoe'  => csrf_hash(),
+            'title' => 'Lupa Password',
+
+            'csrf_tokencmsikasmedia' => csrf_hash(),
         ];
 
-        return view('backend/' . esc($tadmin['folder']) . '/' . 'auth/v_forgot', $data);
+        return view('backend/auth/v_forgot', $data);
     }
 
     public function proseslupa()
     {
         if ($this->request->isAJAX()) {
-            $email      = htmlspecialchars($this->request->getVar('email'));
+            $email = htmlspecialchars($this->request->getVar('email'));
             $validation = \Config\Services::validation();
 
             $valid = $this->validate([
@@ -542,7 +542,7 @@ class Login extends BaseController
                     'error' => [
                         'email' => $validation->getError('email'),
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 $session = session();
@@ -556,7 +556,7 @@ class Login extends BaseController
                         if (!empty($user['reset_expires']) && $user['reset_expires'] >= time()) {
                             $session->regenerate();
                             $msg = [
-                                'resetexpair' => ['csrf_tokencmsdatagoe' => csrf_hash()],
+                                'resetexpair' => ['csrf_tokencmsikasmedia' => csrf_hash()],
                             ];
                         } else {
                             // Regenerasi sesi dan buat token reset baru
@@ -569,15 +569,15 @@ class Login extends BaseController
                                 'reset_expires' => time() + HOUR,
                             ];
                             $this->user->update($user_id, $updatedata);
-                            $konfigurasi        = $this->konfigurasi->vkonfig();
-                            $img                = base_url('/public/img/konfigurasi/logo/' . esc($konfigurasi->logo));
-                            $namaweb            = esc($konfigurasi->nama);
-                            $noHpSupport        = esc($konfigurasi->no_telp);
+                            $konfigurasi = $this->konfigurasi->vkonfig();
+                            $img = base_url('/public/img/konfigurasi/logo/' . esc($konfigurasi->logo));
+                            $namaweb = esc($konfigurasi->nama);
+                            $noHpSupport = esc($konfigurasi->no_telp);
                             # Persiapkan isi email
 
                             # new template
-                            $balas      = base_url('resetpassword?token=' . $reshas);
-                            $title      = 'Reset Password Login -' . $namaweb;
+                            $balas = base_url('resetpassword?token=' . $reshas);
+                            $title = 'Reset Password Login -' . $namaweb;
 
                             $pesanbalas = '
                             <!DOCTYPE html>
@@ -653,8 +653,8 @@ class Login extends BaseController
                             } else {
                                 $msg = [
                                     'error' => [
-                                        'email'                 => 'Gagal mengirim email!',
-                                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                                        'email' => 'Gagal mengirim email!',
+                                        'csrf_tokencmsikasmedia' => csrf_hash(),
                                     ]
                                 ];
                             }
@@ -663,7 +663,7 @@ class Login extends BaseController
                         $msg = [
                             'error' => [
                                 'password_hash' => 'Password salah!',
-                                'csrf_tokencmsdatagoe' => csrf_hash(),
+                                'csrf_tokencmsikasmedia' => csrf_hash(),
                             ]
                         ];
                     }
@@ -672,7 +672,7 @@ class Login extends BaseController
                     $msg = [
                         'wrongemail' => [
                             'wrongemail' => 'Email tidak ditemukan!',
-                            'csrf_tokencmsdatagoe' => csrf_hash(),
+                            'csrf_tokencmsikasmedia' => csrf_hash(),
                         ]
                     ];
                 }
@@ -685,9 +685,9 @@ class Login extends BaseController
     public function resetpassword()
     {
 
-        $users  = new ModelUser();
-        $token  = $this->request->getGet('token');
-        $tadmin = $this->template->tempadminaktif();
+        $users = new ModelUser();
+        $token = $this->request->getGet('token');
+
         $user = $users->where('reset_hash', $token)
             ->where('reset_expires >', time())
             ->first();
@@ -695,10 +695,10 @@ class Login extends BaseController
             return redirect()->to(base_url('login'));
         }
         $data = [
-            'token'                 => $token,
-            'folder'                => esc($tadmin['folder']),
+            'token' => $token,
+
         ];
-        return view('backend/' . esc($tadmin['folder']) . '/' . 'auth/v_reset', $data);
+        return view('backend/auth/v_reset', $data);
     }
 
 
@@ -713,10 +713,10 @@ class Login extends BaseController
                     'label' => 'Password',
                     'rules' => 'required|min_length[10]|max_length[20]|regex_match[/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/]',
                     'errors' => [
-                        'required'      => '{field} tidak boleh kosong!',
-                        'min_length'    => 'Masukkan {field} minimal 10 Karakter!',
-                        'max_length'    => 'Masukkan {field} maksimal 20 Karakter!',
-                        'regex_match'   => '{field} sangat lemah ',
+                        'required' => '{field} tidak boleh kosong!',
+                        'min_length' => 'Masukkan {field} minimal 10 Karakter!',
+                        'max_length' => 'Masukkan {field} maksimal 20 Karakter!',
+                        'regex_match' => '{field} sangat lemah ',
                     ]
                 ],
                 'password_confirm' => [
@@ -730,15 +730,15 @@ class Login extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'password'          => $validation->getError('password'),
+                        'password' => $validation->getError('password'),
                         'password_confirm' => $validation->getError('password_confirm'),
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
-                $users      = new ModelUser();
-                $session    = session();
+                $users = new ModelUser();
+                $session = session();
 
                 $user = $users->where('reset_hash', $this->request->getVar('token'))
                     ->where('reset_expires >', time())->first();
@@ -753,10 +753,10 @@ class Login extends BaseController
                     $user_id = $user['id'];
 
                     $updatedata = [
-                        'reset_hash'            => null,
-                        'reset_expires'         => null,
-                        'password_hash'         => (password_hash($this->request->getVar('password_confirm'), PASSWORD_BCRYPT)),
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'reset_hash' => null,
+                        'reset_expires' => null,
+                        'password_hash' => (password_hash($this->request->getVar('password_confirm'), PASSWORD_BCRYPT)),
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
 
                     $this->user->update($user_id, $updatedata);
@@ -775,14 +775,14 @@ class Login extends BaseController
         if (session('login')) {
             return redirect()->to(base_url('dashboard'));
         }
-        $konfigurasi        = $this->konfigurasi->vkonfig();
-        $sts                = $konfigurasi->sts_regis;
-        $konopd             = $konfigurasi->konek_opd;
-        $tadmin             = $this->template->tempadminaktif();
+        $konfigurasi = $this->konfigurasi->vkonfig();
+        $sts = $konfigurasi->sts_regis;
+        $konopd = $konfigurasi->konek_opd;
+
         if ($konopd == 1) {
-            $opd            = $this->unitkerja->listopd();
+            $opd = $this->unitkerja->listopd();
         } else {
-            $opd            = '';
+            $opd = '';
         }
 
         if ($sts == 0) {
@@ -790,16 +790,16 @@ class Login extends BaseController
         }
 
         $data = [
-            'title'                 => 'Registrasi Pengguna',
-            'opd'                   => $opd,
-            'konfigurasi'           => $konfigurasi,
-            'sitekey'               => $konfigurasi->g_sitekey,
-            'csrf_tokencmsdatagoe'  => csrf_hash(),
-            'folder'                => esc($tadmin['folder']),
+            'title' => 'Registrasi Pengguna',
+            'opd' => $opd,
+            'konfigurasi' => $konfigurasi,
+            'sitekey' => $konfigurasi->g_sitekey,
+            'csrf_tokencmsikasmedia' => csrf_hash(),
+
 
         ];
 
-        return view('backend/' . esc($tadmin['folder']) . '/' . 'auth/v_registrasi', $data);
+        return view('backend/auth/v_registrasi', $data);
     }
 
     # proses simpan daftar akun
@@ -814,8 +814,8 @@ class Login extends BaseController
                     'label' => 'Username',
                     'rules' => 'required|is_unique[users.username]|max_length[15]',
                     'errors' => [
-                        'required'   => '{field} tidak boleh kosong!',
-                        'is_unique'  => '{field} tidak valid!',
+                        'required' => '{field} tidak boleh kosong!',
+                        'is_unique' => '{field} tidak valid!',
                         'max_length' => 'Masukkan {field} maksimal 15 Karakter!',
                     ],
                 ],
@@ -823,7 +823,7 @@ class Login extends BaseController
                     'label' => 'Nama Lengkap',
                     'rules' => 'required|max_length[15]',
                     'errors' => [
-                        'required'   => '{field} tidak boleh kosong!',
+                        'required' => '{field} tidak boleh kosong!',
                         'max_length' => 'Masukkan {field} maksimal 15 Karakter!',
                     ],
                 ],
@@ -831,18 +831,18 @@ class Login extends BaseController
                     'label' => 'Email',
                     'rules' => 'required|valid_email|is_unique[users.email]',
                     'errors' => [
-                        'required'    => '{field} tidak boleh kosong!',
+                        'required' => '{field} tidak boleh kosong!',
                         'valid_email' => 'Masukkan {field} dengan benar!',
-                        'is_unique'   => '{field} tidak diijinkan, Silahkan ganti..!',
+                        'is_unique' => '{field} tidak diijinkan, Silahkan ganti..!',
                     ],
                 ],
                 'password' => [
                     'label' => 'Password',
                     'rules' => 'required|min_length[10]|max_length[20]|regex_match[/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/]',
                     'errors' => [
-                        'required'    => '{field} tidak boleh kosong!',
-                        'min_length'  => 'Masukkan {field} minimal 10 Karakter!',
-                        'max_length'  => 'Masukkan {field} maksimal 20 Karakter!',
+                        'required' => '{field} tidak boleh kosong!',
+                        'min_length' => 'Masukkan {field} minimal 10 Karakter!',
+                        'max_length' => 'Masukkan {field} maksimal 20 Karakter!',
                         'regex_match' => '{field} sangat lemah',
                     ],
                 ],
@@ -858,7 +858,7 @@ class Login extends BaseController
                     'rules' => 'max_size[user_image,1024]|mime_in[user_image,image/png,image/jpg,image/jpeg,image/gif]|is_image[user_image]',
                     'errors' => [
                         'max_size' => 'Ukuran {field} Maksimal 1024 KB..!!',
-                        'mime_in'  => 'Format file {field} PNG, Jpeg, Jpg, atau Gif..!!',
+                        'mime_in' => 'Format file {field} PNG, Jpeg, Jpg, atau Gif..!!',
                     ],
                 ],
             ]);
@@ -868,24 +868,24 @@ class Login extends BaseController
             }
 
             // Konfigurasi
-            $config     = $this->konfigurasi->orderBy('id_setaplikasi')->first();
-            $konopd     = esc($config['konek_opd']);
-            $id_grup    = $config['id_grup'];
-            $secretkey  = esc($config['google_secret']);
-            $g_sitekey  = esc($config['g_sitekey']);
+            $config = $this->konfigurasi->orderBy('id_setaplikasi')->first();
+            $konopd = esc($config['konek_opd']);
+            $id_grup = $config['id_grup'];
+            $secretkey = esc($config['google_secret']);
+            $g_sitekey = esc($config['g_sitekey']);
 
             // Data input
-            $filegambar     = $this->request->getFile('user_image');
-            $nama_file      = $filegambar->isValid() ? $filegambar->getRandomName() : 'default.png';
+            $filegambar = $this->request->getFile('user_image');
+            $nama_file = $filegambar->isValid() ? $filegambar->getRandomName() : 'default.png';
             $data = [
-                'username'       => htmlspecialchars($this->request->getVar('username')),
-                'email'          => htmlspecialchars($this->request->getVar('email')),
-                'password_hash'  => password_hash($this->request->getVar('password_confirm'), PASSWORD_BCRYPT),
-                'fullname'       => htmlspecialchars($this->request->getVar('fullname')),
-                'opd_id'         => ($konopd == 1) ? $this->request->getVar('opd_id') : 0,
-                'id_grup'        => $id_grup,
-                'user_image'     => $nama_file,
-                'active'         => 0,
+                'username' => htmlspecialchars($this->request->getVar('username')),
+                'email' => htmlspecialchars($this->request->getVar('email')),
+                'password_hash' => password_hash($this->request->getVar('password_confirm'), PASSWORD_BCRYPT),
+                'fullname' => htmlspecialchars($this->request->getVar('fullname')),
+                'opd_id' => ($konopd == 1) ? $this->request->getVar('opd_id') : 0,
+                'id_grup' => $id_grup,
+                'user_image' => $nama_file,
+                'active' => 0,
                 'login_attempts' => 0,
             ];
 
@@ -911,22 +911,22 @@ class Login extends BaseController
     {
         return json_encode([
             'error' => [
-                'username'          => $validation->getError('username'),
-                'fullname'          => $validation->getError('fullname'),
-                'email'             => $validation->getError('email'),
-                'password'          => $validation->getError('password'),
-                'password_confirm'  => $validation->getError('password_confirm'),
-                'user_image'        => $validation->getError('user_image'),
+                'username' => $validation->getError('username'),
+                'fullname' => $validation->getError('fullname'),
+                'email' => $validation->getError('email'),
+                'password' => $validation->getError('password'),
+                'password_confirm' => $validation->getError('password_confirm'),
+                'user_image' => $validation->getError('user_image'),
             ],
-            'csrf_tokencmsdatagoe' => csrf_hash(),
+            'csrf_tokencmsikasmedia' => csrf_hash(),
         ]);
     }
 
     private function respondRecaptchaError()
     {
         return json_encode([
-            'gagalcap'              => 'Gagal Daftar Silahkan periksa Kembali!',
-            'csrf_tokencmsdatagoe'  => csrf_hash(),
+            'gagalcap' => 'Gagal Daftar Silahkan periksa Kembali!',
+            'csrf_tokencmsikasmedia' => csrf_hash(),
         ]);
     }
 

@@ -9,45 +9,45 @@ class Fasilitas extends BaseController
 {
 	public function index()
 	{
-		$konfigurasi        = $this->konfigurasi->vkonfig();
-		$template = $this->template->tempaktif();
+		$konfigurasi = $this->konfigurasi->vkonfig();
+		
 		$fasilitasutm = $this->fasilitas->getutama();
 		$fasilitas = $this->fasilitas->listfasilitaspage();
 
 		$data = [
-			'title'         => 'Fasilitas ' . esc($konfigurasi->nama),
-			'deskripsi'     => esc($konfigurasi->deskripsi),
-			'url'           => esc($konfigurasi->website),
-			'img'           => base_url('/public/img/konfigurasi/logo/' . esc($konfigurasi->logo)),
-			'konfigurasi'   => $konfigurasi,
-			'mainmenu'      => $this->menu->mainmenu(),
-			'footer'        => $this->menu->footermenu(),
-			'topmenu'       => $this->menu->topmenu(),
-			'fasilitasutm'  => $fasilitasutm,
+			'title' => 'Fasilitas ' . esc($konfigurasi->nama),
+			'deskripsi' => esc($konfigurasi->deskripsi),
+			'url' => esc($konfigurasi->website),
+			'img' => base_url('/public/img/konfigurasi/logo/' . esc($konfigurasi->logo)),
+			'konfigurasi' => $konfigurasi,
+			'mainmenu' => $this->menu->mainmenu(),
+			'footer' => $this->menu->footermenu(),
+			'topmenu' => $this->menu->topmenu(),
+			'fasilitasutm' => $fasilitasutm,
 
-			'fasilitas'     => $fasilitas->paginate(12, 'hal'),
-			'pager'         => $fasilitas->pager,
+			'fasilitas' => $fasilitas->paginate(12, 'hal'),
+			'pager' => $fasilitas->pager,
 
 			// 'jumpg'         => 12,
-			'jumpg'         => $this->fasilitasdetail->jumfas(),
-			'banner'        => $this->banner->list(),
-			'infografis'    => $this->banner->listinfo(),
-			'infografis1'   => $this->banner->listinfo1(),
-			'agenda'        => $this->agenda->listagendapage()->paginate(4),
-			'section'       => $this->section->list(),
-			'linkterkaitall'    => $this->linkterkait->publishlinkall(),
-			'folder'        => $template['folder']
+			'jumpg' => $this->fasilitasdetail->jumfas(),
+			'banner' => $this->banner->list(),
+			'infografis' => $this->banner->listinfo(),
+			'infografis1' => $this->banner->listinfo1(),
+			'agenda' => $this->agenda->listagendapage()->paginate(4),
+			'section' => $this->section->list(),
+			'linkterkaitall' => $this->linkterkait->publishlinkall(),
+			
 
 		];
-		if ($template['duatema'] == 1) {
+		if (0) {
 			$agent = $this->request->getUserAgent();
 			if ($agent->isMobile()) {
-				return view('frontend/' . $template['folder'] . '/mobile/' . 'content/fasilitas', $data);
+				return view('frontend/desktop/' . 'content/fasilitas', $data);
 			} else {
-				return view('frontend/' . $template['folder'] . '/desktop/' . 'content/fasilitas', $data);
+				return view('frontend/desktop/' . 'content/fasilitas', $data);
 			}
 		} else {
-			return view('frontend/' . $template['folder'] . '/desktop/' . 'content/fasilitas', $data);
+			return view('frontend/desktop/' . 'content/fasilitas', $data);
 		}
 	}
 
@@ -79,53 +79,54 @@ class Fasilitas extends BaseController
 
 			// Kirim respons JSON
 			echo json_encode([
-				'sukses'                => $stsket,
-				'csrf_tokencmsdatagoe'  => csrf_hash(),
+				'sukses' => $stsket,
+				'csrf_tokencmsdatagoe' => csrf_hash(),
 			]);
 		}
 	}
 	//Detail front end
 	public function det($fasilitas_id = null)
 	{
-		if (!isset($fasilitas_id)) return redirect()->to('/fasilitas');
+		if (!isset($fasilitas_id))
+			return redirect()->to('/fasilitas');
 
-		$konfigurasi        = $this->konfigurasi->vkonfig();
-		$template = $this->template->tempaktif();
-		$detfasilitas =  $this->fasilitasdetail->list($fasilitas_id);
+		$konfigurasi = $this->konfigurasi->vkonfig();
+		
+		$detfasilitas = $this->fasilitasdetail->list($fasilitas_id);
 
 		$kategori = $this->kategori->list();
 
 		if ($detfasilitas) {
 
 			$data = [
-				'title'         => 'Fasilitas ' . esc($konfigurasi->nama),
-				'deskripsi'     => esc($konfigurasi->deskripsi),
-				'url'           => esc($konfigurasi->website),
-				'img'           => base_url('/public/img/konfigurasi/logo/' . esc($konfigurasi->logo)),
-				'konfigurasi'   => $konfigurasi,
-				'detfasilitas'   => $detfasilitas,
+				'title' => 'Fasilitas ' . esc($konfigurasi->nama),
+				'deskripsi' => esc($konfigurasi->deskripsi),
+				'url' => esc($konfigurasi->website),
+				'img' => base_url('/public/img/konfigurasi/logo/' . esc($konfigurasi->logo)),
+				'konfigurasi' => $konfigurasi,
+				'detfasilitas' => $detfasilitas,
 				'beritapopuler' => $this->berita->populer()->paginate(8),
-				'kategori'       => $kategori,
-				'mainmenu'       => $this->menu->mainmenu(),
-				'footer'         => $this->menu->footermenu(),
-				'topmenu'        => $this->menu->topmenu(),
-				'banner'         => $this->banner->list(),
-				'infografis'     => $this->banner->listinfo(),
-				'infografis1'    => $this->banner->listinfo1(),
-				'agenda'         => $this->agenda->listagendapage()->paginate(4),
-				'linkterkaitall'    => $this->linkterkait->publishlinkall(),
-				'folder'        => $template['folder'],
+				'kategori' => $kategori,
+				'mainmenu' => $this->menu->mainmenu(),
+				'footer' => $this->menu->footermenu(),
+				'topmenu' => $this->menu->topmenu(),
+				'banner' => $this->banner->list(),
+				'infografis' => $this->banner->listinfo(),
+				'infografis1' => $this->banner->listinfo1(),
+				'agenda' => $this->agenda->listagendapage()->paginate(4),
+				'linkterkaitall' => $this->linkterkait->publishlinkall(),
+				
 
 			];
-			if ($template['duatema'] == 1) {
+			if (0) {
 				$agent = $this->request->getUserAgent();
 				if ($agent->isMobile()) {
-					return view('frontend/' . $template['folder'] . '/mobile/' . 'content/fasilitas_detail', $data);
+					return view('frontend/desktop/' . 'content/fasilitas_detail', $data);
 				} else {
-					return view('frontend/' . $template['folder'] . '/desktop/' . 'content/fasilitas_detail', $data);
+					return view('frontend/desktop/' . 'content/fasilitas_detail', $data);
 				}
 			} else {
-				return view('frontend/' . $template['folder'] . '/desktop/' . 'content/fasilitas_detail', $data);
+				return view('frontend/desktop/' . 'content/fasilitas_detail', $data);
 			}
 		} else {
 			return redirect()->to('/fasilitas');
@@ -137,13 +138,13 @@ class Fasilitas extends BaseController
 		if (!session()->get('id')) {
 			return redirect()->to('');
 		}
-		$tadmin 			= $this->template->tempadminaktif();
+		
 		$data = [
-			'title'       => 'Fasilitas',
-			'subtitle'    => 'Lembaga',
-			'folder'      => $tadmin['folder'],
+			'title' => 'Fasilitas',
+			'subtitle' => 'Lembaga',
+
 		];
-		return view('backend/' . $tadmin['folder'] . '/' . 'lembaga/fasilitas/index', $data);
+		return view('backend/lembaga/fasilitas/index', $data);
 	}
 
 	public function getdata()
@@ -181,7 +182,7 @@ class Fasilitas extends BaseController
 		$list = $this->fasilitas->list();
 
 		// Ambil template admin aktif
-		$tadmin = $this->template->tempadminaktif();
+		
 
 		// Siapkan data untuk tampilan
 		$data = [
@@ -195,7 +196,7 @@ class Fasilitas extends BaseController
 
 		// Siapkan respons JSON dengan data tampilan
 		$msg = [
-			'data' => view('backend/' . esc($tadmin['folder']) . '/lembaga/fasilitas/list', $data)
+			'data' => view('backend/lembaga/fasilitas/list', $data)
 		];
 
 		echo json_encode($msg);
@@ -208,13 +209,13 @@ class Fasilitas extends BaseController
 		}
 		if ($this->request->isAJAX()) {
 			$data = [
-				'title' 				=> 'Tambah Data',
+				'title' => 'Tambah Data',
 				// 'csrf_tokencmsdatagoe'  => csrf_hash(),
 			];
-			$tadmin 	= $this->template->tempadminaktif();
+			
 
 			$msg = [
-				'data' => view('backend/' . $tadmin['folder'] . '/' . 'lembaga/fasilitas/tambah', $data)
+				'data' => view('backend/lembaga/fasilitas/tambah', $data)
 
 			];
 			echo json_encode($msg);
@@ -254,10 +255,10 @@ class Fasilitas extends BaseController
 			if (!$valid) {
 				$msg = [
 					'error' => [
-						'fasilitas'  => $validation->getError('fasilitas'),
-						'cover_foto'          => $validation->getError('cover_foto'),
+						'fasilitas' => $validation->getError('fasilitas'),
+						'cover_foto' => $validation->getError('cover_foto'),
 					],
-					'csrf_tokencmsdatagoe'  => csrf_hash(),
+					'csrf_tokencmsdatagoe' => csrf_hash(),
 				];
 				echo json_encode($msg);
 			} else {
@@ -271,27 +272,27 @@ class Fasilitas extends BaseController
 
 					$insertdata = [
 						'fasilitas' => $this->request->getVar('fasilitas'),
-						'ket'                => $this->request->getVar('ket'),
-						'lokasi'                => $this->request->getVar('lokasi'),
-						'cover_foto'         => 'default.png',
+						'ket' => $this->request->getVar('ket'),
+						'lokasi' => $this->request->getVar('lokasi'),
+						'cover_foto' => 'default.png',
 
 					];
 
 					$this->fasilitas->insert($insertdata);
 
 					$msg = [
-						'sukses' 				=> 'Kategori foto berhasil disimpan!',
-						'csrf_tokencmsdatagoe'  => csrf_hash(),
+						'sukses' => 'Kategori foto berhasil disimpan!',
+						'csrf_tokencmsdatagoe' => csrf_hash(),
 					];
 				} else {
 
 					$insertdata = [
 
-						'fasilitas'  => $this->request->getVar('fasilitas'),
-						'slug_kategori_foto'   => mb_url_title($this->request->getVar('fasilitas'), '-', TRUE),
-						'ket'                => $this->request->getVar('ket'),
-						'lokasi'                => $this->request->getVar('lokasi'),
-						'cover_foto'        => $nama_file,
+						'fasilitas' => $this->request->getVar('fasilitas'),
+						'slug_kategori_foto' => mb_url_title($this->request->getVar('fasilitas'), '-', TRUE),
+						'ket' => $this->request->getVar('ket'),
+						'lokasi' => $this->request->getVar('lokasi'),
+						'cover_foto' => $nama_file,
 
 					];
 
@@ -301,8 +302,8 @@ class Fasilitas extends BaseController
 						->withFile($filegambar)
 						->save('public/img/informasi/fasilitas/' . $nama_file, 70);
 					$msg = [
-						'sukses' 				=> 'Fasilitas berhasil disimpan!',
-						'csrf_tokencmsdatagoe'  => csrf_hash(),
+						'sukses' => 'Fasilitas berhasil disimpan!',
+						'csrf_tokencmsdatagoe' => csrf_hash(),
 					];
 				}
 				echo json_encode($msg);
@@ -317,18 +318,18 @@ class Fasilitas extends BaseController
 		}
 		if ($this->request->isAJAX()) {
 			$id = $this->request->getVar('fasilitas_id');
-			$list =  $this->fasilitas->find($id);
-			$tadmin 			= $this->template->tempadminaktif();
+			$list = $this->fasilitas->find($id);
+			
 
 			$data = [
-				'title'       => 'Ganti Cover',
-				'id'          => $list['fasilitas_id'],
-				'cover_foto'  => $list['cover_foto']
+				'title' => 'Ganti Cover',
+				'id' => $list['fasilitas_id'],
+				'cover_foto' => $list['cover_foto']
 
 			];
 			$msg = [
-				'sukses' 				=> view('backend/' . $tadmin['folder'] . '/' . 'lembaga/fasilitas/gantifoto', $data),
-				'csrf_tokencmsdatagoe'  => csrf_hash(),
+				'sukses' => view('backend/lembaga/fasilitas/gantifoto', $data),
+				'csrf_tokencmsdatagoe' => csrf_hash(),
 
 			];
 			echo json_encode($msg);
@@ -362,7 +363,7 @@ class Fasilitas extends BaseController
 					'error' => [
 						'cover_foto' => $validation->getError('cover_foto')
 					],
-					'csrf_tokencmsdatagoe'  => csrf_hash(),
+					'csrf_tokencmsdatagoe' => csrf_hash(),
 				];
 			} else {
 
@@ -387,8 +388,8 @@ class Fasilitas extends BaseController
 					->withFile($filegambar)
 					->save('public/img/informasi/fasilitas/' . $nama_file, 70);
 				$msg = [
-					'sukses'				=> 'Cover berhasil diganti!',
-					'csrf_tokencmsdatagoe'  => csrf_hash(),
+					'sukses' => 'Cover berhasil diganti!',
+					'csrf_tokencmsdatagoe' => csrf_hash(),
 				];
 			}
 			echo json_encode($msg);
@@ -402,19 +403,19 @@ class Fasilitas extends BaseController
 		}
 		if ($this->request->isAJAX()) {
 			$fasilitas_id = $this->request->getVar('fasilitas_id');
-			$list =  $this->fasilitas->find($fasilitas_id);
-			$tadmin 			= $this->template->tempadminaktif();
+			$list = $this->fasilitas->find($fasilitas_id);
+			
 
 			$data = [
-				'title'               => 'Edit Data',
-				'fasilitas_id'        => $list['fasilitas_id'],
-				'fasilitas'           => $list['fasilitas'],
-				'ket'                 => $list['ket'],
-				'lokasi'              => $list['lokasi'],
+				'title' => 'Edit Data',
+				'fasilitas_id' => $list['fasilitas_id'],
+				'fasilitas' => $list['fasilitas'],
+				'ket' => $list['ket'],
+				'lokasi' => $list['lokasi'],
 			];
 			$msg = [
-				'sukses' 				=> view('backend/' . $tadmin['folder'] . '/' . 'lembaga/fasilitas/edit', $data),
-				'csrf_tokencmsdatagoe'  => csrf_hash(),
+				'sukses' => view('backend/lembaga/fasilitas/edit', $data),
+				'csrf_tokencmsdatagoe' => csrf_hash(),
 
 			];
 			echo json_encode($msg);
@@ -444,21 +445,21 @@ class Fasilitas extends BaseController
 						'fasilitas' => $validation->getError('fasilitas'),
 
 					],
-					'csrf_tokencmsdatagoe'  => csrf_hash(),
+					'csrf_tokencmsdatagoe' => csrf_hash(),
 				];
 			} else {
 				$updatedata = [
-					'fasilitas'  => $this->request->getVar('fasilitas'),
-					'ket'        => $this->request->getVar('ket'),
-					'lokasi'        => $this->request->getVar('lokasi'),
+					'fasilitas' => $this->request->getVar('fasilitas'),
+					'ket' => $this->request->getVar('ket'),
+					'lokasi' => $this->request->getVar('lokasi'),
 
 				];
 
 				$fasilitas_id = $this->request->getVar('fasilitas_id');
 				$this->fasilitas->update($fasilitas_id, $updatedata);
 				$msg = [
-					'sukses' 				=> 'Data berhasil diupdate',
-					'csrf_tokencmsdatagoe'  => csrf_hash(),
+					'sukses' => 'Data berhasil diupdate',
+					'csrf_tokencmsdatagoe' => csrf_hash(),
 				];
 			}
 			echo json_encode($msg);
@@ -478,14 +479,14 @@ class Fasilitas extends BaseController
 			$cekdata = $this->fasilitas->find($fasilitas_id);
 			$fotolama = $cekdata['cover_foto'];
 
-			if ($fotolama != 'default.png'  && file_exists('public/img/informasi/fasilitas/' . $fotolama)) {
+			if ($fotolama != 'default.png' && file_exists('public/img/informasi/fasilitas/' . $fotolama)) {
 				unlink('public/img/informasi/fasilitas/' . $fotolama);
 			}
 
 			$this->fasilitas->delete($fasilitas_id);
 			$msg = [
-				'sukses' 				=> 'Data Berhasil Dihapus',
-				'csrf_tokencmsdatagoe'  => csrf_hash(),
+				'sukses' => 'Data Berhasil Dihapus',
+				'csrf_tokencmsdatagoe' => csrf_hash(),
 			];
 
 			echo json_encode($msg);
@@ -503,22 +504,22 @@ class Fasilitas extends BaseController
 
 			return redirect()->to(base_url('fasilitas/list'));
 		}
-		$tadmin 			= $this->template->tempadminaktif();
+		
 
-		$list =  $this->fasilitasdetail->list($fasilitas_id);
+		$list = $this->fasilitasdetail->list($fasilitas_id);
 		$data = [
-			'title'     	=> 'Fasilitas',
-			'subtitle'  	=> 'Detail',
-			'fasilitas_id' 	=> $fasilitas_id,
-			'list' 			=> $list,
-			'folder'    =>  $tadmin['folder'],
+			'title' => 'Fasilitas',
+			'subtitle' => 'Detail',
+			'fasilitas_id' => $fasilitas_id,
+			'list' => $list,
+
 
 		];
-		return view('backend/' . $tadmin['folder'] . '/' . 'lembaga/fasilitas/detail/index', $data);
+		return view('backend/lembaga/fasilitas/detail/index', $data);
 	}
 
 	// get data
-	
+
 	public function detailajx()
 	{
 		// Cek apakah session ada dan request adalah AJAX
@@ -560,7 +561,7 @@ class Fasilitas extends BaseController
 		$list = $this->fasilitasdetail->list($fasilitas_id);
 
 		// Ambil template admin aktif
-		$tadmin = $this->template->tempadminaktif();
+		
 
 		// Siapkan data untuk tampilan
 		$data = [
@@ -574,7 +575,7 @@ class Fasilitas extends BaseController
 
 		// Siapkan respons JSON dengan data tampilan
 		$msg = [
-			'data' => view('backend/' . esc($tadmin['folder']) . '/lembaga/fasilitas/detail/list', $data)
+			'data' => view('backend/lembaga/fasilitas/detail/list', $data)
 		];
 
 		echo json_encode($msg);
@@ -587,14 +588,14 @@ class Fasilitas extends BaseController
 			return redirect()->to('');
 		}
 		if ($this->request->isAJAX()) {
-			$tadmin 			= $this->template->tempadminaktif();
+			
 
 			$data = [
 				'title' => 'Tambah Item',
 				'fasilitas_id' => $this->request->getVar('fasilitas_id'),
 			];
 			$msg = [
-				'data' => view('backend/' . $tadmin['folder'] . '/' . 'lembaga/fasilitas/detail/tambah', $data)
+				'data' => view('backend/lembaga/fasilitas/detail/tambah', $data)
 
 			];
 			echo json_encode($msg);
@@ -632,10 +633,10 @@ class Fasilitas extends BaseController
 			if (!$valid) {
 				$msg = [
 					'error' => [
-						'deskripsi'       => $validation->getError('deskripsi'),
-						'gambar'          => $validation->getError('gambar')
+						'deskripsi' => $validation->getError('deskripsi'),
+						'gambar' => $validation->getError('gambar')
 					],
-					'csrf_tokencmsdatagoe'  => csrf_hash(),
+					'csrf_tokencmsdatagoe' => csrf_hash(),
 				];
 			} else {
 
@@ -644,9 +645,9 @@ class Fasilitas extends BaseController
 
 				$nama_file = $filegambar->getRandomName();
 				$insertdata = [
-					'deskripsi'        => $this->request->getVar('deskripsi'),
-					'fasilitas_id'     => $this->request->getVar('fasilitas_id'),
-					'gambar'           => $nama_file,
+					'deskripsi' => $this->request->getVar('deskripsi'),
+					'fasilitas_id' => $this->request->getVar('fasilitas_id'),
+					'gambar' => $nama_file,
 
 				];
 
@@ -658,7 +659,7 @@ class Fasilitas extends BaseController
 					->save('public/img/informasi/fasilitas/detail/' . $nama_file, 70);
 				$msg = [
 					'sukses' => 'Data berhasil disimpan!',
-					'csrf_tokencmsdatagoe'  => csrf_hash(),
+					'csrf_tokencmsdatagoe' => csrf_hash(),
 				];
 			}
 			echo json_encode($msg);
@@ -672,18 +673,18 @@ class Fasilitas extends BaseController
 		}
 		if ($this->request->isAJAX()) {
 			$fasilitasdetail_id = $this->request->getVar('fasilitasdetail_id');
-			$list =  $this->fasilitasdetail->find($fasilitasdetail_id);
-			$tadmin = $this->template->tempadminaktif();
+			$list = $this->fasilitasdetail->find($fasilitasdetail_id);
+			
 			$data = [
-				'title'       => 'Edit Data',
-				'fasilitasdetail_id'   => $list['fasilitasdetail_id'],
-				'deskripsi'         => $list['deskripsi'],
-				'gambar'      => $list['gambar'],
+				'title' => 'Edit Data',
+				'fasilitasdetail_id' => $list['fasilitasdetail_id'],
+				'deskripsi' => $list['deskripsi'],
+				'gambar' => $list['gambar'],
 				'kategorifoto' => $this->kategorifoto->list()
 			];
 			$msg = [
-				'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'lembaga/fasilitas/detail/edit', $data),
-				'csrf_tokencmsdatagoe'  => csrf_hash(),
+				'sukses' => view('backend/lembaga/fasilitas/detail/edit', $data),
+				'csrf_tokencmsdatagoe' => csrf_hash(),
 			];
 			echo json_encode($msg);
 		}
@@ -725,7 +726,7 @@ class Fasilitas extends BaseController
 						'deskripsi' => $validation->getError('deskripsi'),
 						'gambar' => $validation->getError('gambar')
 					],
-					'csrf_tokencmsdatagoe'  => csrf_hash(),
+					'csrf_tokencmsdatagoe' => csrf_hash(),
 				];
 			} else {
 				$filegambar = $this->request->getFile('gambar');
@@ -733,26 +734,26 @@ class Fasilitas extends BaseController
 				//jika edit saja
 				if ($filegambar->GetError() == 4) {
 					$data = [
-						'deskripsi'   => $this->request->getVar('deskripsi'),
+						'deskripsi' => $this->request->getVar('deskripsi'),
 
 					];
 
 					$this->fasilitasdetail->update($fasilitasdetail_id, $data);
 					$msg = [
 						'sukses' => 'Data berhasil diubah!',
-						'csrf_tokencmsdatagoe'  => csrf_hash(),
+						'csrf_tokencmsdatagoe' => csrf_hash(),
 					];
 				} else {
 
 					//check
 					$cekdata = $this->fasilitasdetail->find($fasilitasdetail_id);
 					$fotolama = $cekdata['gambar'];
-					if ($fotolama != ''  && file_exists('public/img/informasi/fasilitas/detail/' . $fotolama)) {
+					if ($fotolama != '' && file_exists('public/img/informasi/fasilitas/detail/' . $fotolama)) {
 						unlink('public/img/informasi/fasilitas/detail/' . $fotolama);
 					}
 
 					$updatedata = [
-						'deskripsi'   => $this->request->getVar('deskripsi'),
+						'deskripsi' => $this->request->getVar('deskripsi'),
 						'gambar' => $nama_file
 					];
 
@@ -765,7 +766,7 @@ class Fasilitas extends BaseController
 
 					$msg = [
 						'sukses' => 'Data berhasil diubah!',
-						'csrf_tokencmsdatagoe'  => csrf_hash(),
+						'csrf_tokencmsdatagoe' => csrf_hash(),
 					];
 				}
 			}
@@ -784,14 +785,14 @@ class Fasilitas extends BaseController
 			//check
 			$cekdata = $this->fasilitasdetail->find($fasilitasdetail_id);
 			$fotolama = $cekdata['gambar'];
-			if ($fotolama != ''  && file_exists('public/img/informasi/fasilitas/detail/' . $fotolama)) {
+			if ($fotolama != '' && file_exists('public/img/informasi/fasilitas/detail/' . $fotolama)) {
 				unlink('public/img/informasi/fasilitas/detail/' . $fotolama);
 				// unlink('public/img/galeri/foto/thumb/' . 'thumb_' . $fotolama);
 			}
 			$this->fasilitasdetail->delete($fasilitasdetail_id);
 			$msg = [
 				'sukses' => 'Data berhasil dihapus!',
-				'csrf_tokencmsdatagoe'  => csrf_hash(),
+				'csrf_tokencmsdatagoe' => csrf_hash(),
 			];
 
 			echo json_encode($msg);
@@ -818,8 +819,8 @@ class Fasilitas extends BaseController
 			}
 
 			$msg = [
-				'sukses' 				=> "$jmldata foto berhasil dihapus",
-				'csrf_tokencmsdatagoe'  => csrf_hash(),
+				'sukses' => "$jmldata foto berhasil dihapus",
+				'csrf_tokencmsdatagoe' => csrf_hash(),
 			];
 			echo json_encode($msg);
 		}

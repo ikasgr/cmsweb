@@ -10,14 +10,14 @@ class Menu extends BaseController
         if (!session()->get('id')) {
             return redirect()->to('');
         }
-        $tadmin             = $this->template->tempadminaktif();
+
 
         $data = [
-            'title'         => 'Setting',
-            'subtitle'      => 'Menu',
-            'folder'        => esc($tadmin['folder']),
+            'title' => 'Setting',
+            'subtitle' => 'Menu',
+
         ];
-        return view('backend/' . esc($tadmin['folder']) . '/' . 'pengaturan/menu/index', $data);
+        return view('backend/' . 'pengaturan/menu/index', $data);
     }
 
     public function getmenu()
@@ -31,7 +31,7 @@ class Menu extends BaseController
         $id_grup = session()->get('id_grup');
         $url = 'menu';
         $posisi = $this->request->getVar('posisimn');
-        $tadmin = $this->template->tempadminaktif();
+
 
         // Ambil grup akses berdasarkan id_grup dan url
         $listgrupf = $this->grupakses->viewgrupakses($id_grup, $url);
@@ -70,8 +70,8 @@ class Menu extends BaseController
 
         // Siapkan respons JSON dengan data dan CSRF token
         $msg = [
-            'data' => view('backend/' . esc($tadmin['folder']) . '/pengaturan/menu/list', $data),
-            'csrf_tokencmsdatagoe' => csrf_hash(),
+            'data' => view('backend/pengaturan/menu/list', $data),
+            'csrf_tokencmsikasmedia' => csrf_hash(),
         ];
 
         echo json_encode($msg);
@@ -85,15 +85,15 @@ class Menu extends BaseController
         }
         if ($this->request->isAJAX()) {
             $data = [
-                'title'             => 'Tambah Menu',
-                'kategoriberita'    => $this->kategori->list(),
-                'halaman'           => $this->berita->listhalaman(),
-                'modulpublic'       => $this->modulpublic->listaktif(),
+                'title' => 'Tambah Menu',
+                'kategoriberita' => $this->kategori->list(),
+                'halaman' => $this->berita->listhalaman(),
+                'modulpublic' => $this->modulpublic->listaktif(),
             ];
-            $tadmin             = $this->template->tempadminaktif();
+
 
             $msg = [
-                'data' => view('backend/' . esc($tadmin['folder']) . '/' . 'pengaturan/menu/tambah', $data)
+                'data' => view('backend/' . 'pengaturan/menu/tambah', $data)
             ];
             echo json_encode($msg);
         }
@@ -114,9 +114,9 @@ class Menu extends BaseController
                     'label' => 'Nama Menu',
                     'rules' => 'required|is_unique[menu.nama_menu]|max_length[20]',
                     'errors' => [
-                        'required'      => '{field} tidak boleh kosong',
-                        'is_unique'     => '{field} tidak boleh sama',
-                        'max_length'    => 'Masukkan {field} maksimal 20 karakter!',
+                        'required' => '{field} tidak boleh kosong',
+                        'is_unique' => '{field} tidak boleh sama',
+                        'max_length' => 'Masukkan {field} maksimal 20 karakter!',
                     ]
                 ],
                 'menu_link' => [
@@ -138,19 +138,19 @@ class Menu extends BaseController
             // Jika validasi gagal
             if (!$valid) {
                 $msg = [
-                    'error'                => $validation->getErrors(),
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'error' => $validation->getErrors(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 // Persiapkan data yang akan disimpan
                 $simpandata = [
-                    'nama_menu'     => $this->request->getVar('nama_menu'),
-                    'menu_link'     => $this->request->getVar('menu_link'),
-                    'parent'        => $this->request->getVar('parent'),
-                    'icon'          => $this->request->getVar('icon'),
-                    'urutan'        => $this->request->getVar('urutan'),
-                    'target'        => $this->request->getVar('target'),
-                    'linkexternal'  => $this->request->getVar('linkexternal')
+                    'nama_menu' => $this->request->getVar('nama_menu'),
+                    'menu_link' => $this->request->getVar('menu_link'),
+                    'parent' => $this->request->getVar('parent'),
+                    'icon' => $this->request->getVar('icon'),
+                    'urutan' => $this->request->getVar('urutan'),
+                    'target' => $this->request->getVar('target'),
+                    'linkexternal' => $this->request->getVar('linkexternal')
                 ];
 
                 // Simpan data menu
@@ -159,7 +159,7 @@ class Menu extends BaseController
                 // Kirimkan response sukses
                 $msg = [
                     'sukses' => 'Data berhasil disimpan',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
 
@@ -175,27 +175,27 @@ class Menu extends BaseController
         }
         if ($this->request->isAJAX()) {
             $menu_id = $this->request->getVar('menu_id');
-            $list =  $this->menu->find($menu_id);
-            $tadmin      = $this->template->tempadminaktif();
+            $list = $this->menu->find($menu_id);
+
 
             $data = [
-                'title'             => 'Edit Menu',
-                'menu_id'           => $list['menu_id'],
-                'nama_menu'         => $list['nama_menu'],
-                'menu_link'         => $list['menu_link'],
-                'parent'            => $list['parent'],
-                'icon'              => $list['icon'],
-                'urutan'            => $list['urutan'],
-                'target'            => $list['target'],
-                'linkexternal'      => $list['linkexternal'],
-                'kategoriberita'    => $this->kategori->list(),
-                'halaman'           => $this->berita->listhalaman(),
-                'modulpublic'       => $this->modulpublic->listaktif(),
+                'title' => 'Edit Menu',
+                'menu_id' => $list['menu_id'],
+                'nama_menu' => $list['nama_menu'],
+                'menu_link' => $list['menu_link'],
+                'parent' => $list['parent'],
+                'icon' => $list['icon'],
+                'urutan' => $list['urutan'],
+                'target' => $list['target'],
+                'linkexternal' => $list['linkexternal'],
+                'kategoriberita' => $this->kategori->list(),
+                'halaman' => $this->berita->listhalaman(),
+                'modulpublic' => $this->modulpublic->listaktif(),
 
             ];
             $msg = [
-                'sukses' => view('backend/' . esc($tadmin['folder']) . '/' . 'pengaturan/menu/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/' . 'pengaturan/menu/edit', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -213,8 +213,8 @@ class Menu extends BaseController
                     'label' => 'Nama Menu',
                     'rules' => 'required|max_length[20]',
                     'errors' => [
-                        'required'      => '{field} tidak boleh kosong',
-                        'max_length'    => 'Masukkan {field} maksimal 20 Karakter!',
+                        'required' => '{field} tidak boleh kosong',
+                        'max_length' => 'Masukkan {field} maksimal 20 Karakter!',
                     ]
                 ],
                 'menu_link' => [
@@ -240,28 +240,28 @@ class Menu extends BaseController
                     'error' => [
                         'nama_menu' => $validation->getError('nama_menu'),
                         'menu_link' => $validation->getError('menu_link'),
-                        'urutan'    => $validation->getError('urutan'),
+                        'urutan' => $validation->getError('urutan'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 $updatedata = [
 
-                    'nama_menu'     => $this->request->getVar('nama_menu'),
-                    'menu_link'     => $this->request->getVar('menu_link'),
-                    'parent'        => $this->request->getVar('parent'),
-                    'icon'          => $this->request->getVar('icon'),
-                    'urutan'        => $this->request->getVar('urutan'),
-                    'target'        => $this->request->getVar('target'),
-                    'linkexternal'  => $this->request->getVar('linkexternal')
+                    'nama_menu' => $this->request->getVar('nama_menu'),
+                    'menu_link' => $this->request->getVar('menu_link'),
+                    'parent' => $this->request->getVar('parent'),
+                    'icon' => $this->request->getVar('icon'),
+                    'urutan' => $this->request->getVar('urutan'),
+                    'target' => $this->request->getVar('target'),
+                    'linkexternal' => $this->request->getVar('linkexternal')
 
                 ];
 
                 $menu_id = $this->request->getVar('menu_id');
                 $this->menu->update($menu_id, $updatedata);
                 $msg = [
-                    'sukses'                => 'Data berhasil diupdate',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Data berhasil diupdate',
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -279,8 +279,8 @@ class Menu extends BaseController
 
             $this->menu->delete($menu_id);
             $msg = [
-                'sukses'                => 'Menu Berhasil Dihapus',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => 'Menu Berhasil Dihapus',
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -294,17 +294,17 @@ class Menu extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            $id     = $this->request->getVar('menu_id');
-            $cari   = $this->menu->find($id);
+            $id = $this->request->getVar('menu_id');
+            $cari = $this->menu->find($id);
 
-            $sts    = $cari['stsmenu'] == '1' ? 0 : 1;
+            $sts = $cari['stsmenu'] == '1' ? 0 : 1;
             $stsket = $sts ? 'Berhasil Aktifkan!' : 'Berhasil Non Aktifkan!';
 
             $this->menu->update($id, ['stsmenu' => $sts]);
 
             echo json_encode([
-                'sukses'                => $stsket,
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => $stsket,
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ]);
         }
     }
@@ -317,15 +317,15 @@ class Menu extends BaseController
         }
         if ($this->request->isAJAX()) {
             $data = [
-                'title'             => 'Tambah Menu Secondary',
-                'kategoriberita'    => $this->kategori->list(),
-                'halaman'           => $this->berita->listhalaman(),
-                'modulpublic'       => $this->modulpublic->listaktif(),
+                'title' => 'Tambah Menu Secondary',
+                'kategoriberita' => $this->kategori->list(),
+                'halaman' => $this->berita->listhalaman(),
+                'modulpublic' => $this->modulpublic->listaktif(),
 
             ];
-            $tadmin             = $this->template->tempadminaktif();
+
             $msg = [
-                'data' => view('backend/' . esc($tadmin['folder']) . '/' . 'pengaturan/menu/tambahsec', $data)
+                'data' => view('backend/' . 'pengaturan/menu/tambahsec', $data)
             ];
             echo json_encode($msg);
         }
@@ -338,27 +338,27 @@ class Menu extends BaseController
         }
         if ($this->request->isAJAX()) {
             $menu_id = $this->request->getVar('menu_id');
-            $list =  $this->menu->find($menu_id);
-            $tadmin             = $this->template->tempadminaktif();
+            $list = $this->menu->find($menu_id);
+
             $data = [
-                'title'             => 'Edit Secondary Menu',
-                'menu_id'           => $list['menu_id'],
-                'nama_menu'         => $list['nama_menu'],
-                'menu_link'         => $list['menu_link'],
-                'parent'            => $list['parent'],
-                'icon'              => $list['icon'],
-                'urutan'            => $list['urutan'],
-                'target'            => $list['target'],
-                'linkexternal'      => $list['linkexternal'],
-                'posisi'            => $list['posisi'],
-                'kategoriberita'    => $this->kategori->list(),
-                'halaman'           => $this->berita->listhalaman(),
-                'modulpublic'       => $this->modulpublic->listaktif(),
+                'title' => 'Edit Secondary Menu',
+                'menu_id' => $list['menu_id'],
+                'nama_menu' => $list['nama_menu'],
+                'menu_link' => $list['menu_link'],
+                'parent' => $list['parent'],
+                'icon' => $list['icon'],
+                'urutan' => $list['urutan'],
+                'target' => $list['target'],
+                'linkexternal' => $list['linkexternal'],
+                'posisi' => $list['posisi'],
+                'kategoriberita' => $this->kategori->list(),
+                'halaman' => $this->berita->listhalaman(),
+                'modulpublic' => $this->modulpublic->listaktif(),
 
             ];
             $msg = [
-                'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'pengaturan/menu/editsec', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/' . 'pengaturan/menu/editsec', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -376,9 +376,9 @@ class Menu extends BaseController
                     'label' => 'Nama Menu',
                     'rules' => 'required|is_unique[menu.nama_menu]|max_length[20]',
                     'errors' => [
-                        'required'      => '{field} tidak boleh kosong',
-                        'is_unique'     => '{field} tidak boleh sama',
-                        'max_length'    => 'Masukkan {field} maksimal 20 Karakter!',
+                        'required' => '{field} tidak boleh kosong',
+                        'is_unique' => '{field} tidak boleh sama',
+                        'max_length' => 'Masukkan {field} maksimal 20 Karakter!',
                     ]
                 ],
                 'menu_link' => [
@@ -402,20 +402,20 @@ class Menu extends BaseController
                     'error' => [
                         'nama_menu' => $validation->getError('nama_menu'),
                         'menu_link' => $validation->getError('menu_link'),
-                        'urutan'    => $validation->getError('urutan'),
+                        'urutan' => $validation->getError('urutan'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 $simpandata = [
-                    'nama_menu'     => $this->request->getVar('nama_menu'),
-                    'menu_link'     => $this->request->getVar('menu_link'),
-                    'parent'        => 'N',
-                    'icon'          => $this->request->getVar('icon'),
-                    'urutan'        => $this->request->getVar('urutan'),
-                    'target'        => $this->request->getVar('target'),
-                    'posisi'        => $this->request->getVar('posisi'),
-                    'linkexternal'  => $this->request->getVar('linkexternal'),
+                    'nama_menu' => $this->request->getVar('nama_menu'),
+                    'menu_link' => $this->request->getVar('menu_link'),
+                    'parent' => 'N',
+                    'icon' => $this->request->getVar('icon'),
+                    'urutan' => $this->request->getVar('urutan'),
+                    'target' => $this->request->getVar('target'),
+                    'posisi' => $this->request->getVar('posisi'),
+                    'linkexternal' => $this->request->getVar('linkexternal'),
 
 
                 ];
@@ -423,7 +423,7 @@ class Menu extends BaseController
                 $this->menu->insert($simpandata);
                 $msg = [
                     'sukses' => 'Data berhasil disimpan',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -442,8 +442,8 @@ class Menu extends BaseController
                     'label' => 'Nama Menu',
                     'rules' => 'required|max_length[20]',
                     'errors' => [
-                        'required'      => '{field} tidak boleh kosong',
-                        'max_length'    => 'Masukkan {field} maksimal 20 Karakter!',
+                        'required' => '{field} tidak boleh kosong',
+                        'max_length' => 'Masukkan {field} maksimal 20 Karakter!',
                     ]
                 ],
                 'menu_link' => [
@@ -469,21 +469,21 @@ class Menu extends BaseController
                     'error' => [
                         'nama_menu' => $validation->getError('nama_menu'),
                         'menu_link' => $validation->getError('menu_link'),
-                        'urutan'    => $validation->getError('urutan'),
+                        'urutan' => $validation->getError('urutan'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 $updatedata = [
 
-                    'nama_menu'     => $this->request->getVar('nama_menu'),
-                    'menu_link'     => $this->request->getVar('menu_link'),
-                    'parent'        => $this->request->getVar('parent'),
-                    'icon'          => $this->request->getVar('icon'),
-                    'urutan'        => $this->request->getVar('urutan'),
-                    'target'        => $this->request->getVar('target'),
-                    'linkexternal'  => $this->request->getVar('linkexternal'),
-                    'posisi'        => $this->request->getVar('posisi'),
+                    'nama_menu' => $this->request->getVar('nama_menu'),
+                    'menu_link' => $this->request->getVar('menu_link'),
+                    'parent' => $this->request->getVar('parent'),
+                    'icon' => $this->request->getVar('icon'),
+                    'urutan' => $this->request->getVar('urutan'),
+                    'target' => $this->request->getVar('target'),
+                    'linkexternal' => $this->request->getVar('linkexternal'),
+                    'posisi' => $this->request->getVar('posisi'),
 
 
                 ];
@@ -491,8 +491,8 @@ class Menu extends BaseController
                 $menu_id = $this->request->getVar('menu_id');
                 $this->menu->update($menu_id, $updatedata);
                 $msg = [
-                    'sukses'                => 'Data berhasil diupdate',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Data berhasil diupdate',
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -509,23 +509,23 @@ class Menu extends BaseController
         if ($menu_id == '') {
             return redirect()->to(base_url('menu'));
         }
-        $list      =  $this->submenu->listbyutm($menu_id);
+        $list = $this->submenu->listbyutm($menu_id);
         if ($list) {
-            foreach ($list as $data) :
+            foreach ($list as $data):
                 $menuinduk = $data['nama_menu'];
             endforeach;
         } else {
             $menuinduk = '';
         }
-        $tadmin             = $this->template->tempadminaktif();
+
         $data = [
-            'title'          => 'Pengaturan',
-            'subtitle'       => 'Menu',
-            'menu_id'        => $menu_id,
-            'menuinduk'      => $menuinduk,
-            'folder'      => esc($tadmin['folder']),
+            'title' => 'Pengaturan',
+            'subtitle' => 'Menu',
+            'menu_id' => $menu_id,
+            'menuinduk' => $menuinduk,
+
         ];
-        return view('backend/' . esc($tadmin['folder']) . '/' . 'pengaturan/menu/submenu/index', $data);
+        return view('backend/' . 'pengaturan/menu/submenu/index', $data);
     }
 
     // get data
@@ -540,7 +540,7 @@ class Menu extends BaseController
         $menu_id = $this->request->getVar('menu_id');
         $id_grup = session()->get('id_grup');
         $url = 'menu';
-        $tadmin = $this->template->tempadminaktif();
+
 
         // Ambil grup akses berdasarkan id_grup dan url
         $listgrupf = $this->grupakses->viewgrupakses($id_grup, $url);
@@ -578,8 +578,8 @@ class Menu extends BaseController
 
         // Siapkan respons JSON dengan data dan CSRF token
         $msg = [
-            'data' => view('backend/' . esc($tadmin['folder']) . '/pengaturan/menu/submenu/list', $data),
-            'csrf_tokencmsdatagoe' => csrf_hash(),
+            'data' => view('backend/pengaturan/menu/submenu/list', $data),
+            'csrf_tokencmsikasmedia' => csrf_hash(),
         ];
 
         echo json_encode($msg);
@@ -593,17 +593,17 @@ class Menu extends BaseController
         }
         if ($this->request->isAJAX()) {
             $data = [
-                'title'             => 'Tambah Sub Menu',
-                'menu_id'           => $this->request->getVar('menu_id'),
-                'modulpublic'       => $this->modulpublic->listaktif(),
-                'kategoriberita'    => $this->kategori->list(),
-                'halaman'           => $this->berita->listhalaman(),
-                // 'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'title' => 'Tambah Sub Menu',
+                'menu_id' => $this->request->getVar('menu_id'),
+                'modulpublic' => $this->modulpublic->listaktif(),
+                'kategoriberita' => $this->kategori->list(),
+                'halaman' => $this->berita->listhalaman(),
+                // 'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
-            $tadmin    = $this->template->tempadminaktif();
+
             $msg = [
-                // 'csrf_tokencmsdatagoe'  => csrf_hash(),
-                'data'                  => view('backend/' . esc($tadmin['folder']) . '/' . 'pengaturan/menu/submenu/tambah', $data),
+                // 'csrf_tokencmsikasmedia'  => csrf_hash(),
+                'data' => view('backend/' . 'pengaturan/menu/submenu/tambah', $data),
 
             ];
             echo json_encode($msg);
@@ -622,9 +622,9 @@ class Menu extends BaseController
                     'label' => 'Nama Sub Menu',
                     'rules' => 'required|is_unique[submenu.nama_submenu]|max_length[20]',
                     'errors' => [
-                        'required'      => '{field} tidak boleh kosong',
-                        'is_unique'     => '{field} tidak boleh sama',
-                        'max_length'    => 'Masukkan {field} maksimal 20 Karakter!',
+                        'required' => '{field} tidak boleh kosong',
+                        'is_unique' => '{field} tidak boleh sama',
+                        'max_length' => 'Masukkan {field} maksimal 20 Karakter!',
                     ]
                 ],
                 'menu_id' => [
@@ -662,7 +662,7 @@ class Menu extends BaseController
                         'link_submenu' => $validation->getError('link_submenu'),
                         'urutansm' => $validation->getError('urutansm'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 $simpandata = [
@@ -679,8 +679,8 @@ class Menu extends BaseController
 
                 $this->submenu->insert($simpandata);
                 $msg = [
-                    'sukses'                => 'Data berhasil disimpan',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Data berhasil disimpan',
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -694,28 +694,28 @@ class Menu extends BaseController
         }
         if ($this->request->isAJAX()) {
             $submenu_id = $this->request->getVar('submenu_id');
-            $list =  $this->submenu->find($submenu_id);
-            $tadmin             = $this->template->tempadminaktif();
+            $list = $this->submenu->find($submenu_id);
+
 
             $data = [
-                'title'          => 'Edit Sub Menu',
-                'submenu_id'     => $list['submenu_id'],
-                'menu_id'        => $list['menu_id'],
-                'nama_submenu'   => $list['nama_submenu'],
-                'link_submenu'   => $list['link_submenu'],
-                'iconsm'          => $list['iconsm'],
-                'urutansm'        => $list['urutansm'],
-                'targetsm'        => $list['targetsm'],
-                'linkexternalsm'  => $list['linkexternalsm'],
-                'parentsm'        => $list['parentsm'],
-                'kategoriberita'    => $this->kategori->list(),
-                'halaman'           => $this->berita->listhalaman(),
-                'modulpublic'       => $this->modulpublic->listaktif(),
-                // 'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'title' => 'Edit Sub Menu',
+                'submenu_id' => $list['submenu_id'],
+                'menu_id' => $list['menu_id'],
+                'nama_submenu' => $list['nama_submenu'],
+                'link_submenu' => $list['link_submenu'],
+                'iconsm' => $list['iconsm'],
+                'urutansm' => $list['urutansm'],
+                'targetsm' => $list['targetsm'],
+                'linkexternalsm' => $list['linkexternalsm'],
+                'parentsm' => $list['parentsm'],
+                'kategoriberita' => $this->kategori->list(),
+                'halaman' => $this->berita->listhalaman(),
+                'modulpublic' => $this->modulpublic->listaktif(),
+                // 'csrf_tokencmsikasmedia'  => csrf_hash(),
             ];
             $msg = [
-                'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'pengaturan/menu/submenu/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/' . 'pengaturan/menu/submenu/edit', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -733,8 +733,8 @@ class Menu extends BaseController
                     'label' => 'Nama Sub Menu',
                     'rules' => 'required|max_length[20]',
                     'errors' => [
-                        'required'      => '{field} tidak boleh kosong',
-                        'max_length'    => 'Masukkan {field} maksimal 20 Karakter!',
+                        'required' => '{field} tidak boleh kosong',
+                        'max_length' => 'Masukkan {field} maksimal 20 Karakter!',
                     ]
                 ],
                 'link_submenu' => [
@@ -762,7 +762,7 @@ class Menu extends BaseController
                         'link_submenu' => $validation->getError('link_submenu'),
                         'urutansm' => $validation->getError('urutansm'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 $updatedata = [
@@ -781,8 +781,8 @@ class Menu extends BaseController
                 $submenu_id = $this->request->getVar('submenu_id');
                 $this->submenu->update($submenu_id, $updatedata);
                 $msg = [
-                    'sukses'                => 'Data berhasil diupdate',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Data berhasil diupdate',
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -800,8 +800,8 @@ class Menu extends BaseController
 
             $this->submenu->delete($submenu_id);
             $msg = [
-                'sukses'                => 'Menu Berhasil Dihapus',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => 'Menu Berhasil Dihapus',
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -815,17 +815,17 @@ class Menu extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            $id     = $this->request->getVar('submenu_id');
-            $cari   = $this->submenu->find($id);
+            $id = $this->request->getVar('submenu_id');
+            $cari = $this->submenu->find($id);
 
-            $sts    = $cari['stssubmenu'] == '1' ? 0 : 1;
+            $sts = $cari['stssubmenu'] == '1' ? 0 : 1;
             $stsket = $sts ? 'Berhasil Aktifkan!' : 'Berhasil Non Aktifkan!';
 
             $this->submenu->update($id, ['stssubmenu' => $sts]);
 
             echo json_encode([
-                'sukses'                => $stsket,
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => $stsket,
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ]);
         }
     }
@@ -841,11 +841,11 @@ class Menu extends BaseController
         if ($submenu_id == '') {
             return redirect()->to(base_url('menu'));
         }
-        $list      =  $this->subsubmenu->listbysub($submenu_id);
-        $tadmin             = $this->template->tempadminaktif();
+        $list = $this->subsubmenu->listbysub($submenu_id);
+
 
         if ($list) {
-            foreach ($list as $data) :
+            foreach ($list as $data):
                 $submenu = $data['nama_submenu'];
             endforeach;
         } else {
@@ -853,13 +853,13 @@ class Menu extends BaseController
         }
 
         $data = [
-            'title'          => 'Pengaturan',
-            'subtitle'       => 'Menu Level 3',
-            'submenu_id'        => $submenu_id,
-            'submenu'        => $submenu,
-            'folder'      => esc($tadmin['folder']),
+            'title' => 'Pengaturan',
+            'subtitle' => 'Menu Level 3',
+            'submenu_id' => $submenu_id,
+            'submenu' => $submenu,
+
         ];
-        return view('backend/' . esc($tadmin['folder']) . '/' . 'pengaturan/menu/subsubmenu/index', $data);
+        return view('backend/' . 'pengaturan/menu/subsubmenu/index', $data);
     }
 
     // get data
@@ -874,7 +874,7 @@ class Menu extends BaseController
         $submenu_id = $this->request->getVar('submenu_id');
         $id_grup = session()->get('id_grup');
         $url = 'menu';
-        $tadmin = $this->template->tempadminaktif();
+
 
         // Ambil grup akses berdasarkan id_grup dan url
         $listgrupf = $this->grupakses->viewgrupakses($id_grup, $url);
@@ -912,8 +912,8 @@ class Menu extends BaseController
 
         // Siapkan respons JSON dengan data dan CSRF token
         $msg = [
-            'data' => view('backend/' . esc($tadmin['folder']) . '/pengaturan/menu/subsubmenu/list', $data),
-            'csrf_tokencmsdatagoe' => csrf_hash(),
+            'data' => view('backend/pengaturan/menu/subsubmenu/list', $data),
+            'csrf_tokencmsikasmedia' => csrf_hash(),
         ];
 
         echo json_encode($msg);
@@ -927,16 +927,16 @@ class Menu extends BaseController
         }
         if ($this->request->isAJAX()) {
             $data = [
-                'title'             => 'Tambah Menu',
-                'submenu_id'        => $this->request->getVar('submenu_id'),
-                'modulpublic'       => $this->modulpublic->listaktif(),
-                'kategoriberita'    => $this->kategori->list(),
-                'halaman'           => $this->berita->listhalaman(),
+                'title' => 'Tambah Menu',
+                'submenu_id' => $this->request->getVar('submenu_id'),
+                'modulpublic' => $this->modulpublic->listaktif(),
+                'kategoriberita' => $this->kategori->list(),
+                'halaman' => $this->berita->listhalaman(),
             ];
-            $tadmin             = $this->template->tempadminaktif();
+
 
             $msg = [
-                'data' => view('backend/' . esc($tadmin['folder']) . '/' . 'pengaturan/menu/subsubmenu/tambah', $data)
+                'data' => view('backend/' . 'pengaturan/menu/subsubmenu/tambah', $data)
 
             ];
             echo json_encode($msg);
@@ -955,9 +955,9 @@ class Menu extends BaseController
                     'label' => 'Nama Menu',
                     'rules' => 'required|is_unique[subsubmenu.nama_subsubmenu]|max_length[20]',
                     'errors' => [
-                        'required'      => '{field} tidak boleh kosong',
-                        'is_unique'     => '{field} tidak boleh sama',
-                        'max_length'    => 'Masukkan {field} maksimal 20 Karakter!',
+                        'required' => '{field} tidak boleh kosong',
+                        'is_unique' => '{field} tidak boleh sama',
+                        'max_length' => 'Masukkan {field} maksimal 20 Karakter!',
                     ]
                 ],
 
@@ -984,27 +984,27 @@ class Menu extends BaseController
                     'error' => [
                         'nama_subsubmenu' => $validation->getError('nama_subsubmenu'),
                         'link_subsubmenu' => $validation->getError('link_subsubmenu'),
-                        'urutanssm'       => $validation->getError('urutanssm'),
+                        'urutanssm' => $validation->getError('urutanssm'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 $simpandata = [
-                    'nama_subsubmenu'      => $this->request->getVar('nama_subsubmenu'),
-                    'submenu_id'        => $this->request->getVar('submenu_id'),
-                    'link_subsubmenu'   => $this->request->getVar('link_subsubmenu'),
-                    'iconssm'           => $this->request->getVar('iconssm'),
-                    'urutanssm'         => $this->request->getVar('urutanssm'),
-                    'targetssm'         => $this->request->getVar('targetssm'),
-                    'linkexternalssm'   => $this->request->getVar('linkexternalssm'),
-                    'stsssm'            => '1'
+                    'nama_subsubmenu' => $this->request->getVar('nama_subsubmenu'),
+                    'submenu_id' => $this->request->getVar('submenu_id'),
+                    'link_subsubmenu' => $this->request->getVar('link_subsubmenu'),
+                    'iconssm' => $this->request->getVar('iconssm'),
+                    'urutanssm' => $this->request->getVar('urutanssm'),
+                    'targetssm' => $this->request->getVar('targetssm'),
+                    'linkexternalssm' => $this->request->getVar('linkexternalssm'),
+                    'stsssm' => '1'
 
                 ];
 
                 $this->subsubmenu->insert($simpandata);
                 $msg = [
-                    'sukses'                => 'Data berhasil disimpan',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Data berhasil disimpan',
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -1018,28 +1018,28 @@ class Menu extends BaseController
         }
         if ($this->request->isAJAX()) {
             $subsubmenu_id = $this->request->getVar('subsubmenu_id');
-            $list =  $this->subsubmenu->find($subsubmenu_id);
+            $list = $this->subsubmenu->find($subsubmenu_id);
             $data = [
-                'title'          => 'Edit Menu',
-                'subsubmenu_id'     => $list['subsubmenu_id'],
-                'submenu_id'        => $list['submenu_id'],
-                'nama_subsubmenu'   => $list['nama_subsubmenu'],
-                'link_subsubmenu'   => $list['link_subsubmenu'],
-                'iconssm'          => $list['iconssm'],
-                'urutanssm'        => $list['urutanssm'],
-                'targetssm'        => $list['targetssm'],
-                'linkexternalssm'  => $list['linkexternalssm'],
+                'title' => 'Edit Menu',
+                'subsubmenu_id' => $list['subsubmenu_id'],
+                'submenu_id' => $list['submenu_id'],
+                'nama_subsubmenu' => $list['nama_subsubmenu'],
+                'link_subsubmenu' => $list['link_subsubmenu'],
+                'iconssm' => $list['iconssm'],
+                'urutanssm' => $list['urutanssm'],
+                'targetssm' => $list['targetssm'],
+                'linkexternalssm' => $list['linkexternalssm'],
 
-                'kategoriberita'    => $this->kategori->list(),
-                'halaman'           => $this->berita->listhalaman(),
-                'modulpublic'       => $this->modulpublic->listaktif(),
+                'kategoriberita' => $this->kategori->list(),
+                'halaman' => $this->berita->listhalaman(),
+                'modulpublic' => $this->modulpublic->listaktif(),
 
             ];
-            $tadmin             = $this->template->tempadminaktif();
+
 
             $msg = [
-                'sukses' => view('backend/' . esc($tadmin['folder']) . '/' . 'pengaturan/menu/subsubmenu/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/' . 'pengaturan/menu/subsubmenu/edit', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -1057,8 +1057,8 @@ class Menu extends BaseController
                     'label' => 'Nama Sub Menu',
                     'rules' => 'required|max_length[20]',
                     'errors' => [
-                        'required'      => '{field} tidak boleh kosong',
-                        'max_length'    => 'Masukkan {field} maksimal 20 Karakter!',
+                        'required' => '{field} tidak boleh kosong',
+                        'max_length' => 'Masukkan {field} maksimal 20 Karakter!',
                     ]
                 ],
                 'link_subsubmenu' => [
@@ -1086,7 +1086,7 @@ class Menu extends BaseController
                         'link_subsubmenu' => $validation->getError('link_subsubmenu'),
                         'urutanssm' => $validation->getError('urutanssm'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 $updatedata = [
@@ -1105,8 +1105,8 @@ class Menu extends BaseController
                 $subsubmenu_id = $this->request->getVar('subsubmenu_id');
                 $this->subsubmenu->update($subsubmenu_id, $updatedata);
                 $msg = [
-                    'sukses'                => 'Data berhasil diupdate',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Data berhasil diupdate',
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -1125,7 +1125,7 @@ class Menu extends BaseController
             $this->subsubmenu->delete($subsubmenu_id);
             $msg = [
                 'sukses' => 'Menu Berhasil Dihapus',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -1139,17 +1139,17 @@ class Menu extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            $id     = $this->request->getVar('subsubmenu_id');
-            $cari   = $this->subsubmenu->find($id);
+            $id = $this->request->getVar('subsubmenu_id');
+            $cari = $this->subsubmenu->find($id);
 
-            $sts    = $cari['stsssm'] == '1' ? 0 : 1;
+            $sts = $cari['stsssm'] == '1' ? 0 : 1;
             $stsket = $sts ? 'Berhasil Aktifkan!' : 'Berhasil Non Aktifkan!';
 
             $this->subsubmenu->update($id, ['stsssm' => $sts]);
 
             echo json_encode([
-                'sukses'                => $stsket,
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => $stsket,
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ]);
         }
     }

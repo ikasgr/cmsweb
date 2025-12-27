@@ -7,22 +7,22 @@ class PendaftaranSidi extends BaseController
     // Frontend - Halaman form pendaftaran publik
     public function index()
     {
-        $konfigurasi    = $this->konfigurasi->vkonfig();
-        $template = $this->template->tempaktif();
-        
+        $konfigurasi = $this->konfigurasi->vkonfig();
+
+
         $data = [
-            'title'         => 'Pendaftaran Sidi | ' . $konfigurasi->nama,
-            'deskripsi'     => $konfigurasi->deskripsi,
-            'url'           => $konfigurasi->website,
-            'img'           => base_url('/public/img/konfigurasi/logo/' . $konfigurasi->logo),
-            'konfigurasi'   => $konfigurasi,
-            'mainmenu'      => $this->menu->mainmenu(),
-            'footer'        => $this->menu->footermenu(),
-            'topmenu'       => $this->menu->topmenu(),
-            'section'       => $this->section->list(),
-            'sitekey'       => $konfigurasi->g_sitekey,
+            'title' => 'Pendaftaran Sidi | ' . $konfigurasi->nama,
+            'deskripsi' => $konfigurasi->deskripsi,
+            'url' => $konfigurasi->website,
+            'img' => base_url('/public/img/konfigurasi/logo/' . $konfigurasi->logo),
+            'konfigurasi' => $konfigurasi,
+            'mainmenu' => $this->menu->mainmenu(),
+            'footer' => $this->menu->footermenu(),
+            'topmenu' => $this->menu->topmenu(),
+            'section' => $this->section->list(),
+            'sitekey' => $konfigurasi->g_sitekey,
             'linkterkaitall' => $this->linkterkait->publishlinkall(),
-            'folder'        => $template['folder']
+
         ];
         return view('frontend/' . $template['folder'] . '/content/pendaftaran_sidi', $data);
     }
@@ -95,14 +95,14 @@ class PendaftaranSidi extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'nama_lengkap'  => $validation->getError('nama_lengkap'),
-                        'tempat_lahir'  => $validation->getError('tempat_lahir'),
-                        'tgl_lahir'     => $validation->getError('tgl_lahir'),
+                        'nama_lengkap' => $validation->getError('nama_lengkap'),
+                        'tempat_lahir' => $validation->getError('tempat_lahir'),
+                        'tgl_lahir' => $validation->getError('tgl_lahir'),
                         'jenis_kelamin' => $validation->getError('jenis_kelamin'),
-                        'alamat'        => $validation->getError('alamat'),
-                        'no_hp'         => $validation->getError('no_hp'),
-                        'email'         => $validation->getError('email'),
-                        'tgl_baptis'    => $validation->getError('tgl_baptis'),
+                        'alamat' => $validation->getError('alamat'),
+                        'no_hp' => $validation->getError('no_hp'),
+                        'email' => $validation->getError('email'),
+                        'tgl_baptis' => $validation->getError('tgl_baptis'),
                     ]
                 ];
             } else {
@@ -139,19 +139,19 @@ class PendaftaranSidi extends BaseController
                 }
 
                 $insertdata = [
-                    'nama_lengkap'      => $this->request->getVar('nama_lengkap'),
-                    'tempat_lahir'      => $this->request->getVar('tempat_lahir'),
-                    'tgl_lahir'         => date('Y-m-d', strtotime($this->request->getVar('tgl_lahir'))),
-                    'jenis_kelamin'     => $this->request->getVar('jenis_kelamin'),
-                    'alamat'            => $this->request->getVar('alamat'),
-                    'no_hp'             => $this->request->getVar('no_hp'),
-                    'email'             => $this->request->getVar('email'),
-                    'nama_ayah'         => $this->request->getVar('nama_ayah'),
-                    'nama_ibu'          => $this->request->getVar('nama_ibu'),
-                    'tgl_baptis'        => date('Y-m-d', strtotime($this->request->getVar('tgl_baptis'))),
-                    'gereja_baptis'     => $this->request->getVar('gereja_baptis'),
-                    'tgl_daftar'        => date('Y-m-d'),
-                    'status'            => '0',
+                    'nama_lengkap' => $this->request->getVar('nama_lengkap'),
+                    'tempat_lahir' => $this->request->getVar('tempat_lahir'),
+                    'tgl_lahir' => date('Y-m-d', strtotime($this->request->getVar('tgl_lahir'))),
+                    'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
+                    'alamat' => $this->request->getVar('alamat'),
+                    'no_hp' => $this->request->getVar('no_hp'),
+                    'email' => $this->request->getVar('email'),
+                    'nama_ayah' => $this->request->getVar('nama_ayah'),
+                    'nama_ibu' => $this->request->getVar('nama_ibu'),
+                    'tgl_baptis' => date('Y-m-d', strtotime($this->request->getVar('tgl_baptis'))),
+                    'gereja_baptis' => $this->request->getVar('gereja_baptis'),
+                    'tgl_daftar' => date('Y-m-d'),
+                    'status' => '0',
                 ];
 
                 $this->pendaftaransidi->insert($insertdata);
@@ -171,11 +171,11 @@ class PendaftaranSidi extends BaseController
             return redirect()->to('');
         }
         $data = [
-            'title'     => 'Pendaftaran Sidi',
-            'subtitle'  => 'Manajemen Data',
-            'folder'    => 'morvin',
+            'title' => 'Pendaftaran Sidi',
+            'subtitle' => 'Manajemen Data',
+            'folder' => 'morvin',
         ];
-        return view('backend/morvin/cmscust/pendaftaran_sidi/index', $data);
+        return view('backend/cmscust/pendaftaran_sidi/index', $data);
     }
 
     // Backend - Get data untuk datatables
@@ -184,21 +184,21 @@ class PendaftaranSidi extends BaseController
         if ($this->request->isAJAX()) {
             $id_grup = session()->get('id_grup');
             $url = 'pendaftaran-sidi/list';
-            $listgrupf =  $this->grupakses->listgrupakses($id_grup, $url);
+            $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
 
-            foreach ($listgrupf as $data) :
+            foreach ($listgrupf as $data):
                 $akses = $data['akses'];
             endforeach;
 
             if ($listgrupf) {
                 if ($akses == '1' || $akses == '2') {
                     $data = [
-                        'title'     => 'Pendaftaran Sidi',
-                        'list'      => $this->pendaftaransidi->list(),
-                        'akses'     => $akses
+                        'title' => 'Pendaftaran Sidi',
+                        'list' => $this->pendaftaransidi->list(),
+                        'akses' => $akses
                     ];
                     $msg = [
-                        'data' => view('backend/morvin/cmscust/pendaftaran_sidi/list', $data)
+                        'data' => view('backend/cmscust/pendaftaran_sidi/list', $data)
                     ];
                 } else {
                     $msg = [
@@ -220,14 +220,14 @@ class PendaftaranSidi extends BaseController
     {
         if ($this->request->isAJAX()) {
             $id_sidi = $this->request->getVar('id_sidi');
-            $list =  $this->pendaftaransidi->find($id_sidi);
+            $list = $this->pendaftaransidi->find($id_sidi);
 
             $data = [
                 'title' => 'Detail Pendaftaran Sidi',
-                'data'  => $list
+                'data' => $list
             ];
             $msg = [
-                'sukses' => view('backend/morvin/cmscust/pendaftaran_sidi/lihat', $data)
+                'sukses' => view('backend/cmscust/pendaftaran_sidi/lihat', $data)
             ];
             echo json_encode($msg);
         }
@@ -238,14 +238,14 @@ class PendaftaranSidi extends BaseController
     {
         if ($this->request->isAJAX()) {
             $id_sidi = $this->request->getVar('id_sidi');
-            $list =  $this->pendaftaransidi->find($id_sidi);
+            $list = $this->pendaftaransidi->find($id_sidi);
 
             $data = [
                 'title' => 'Edit Pendaftaran Sidi',
-                'data'  => $list
+                'data' => $list
             ];
             $msg = [
-                'sukses' => view('backend/morvin/cmscust/pendaftaran_sidi/edit', $data)
+                'sukses' => view('backend/cmscust/pendaftaran_sidi/edit', $data)
             ];
             echo json_encode($msg);
         }
@@ -286,27 +286,27 @@ class PendaftaranSidi extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'nama_lengkap'  => $validation->getError('nama_lengkap'),
-                        'no_hp'         => $validation->getError('no_hp'),
-                        'email'         => $validation->getError('email'),
+                        'nama_lengkap' => $validation->getError('nama_lengkap'),
+                        'no_hp' => $validation->getError('no_hp'),
+                        'email' => $validation->getError('email'),
                     ]
                 ];
             } else {
                 $updatedata = [
-                    'nama_lengkap'      => $this->request->getVar('nama_lengkap'),
-                    'tempat_lahir'      => $this->request->getVar('tempat_lahir'),
-                    'tgl_lahir'         => date('Y-m-d', strtotime($this->request->getVar('tgl_lahir'))),
-                    'jenis_kelamin'     => $this->request->getVar('jenis_kelamin'),
-                    'alamat'            => $this->request->getVar('alamat'),
-                    'no_hp'             => $this->request->getVar('no_hp'),
-                    'email'             => $this->request->getVar('email'),
-                    'nama_ayah'         => $this->request->getVar('nama_ayah'),
-                    'nama_ibu'          => $this->request->getVar('nama_ibu'),
-                    'tgl_baptis'        => date('Y-m-d', strtotime($this->request->getVar('tgl_baptis'))),
-                    'gereja_baptis'     => $this->request->getVar('gereja_baptis'),
-                    'tgl_sidi'          => $this->request->getVar('tgl_sidi') ? date('Y-m-d', strtotime($this->request->getVar('tgl_sidi'))) : null,
-                    'status'            => $this->request->getVar('status'),
-                    'keterangan'        => $this->request->getVar('keterangan'),
+                    'nama_lengkap' => $this->request->getVar('nama_lengkap'),
+                    'tempat_lahir' => $this->request->getVar('tempat_lahir'),
+                    'tgl_lahir' => date('Y-m-d', strtotime($this->request->getVar('tgl_lahir'))),
+                    'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
+                    'alamat' => $this->request->getVar('alamat'),
+                    'no_hp' => $this->request->getVar('no_hp'),
+                    'email' => $this->request->getVar('email'),
+                    'nama_ayah' => $this->request->getVar('nama_ayah'),
+                    'nama_ibu' => $this->request->getVar('nama_ibu'),
+                    'tgl_baptis' => date('Y-m-d', strtotime($this->request->getVar('tgl_baptis'))),
+                    'gereja_baptis' => $this->request->getVar('gereja_baptis'),
+                    'tgl_sidi' => $this->request->getVar('tgl_sidi') ? date('Y-m-d', strtotime($this->request->getVar('tgl_sidi'))) : null,
+                    'status' => $this->request->getVar('status'),
+                    'keterangan' => $this->request->getVar('keterangan'),
                 ];
 
                 $this->pendaftaransidi->update($id_sidi, $updatedata);
@@ -327,7 +327,7 @@ class PendaftaranSidi extends BaseController
                 'title' => 'Tambah Pendaftaran Sidi',
             ];
             $msg = [
-                'data' => view('backend/morvin/cmscust/pendaftaran_sidi/tambah', $data)
+                'data' => view('backend/cmscust/pendaftaran_sidi/tambah', $data)
             ];
             echo json_encode($msg);
         }
@@ -366,28 +366,28 @@ class PendaftaranSidi extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'nama_lengkap'  => $validation->getError('nama_lengkap'),
-                        'no_hp'         => $validation->getError('no_hp'),
-                        'email'         => $validation->getError('email'),
+                        'nama_lengkap' => $validation->getError('nama_lengkap'),
+                        'no_hp' => $validation->getError('no_hp'),
+                        'email' => $validation->getError('email'),
                     ]
                 ];
             } else {
                 $insertdata = [
-                    'nama_lengkap'      => $this->request->getVar('nama_lengkap'),
-                    'tempat_lahir'      => $this->request->getVar('tempat_lahir'),
-                    'tgl_lahir'         => date('Y-m-d', strtotime($this->request->getVar('tgl_lahir'))),
-                    'jenis_kelamin'     => $this->request->getVar('jenis_kelamin'),
-                    'alamat'            => $this->request->getVar('alamat'),
-                    'no_hp'             => $this->request->getVar('no_hp'),
-                    'email'             => $this->request->getVar('email'),
-                    'nama_ayah'         => $this->request->getVar('nama_ayah'),
-                    'nama_ibu'          => $this->request->getVar('nama_ibu'),
-                    'tgl_baptis'        => date('Y-m-d', strtotime($this->request->getVar('tgl_baptis'))),
-                    'gereja_baptis'     => $this->request->getVar('gereja_baptis'),
-                    'tgl_daftar'        => date('Y-m-d'),
-                    'tgl_sidi'          => $this->request->getVar('tgl_sidi') ? date('Y-m-d', strtotime($this->request->getVar('tgl_sidi'))) : null,
-                    'status'            => $this->request->getVar('status'),
-                    'keterangan'        => $this->request->getVar('keterangan'),
+                    'nama_lengkap' => $this->request->getVar('nama_lengkap'),
+                    'tempat_lahir' => $this->request->getVar('tempat_lahir'),
+                    'tgl_lahir' => date('Y-m-d', strtotime($this->request->getVar('tgl_lahir'))),
+                    'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
+                    'alamat' => $this->request->getVar('alamat'),
+                    'no_hp' => $this->request->getVar('no_hp'),
+                    'email' => $this->request->getVar('email'),
+                    'nama_ayah' => $this->request->getVar('nama_ayah'),
+                    'nama_ibu' => $this->request->getVar('nama_ibu'),
+                    'tgl_baptis' => date('Y-m-d', strtotime($this->request->getVar('tgl_baptis'))),
+                    'gereja_baptis' => $this->request->getVar('gereja_baptis'),
+                    'tgl_daftar' => date('Y-m-d'),
+                    'tgl_sidi' => $this->request->getVar('tgl_sidi') ? date('Y-m-d', strtotime($this->request->getVar('tgl_sidi'))) : null,
+                    'status' => $this->request->getVar('status'),
+                    'keterangan' => $this->request->getVar('keterangan'),
                 ];
 
                 $this->pendaftaransidi->insert($insertdata);
@@ -430,10 +430,10 @@ class PendaftaranSidi extends BaseController
         if ($this->request->isAJAX()) {
             $id_sidi = $this->request->getVar('id_sidi');
             $jmldata = count($id_sidi);
-            
+
             for ($i = 0; $i < $jmldata; $i++) {
                 $cekdata = $this->pendaftaransidi->find($id_sidi[$i]);
-                
+
                 // Hapus file dokumen jika ada
                 $dokumen = ['dok_ktp', 'dok_kk', 'dok_baptis', 'dok_foto'];
                 foreach ($dokumen as $dok) {
@@ -441,7 +441,7 @@ class PendaftaranSidi extends BaseController
                         unlink('public/file/dokumen/sidi/' . $cekdata[$dok]);
                     }
                 }
-                
+
                 $this->pendaftaransidi->delete($id_sidi[$i]);
             }
 
@@ -463,7 +463,7 @@ class PendaftaranSidi extends BaseController
                 'status' => $status,
             ];
             $this->pendaftaransidi->update($id, $updatedata);
-            
+
             $statusText = ['Pending', 'Disetujui', 'Ditolak'];
             $msg = [
                 'sukses' => 'Status berhasil diubah menjadi: ' . $statusText[$status]
@@ -478,14 +478,14 @@ class PendaftaranSidi extends BaseController
     {
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('id_sidi');
-            $list =  $this->pendaftaransidi->find($id);
-            
+            $list = $this->pendaftaransidi->find($id);
+
             $data = [
                 'title' => 'Upload Dokumen',
-                'data'  => $list
+                'data' => $list
             ];
             $msg = [
-                'sukses' => view('backend/morvin/cmscust/pendaftaran_sidi/upload', $data)
+                'sukses' => view('backend/cmscust/pendaftaran_sidi/upload', $data)
             ];
             echo json_encode($msg);
         }
@@ -497,7 +497,7 @@ class PendaftaranSidi extends BaseController
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('id_sidi');
             $jenis_dok = $this->request->getVar('jenis_dok');
-            
+
             $validation = \Config\Services::validation();
             $valid = $this->validate([
                 'file_dokumen' => [
@@ -550,7 +550,7 @@ class PendaftaranSidi extends BaseController
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('id_sidi');
             $jenis_dok = $this->request->getVar('jenis_dok');
-            
+
             $cekdata = $this->pendaftaransidi->find($id);
             $file = $cekdata[$jenis_dok];
 
@@ -582,7 +582,7 @@ class PendaftaranSidi extends BaseController
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('id');
             $jenis_dokumen = $this->request->getVar('jenis_dokumen');
-            
+
             $validation = \Config\Services::validation();
             $valid = $this->validate([
                 'file_dokumen' => [
@@ -605,7 +605,7 @@ class PendaftaranSidi extends BaseController
             if ($file->isValid() && !$file->hasMoved()) {
                 // Generate nama file unik
                 $newName = 'sidi_' . $id . '_' . time() . '_' . $file->getRandomName();
-                
+
                 // Pindahkan file
                 $file->move(FCPATH . 'public/img/pendaftaran/sidi/', $newName);
 
@@ -630,8 +630,12 @@ class PendaftaranSidi extends BaseController
                 $this->pendaftaransidi->update($id, ['kelengkapan_dokumen' => $kelengkapan]);
 
                 // Add timeline
-                $this->pendaftarantimeline->addTimeline('sidi', $id, 'Upload Dokumen', 
-                    'Upload dokumen: ' . $jenis_dokumen);
+                $this->pendaftarantimeline->addTimeline(
+                    'sidi',
+                    $id,
+                    'Upload Dokumen',
+                    'Upload dokumen: ' . $jenis_dokumen
+                );
 
                 $msg = [
                     'sukses' => 'Dokumen berhasil diupload',
@@ -650,19 +654,19 @@ class PendaftaranSidi extends BaseController
     {
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('id');
-            
+
             $dokumen = $this->pendaftarandokumen->getDokumenWithUser('sidi', $id);
             $master = $this->masterdokumen->getByJenisPendaftaran('sidi');
-            
+
             $data = [
                 'dokumen' => $dokumen,
                 'master' => $master,
                 'id' => $id
             ];
 
-            $tadmin = $this->template->tempadminaktif();
+
             $msg = [
-                'sukses' => view('backend/' . $tadmin['folder'] . '/cmscust/pendaftaran_sidi/dokumen', $data)
+                'sukses' => view('backend/cmscust/pendaftaran_sidi/dokumen', $data)
             ];
 
             echo json_encode($msg);
@@ -697,8 +701,12 @@ class PendaftaranSidi extends BaseController
                 'invalid' => 'Dokumen ditolak',
                 'revisi' => 'Dokumen perlu revisi'
             ];
-            $this->pendaftarantimeline->addTimeline('sidi', $dokumen['pendaftaran_id'], 
-                $status_text[$status], $dokumen['jenis_dokumen'] . ': ' . $keterangan);
+            $this->pendaftarantimeline->addTimeline(
+                'sidi',
+                $dokumen['pendaftaran_id'],
+                $status_text[$status],
+                $dokumen['jenis_dokumen'] . ': ' . $keterangan
+            );
 
             $msg = [
                 'sukses' => 'Status dokumen berhasil diupdate',
@@ -714,7 +722,7 @@ class PendaftaranSidi extends BaseController
     {
         if ($this->request->isAJAX()) {
             $dokumen_id = $this->request->getVar('dokumen_id');
-            
+
             $dokumen = $this->pendaftarandokumen->find($dokumen_id);
             if (!$dokumen) {
                 $msg = ['error' => 'Dokumen tidak ditemukan'];
@@ -730,8 +738,12 @@ class PendaftaranSidi extends BaseController
             $this->pendaftaransidi->update($dokumen['pendaftaran_id'], ['kelengkapan_dokumen' => $kelengkapan]);
 
             // Add timeline
-            $this->pendaftarantimeline->addTimeline('sidi', $dokumen['pendaftaran_id'], 
-                'Hapus Dokumen', 'Dokumen ' . $dokumen['jenis_dokumen'] . ' dihapus');
+            $this->pendaftarantimeline->addTimeline(
+                'sidi',
+                $dokumen['pendaftaran_id'],
+                'Hapus Dokumen',
+                'Dokumen ' . $dokumen['jenis_dokumen'] . ' dihapus'
+            );
 
             $msg = ['sukses' => 'Dokumen berhasil dihapus'];
             echo json_encode($msg);
@@ -743,14 +755,14 @@ class PendaftaranSidi extends BaseController
     {
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('id');
-            
+
             $timeline = $this->pendaftarantimeline->getTimelineByPendaftaran('sidi', $id);
-            
+
             $data = ['timeline' => $timeline];
 
-            $tadmin = $this->template->tempadminaktif();
+
             $msg = [
-                'sukses' => view('backend/' . $tadmin['folder'] . '/cmscust/pendaftaran_sidi/timeline', $data)
+                'sukses' => view('backend/cmscust/pendaftaran_sidi/timeline', $data)
             ];
 
             echo json_encode($msg);
@@ -774,8 +786,12 @@ class PendaftaranSidi extends BaseController
             $this->pendaftarancatatan->addCatatan('sidi', $id, $catatan, $tipe);
 
             // Add timeline
-            $this->pendaftarantimeline->addTimeline('sidi', $id, 'Catatan Ditambahkan', 
-                'Catatan ' . $tipe . ' ditambahkan');
+            $this->pendaftarantimeline->addTimeline(
+                'sidi',
+                $id,
+                'Catatan Ditambahkan',
+                'Catatan ' . $tipe . ' ditambahkan'
+            );
 
             $msg = ['sukses' => 'Catatan berhasil ditambahkan'];
             echo json_encode($msg);
@@ -787,14 +803,14 @@ class PendaftaranSidi extends BaseController
     {
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('id');
-            
+
             $catatan = $this->pendaftarancatatan->getCatatanByPendaftaran('sidi', $id);
-            
+
             $data = ['catatan' => $catatan, 'id' => $id];
 
-            $tadmin = $this->template->tempadminaktif();
+
             $msg = [
-                'sukses' => view('backend/' . $tadmin['folder'] . '/cmscust/pendaftaran_sidi/catatan', $data)
+                'sukses' => view('backend/cmscust/pendaftaran_sidi/catatan', $data)
             ];
 
             echo json_encode($msg);
@@ -828,8 +844,12 @@ class PendaftaranSidi extends BaseController
 
             // Add catatan eksternal
             if ($keterangan) {
-                $this->pendaftarancatatan->addCatatan('sidi', $id, 
-                    'Pendaftaran disetujui. ' . $keterangan, 'eksternal');
+                $this->pendaftarancatatan->addCatatan(
+                    'sidi',
+                    $id,
+                    'Pendaftaran disetujui. ' . $keterangan,
+                    'eksternal'
+                );
             }
 
             $msg = ['sukses' => 'Pendaftaran berhasil disetujui'];
@@ -863,8 +883,12 @@ class PendaftaranSidi extends BaseController
             $this->pendaftarantimeline->addTimeline('sidi', $id, 'Ditolak', $alasan);
 
             // Add catatan eksternal
-            $this->pendaftarancatatan->addCatatan('sidi', $id, 
-                'Pendaftaran ditolak. Alasan: ' . $alasan, 'eksternal');
+            $this->pendaftarancatatan->addCatatan(
+                'sidi',
+                $id,
+                'Pendaftaran ditolak. Alasan: ' . $alasan,
+                'eksternal'
+            );
 
             $msg = ['sukses' => 'Pendaftaran berhasil ditolak'];
             echo json_encode($msg);

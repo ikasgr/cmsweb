@@ -11,11 +11,11 @@ class JadwalIbadah extends BaseController
             return redirect()->to('');
         }
         $data = [
-            'title'     => 'Jadwal Ibadah & Pelayanan',
-            'subtitle'  => 'Manajemen Jadwal Ibadah',
-            'folder'    => 'morvin',
+            'title' => 'Jadwal Ibadah & Pelayanan',
+            'subtitle' => 'Manajemen Jadwal Ibadah',
+            'folder' => 'morvin',
         ];
-        return view('backend/morvin/cmscust/jadwal_ibadah/index', $data);
+        return view('backend/cmscust/jadwal_ibadah/index', $data);
     }
 
     // Backend - Get data untuk datatables
@@ -24,23 +24,23 @@ class JadwalIbadah extends BaseController
         if ($this->request->isAJAX()) {
             $id_grup = session()->get('id_grup');
             $url = 'jadwal-ibadah/list';
-            $listgrupf =  $this->grupakses->listgrupakses($id_grup, $url);
+            $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
 
-            foreach ($listgrupf as $data) :
+            foreach ($listgrupf as $data):
                 $akses = $data['akses'];
             endforeach;
 
             if ($listgrupf) {
                 if ($akses == '1' || $akses == '2') {
                     $data = [
-                        'title'     => 'Jadwal Ibadah & Pelayanan',
-                        'list'      => $this->jadwalibadah->list(),
-                        'akses'     => $akses,
+                        'title' => 'Jadwal Ibadah & Pelayanan',
+                        'list' => $this->jadwalibadah->list(),
+                        'akses' => $akses,
                         'statistik' => $this->jadwalibadah->getStatistik(),
                         'statistik_status' => $this->jadwalibadah->getStatistikStatus()
                     ];
                     $msg = [
-                        'data' => view('backend/morvin/cmscust/jadwal_ibadah/list', $data)
+                        'data' => view('backend/cmscust/jadwal_ibadah/list', $data)
                     ];
                 } else {
                     $msg = [
@@ -66,10 +66,10 @@ class JadwalIbadah extends BaseController
 
             $data = [
                 'title' => 'Detail Jadwal Ibadah',
-                'data'  => $detail
+                'data' => $detail
             ];
             $msg = [
-                'sukses' => view('backend/morvin/cmscust/jadwal_ibadah/lihat', $data)
+                'sukses' => view('backend/cmscust/jadwal_ibadah/lihat', $data)
             ];
             echo json_encode($msg);
         }
@@ -84,11 +84,11 @@ class JadwalIbadah extends BaseController
 
             $data = [
                 'title' => 'Edit Jadwal Ibadah',
-                'data'  => $list,
+                'data' => $list,
                 'jenis_ibadah' => $this->jenisibadah->listAktif()
             ];
             $msg = [
-                'sukses' => view('backend/morvin/cmscust/jadwal_ibadah/edit', $data)
+                'sukses' => view('backend/cmscust/jadwal_ibadah/edit', $data)
             ];
             echo json_encode($msg);
         }
@@ -135,10 +135,10 @@ class JadwalIbadah extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'id_jenis_ibadah'   => $validation->getError('id_jenis_ibadah'),
-                        'judul_ibadah'      => $validation->getError('judul_ibadah'),
-                        'tanggal'           => $validation->getError('tanggal'),
-                        'jam_mulai'         => $validation->getError('jam_mulai'),
+                        'id_jenis_ibadah' => $validation->getError('id_jenis_ibadah'),
+                        'judul_ibadah' => $validation->getError('judul_ibadah'),
+                        'tanggal' => $validation->getError('tanggal'),
+                        'jam_mulai' => $validation->getError('jam_mulai'),
                     ]
                 ];
             } else {
@@ -146,9 +146,9 @@ class JadwalIbadah extends BaseController
                 $tanggal = $this->request->getVar('tanggal');
                 $jam_mulai = $this->request->getVar('jam_mulai');
                 $jam_selesai = $this->request->getVar('jam_selesai') ?: '23:59:59';
-                
+
                 $konflik = $this->jadwalibadah->cekKonflik($tanggal, $jam_mulai, $jam_selesai, $id_jadwal);
-                
+
                 if ($konflik) {
                     $msg = [
                         'error' => [
@@ -157,21 +157,21 @@ class JadwalIbadah extends BaseController
                     ];
                 } else {
                     $updatedata = [
-                        'id_jenis_ibadah'   => $this->request->getVar('id_jenis_ibadah'),
-                        'judul_ibadah'      => $this->request->getVar('judul_ibadah'),
-                        'tanggal'           => $this->request->getVar('tanggal'),
-                        'jam_mulai'         => $this->request->getVar('jam_mulai'),
-                        'jam_selesai'       => $this->request->getVar('jam_selesai'),
-                        'tempat'            => $this->request->getVar('tempat'),
-                        'tema_ibadah'       => $this->request->getVar('tema_ibadah'),
-                        'ayat_tema'         => $this->request->getVar('ayat_tema'),
-                        'liturgi'           => $this->request->getVar('liturgi'),
-                        'keterangan'        => $this->request->getVar('keterangan'),
-                        'max_peserta'       => $this->request->getVar('max_peserta'),
-                        'status'            => $this->request->getVar('status'),
-                        'is_recurring'      => $this->request->getVar('is_recurring') ? 1 : 0,
-                        'recurring_type'    => $this->request->getVar('recurring_type'),
-                        'recurring_end'     => $this->request->getVar('recurring_end'),
+                        'id_jenis_ibadah' => $this->request->getVar('id_jenis_ibadah'),
+                        'judul_ibadah' => $this->request->getVar('judul_ibadah'),
+                        'tanggal' => $this->request->getVar('tanggal'),
+                        'jam_mulai' => $this->request->getVar('jam_mulai'),
+                        'jam_selesai' => $this->request->getVar('jam_selesai'),
+                        'tempat' => $this->request->getVar('tempat'),
+                        'tema_ibadah' => $this->request->getVar('tema_ibadah'),
+                        'ayat_tema' => $this->request->getVar('ayat_tema'),
+                        'liturgi' => $this->request->getVar('liturgi'),
+                        'keterangan' => $this->request->getVar('keterangan'),
+                        'max_peserta' => $this->request->getVar('max_peserta'),
+                        'status' => $this->request->getVar('status'),
+                        'is_recurring' => $this->request->getVar('is_recurring') ? 1 : 0,
+                        'recurring_type' => $this->request->getVar('recurring_type'),
+                        'recurring_end' => $this->request->getVar('recurring_end'),
                     ];
 
                     $this->jadwalibadah->update($id_jadwal, $updatedata);
@@ -194,7 +194,7 @@ class JadwalIbadah extends BaseController
                 'jenis_ibadah' => $this->jenisibadah->listAktif()
             ];
             $msg = [
-                'data' => view('backend/morvin/cmscust/jadwal_ibadah/tambah', $data)
+                'data' => view('backend/cmscust/jadwal_ibadah/tambah', $data)
             ];
             echo json_encode($msg);
         }
@@ -239,10 +239,10 @@ class JadwalIbadah extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'id_jenis_ibadah'   => $validation->getError('id_jenis_ibadah'),
-                        'judul_ibadah'      => $validation->getError('judul_ibadah'),
-                        'tanggal'           => $validation->getError('tanggal'),
-                        'jam_mulai'         => $validation->getError('jam_mulai'),
+                        'id_jenis_ibadah' => $validation->getError('id_jenis_ibadah'),
+                        'judul_ibadah' => $validation->getError('judul_ibadah'),
+                        'tanggal' => $validation->getError('tanggal'),
+                        'jam_mulai' => $validation->getError('jam_mulai'),
                     ]
                 ];
             } else {
@@ -250,9 +250,9 @@ class JadwalIbadah extends BaseController
                 $tanggal = $this->request->getVar('tanggal');
                 $jam_mulai = $this->request->getVar('jam_mulai');
                 $jam_selesai = $this->request->getVar('jam_selesai') ?: '23:59:59';
-                
+
                 $konflik = $this->jadwalibadah->cekKonflik($tanggal, $jam_mulai, $jam_selesai);
-                
+
                 if ($konflik) {
                     $msg = [
                         'error' => [
@@ -261,22 +261,22 @@ class JadwalIbadah extends BaseController
                     ];
                 } else {
                     $insertdata = [
-                        'id_jenis_ibadah'   => $this->request->getVar('id_jenis_ibadah'),
-                        'judul_ibadah'      => $this->request->getVar('judul_ibadah'),
-                        'tanggal'           => $this->request->getVar('tanggal'),
-                        'jam_mulai'         => $this->request->getVar('jam_mulai'),
-                        'jam_selesai'       => $this->request->getVar('jam_selesai'),
-                        'tempat'            => $this->request->getVar('tempat') ?: 'Gereja',
-                        'tema_ibadah'       => $this->request->getVar('tema_ibadah'),
-                        'ayat_tema'         => $this->request->getVar('ayat_tema'),
-                        'liturgi'           => $this->request->getVar('liturgi'),
-                        'keterangan'        => $this->request->getVar('keterangan'),
-                        'max_peserta'       => $this->request->getVar('max_peserta'),
-                        'status'            => $this->request->getVar('status') ?: 'Terjadwal',
-                        'is_recurring'      => $this->request->getVar('is_recurring') ? 1 : 0,
-                        'recurring_type'    => $this->request->getVar('recurring_type'),
-                        'recurring_end'     => $this->request->getVar('recurring_end'),
-                        'created_by'        => session()->get('id'),
+                        'id_jenis_ibadah' => $this->request->getVar('id_jenis_ibadah'),
+                        'judul_ibadah' => $this->request->getVar('judul_ibadah'),
+                        'tanggal' => $this->request->getVar('tanggal'),
+                        'jam_mulai' => $this->request->getVar('jam_mulai'),
+                        'jam_selesai' => $this->request->getVar('jam_selesai'),
+                        'tempat' => $this->request->getVar('tempat') ?: 'Gereja',
+                        'tema_ibadah' => $this->request->getVar('tema_ibadah'),
+                        'ayat_tema' => $this->request->getVar('ayat_tema'),
+                        'liturgi' => $this->request->getVar('liturgi'),
+                        'keterangan' => $this->request->getVar('keterangan'),
+                        'max_peserta' => $this->request->getVar('max_peserta'),
+                        'status' => $this->request->getVar('status') ?: 'Terjadwal',
+                        'is_recurring' => $this->request->getVar('is_recurring') ? 1 : 0,
+                        'recurring_type' => $this->request->getVar('recurring_type'),
+                        'recurring_end' => $this->request->getVar('recurring_end'),
+                        'created_by' => session()->get('id'),
                     ];
 
                     $id_jadwal = $this->jadwalibadah->insert($insertdata);
@@ -303,7 +303,7 @@ class JadwalIbadah extends BaseController
     {
         if ($this->request->isAJAX()) {
             $id_jadwal = $this->request->getVar('id_jadwal');
-            
+
             $this->jadwalibadah->delete($id_jadwal);
             $msg = [
                 'sukses' => 'Jadwal ibadah berhasil dihapus!'
@@ -319,7 +319,7 @@ class JadwalIbadah extends BaseController
         if ($this->request->isAJAX()) {
             $id_jadwal = $this->request->getVar('id_jadwal');
             $jmldata = count($id_jadwal);
-            
+
             for ($i = 0; $i < $jmldata; $i++) {
                 $this->jadwalibadah->delete($id_jadwal[$i]);
             }
@@ -339,7 +339,7 @@ class JadwalIbadah extends BaseController
             $status = $this->request->getVar('status');
 
             $this->jadwalibadah->updateStatus($id, $status);
-            
+
             $msg = [
                 'sukses' => 'Status jadwal berhasil diubah menjadi: ' . $status
             ];
@@ -354,9 +354,9 @@ class JadwalIbadah extends BaseController
         if ($this->request->isAJAX()) {
             $start = $this->request->getVar('start');
             $end = $this->request->getVar('end');
-            
+
             $events = $this->jadwalibadah->getCalendarEvents($start, $end);
-            
+
             echo json_encode($events);
         }
     }
@@ -367,7 +367,7 @@ class JadwalIbadah extends BaseController
         if ($this->request->isAJAX()) {
             $id_jadwal = $this->request->getVar('id_jadwal');
             $tanggal_baru = $this->request->getVar('tanggal_baru');
-            
+
             $jadwal = $this->jadwalibadah->find($id_jadwal);
             if (!$jadwal) {
                 $msg = ['error' => 'Jadwal tidak ditemukan'];
@@ -378,23 +378,23 @@ class JadwalIbadah extends BaseController
                 $jadwal['status'] = 'Terjadwal';
                 $jadwal['is_recurring'] = 0;
                 $jadwal['created_by'] = session()->get('id');
-                
+
                 $id_jadwal_baru = $this->jadwalibadah->insert($jadwal);
-                
+
                 // Copy pelayan
                 $pelayan_copied = $this->pelayanibadah->copyFromJadwal($id_jadwal, $id_jadwal_baru);
-                
+
                 // Copy musik
                 $musik_copied = $this->musikibadah->copyFromJadwal($id_jadwal, $id_jadwal_baru);
-                
+
                 // Copy pengumuman
                 $pengumuman_copied = $this->pengumumanibadah->copyFromJadwal($id_jadwal, $id_jadwal_baru);
-                
+
                 $msg = [
                     'sukses' => "Jadwal berhasil dicopy! ($pelayan_copied pelayan, $musik_copied musik, $pengumuman_copied pengumuman)"
                 ];
             }
-            
+
             echo json_encode($msg);
         }
     }
@@ -417,7 +417,7 @@ class JadwalIbadah extends BaseController
                 'jadwal_mendatang' => $jadwal_mendatang
             ];
             $msg = [
-                'data' => view('backend/morvin/cmscust/jadwal_ibadah/dashboard', $data)
+                'data' => view('backend/cmscust/jadwal_ibadah/dashboard', $data)
             ];
             echo json_encode($msg);
         }
@@ -432,11 +432,11 @@ class JadwalIbadah extends BaseController
 
             $data = [
                 'title' => 'Hasil Pencarian: ' . $keyword,
-                'list'  => $hasil,
+                'list' => $hasil,
                 'keyword' => $keyword
             ];
             $msg = [
-                'data' => view('backend/morvin/cmscust/jadwal_ibadah/hasil_cari', $data)
+                'data' => view('backend/cmscust/jadwal_ibadah/hasil_cari', $data)
             ];
             echo json_encode($msg);
         }
@@ -448,22 +448,31 @@ class JadwalIbadah extends BaseController
         if ($this->request->isAJAX()) {
             $bulan = $this->request->getVar('bulan');
             $tahun = $this->request->getVar('tahun');
-            
+
             $hasil = $this->jadwalibadah->listByMonth($bulan, $tahun);
             $nama_bulan = [
-                1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April',
-                5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus',
-                9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember'
+                1 => 'Januari',
+                2 => 'Februari',
+                3 => 'Maret',
+                4 => 'April',
+                5 => 'Mei',
+                6 => 'Juni',
+                7 => 'Juli',
+                8 => 'Agustus',
+                9 => 'September',
+                10 => 'Oktober',
+                11 => 'November',
+                12 => 'Desember'
             ];
 
             $data = [
                 'title' => 'Jadwal ' . $nama_bulan[$bulan] . ' ' . $tahun,
-                'list'  => $hasil,
+                'list' => $hasil,
                 'bulan' => $bulan,
                 'tahun' => $tahun
             ];
             $msg = [
-                'data' => view('backend/morvin/cmscust/jadwal_ibadah/hasil_filter', $data)
+                'data' => view('backend/cmscust/jadwal_ibadah/hasil_filter', $data)
             ];
             echo json_encode($msg);
         }

@@ -11,11 +11,11 @@ class Pesanan extends BaseController
             return redirect()->to('');
         }
         $data = [
-            'title'     => 'Pesanan',
-            'subtitle'  => 'Manajemen Pesanan',
-            'folder'    => 'morvin',
+            'title' => 'Pesanan',
+            'subtitle' => 'Manajemen Pesanan',
+            'folder' => 'morvin',
         ];
-        return view('backend/morvin/cmscust/pesanan/index', $data);
+        return view('backend/cmscust/pesanan/index', $data);
     }
 
     // Backend - Get data
@@ -24,21 +24,21 @@ class Pesanan extends BaseController
         if ($this->request->isAJAX()) {
             $id_grup = session()->get('id_grup');
             $url = 'pesanan/list';
-            $listgrupf =  $this->grupakses->listgrupakses($id_grup, $url);
+            $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
 
-            foreach ($listgrupf as $data) :
+            foreach ($listgrupf as $data):
                 $akses = $data['akses'];
             endforeach;
 
             if ($listgrupf) {
                 if ($akses == '1' || $akses == '2') {
                     $data = [
-                        'title'     => 'Pesanan',
-                        'list'      => $this->pesanan->list(),
-                        'akses'     => $akses
+                        'title' => 'Pesanan',
+                        'list' => $this->pesanan->list(),
+                        'akses' => $akses
                     ];
                     $msg = [
-                        'data' => view('backend/morvin/cmscust/pesanan/list', $data)
+                        'data' => view('backend/cmscust/pesanan/list', $data)
                     ];
                 } else {
                     $msg = [
@@ -61,18 +61,18 @@ class Pesanan extends BaseController
         if ($this->request->isAJAX()) {
             $id_pesanan = $this->request->getVar('id_pesanan');
             $pesanan = $this->pesanan->find($id_pesanan);
-            
+
             // Get detail items
             $detail = $this->pesanandetail->where('id_pesanan', $id_pesanan)->findAll();
 
             $data = [
-                'title'   => 'Detail Pesanan',
+                'title' => 'Detail Pesanan',
                 'pesanan' => $pesanan,
-                'detail'  => $detail
+                'detail' => $detail
             ];
-            
+
             $msg = [
-                'sukses' => view('backend/morvin/cmscust/pesanan/detail', $data)
+                'sukses' => view('backend/cmscust/pesanan/detail', $data)
             ];
             echo json_encode($msg);
         }

@@ -11,11 +11,11 @@ class ManajemenJemaat extends BaseController
             return redirect()->to('');
         }
         $data = [
-            'title'     => 'Manajemen Jemaat',
-            'subtitle'  => 'Data Anggota Jemaat',
-            'folder'    => 'morvin',
+            'title' => 'Manajemen Jemaat',
+            'subtitle' => 'Data Anggota Jemaat',
+            'folder' => 'morvin',
         ];
-        return view('backend/morvin/cmscust/manajemen_jemaat/index', $data);
+        return view('backend/cmscust/manajemen_jemaat/index', $data);
     }
 
     // Backend - Get data untuk datatables
@@ -24,22 +24,22 @@ class ManajemenJemaat extends BaseController
         if ($this->request->isAJAX()) {
             $id_grup = session()->get('id_grup');
             $url = 'manajemen-jemaat/list';
-            $listgrupf =  $this->grupakses->listgrupakses($id_grup, $url);
+            $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
 
-            foreach ($listgrupf as $data) :
+            foreach ($listgrupf as $data):
                 $akses = $data['akses'];
             endforeach;
 
             if ($listgrupf) {
                 if ($akses == '1' || $akses == '2') {
                     $data = [
-                        'title'     => 'Manajemen Jemaat',
-                        'list'      => $this->jemaat->list(),
-                        'akses'     => $akses,
+                        'title' => 'Manajemen Jemaat',
+                        'list' => $this->jemaat->list(),
+                        'akses' => $akses,
                         'statistik' => $this->jemaat->getStatistik()
                     ];
                     $msg = [
-                        'data' => view('backend/morvin/cmscust/manajemen_jemaat/list', $data)
+                        'data' => view('backend/cmscust/manajemen_jemaat/list', $data)
                     ];
                 } else {
                     $msg = [
@@ -61,14 +61,14 @@ class ManajemenJemaat extends BaseController
     {
         if ($this->request->isAJAX()) {
             $id_jemaat = $this->request->getVar('id_jemaat');
-            $list =  $this->jemaat->find($id_jemaat);
+            $list = $this->jemaat->find($id_jemaat);
 
             $data = [
                 'title' => 'Detail Data Jemaat',
-                'data'  => $list
+                'data' => $list
             ];
             $msg = [
-                'sukses' => view('backend/morvin/cmscust/manajemen_jemaat/lihat', $data)
+                'sukses' => view('backend/cmscust/manajemen_jemaat/lihat', $data)
             ];
             echo json_encode($msg);
         }
@@ -79,14 +79,14 @@ class ManajemenJemaat extends BaseController
     {
         if ($this->request->isAJAX()) {
             $id_jemaat = $this->request->getVar('id_jemaat');
-            $list =  $this->jemaat->find($id_jemaat);
+            $list = $this->jemaat->find($id_jemaat);
 
             $data = [
                 'title' => 'Edit Data Jemaat',
-                'data'  => $list
+                'data' => $list
             ];
             $msg = [
-                'sukses' => view('backend/morvin/cmscust/manajemen_jemaat/edit', $data)
+                'sukses' => view('backend/cmscust/manajemen_jemaat/edit', $data)
             ];
             echo json_encode($msg);
         }
@@ -147,12 +147,12 @@ class ManajemenJemaat extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'nama_lengkap'      => $validation->getError('nama_lengkap'),
-                        'no_anggota'        => $validation->getError('no_anggota'),
-                        'tgl_lahir'         => $validation->getError('tgl_lahir'),
-                        'jenis_kelamin'     => $validation->getError('jenis_kelamin'),
-                        'alamat_lengkap'    => $validation->getError('alamat_lengkap'),
-                        'tgl_bergabung'     => $validation->getError('tgl_bergabung'),
+                        'nama_lengkap' => $validation->getError('nama_lengkap'),
+                        'no_anggota' => $validation->getError('no_anggota'),
+                        'tgl_lahir' => $validation->getError('tgl_lahir'),
+                        'jenis_kelamin' => $validation->getError('jenis_kelamin'),
+                        'alamat_lengkap' => $validation->getError('alamat_lengkap'),
+                        'tgl_bergabung' => $validation->getError('tgl_bergabung'),
                     ]
                 ];
             } else {
@@ -165,42 +165,42 @@ class ManajemenJemaat extends BaseController
                     ];
                 } else {
                     $updatedata = [
-                        'no_anggota'            => $this->request->getVar('no_anggota'),
-                        'nama_lengkap'          => $this->request->getVar('nama_lengkap'),
-                        'nama_panggilan'        => $this->request->getVar('nama_panggilan'),
-                        'tempat_lahir'          => $this->request->getVar('tempat_lahir'),
-                        'tgl_lahir'             => date('Y-m-d', strtotime($this->request->getVar('tgl_lahir'))),
-                        'jenis_kelamin'         => $this->request->getVar('jenis_kelamin'),
-                        'alamat_lengkap'        => $this->request->getVar('alamat_lengkap'),
-                        'rt_rw'                 => $this->request->getVar('rt_rw'),
-                        'kelurahan'             => $this->request->getVar('kelurahan'),
-                        'kecamatan'             => $this->request->getVar('kecamatan'),
-                        'kota'                  => $this->request->getVar('kota'),
-                        'kode_pos'              => $this->request->getVar('kode_pos'),
-                        'no_hp'                 => $this->request->getVar('no_hp'),
-                        'email'                 => $this->request->getVar('email'),
-                        'pekerjaan'             => $this->request->getVar('pekerjaan'),
-                        'pendidikan'            => $this->request->getVar('pendidikan'),
-                        'status_pernikahan'     => $this->request->getVar('status_pernikahan'),
-                        'nama_ayah'             => $this->request->getVar('nama_ayah'),
-                        'nama_ibu'              => $this->request->getVar('nama_ibu'),
-                        'nama_pasangan'         => $this->request->getVar('nama_pasangan'),
-                        'tgl_baptis'            => $this->request->getVar('tgl_baptis') ? date('Y-m-d', strtotime($this->request->getVar('tgl_baptis'))) : null,
-                        'tempat_baptis'         => $this->request->getVar('tempat_baptis'),
-                        'pendeta_baptis'        => $this->request->getVar('pendeta_baptis'),
-                        'tgl_sidi'              => $this->request->getVar('tgl_sidi') ? date('Y-m-d', strtotime($this->request->getVar('tgl_sidi'))) : null,
-                        'tempat_sidi'           => $this->request->getVar('tempat_sidi'),
-                        'pendeta_sidi'          => $this->request->getVar('pendeta_sidi'),
-                        'tgl_nikah'             => $this->request->getVar('tgl_nikah') ? date('Y-m-d', strtotime($this->request->getVar('tgl_nikah'))) : null,
-                        'tempat_nikah'          => $this->request->getVar('tempat_nikah'),
-                        'pendeta_nikah'         => $this->request->getVar('pendeta_nikah'),
-                        'status_keanggotaan'    => $this->request->getVar('status_keanggotaan'),
-                        'tgl_bergabung'         => date('Y-m-d', strtotime($this->request->getVar('tgl_bergabung'))),
-                        'tgl_pindah'            => $this->request->getVar('tgl_pindah') ? date('Y-m-d', strtotime($this->request->getVar('tgl_pindah'))) : null,
-                        'tgl_meninggal'         => $this->request->getVar('tgl_meninggal') ? date('Y-m-d', strtotime($this->request->getVar('tgl_meninggal'))) : null,
-                        'gereja_asal'           => $this->request->getVar('gereja_asal'),
-                        'gereja_tujuan'         => $this->request->getVar('gereja_tujuan'),
-                        'keterangan'            => $this->request->getVar('keterangan'),
+                        'no_anggota' => $this->request->getVar('no_anggota'),
+                        'nama_lengkap' => $this->request->getVar('nama_lengkap'),
+                        'nama_panggilan' => $this->request->getVar('nama_panggilan'),
+                        'tempat_lahir' => $this->request->getVar('tempat_lahir'),
+                        'tgl_lahir' => date('Y-m-d', strtotime($this->request->getVar('tgl_lahir'))),
+                        'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
+                        'alamat_lengkap' => $this->request->getVar('alamat_lengkap'),
+                        'rt_rw' => $this->request->getVar('rt_rw'),
+                        'kelurahan' => $this->request->getVar('kelurahan'),
+                        'kecamatan' => $this->request->getVar('kecamatan'),
+                        'kota' => $this->request->getVar('kota'),
+                        'kode_pos' => $this->request->getVar('kode_pos'),
+                        'no_hp' => $this->request->getVar('no_hp'),
+                        'email' => $this->request->getVar('email'),
+                        'pekerjaan' => $this->request->getVar('pekerjaan'),
+                        'pendidikan' => $this->request->getVar('pendidikan'),
+                        'status_pernikahan' => $this->request->getVar('status_pernikahan'),
+                        'nama_ayah' => $this->request->getVar('nama_ayah'),
+                        'nama_ibu' => $this->request->getVar('nama_ibu'),
+                        'nama_pasangan' => $this->request->getVar('nama_pasangan'),
+                        'tgl_baptis' => $this->request->getVar('tgl_baptis') ? date('Y-m-d', strtotime($this->request->getVar('tgl_baptis'))) : null,
+                        'tempat_baptis' => $this->request->getVar('tempat_baptis'),
+                        'pendeta_baptis' => $this->request->getVar('pendeta_baptis'),
+                        'tgl_sidi' => $this->request->getVar('tgl_sidi') ? date('Y-m-d', strtotime($this->request->getVar('tgl_sidi'))) : null,
+                        'tempat_sidi' => $this->request->getVar('tempat_sidi'),
+                        'pendeta_sidi' => $this->request->getVar('pendeta_sidi'),
+                        'tgl_nikah' => $this->request->getVar('tgl_nikah') ? date('Y-m-d', strtotime($this->request->getVar('tgl_nikah'))) : null,
+                        'tempat_nikah' => $this->request->getVar('tempat_nikah'),
+                        'pendeta_nikah' => $this->request->getVar('pendeta_nikah'),
+                        'status_keanggotaan' => $this->request->getVar('status_keanggotaan'),
+                        'tgl_bergabung' => date('Y-m-d', strtotime($this->request->getVar('tgl_bergabung'))),
+                        'tgl_pindah' => $this->request->getVar('tgl_pindah') ? date('Y-m-d', strtotime($this->request->getVar('tgl_pindah'))) : null,
+                        'tgl_meninggal' => $this->request->getVar('tgl_meninggal') ? date('Y-m-d', strtotime($this->request->getVar('tgl_meninggal'))) : null,
+                        'gereja_asal' => $this->request->getVar('gereja_asal'),
+                        'gereja_tujuan' => $this->request->getVar('gereja_tujuan'),
+                        'keterangan' => $this->request->getVar('keterangan'),
                     ];
 
                     $this->jemaat->update($id_jemaat, $updatedata);
@@ -223,7 +223,7 @@ class ManajemenJemaat extends BaseController
                 'no_anggota_baru' => $this->jemaat->generateNoAnggota()
             ];
             $msg = [
-                'data' => view('backend/morvin/cmscust/manajemen_jemaat/tambah', $data)
+                'data' => view('backend/cmscust/manajemen_jemaat/tambah', $data)
             ];
             echo json_encode($msg);
         }
@@ -282,12 +282,12 @@ class ManajemenJemaat extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'nama_lengkap'      => $validation->getError('nama_lengkap'),
-                        'no_anggota'        => $validation->getError('no_anggota'),
-                        'tgl_lahir'         => $validation->getError('tgl_lahir'),
-                        'jenis_kelamin'     => $validation->getError('jenis_kelamin'),
-                        'alamat_lengkap'    => $validation->getError('alamat_lengkap'),
-                        'tgl_bergabung'     => $validation->getError('tgl_bergabung'),
+                        'nama_lengkap' => $validation->getError('nama_lengkap'),
+                        'no_anggota' => $validation->getError('no_anggota'),
+                        'tgl_lahir' => $validation->getError('tgl_lahir'),
+                        'jenis_kelamin' => $validation->getError('jenis_kelamin'),
+                        'alamat_lengkap' => $validation->getError('alamat_lengkap'),
+                        'tgl_bergabung' => $validation->getError('tgl_bergabung'),
                     ]
                 ];
             } else {
@@ -300,42 +300,42 @@ class ManajemenJemaat extends BaseController
                     ];
                 } else {
                     $insertdata = [
-                        'no_anggota'            => $this->request->getVar('no_anggota'),
-                        'nama_lengkap'          => $this->request->getVar('nama_lengkap'),
-                        'nama_panggilan'        => $this->request->getVar('nama_panggilan'),
-                        'tempat_lahir'          => $this->request->getVar('tempat_lahir'),
-                        'tgl_lahir'             => date('Y-m-d', strtotime($this->request->getVar('tgl_lahir'))),
-                        'jenis_kelamin'         => $this->request->getVar('jenis_kelamin'),
-                        'alamat_lengkap'        => $this->request->getVar('alamat_lengkap'),
-                        'rt_rw'                 => $this->request->getVar('rt_rw'),
-                        'kelurahan'             => $this->request->getVar('kelurahan'),
-                        'kecamatan'             => $this->request->getVar('kecamatan'),
-                        'kota'                  => $this->request->getVar('kota'),
-                        'kode_pos'              => $this->request->getVar('kode_pos'),
-                        'no_hp'                 => $this->request->getVar('no_hp'),
-                        'email'                 => $this->request->getVar('email'),
-                        'pekerjaan'             => $this->request->getVar('pekerjaan'),
-                        'pendidikan'            => $this->request->getVar('pendidikan'),
-                        'status_pernikahan'     => $this->request->getVar('status_pernikahan'),
-                        'nama_ayah'             => $this->request->getVar('nama_ayah'),
-                        'nama_ibu'              => $this->request->getVar('nama_ibu'),
-                        'nama_pasangan'         => $this->request->getVar('nama_pasangan'),
-                        'tgl_baptis'            => $this->request->getVar('tgl_baptis') ? date('Y-m-d', strtotime($this->request->getVar('tgl_baptis'))) : null,
-                        'tempat_baptis'         => $this->request->getVar('tempat_baptis'),
-                        'pendeta_baptis'        => $this->request->getVar('pendeta_baptis'),
-                        'tgl_sidi'              => $this->request->getVar('tgl_sidi') ? date('Y-m-d', strtotime($this->request->getVar('tgl_sidi'))) : null,
-                        'tempat_sidi'           => $this->request->getVar('tempat_sidi'),
-                        'pendeta_sidi'          => $this->request->getVar('pendeta_sidi'),
-                        'tgl_nikah'             => $this->request->getVar('tgl_nikah') ? date('Y-m-d', strtotime($this->request->getVar('tgl_nikah'))) : null,
-                        'tempat_nikah'          => $this->request->getVar('tempat_nikah'),
-                        'pendeta_nikah'         => $this->request->getVar('pendeta_nikah'),
-                        'status_keanggotaan'    => $this->request->getVar('status_keanggotaan') ?: 'Aktif',
-                        'tgl_bergabung'         => date('Y-m-d', strtotime($this->request->getVar('tgl_bergabung'))),
-                        'tgl_pindah'            => $this->request->getVar('tgl_pindah') ? date('Y-m-d', strtotime($this->request->getVar('tgl_pindah'))) : null,
-                        'tgl_meninggal'         => $this->request->getVar('tgl_meninggal') ? date('Y-m-d', strtotime($this->request->getVar('tgl_meninggal'))) : null,
-                        'gereja_asal'           => $this->request->getVar('gereja_asal'),
-                        'gereja_tujuan'         => $this->request->getVar('gereja_tujuan'),
-                        'keterangan'            => $this->request->getVar('keterangan'),
+                        'no_anggota' => $this->request->getVar('no_anggota'),
+                        'nama_lengkap' => $this->request->getVar('nama_lengkap'),
+                        'nama_panggilan' => $this->request->getVar('nama_panggilan'),
+                        'tempat_lahir' => $this->request->getVar('tempat_lahir'),
+                        'tgl_lahir' => date('Y-m-d', strtotime($this->request->getVar('tgl_lahir'))),
+                        'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
+                        'alamat_lengkap' => $this->request->getVar('alamat_lengkap'),
+                        'rt_rw' => $this->request->getVar('rt_rw'),
+                        'kelurahan' => $this->request->getVar('kelurahan'),
+                        'kecamatan' => $this->request->getVar('kecamatan'),
+                        'kota' => $this->request->getVar('kota'),
+                        'kode_pos' => $this->request->getVar('kode_pos'),
+                        'no_hp' => $this->request->getVar('no_hp'),
+                        'email' => $this->request->getVar('email'),
+                        'pekerjaan' => $this->request->getVar('pekerjaan'),
+                        'pendidikan' => $this->request->getVar('pendidikan'),
+                        'status_pernikahan' => $this->request->getVar('status_pernikahan'),
+                        'nama_ayah' => $this->request->getVar('nama_ayah'),
+                        'nama_ibu' => $this->request->getVar('nama_ibu'),
+                        'nama_pasangan' => $this->request->getVar('nama_pasangan'),
+                        'tgl_baptis' => $this->request->getVar('tgl_baptis') ? date('Y-m-d', strtotime($this->request->getVar('tgl_baptis'))) : null,
+                        'tempat_baptis' => $this->request->getVar('tempat_baptis'),
+                        'pendeta_baptis' => $this->request->getVar('pendeta_baptis'),
+                        'tgl_sidi' => $this->request->getVar('tgl_sidi') ? date('Y-m-d', strtotime($this->request->getVar('tgl_sidi'))) : null,
+                        'tempat_sidi' => $this->request->getVar('tempat_sidi'),
+                        'pendeta_sidi' => $this->request->getVar('pendeta_sidi'),
+                        'tgl_nikah' => $this->request->getVar('tgl_nikah') ? date('Y-m-d', strtotime($this->request->getVar('tgl_nikah'))) : null,
+                        'tempat_nikah' => $this->request->getVar('tempat_nikah'),
+                        'pendeta_nikah' => $this->request->getVar('pendeta_nikah'),
+                        'status_keanggotaan' => $this->request->getVar('status_keanggotaan') ?: 'Aktif',
+                        'tgl_bergabung' => date('Y-m-d', strtotime($this->request->getVar('tgl_bergabung'))),
+                        'tgl_pindah' => $this->request->getVar('tgl_pindah') ? date('Y-m-d', strtotime($this->request->getVar('tgl_pindah'))) : null,
+                        'tgl_meninggal' => $this->request->getVar('tgl_meninggal') ? date('Y-m-d', strtotime($this->request->getVar('tgl_meninggal'))) : null,
+                        'gereja_asal' => $this->request->getVar('gereja_asal'),
+                        'gereja_tujuan' => $this->request->getVar('gereja_tujuan'),
+                        'keterangan' => $this->request->getVar('keterangan'),
                     ];
 
                     $this->jemaat->insert($insertdata);
@@ -376,15 +376,15 @@ class ManajemenJemaat extends BaseController
         if ($this->request->isAJAX()) {
             $id_jemaat = $this->request->getVar('id_jemaat');
             $jmldata = count($id_jemaat);
-            
+
             for ($i = 0; $i < $jmldata; $i++) {
                 $cekdata = $this->jemaat->find($id_jemaat[$i]);
-                
+
                 // Hapus foto jika ada
                 if (!empty($cekdata['foto']) && file_exists('public/file/foto/jemaat/' . $cekdata['foto'])) {
                     unlink('public/file/foto/jemaat/' . $cekdata['foto']);
                 }
-                
+
                 $this->jemaat->delete($id_jemaat[$i]);
             }
 
@@ -405,7 +405,7 @@ class ManajemenJemaat extends BaseController
             $keterangan = $this->request->getVar('keterangan');
 
             $this->jemaat->updateStatus($id, $status, $tanggal, $keterangan);
-            
+
             $msg = [
                 'sukses' => 'Status keanggotaan berhasil diubah menjadi: ' . $status
             ];
@@ -419,14 +419,14 @@ class ManajemenJemaat extends BaseController
     {
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('id_jemaat');
-            $list =  $this->jemaat->find($id);
-            
+            $list = $this->jemaat->find($id);
+
             $data = [
                 'title' => 'Upload Foto Jemaat',
-                'data'  => $list
+                'data' => $list
             ];
             $msg = [
-                'sukses' => view('backend/morvin/cmscust/manajemen_jemaat/upload', $data)
+                'sukses' => view('backend/cmscust/manajemen_jemaat/upload', $data)
             ];
             echo json_encode($msg);
         }
@@ -437,7 +437,7 @@ class ManajemenJemaat extends BaseController
     {
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('id_jemaat');
-            
+
             $validation = \Config\Services::validation();
             $valid = $this->validate([
                 'foto' => [
@@ -489,7 +489,7 @@ class ManajemenJemaat extends BaseController
     {
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('id_jemaat');
-            
+
             $cekdata = $this->jemaat->find($id);
             $foto = $cekdata['foto'];
 
@@ -520,11 +520,11 @@ class ManajemenJemaat extends BaseController
 
             $data = [
                 'title' => 'Hasil Pencarian: ' . $keyword,
-                'list'  => $hasil,
+                'list' => $hasil,
                 'keyword' => $keyword
             ];
             $msg = [
-                'data' => view('backend/morvin/cmscust/manajemen_jemaat/hasil_cari', $data)
+                'data' => view('backend/cmscust/manajemen_jemaat/hasil_cari', $data)
             ];
             echo json_encode($msg);
         }
@@ -548,7 +548,7 @@ class ManajemenJemaat extends BaseController
                 'jemaat_baru' => $jemaatBaru
             ];
             $msg = [
-                'data' => view('backend/morvin/cmscust/manajemen_jemaat/dashboard', $data)
+                'data' => view('backend/cmscust/manajemen_jemaat/dashboard', $data)
             ];
             echo json_encode($msg);
         }

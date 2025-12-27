@@ -10,13 +10,13 @@ class Counter extends BaseController
         if (!session()->get('id')) {
             return redirect()->to('');
         }
-        $tadmin             = $this->template->tempadminaktif();
+
         $data = [
-            'title'         => 'Counter',
-            'subtitle'      => 'Data',
-            'folder'      => $tadmin['folder'],
+            'title' => 'Counter',
+            'subtitle' => 'Data',
+
         ];
-        return view('backend/' . $tadmin['folder'] . '/' . 'setkonten/counter/index', $data);
+        return view('backend/setkonten/counter/index', $data);
     }
 
     public function getdata()
@@ -57,11 +57,11 @@ class Counter extends BaseController
         ];
 
         // Ambil template admin aktif
-        $tadmin = $this->template->tempadminaktif();
+
 
         // Siapkan respons JSON dengan data tampilan
         $msg = [
-            'data' => view('backend/' . esc($tadmin['folder']) . '/setkonten/counter/list', $data)
+            'data' => view('backend/setkonten/counter/list', $data)
         ];
 
         echo json_encode($msg);
@@ -75,12 +75,12 @@ class Counter extends BaseController
         }
         if ($this->request->isAJAX()) {
             $data = [
-                'title'             => 'Tambah Counter',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'title' => 'Tambah Counter',
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
-            $tadmin             = $this->template->tempadminaktif();
+
             $msg = [
-                'data' => view('backend/' . $tadmin['folder'] . '/' . 'setkonten/counter/tambah', $data)
+                'data' => view('backend/setkonten/counter/tambah', $data)
             ];
             echo json_encode($msg);
         }
@@ -123,25 +123,25 @@ class Counter extends BaseController
                     'error' => [
                         'nm' => $validation->getError('nm'),
                         'ic' => $validation->getError('ic'),
-                        'jm'    => $validation->getError('jm'),
+                        'jm' => $validation->getError('jm'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 $simpandata = [
-                    'nm'     => $this->request->getVar('nm'),
-                    'jm'     => $this->request->getVar('jm'),
-                    'ic'     => $this->request->getVar('ic'),
-                    'sumber'  => $this->request->getVar('sumber'),
-                    'link'   => $this->request->getVar('link'),
-                    'bgc'   => $this->request->getVar('bgc'),
+                    'nm' => $this->request->getVar('nm'),
+                    'jm' => $this->request->getVar('jm'),
+                    'ic' => $this->request->getVar('ic'),
+                    'sumber' => $this->request->getVar('sumber'),
+                    'link' => $this->request->getVar('link'),
+                    'bgc' => $this->request->getVar('bgc'),
 
                 ];
 
                 $this->counter->insert($simpandata);
                 $msg = [
-                    'sukses'                => 'Data berhasil disimpan',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Data berhasil disimpan',
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -155,24 +155,24 @@ class Counter extends BaseController
         }
         if ($this->request->isAJAX()) {
             $id_counter = $this->request->getVar('id_counter');
-            $list       =  $this->counter->find($id_counter);
-            $tadmin             = $this->template->tempadminaktif();
+            $list = $this->counter->find($id_counter);
+
 
             $data = [
-                'title'             => 'Edit Counter',
-                'id_counter'        => $id_counter,
-                'nm'                => $list['nm'],
-                'jm'                => $list['jm'],
-                'ic'                => $list['ic'],
-                'sumber'            => $list['sumber'],
-                'link'              => $list['link'],
-                'bgc'               => $list['bgc'],
+                'title' => 'Edit Counter',
+                'id_counter' => $id_counter,
+                'nm' => $list['nm'],
+                'jm' => $list['jm'],
+                'ic' => $list['ic'],
+                'sumber' => $list['sumber'],
+                'link' => $list['link'],
+                'bgc' => $list['bgc'],
 
             ];
             $msg = [
 
-                'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'setkonten/counter/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/setkonten/counter/edit', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -216,19 +216,19 @@ class Counter extends BaseController
                     'error' => [
                         'nm' => $validation->getError('nm'),
                         'ic' => $validation->getError('ic'),
-                        'jm'    => $validation->getError('jm'),
+                        'jm' => $validation->getError('jm'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 $updatedata = [
 
-                    'nm'     => $this->request->getVar('nm'),
-                    'jm'     => $this->request->getVar('jm'),
-                    'ic'     => $this->request->getVar('ic'),
-                    'sumber'  => $this->request->getVar('sumber'),
-                    'link'   => $this->request->getVar('link'),
-                    'bgc'   => $this->request->getVar('bgc'),
+                    'nm' => $this->request->getVar('nm'),
+                    'jm' => $this->request->getVar('jm'),
+                    'ic' => $this->request->getVar('ic'),
+                    'sumber' => $this->request->getVar('sumber'),
+                    'link' => $this->request->getVar('link'),
+                    'bgc' => $this->request->getVar('bgc'),
 
 
                 ];
@@ -236,8 +236,8 @@ class Counter extends BaseController
                 $id_counter = $this->request->getVar('id_counter');
                 $this->counter->update($id_counter, $updatedata);
                 $msg = [
-                    'sukses'                => 'Data berhasil diupdate',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Data berhasil diupdate',
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -255,8 +255,8 @@ class Counter extends BaseController
 
             $this->counter->delete($id_counter);
             $msg = [
-                'sukses'                => 'Data Berhasil Dihapus',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => 'Data Berhasil Dihapus',
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -270,17 +270,17 @@ class Counter extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            $id     = $this->request->getVar('id_counter');
-            $cari   = $this->counter->find($id);
+            $id = $this->request->getVar('id_counter');
+            $cari = $this->counter->find($id);
 
-            $sts    = $cari['sts'] == '1' ? 0 : 1;
+            $sts = $cari['sts'] == '1' ? 0 : 1;
             $stsket = $sts ? 'Berhasil Aktifkan!' : 'Berhasil Non Aktifkan!';
 
             $this->counter->update($id, ['sts' => $sts]);
 
             echo json_encode([
-                'sukses'                => $stsket,
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => $stsket,
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ]);
         }
     }

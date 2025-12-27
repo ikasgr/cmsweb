@@ -8,7 +8,7 @@ class Toko extends BaseController
     public function index()
     {
         $konfigurasi = $this->konfigurasi->vkonfig();
-        $template = $this->template->tempaktif();
+        
         $produk = $this->produkumkm->listaktif();
 
         $data = [
@@ -22,7 +22,7 @@ class Toko extends BaseController
             'topmenu'       => $this->menu->topmenu(),
             'section'       => $this->section->list(),
             'linkterkaitall' => $this->linkterkait->publishlinkall(),
-            'folder'        => $template['folder'],
+            
             'produk'        => $produk->paginate(12, 'produk'),
             'pager'         => $produk->pager,
             'kategori'      => $this->kategoriproduk->withcount(),
@@ -30,7 +30,7 @@ class Toko extends BaseController
             'terlaris'      => $this->produkumkm->terlaris()->limit(4)->get()->getResultArray(),
         ];
 
-        return view('frontend/' . $template['folder'] . '/desktop/content/toko_index', $data);
+        return view('frontend/desktop/content/toko_index', $data);
     }
 
     // Detail produk
@@ -39,7 +39,7 @@ class Toko extends BaseController
         if (!isset($slug_produk)) return redirect()->to('toko');
 
         $konfigurasi = $this->konfigurasi->vkonfig();
-        $template = $this->template->tempaktif();
+        
         $produk = $this->produkumkm->detail($slug_produk);
 
         if (!$produk) {
@@ -65,12 +65,12 @@ class Toko extends BaseController
             'topmenu'       => $this->menu->topmenu(),
             'section'       => $this->section->list(),
             'linkterkaitall' => $this->linkterkait->publishlinkall(),
-            'folder'        => $template['folder'],
+            
             'produk'        => $produk,
             'terkait'       => $terkait,
         ];
 
-        return view('frontend/' . $template['folder'] . '/desktop/content/toko_detail', $data);
+        return view('frontend/desktop/content/toko_detail', $data);
     }
 
     // Produk by kategori
@@ -79,7 +79,7 @@ class Toko extends BaseController
         if (!isset($slug_kategori)) return redirect()->to('toko');
 
         $konfigurasi = $this->konfigurasi->vkonfig();
-        $template = $this->template->tempaktif();
+        
         $kategori = $this->kategoriproduk->detail($slug_kategori);
 
         if (!$kategori) {
@@ -99,14 +99,14 @@ class Toko extends BaseController
             'topmenu'       => $this->menu->topmenu(),
             'section'       => $this->section->list(),
             'linkterkaitall' => $this->linkterkait->publishlinkall(),
-            'folder'        => $template['folder'],
+            
             'kategori'      => $kategori,
             'produk'        => $produk->paginate(12, 'produk'),
             'pager'         => $produk->pager,
             'kategori_list' => $this->kategoriproduk->withcount(),
         ];
 
-        return view('frontend/' . $template['folder'] . '/desktop/content/toko_kategori', $data);
+        return view('frontend/desktop/content/toko_kategori', $data);
     }
 
     // Search produk
@@ -115,7 +115,7 @@ class Toko extends BaseController
         $keyword = $this->request->getGet('q');
         
         $konfigurasi = $this->konfigurasi->vkonfig();
-        $template = $this->template->tempaktif();
+        
         $produk = $this->produkumkm->search($keyword);
 
         $data = [
@@ -129,21 +129,21 @@ class Toko extends BaseController
             'topmenu'       => $this->menu->topmenu(),
             'section'       => $this->section->list(),
             'linkterkaitall' => $this->linkterkait->publishlinkall(),
-            'folder'        => $template['folder'],
+            
             'keyword'       => $keyword,
             'produk'        => $produk->paginate(12, 'produk'),
             'pager'         => $produk->pager,
             'kategori'      => $this->kategoriproduk->withcount(),
         ];
 
-        return view('frontend/' . $template['folder'] . '/desktop/content/toko_search', $data);
+        return view('frontend/desktop/content/toko_search', $data);
     }
 
     // Keranjang belanja
     public function keranjang()
     {
         $konfigurasi = $this->konfigurasi->vkonfig();
-        $template = $this->template->tempaktif();
+        
         $session_id = session()->get('cart_session') ?? session()->session_id;
 
         $cart = $this->keranjang->bysession($session_id);
@@ -161,12 +161,12 @@ class Toko extends BaseController
             'topmenu'       => $this->menu->topmenu(),
             'section'       => $this->section->list(),
             'linkterkaitall' => $this->linkterkait->publishlinkall(),
-            'folder'        => $template['folder'],
+            
             'cart'          => $cart,
             'total'         => $total,
         ];
 
-        return view('frontend/' . $template['folder'] . '/desktop/content/toko_keranjang', $data);
+        return view('frontend/desktop/content/toko_keranjang', $data);
     }
 
     // Add to cart
@@ -442,7 +442,7 @@ class Toko extends BaseController
     public function invoice($kode_pesanan)
     {
         $konfigurasi = $this->konfigurasi->vkonfig();
-        $template = $this->template->tempaktif();
+        
         
         $pesanan = $this->pesanan->getByKode($kode_pesanan);
         if (!$pesanan) {
@@ -466,12 +466,12 @@ class Toko extends BaseController
             'topmenu' => $this->menu->topmenu(),
             'section' => $this->section->list(),
             'linkterkaitall' => $this->linkterkait->publishlinkall(),
-            'folder' => $template['folder'],
+            
             'pesanan' => $pesanan,
             'detail' => $detail
         ];
 
-        return view('frontend/' . $template['folder'] . '/desktop/content/toko_invoice', $data);
+        return view('frontend/desktop/content/toko_invoice', $data);
     }
 }
 

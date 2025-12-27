@@ -11,11 +11,11 @@ class JadwalPelayanan extends BaseController
             return redirect()->to('');
         }
         $data = [
-            'title'     => 'Jadwal Pelayanan',
-            'subtitle'  => 'Manajemen Jadwal',
-            'folder'    => 'morvin',
+            'title' => 'Jadwal Pelayanan',
+            'subtitle' => 'Manajemen Jadwal',
+            'folder' => 'morvin',
         ];
-        return view('backend/morvin/cmscust/jadwal_pelayanan/index', $data);
+        return view('backend/cmscust/jadwal_pelayanan/index', $data);
     }
 
     // Backend - Get data
@@ -24,21 +24,21 @@ class JadwalPelayanan extends BaseController
         if ($this->request->isAJAX()) {
             $id_grup = session()->get('id_grup');
             $url = 'jadwal-pelayanan/list';
-            $listgrupf =  $this->grupakses->listgrupakses($id_grup, $url);
+            $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
 
-            foreach ($listgrupf as $data) :
+            foreach ($listgrupf as $data):
                 $akses = $data['akses'];
             endforeach;
 
             if ($listgrupf) {
                 if ($akses == '1' || $akses == '2') {
                     $data = [
-                        'title'     => 'Jadwal Pelayanan',
-                        'list'      => $this->jadwalpelayanan->list(),
-                        'akses'     => $akses
+                        'title' => 'Jadwal Pelayanan',
+                        'list' => $this->jadwalpelayanan->list(),
+                        'akses' => $akses
                     ];
                     $msg = [
-                        'data' => view('backend/morvin/cmscust/jadwal_pelayanan/list', $data)
+                        'data' => view('backend/cmscust/jadwal_pelayanan/list', $data)
                     ];
                 } else {
                     $msg = [
@@ -63,7 +63,7 @@ class JadwalPelayanan extends BaseController
                 'title' => 'Tambah Jadwal Pelayanan',
             ];
             $msg = [
-                'data' => view('backend/morvin/cmscust/jadwal_pelayanan/tambah', $data)
+                'data' => view('backend/cmscust/jadwal_pelayanan/tambah', $data)
             ];
             echo json_encode($msg);
         }
@@ -108,31 +108,31 @@ class JadwalPelayanan extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'judul_jadwal'      => $validation->getError('judul_jadwal'),
-                        'jenis_pelayanan'   => $validation->getError('jenis_pelayanan'),
-                        'tanggal'           => $validation->getError('tanggal'),
-                        'waktu_mulai'       => $validation->getError('waktu_mulai'),
+                        'judul_jadwal' => $validation->getError('judul_jadwal'),
+                        'jenis_pelayanan' => $validation->getError('jenis_pelayanan'),
+                        'tanggal' => $validation->getError('tanggal'),
+                        'waktu_mulai' => $validation->getError('waktu_mulai'),
                     ]
                 ];
             } else {
                 $insertdata = [
-                    'judul_jadwal'      => $this->request->getVar('judul_jadwal'),
-                    'jenis_pelayanan'   => $this->request->getVar('jenis_pelayanan'),
-                    'tanggal'           => $this->request->getVar('tanggal'),
-                    'waktu_mulai'       => $this->request->getVar('waktu_mulai'),
-                    'waktu_selesai'     => $this->request->getVar('waktu_selesai'),
-                    'tempat'            => $this->request->getVar('tempat'),
-                    'pengkhotbah'       => $this->request->getVar('pengkhotbah'),
-                    'liturgis'          => $this->request->getVar('liturgis'),
-                    'singer'            => $this->request->getVar('singer'),
-                    'pemusik'           => $this->request->getVar('pemusik'),
-                    'multimedia'        => $this->request->getVar('multimedia'),
-                    'usher'             => $this->request->getVar('usher'),
-                    'keterangan'        => $this->request->getVar('keterangan'),
-                    'status'            => $this->request->getVar('status'),
-                    'warna'             => $this->request->getVar('warna') ?? '#007bff',
-                    'user_id'           => session()->get('id'),
-                    'tgl_input'         => date('Y-m-d H:i:s'),
+                    'judul_jadwal' => $this->request->getVar('judul_jadwal'),
+                    'jenis_pelayanan' => $this->request->getVar('jenis_pelayanan'),
+                    'tanggal' => $this->request->getVar('tanggal'),
+                    'waktu_mulai' => $this->request->getVar('waktu_mulai'),
+                    'waktu_selesai' => $this->request->getVar('waktu_selesai'),
+                    'tempat' => $this->request->getVar('tempat'),
+                    'pengkhotbah' => $this->request->getVar('pengkhotbah'),
+                    'liturgis' => $this->request->getVar('liturgis'),
+                    'singer' => $this->request->getVar('singer'),
+                    'pemusik' => $this->request->getVar('pemusik'),
+                    'multimedia' => $this->request->getVar('multimedia'),
+                    'usher' => $this->request->getVar('usher'),
+                    'keterangan' => $this->request->getVar('keterangan'),
+                    'status' => $this->request->getVar('status'),
+                    'warna' => $this->request->getVar('warna') ?? '#007bff',
+                    'user_id' => session()->get('id'),
+                    'tgl_input' => date('Y-m-d H:i:s'),
                 ];
 
                 $this->jadwalpelayanan->insert($insertdata);
@@ -150,14 +150,14 @@ class JadwalPelayanan extends BaseController
     {
         if ($this->request->isAJAX()) {
             $id_jadwal = $this->request->getVar('id_jadwal');
-            $list =  $this->jadwalpelayanan->find($id_jadwal);
+            $list = $this->jadwalpelayanan->find($id_jadwal);
 
             $data = [
                 'title' => 'Edit Jadwal Pelayanan',
-                'data'  => $list
+                'data' => $list
             ];
             $msg = [
-                'sukses' => view('backend/morvin/cmscust/jadwal_pelayanan/edit', $data)
+                'sukses' => view('backend/cmscust/jadwal_pelayanan/edit', $data)
             ];
             echo json_encode($msg);
         }
@@ -190,27 +190,27 @@ class JadwalPelayanan extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'judul_jadwal'  => $validation->getError('judul_jadwal'),
-                        'tanggal'       => $validation->getError('tanggal'),
+                        'judul_jadwal' => $validation->getError('judul_jadwal'),
+                        'tanggal' => $validation->getError('tanggal'),
                     ]
                 ];
             } else {
                 $updatedata = [
-                    'judul_jadwal'      => $this->request->getVar('judul_jadwal'),
-                    'jenis_pelayanan'   => $this->request->getVar('jenis_pelayanan'),
-                    'tanggal'           => $this->request->getVar('tanggal'),
-                    'waktu_mulai'       => $this->request->getVar('waktu_mulai'),
-                    'waktu_selesai'     => $this->request->getVar('waktu_selesai'),
-                    'tempat'            => $this->request->getVar('tempat'),
-                    'pengkhotbah'       => $this->request->getVar('pengkhotbah'),
-                    'liturgis'          => $this->request->getVar('liturgis'),
-                    'singer'            => $this->request->getVar('singer'),
-                    'pemusik'           => $this->request->getVar('pemusik'),
-                    'multimedia'        => $this->request->getVar('multimedia'),
-                    'usher'             => $this->request->getVar('usher'),
-                    'keterangan'        => $this->request->getVar('keterangan'),
-                    'status'            => $this->request->getVar('status'),
-                    'warna'             => $this->request->getVar('warna'),
+                    'judul_jadwal' => $this->request->getVar('judul_jadwal'),
+                    'jenis_pelayanan' => $this->request->getVar('jenis_pelayanan'),
+                    'tanggal' => $this->request->getVar('tanggal'),
+                    'waktu_mulai' => $this->request->getVar('waktu_mulai'),
+                    'waktu_selesai' => $this->request->getVar('waktu_selesai'),
+                    'tempat' => $this->request->getVar('tempat'),
+                    'pengkhotbah' => $this->request->getVar('pengkhotbah'),
+                    'liturgis' => $this->request->getVar('liturgis'),
+                    'singer' => $this->request->getVar('singer'),
+                    'pemusik' => $this->request->getVar('pemusik'),
+                    'multimedia' => $this->request->getVar('multimedia'),
+                    'usher' => $this->request->getVar('usher'),
+                    'keterangan' => $this->request->getVar('keterangan'),
+                    'status' => $this->request->getVar('status'),
+                    'warna' => $this->request->getVar('warna'),
                 ];
 
                 $this->jadwalpelayanan->update($id_jadwal, $updatedata);
@@ -244,7 +244,7 @@ class JadwalPelayanan extends BaseController
         if ($this->request->isAJAX()) {
             $id_jadwal = $this->request->getVar('id_jadwal');
             $jmldata = count($id_jadwal);
-            
+
             for ($i = 0; $i < $jmldata; $i++) {
                 $this->jadwalpelayanan->delete($id_jadwal[$i]);
             }
@@ -267,7 +267,7 @@ class JadwalPelayanan extends BaseController
                 'status' => $status,
             ];
             $this->jadwalpelayanan->update($id, $updatedata);
-            
+
             $msg = [
                 'sukses' => 'Status berhasil diubah!'
             ];
@@ -294,14 +294,14 @@ class JadwalPelayanan extends BaseController
     {
         if ($this->request->isAJAX()) {
             $id_jadwal = $this->request->getVar('id_jadwal');
-            $list =  $this->jadwalpelayanan->find($id_jadwal);
+            $list = $this->jadwalpelayanan->find($id_jadwal);
 
             $data = [
                 'title' => 'Detail Jadwal Pelayanan',
-                'data'  => $list
+                'data' => $list
             ];
             $msg = [
-                'sukses' => view('backend/morvin/cmscust/jadwal_pelayanan/lihat', $data)
+                'sukses' => view('backend/cmscust/jadwal_pelayanan/lihat', $data)
             ];
             echo json_encode($msg);
         }

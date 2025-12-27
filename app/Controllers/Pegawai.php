@@ -10,48 +10,39 @@ class Pegawai extends BaseController
 
     public function index()
     {
-        $konfigurasi    = $this->konfigurasi->vkonfig();
-        $kategori       = $this->kategori->list();
-        $agenda         = $this->agenda->listagendapage();
-        $pegawai        = $this->pegawai->listpegawaipage();
-        $pengumuman     = $this->pengumuman->listpengumumanpage();
-        $template       = $this->template->tempaktif();
+        $konfigurasi = $this->konfigurasi->vkonfig();
+        $kategori = $this->kategori->list();
+        $agenda = $this->agenda->listagendapage();
+        $pegawai = $this->pegawai->listpegawaipage();
+        $pengumuman = $this->pengumuman->listpengumumanpage();
+
         $data = [
-            'title'         => 'Data Pegawai | ' . esc($konfigurasi->nama),
-            'deskripsi'     => esc($konfigurasi->deskripsi),
-            'url'           => esc($konfigurasi->website),
-            'img'           => base_url('/public/img/konfigurasi/logo/' . esc($konfigurasi->logo)),
-            'konfigurasi'   => $konfigurasi,
-            'pegawai'       => $pegawai->paginate(6, 'hal'),
-            'pager'         => $pegawai->pager,
-            'jum'           => $this->pegawai->totpegawai(),
+            'title' => 'Data Pegawai | ' . esc($konfigurasi->nama),
+            'deskripsi' => esc($konfigurasi->deskripsi),
+            'url' => esc($konfigurasi->website),
+            'img' => base_url('/public/img/konfigurasi/logo/' . esc($konfigurasi->logo)),
+            'konfigurasi' => $konfigurasi,
+            'pegawai' => $pegawai->paginate(6, 'hal'),
+            'pager' => $pegawai->pager,
+            'jum' => $this->pegawai->totpegawai(),
             'beritapopuler' => $this->berita->populer()->paginate(8),
-            'populer6'      => $this->berita->populer()->paginate(6),
-            'kategori'      => $kategori,
-            'banner'        => $this->banner->list(),
-            'infografis'    => $this->banner->listinfo(),
-            'pengumuman'    => $pengumuman->paginate(2),
-            'agenda'        => $agenda->paginate(4),
-            'infografis1'   => $this->banner->listinfo1(),
-            'mainmenu'      => $this->menu->mainmenu(),
-            'footer'        => $this->menu->footermenu(),
-            'topmenu'       => $this->menu->topmenu(),
-            'section'       => $this->section->list(),
-            'linkterkaitall'    => $this->linkterkait->publishlinkall(),
-            'grafisrandom'         => $this->banner->grafisrandom(),
-            'terkini3'       => $this->berita->terkini3(),
-            'folder'        => esc($template['folder'])
+            'populer6' => $this->berita->populer()->paginate(6),
+            'kategori' => $kategori,
+            'banner' => $this->banner->list(),
+            'infografis' => $this->banner->listinfo(),
+            'pengumuman' => $pengumuman->paginate(2),
+            'agenda' => $agenda->paginate(4),
+            'infografis1' => $this->banner->listinfo1(),
+            'mainmenu' => $this->menu->mainmenu(),
+            'footer' => $this->menu->footermenu(),
+            'topmenu' => $this->menu->topmenu(),
+            'section' => $this->section->list(),
+            'linkterkaitall' => $this->linkterkait->publishlinkall(),
+            'grafisrandom' => $this->banner->grafisrandom(),
+            'terkini3' => $this->berita->terkini3(),
+
         ];
-        if ($template['duatema'] == 1) {
-            $agent = $this->request->getUserAgent();
-            if ($agent->isMobile()) {
-                return view('frontend/' . esc($template['folder']) . '/mobile/' . 'content/semua_pegawai', $data);
-            } else {
-                return view('frontend/' . esc($template['folder']) . '/desktop/' . 'content/semua_pegawai', $data);
-            }
-        } else {
-            return view('frontend/' . esc($template['folder']) . '/desktop/' . 'content/semua_pegawai', $data);
-        }
+        return view('frontend/content/semua_pegawai', $data);
     }
 
     public function all()
@@ -59,14 +50,14 @@ class Pegawai extends BaseController
         if (!session()->get('id')) {
             return redirect()->to('');
         }
-        $tadmin = $this->template->tempadminaktif();
+
         $data = [
-            'title'     => 'Profil',
-            'subtitle'  => 'Pegawai',
-            'folder'    =>  esc($tadmin['folder']),
+            'title' => 'Profil',
+            'subtitle' => 'Pegawai',
+
 
         ];
-        return view('backend/' . esc($tadmin['folder']) . '/' . 'lembaga/pegawai/index', $data);
+        return view('backend/' . 'lembaga/pegawai/index', $data);
     }
 
     public function getdata()
@@ -97,7 +88,7 @@ class Pegawai extends BaseController
             $list = $this->pegawai->list();
 
             // Siapkan data untuk tampilan
-            $tadmin = $this->template->tempadminaktif();
+
             $data = [
                 'title' => 'Pegawai',
                 'list' => $list,
@@ -109,7 +100,7 @@ class Pegawai extends BaseController
 
             // Siapkan respons JSON dengan data tampilan
             $msg = [
-                'data' => view('backend/' . esc($tadmin['folder']) . '/lembaga/pegawai/list', $data)
+                'data' => view('backend/lembaga/pegawai/list', $data)
             ];
         } else {
             // Jika akses tidak sesuai
@@ -127,13 +118,13 @@ class Pegawai extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            $tadmin = $this->template->tempadminaktif();
+
             $data = [
-                'title'                 => 'Import Pegawai',
+                'title' => 'Import Pegawai',
             ];
             $msg = [
-                'data'                  => view('backend/' . esc($tadmin['folder']) . '/' . 'lembaga/pegawai/formimport', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'data' => view('backend/' . 'lembaga/pegawai/formimport', $data),
+                'csrf_tokencmsdatagoe' => csrf_hash(),
 
             ];
             echo json_encode($msg);
@@ -154,7 +145,7 @@ class Pegawai extends BaseController
             //baca file
             $objPHPExcel = PHPExcel_IOFactory::load($fileLocation);
             //ambil sheet active
-            $sheet    = $objPHPExcel->getActiveSheet()->toArray(null, true, true, true, true, true, true, true, true);
+            $sheet = $objPHPExcel->getActiveSheet()->toArray(null, true, true, true, true, true, true, true, true);
             //looping untuk mengambil data
             foreach ($sheet as $idx => $data) {
                 //skip index 1 karena title excel
@@ -172,37 +163,37 @@ class Pegawai extends BaseController
                     }
                 }
 
-                $nama         = $data['A'];
-                $nip          = $data['B'];
+                $nama = $data['A'];
+                $nip = $data['B'];
                 $tempat_lahir = $data['C'];
-                $tgl_lahir    = $data['D'];
-                $jk           = $data['E'];
-                $agama        = $data['F'];
-                $pangkat      = $data['G'];
-                $jabatan      = $data['H'];
+                $tgl_lahir = $data['D'];
+                $jk = $data['E'];
+                $agama = $data['F'];
+                $pangkat = $data['G'];
+                $jabatan = $data['H'];
 
                 // insert data
                 $this->pegawai->insert([
 
-                    'nama'          => $nama,
-                    'nip'           => $nip,
-                    'tempat_lahir'  => $tempat_lahir,
-                    'tgl_lahir'     => date('Y-m-d', strtotime($tgl_lahir)),
-                    'jk'            => $jk,
-                    'agama'         => $agama,
-                    'pangkat'       => $pangkat,
-                    'jabatan'       => $jabatan,
-                    'gambar'        => 'default.png',
+                    'nama' => $nama,
+                    'nip' => $nip,
+                    'tempat_lahir' => $tempat_lahir,
+                    'tgl_lahir' => date('Y-m-d', strtotime($tgl_lahir)),
+                    'jk' => $jk,
+                    'agama' => $agama,
+                    'pangkat' => $pangkat,
+                    'jabatan' => $jabatan,
+                    'gambar' => 'default.png',
                 ]);
             }
             $msg = [
-                'sukses'                => 'Data Pegawai berhasil di import!',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => 'Data Pegawai berhasil di import!',
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ];
         } else {
             $msg = [
                 'kosong' => 'File belum ada!',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ];
         }
         echo json_encode($msg);
@@ -216,13 +207,13 @@ class Pegawai extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            $tadmin = $this->template->tempadminaktif();
+
             $data = [
-                'title'                 => 'Tambah Pegawai',
+                'title' => 'Tambah Pegawai',
             ];
             $msg = [
-                'data' => view('backend/' . esc($tadmin['folder']) . '/' . 'lembaga/pegawai/tambah', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'data' => view('backend/' . 'lembaga/pegawai/tambah', $data),
+                'csrf_tokencmsdatagoe' => csrf_hash(),
 
             ];
             echo json_encode($msg);
@@ -315,75 +306,75 @@ class Pegawai extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'nama'           => $validation->getError('nama'),
-                        'nip'           => $validation->getError('nip'),
-                        'tempat_lahir'  => $validation->getError('tempat_lahir'),
-                        'tgl_lahir'  => $validation->getError('tgl_lahir'),
-                        'jk'  => $validation->getError('jk'),
-                        'agama'  => $validation->getError('agama'),
-                        'pangkat'  => $validation->getError('pangkat'),
-                        'jabatan'  => $validation->getError('jabatan'),
-                        'gambar'       => $validation->getError('gambar'),
+                        'nama' => $validation->getError('nama'),
+                        'nip' => $validation->getError('nip'),
+                        'tempat_lahir' => $validation->getError('tempat_lahir'),
+                        'tgl_lahir' => $validation->getError('tgl_lahir'),
+                        'jk' => $validation->getError('jk'),
+                        'agama' => $validation->getError('agama'),
+                        'pangkat' => $validation->getError('pangkat'),
+                        'jabatan' => $validation->getError('jabatan'),
+                        'gambar' => $validation->getError('gambar'),
 
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
                 echo json_encode($msg);
             } else {
 
                 $filegambar = $this->request->getFile('gambar');
                 $nama_file = $filegambar->getRandomName();
-                $tgl_lahir_input    = $this->request->getVar('tgl_lahir');
+                $tgl_lahir_input = $this->request->getVar('tgl_lahir');
 
-                $tgl_lahir          = \DateTime::createFromFormat('d M, Y', $tgl_lahir_input); // Konversi ke objek DateTime
+                $tgl_lahir = \DateTime::createFromFormat('d M, Y', $tgl_lahir_input); // Konversi ke objek DateTime
                 //jika gambar tidak ada
                 if ($filegambar->GetError() == 4) {
 
                     $insertdata = [
-                        'nama'  => $this->request->getVar('nama'),
-                        'nip'   => $this->request->getVar('nip'),
-                        'tempat_lahir'   => $this->request->getVar('tempat_lahir'),
-                        'tgl_lahir'     => $tgl_lahir ? $tgl_lahir->format('Y-m-d') : null, // Format untuk tipe DATE
-                        'jk'   => $this->request->getVar('jk'),
-                        'agama'   => $this->request->getVar('agama'),
-                        'pangkat'   => $this->request->getVar('pangkat'),
-                        'jabatan'   => $this->request->getVar('jabatan'),
-                        'gambar'        => 'default.png',
-                        'publikasi'   => $this->request->getVar('publikasi'),
-                        'penelitian'   => $this->request->getVar('penelitian'),
-                        'pengabdian'   => $this->request->getVar('pengabdian'),
-                        'asal_s1'   => $this->request->getVar('asal_s1'),
-                        'asal_s2'   => $this->request->getVar('asal_s2'),
-                        'asal_s3'   => $this->request->getVar('asal_s3'),
-                        'bidang_pakar'   => $this->request->getVar('bidang_pakar'),
-                        'bio_singkat'   => $this->request->getVar('bio_singkat'),
+                        'nama' => $this->request->getVar('nama'),
+                        'nip' => $this->request->getVar('nip'),
+                        'tempat_lahir' => $this->request->getVar('tempat_lahir'),
+                        'tgl_lahir' => $tgl_lahir ? $tgl_lahir->format('Y-m-d') : null, // Format untuk tipe DATE
+                        'jk' => $this->request->getVar('jk'),
+                        'agama' => $this->request->getVar('agama'),
+                        'pangkat' => $this->request->getVar('pangkat'),
+                        'jabatan' => $this->request->getVar('jabatan'),
+                        'gambar' => 'default.png',
+                        'publikasi' => $this->request->getVar('publikasi'),
+                        'penelitian' => $this->request->getVar('penelitian'),
+                        'pengabdian' => $this->request->getVar('pengabdian'),
+                        'asal_s1' => $this->request->getVar('asal_s1'),
+                        'asal_s2' => $this->request->getVar('asal_s2'),
+                        'asal_s3' => $this->request->getVar('asal_s3'),
+                        'bidang_pakar' => $this->request->getVar('bidang_pakar'),
+                        'bio_singkat' => $this->request->getVar('bio_singkat'),
 
                     ];
                     $this->pegawai->insert($insertdata);
                     $msg = [
-                        'sukses'                => 'Pegawai berhasil disimpan!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'sukses' => 'Pegawai berhasil disimpan!',
+                        'csrf_tokencmsdatagoe' => csrf_hash(),
                     ];
                 } else {
 
                     $insertdata = [
-                        'nama'          => $this->request->getVar('nama'),
-                        'nip'           => $this->request->getVar('nip'),
-                        'tempat_lahir'  => $this->request->getVar('tempat_lahir'),
-                        'tgl_lahir'     => $tgl_lahir ? $tgl_lahir->format('Y-m-d') : null, // Format untuk tipe DATE
-                        'jk'            => $this->request->getVar('jk'),
-                        'agama'         => $this->request->getVar('agama'),
-                        'pangkat'       => $this->request->getVar('pangkat'),
-                        'jabatan'       => $this->request->getVar('jabatan'),
-                        'gambar'        => $nama_file,
-                        'publikasi'     => $this->request->getVar('publikasi'),
-                        'penelitian'    => $this->request->getVar('penelitian'),
-                        'pengabdian'    => $this->request->getVar('pengabdian'),
-                        'asal_s1'       => $this->request->getVar('asal_s1'),
-                        'asal_s2'       => $this->request->getVar('asal_s2'),
-                        'asal_s3'       => $this->request->getVar('asal_s3'),
-                        'bidang_pakar'  => $this->request->getVar('bidang_pakar'),
-                        'bio_singkat'   => $this->request->getVar('bio_singkat'),
+                        'nama' => $this->request->getVar('nama'),
+                        'nip' => $this->request->getVar('nip'),
+                        'tempat_lahir' => $this->request->getVar('tempat_lahir'),
+                        'tgl_lahir' => $tgl_lahir ? $tgl_lahir->format('Y-m-d') : null, // Format untuk tipe DATE
+                        'jk' => $this->request->getVar('jk'),
+                        'agama' => $this->request->getVar('agama'),
+                        'pangkat' => $this->request->getVar('pangkat'),
+                        'jabatan' => $this->request->getVar('jabatan'),
+                        'gambar' => $nama_file,
+                        'publikasi' => $this->request->getVar('publikasi'),
+                        'penelitian' => $this->request->getVar('penelitian'),
+                        'pengabdian' => $this->request->getVar('pengabdian'),
+                        'asal_s1' => $this->request->getVar('asal_s1'),
+                        'asal_s2' => $this->request->getVar('asal_s2'),
+                        'asal_s3' => $this->request->getVar('asal_s3'),
+                        'bidang_pakar' => $this->request->getVar('bidang_pakar'),
+                        'bio_singkat' => $this->request->getVar('bio_singkat'),
 
                     ];
 
@@ -393,10 +384,10 @@ class Pegawai extends BaseController
                         ->withFile($filegambar)
                         ->fit(128, 128, 'center')
                         // ->fit(283, 360, 'center')
-                        ->save('public/img/informasi/pegawai/' .  $nama_file, 70);
+                        ->save('public/img/informasi/pegawai/' . $nama_file, 70);
                     $msg = [
-                        'sukses'                => 'Pegawai berhasil disimpan!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'sukses' => 'Pegawai berhasil disimpan!',
+                        'csrf_tokencmsdatagoe' => csrf_hash(),
                     ];
                 }
                 echo json_encode($msg);
@@ -412,17 +403,17 @@ class Pegawai extends BaseController
         }
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('pegawai_id');
-            $list =  $this->pegawai->find($id);
-            $tadmin = $this->template->tempadminaktif();
+            $list = $this->pegawai->find($id);
+
             $data = [
-                'title'       => 'Upload Tupoksi',
-                'id'          => $list['pegawai_id'],
-                'filetupoksi'   => $list['filetupoksi']
+                'title' => 'Upload Tupoksi',
+                'id' => $list['pegawai_id'],
+                'filetupoksi' => $list['filetupoksi']
 
             ];
             $msg = [
-                'sukses' => view('backend/' . esc($tadmin['folder']) . '/' . 'lembaga/pegawai/gantitupoksi', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/' . 'lembaga/pegawai/gantitupoksi', $data),
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -459,7 +450,7 @@ class Pegawai extends BaseController
                     'error' => [
                         'filetupoksi' => $validation->getError('filetupoksi')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             } else {
 
@@ -490,8 +481,8 @@ class Pegawai extends BaseController
                 // $filetupoksi->move('public/img/informasi/pegawai/', $nama_file);
 
                 $msg = [
-                    'sukses'                => 'File berhasil diupdate!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'File berhasil diupdate!',
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -510,20 +501,20 @@ class Pegawai extends BaseController
             $cekdata = $this->pegawai->find($id);
             $pdflama = $cekdata['filetupoksi'];
 
-            if ($pdflama != ''  && file_exists('public/img/informasi/pegawai/' . $pdflama)) {
+            if ($pdflama != '' && file_exists('public/img/informasi/pegawai/' . $pdflama)) {
 
                 unlink('public/img/informasi/pegawai/' . $pdflama);
             }
 
             $updatedata = [
-                'filetupoksi'           => null
+                'filetupoksi' => null
             ];
 
             $this->pegawai->update($id, $updatedata);
 
             $msg = [
-                'sukses'                => 'Data tupoksi sukses Dihapus',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => 'Data tupoksi sukses Dihapus',
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -543,18 +534,18 @@ class Pegawai extends BaseController
             $fotolama = $cekdata['gambar'];
             $pdflama = $cekdata['filetupoksi'];
 
-            if ($pdflama != ''  && file_exists('public/img/informasi/pegawai/' . $pdflama)) {
+            if ($pdflama != '' && file_exists('public/img/informasi/pegawai/' . $pdflama)) {
                 unlink('public/img/informasi/pegawai/' . $pdflama);
             }
 
-            if ($fotolama != 'default.png'  && file_exists('public/img/informasi/pegawai/' . $fotolama)) {
+            if ($fotolama != 'default.png' && file_exists('public/img/informasi/pegawai/' . $fotolama)) {
                 unlink('public/img/informasi/pegawai/' . $fotolama);
             }
 
             $this->pegawai->delete($id);
             $msg = [
-                'sukses'                => 'Data Pegawai Berhasil Dihapus',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => 'Data Pegawai Berhasil Dihapus',
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -575,11 +566,11 @@ class Pegawai extends BaseController
                 $pdflama = $cekdata['filetupoksi'];
                 $fotolama = $cekdata['gambar'];
 
-                if ($pdflama != ''  && file_exists('public/img/informasi/pegawai/' . $pdflama)) {
+                if ($pdflama != '' && file_exists('public/img/informasi/pegawai/' . $pdflama)) {
                     unlink('public/img/informasi/pegawai/' . $pdflama);
                 }
 
-                if ($fotolama != 'default.png'  && file_exists('public/img/informasi/pegawai/' . $fotolama)) {
+                if ($fotolama != 'default.png' && file_exists('public/img/informasi/pegawai/' . $fotolama)) {
                     unlink('public/img/informasi/pegawai/' . $fotolama);
                 }
 
@@ -588,8 +579,8 @@ class Pegawai extends BaseController
             }
 
             $msg = [
-                'sukses'                => "$jmldata Data pegawai berhasil dihapus",
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => "$jmldata Data pegawai berhasil dihapus",
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -603,33 +594,33 @@ class Pegawai extends BaseController
         if ($this->request->isAJAX()) {
 
             $pegawai_id = $this->request->getVar('pegawai_id');
-            $list =  $this->pegawai->find($pegawai_id);
-            $tadmin = $this->template->tempadminaktif();
+            $list = $this->pegawai->find($pegawai_id);
+
             $data = [
-                'title'          => 'Edit Pegawai',
-                'pegawai_id'     => $list['pegawai_id'],
-                'nama'           => $list['nama'],
-                'nip'           => $list['nip'],
-                'tempat_lahir'  => $list['tempat_lahir'],
-                'tgl_lahir'     => $list['tgl_lahir'],
-                'jk'            => $list['jk'],
-                'agama'        => $list['agama'],
-                'pangkat'      => $list['pangkat'],
-                'jabatan'      => $list['jabatan'],
-                'publikasi'  => $list['publikasi'],
-                'penelitian'  => $list['penelitian'],
-                'pengabdian'  => $list['pengabdian'],
-                'asal_s1'  => $list['asal_s1'],
-                'asal_s2'  => $list['asal_s2'],
-                'asal_s3'  => $list['asal_s3'],
-                'bidang_pakar'  => $list['bidang_pakar'],
-                'bio_singkat'  => $list['bio_singkat'],
+                'title' => 'Edit Pegawai',
+                'pegawai_id' => $list['pegawai_id'],
+                'nama' => $list['nama'],
+                'nip' => $list['nip'],
+                'tempat_lahir' => $list['tempat_lahir'],
+                'tgl_lahir' => $list['tgl_lahir'],
+                'jk' => $list['jk'],
+                'agama' => $list['agama'],
+                'pangkat' => $list['pangkat'],
+                'jabatan' => $list['jabatan'],
+                'publikasi' => $list['publikasi'],
+                'penelitian' => $list['penelitian'],
+                'pengabdian' => $list['pengabdian'],
+                'asal_s1' => $list['asal_s1'],
+                'asal_s2' => $list['asal_s2'],
+                'asal_s3' => $list['asal_s3'],
+                'bidang_pakar' => $list['bidang_pakar'],
+                'bio_singkat' => $list['bio_singkat'],
 
 
             ];
             $msg = [
-                'sukses' => view('backend/' . esc($tadmin['folder']) . '/' . 'lembaga/pegawai/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/' . 'lembaga/pegawai/edit', $data),
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -713,44 +704,44 @@ class Pegawai extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'nama'           => $validation->getError('nama'),
-                        'nip'           => $validation->getError('nip'),
-                        'tempat_lahir'  => $validation->getError('tempat_lahir'),
-                        'tgl_lahir'  => $validation->getError('tgl_lahir'),
-                        'jk'  => $validation->getError('jk'),
-                        'agama'  => $validation->getError('agama'),
-                        'pangkat'  => $validation->getError('pangkat'),
-                        'jabatan'  => $validation->getError('jabatan'),
+                        'nama' => $validation->getError('nama'),
+                        'nip' => $validation->getError('nip'),
+                        'tempat_lahir' => $validation->getError('tempat_lahir'),
+                        'tgl_lahir' => $validation->getError('tgl_lahir'),
+                        'jk' => $validation->getError('jk'),
+                        'agama' => $validation->getError('agama'),
+                        'pangkat' => $validation->getError('pangkat'),
+                        'jabatan' => $validation->getError('jabatan'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             } else {
-                $tgl_lahir_input    = $this->request->getVar('tgl_lahir');
+                $tgl_lahir_input = $this->request->getVar('tgl_lahir');
 
-                $tgl_lahir          = \DateTime::createFromFormat('d M, Y', $tgl_lahir_input); // Konversi ke objek DateTime
+                $tgl_lahir = \DateTime::createFromFormat('d M, Y', $tgl_lahir_input); // Konversi ke objek DateTime
 
                 $updatedata = [
-                    'nama'  => $this->request->getVar('nama'),
-                    'nip'   => $this->request->getVar('nip'),
-                    'tempat_lahir'   => $this->request->getVar('tempat_lahir'),
-                    'tgl_lahir'     => $tgl_lahir ? $tgl_lahir->format('Y-m-d') : null, // Format untuk tipe DATE
-                    'jk'   => $this->request->getVar('jk'),
-                    'agama'   => $this->request->getVar('agama'),
-                    'pangkat'   => $this->request->getVar('pangkat'),
-                    'jabatan'   => $this->request->getVar('jabatan'),
-                    'publikasi'   => $this->request->getVar('publikasi'),
-                    'penelitian'   => $this->request->getVar('penelitian'),
-                    'pengabdian'   => $this->request->getVar('pengabdian'),
-                    'asal_s1'   => $this->request->getVar('asal_s1'),
-                    'asal_s2'   => $this->request->getVar('asal_s2'),
-                    'asal_s3'   => $this->request->getVar('asal_s3'),
-                    'bidang_pakar'   => $this->request->getVar('bidang_pakar'),
-                    'bio_singkat'   => $this->request->getVar('bio_singkat'),
+                    'nama' => $this->request->getVar('nama'),
+                    'nip' => $this->request->getVar('nip'),
+                    'tempat_lahir' => $this->request->getVar('tempat_lahir'),
+                    'tgl_lahir' => $tgl_lahir ? $tgl_lahir->format('Y-m-d') : null, // Format untuk tipe DATE
+                    'jk' => $this->request->getVar('jk'),
+                    'agama' => $this->request->getVar('agama'),
+                    'pangkat' => $this->request->getVar('pangkat'),
+                    'jabatan' => $this->request->getVar('jabatan'),
+                    'publikasi' => $this->request->getVar('publikasi'),
+                    'penelitian' => $this->request->getVar('penelitian'),
+                    'pengabdian' => $this->request->getVar('pengabdian'),
+                    'asal_s1' => $this->request->getVar('asal_s1'),
+                    'asal_s2' => $this->request->getVar('asal_s2'),
+                    'asal_s3' => $this->request->getVar('asal_s3'),
+                    'bidang_pakar' => $this->request->getVar('bidang_pakar'),
+                    'bio_singkat' => $this->request->getVar('bio_singkat'),
                 ];
                 $this->pegawai->update($pegawai_id, $updatedata);
                 $msg = [
-                    'sukses'                => 'Data Pegawai berhasil diubah!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Data Pegawai berhasil diubah!',
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -764,17 +755,17 @@ class Pegawai extends BaseController
         }
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('pegawai_id');
-            $list =  $this->pegawai->find($id);
-            $tadmin = $this->template->tempadminaktif();
+            $list = $this->pegawai->find($id);
+
             $data = [
-                'title'       => 'Ganti Foto Pegawai',
-                'id'          => $list['pegawai_id'],
-                'gambar'   => $list['gambar']
+                'title' => 'Ganti Foto Pegawai',
+                'id' => $list['pegawai_id'],
+                'gambar' => $list['gambar']
             ];
             $msg = [
-                'sukses' => view('backend/' . esc($tadmin['folder']) . '/' . 'lembaga/pegawai/gantifoto', $data),
+                'sukses' => view('backend/' . 'lembaga/pegawai/gantifoto', $data),
 
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -808,7 +799,7 @@ class Pegawai extends BaseController
                     'error' => [
                         'gambar' => $validation->getError('gambar')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             } else {
 
@@ -817,7 +808,7 @@ class Pegawai extends BaseController
                 $fotolama = $cekdata['gambar'];
 
 
-                if ($fotolama != 'default.png'  && file_exists('public/img/informasi/pegawai/' . $fotolama)) {
+                if ($fotolama != 'default.png' && file_exists('public/img/informasi/pegawai/' . $fotolama)) {
                     unlink('public/img/informasi/pegawai/' . $fotolama);
                 }
 
@@ -833,11 +824,11 @@ class Pegawai extends BaseController
                 \Config\Services::image()
                     ->withFile($filegambar)
                     ->fit(128, 128, 'center')
-                    ->save('public/img/informasi/pegawai/' .  $nama_file, 70);
+                    ->save('public/img/informasi/pegawai/' . $nama_file, 70);
 
                 $msg = [
-                    'sukses'                => 'Foto berhasil diganti!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Foto berhasil diganti!',
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -850,39 +841,39 @@ class Pegawai extends BaseController
         if ($this->request->isAJAX()) {
             $pegawai_id = $this->request->getVar('pegawai_id');
             // $konfigurasi = $this->konfigurasi->orderBy('id_setaplikasi')->first();
-            $list =  $this->pegawai->find($pegawai_id);
-            $template = $this->template->tempaktif();
-            $tadmin = $this->template->tempadminaktif();
+            $list = $this->pegawai->find($pegawai_id);
+
+
             $data = [
-                'title'         => 'Detail Pegawai',
-                'pegawai_id'    => $list['pegawai_id'],
-                'nama'          => $list['nama'],
-                'nip'           => $list['nip'],
-                'tempat_lahir'  => $list['tempat_lahir'],
-                'tgl_lahir'     => $list['tgl_lahir'],
-                'jk'            => $list['jk'],
-                'agama'         => $list['agama'],
-                'pangkat'       => $list['pangkat'],
-                'jabatan'       => $list['jabatan'],
-                'gambar'        => $list['gambar'],
-                'filetupoksi'  => $list['filetupoksi'],
-                'publikasi'  => $list['publikasi'],
-                'penelitian'  => $list['penelitian'],
-                'pengabdian'  => $list['pengabdian'],
-                'asal_s1'  => $list['asal_s1'],
-                'asal_s2'  => $list['asal_s2'],
-                'asal_s3'  => $list['asal_s3'],
-                'bidang_pakar'  => $list['bidang_pakar'],
-                'bio_singkat'  => $list['bio_singkat'],
-                'konfigurasi'  => $template,
-                'folder'        => $template['folder'],
+                'title' => 'Detail Pegawai',
+                'pegawai_id' => $list['pegawai_id'],
+                'nama' => $list['nama'],
+                'nip' => $list['nip'],
+                'tempat_lahir' => $list['tempat_lahir'],
+                'tgl_lahir' => $list['tgl_lahir'],
+                'jk' => $list['jk'],
+                'agama' => $list['agama'],
+                'pangkat' => $list['pangkat'],
+                'jabatan' => $list['jabatan'],
+                'gambar' => $list['gambar'],
+                'filetupoksi' => $list['filetupoksi'],
+                'publikasi' => $list['publikasi'],
+                'penelitian' => $list['penelitian'],
+                'pengabdian' => $list['pengabdian'],
+                'asal_s1' => $list['asal_s1'],
+                'asal_s2' => $list['asal_s2'],
+                'asal_s3' => $list['asal_s3'],
+                'bidang_pakar' => $list['bidang_pakar'],
+                'bio_singkat' => $list['bio_singkat'],
+                'konfigurasi' => $template,
+
                 // 'csrf_tokencmsdatagoe'  => csrf_hash(),
 
             ];
             $msg = [
 
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
-                'sukses' => view('backend/' . esc($tadmin['folder']) . '/' . 'lembaga/pegawai/lihatpegawai', $data),
+                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'sukses' => view('backend/' . 'lembaga/pegawai/lihatpegawai', $data),
             ];
             echo json_encode($msg);
         }
@@ -895,36 +886,36 @@ class Pegawai extends BaseController
         }
         if ($this->request->isAJAX()) {
             $pegawai_id = $this->request->getVar('pegawai_id');
-            $list =  $this->pegawai->find($pegawai_id);
-            $template = $this->template->tempaktif();
-            $tadmin = $this->template->tempadminaktif();
+            $list = $this->pegawai->find($pegawai_id);
+
+
             $data = [
-                'title'         => 'Detail Pegawai',
-                'pegawai_id'    => $list['pegawai_id'],
-                'nama'          => $list['nama'],
-                'nip'           => $list['nip'],
-                'tempat_lahir'  => $list['tempat_lahir'],
-                'tgl_lahir'     => $list['tgl_lahir'],
-                'jk'            => $list['jk'],
-                'agama'         => $list['agama'],
-                'pangkat'       => $list['pangkat'],
-                'jabatan'       => $list['jabatan'],
-                'gambar'        => $list['gambar'],
-                'filetupoksi'  => $list['filetupoksi'],
-                'publikasi'  => $list['publikasi'],
-                'penelitian'  => $list['penelitian'],
-                'pengabdian'  => $list['pengabdian'],
-                'asal_s1'  => $list['asal_s1'],
-                'asal_s2'  => $list['asal_s2'],
-                'asal_s3'  => $list['asal_s3'],
-                'bidang_pakar'  => $list['bidang_pakar'],
-                'bio_singkat'  => $list['bio_singkat'],
-                'folder'        => $template['folder']
+                'title' => 'Detail Pegawai',
+                'pegawai_id' => $list['pegawai_id'],
+                'nama' => $list['nama'],
+                'nip' => $list['nip'],
+                'tempat_lahir' => $list['tempat_lahir'],
+                'tgl_lahir' => $list['tgl_lahir'],
+                'jk' => $list['jk'],
+                'agama' => $list['agama'],
+                'pangkat' => $list['pangkat'],
+                'jabatan' => $list['jabatan'],
+                'gambar' => $list['gambar'],
+                'filetupoksi' => $list['filetupoksi'],
+                'publikasi' => $list['publikasi'],
+                'penelitian' => $list['penelitian'],
+                'pengabdian' => $list['pengabdian'],
+                'asal_s1' => $list['asal_s1'],
+                'asal_s2' => $list['asal_s2'],
+                'asal_s3' => $list['asal_s3'],
+                'bidang_pakar' => $list['bidang_pakar'],
+                'bio_singkat' => $list['bio_singkat'],
+
 
             ];
             $msg = [
-                'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'lembaga/pegawai/lihatpegawaiback', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/' . 'lembaga/pegawai/lihatpegawaiback', $data),
+                'csrf_tokencmsdatagoe' => csrf_hash(),
                 // 'sukses' => view('admin/lembaga/pegawai/lihatpegawai', $data)
             ];
             echo json_encode($msg);

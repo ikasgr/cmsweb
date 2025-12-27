@@ -13,7 +13,7 @@ class Cari extends BaseController
         $berita         = $this->berita->published();
         $keywordcari    = esc($this->request->getVar('keyword'));
         $kategori       = esc($this->request->getVar('kategori'));
-        $template       = $this->template->tempaktif();
+        
 
         if ($keywordcari || $kategori) {
 
@@ -53,11 +53,11 @@ class Cari extends BaseController
                 'infografis10'    => $this->banner->listinfopage()->paginate(10),
                 'grafisrandom'    => $this->banner->grafisrandom(),
 
-                'folder'         => esc($template['folder']),
+                
                 'csrf_tokencmsdatagoe' => csrf_hash(),
             ];
             // Menuju ke web front end;
-            if ($template['duatema'] == 1) {
+            if (0) {
                 $agent = $this->request->getUserAgent();
                 if ($agent->isMobile()) {
                     return view('frontend/' . esc($template['folder']) . '/mobile/' . 'content/v_hasilcari', $data);
@@ -68,7 +68,7 @@ class Cari extends BaseController
                 return view('frontend/' . esc($template['folder']) . '/desktop/' . 'content/v_hasilcari', $data);
             }
         } else {
-            $template = $this->template->tempaktif();
+            
             $berita = $this->berita->listberitapage();
             $data = [
                 'title'         => 'Berita | ' . esc($konfigurasi->nama),
@@ -88,9 +88,9 @@ class Cari extends BaseController
                 'agenda'        => $this->agenda->listagendapage()->paginate(4),
                 'section'       => $this->section->list(),
                 'linkterkaitall'    => $this->linkterkait->publishlinkall(),
-                'folder'        => esc($template['folder'])
+                
             ];
-            if ($template['duatema'] == 1) {
+            if (0) {
                 $agent = $this->request->getUserAgent();
                 if ($agent->isMobile()) {
                     return view('frontend/' . esc($template['folder']) . '/mobile/' . 'content/semua_berita', $data);
@@ -110,7 +110,7 @@ class Cari extends BaseController
 
         $keywordcari    = esc($this->request->getVar('keyword'));
         $kategori       = esc($this->request->getVar('kategori'));
-        $template       = $this->template->tempaktif();
+        
 
         if ($keywordcari || $kategori) {
 
@@ -144,10 +144,10 @@ class Cari extends BaseController
                 'pengumuman'           => $this->pengumuman->listpengumumanpage()->paginate(10),
                 'section'        => $this->section->list(),
                 'kategori_video' => $this->kategorivideo->orderBy('kategorivideo_id', 'ASC')->findAll(),
-                'folder'         => esc($template['folder'])
+                
             ];
             // Menuju ke web front end;
-            if ($template['duatema'] == 1) {
+            if (0) {
                 $agent = $this->request->getUserAgent();
                 if ($agent->isMobile()) {
                     return view('frontend/' . esc($template['folder']) . '/mobile/' . 'content/v_hasilcarivideo', $data);
@@ -160,7 +160,7 @@ class Cari extends BaseController
         } else {
 
             $video = $this->video->listvideopage();
-            $template = $this->template->tempaktif();
+            
             $data = [
                 'title'         => 'Galeri Video | ' . esc($konfigurasi->nama),
                 'deskripsi'     => esc($konfigurasi->deskripsi),
@@ -181,10 +181,10 @@ class Cari extends BaseController
                 'foto'          => $this->foto->listfotopage()->paginate(6),
                 'section'       => $this->section->list(),
                 'linkterkaitall'    => $this->linkterkait->publishlinkall(),
-                'folder'        => esc($template['folder'])
+                
 
             ];
-            if ($template['duatema'] == 1) {
+            if (0) {
                 $agent = $this->request->getUserAgent();
                 if ($agent->isMobile()) {
                     return view('frontend/' . esc($template['folder']) . '/mobile/' . 'content/semua_video', $data);
@@ -203,7 +203,7 @@ class Cari extends BaseController
 
         $keywordcari    = esc($this->request->getVar('keyword'));
         $kategori       = esc($this->request->getVar('kategori'));
-        $template       = $this->template->tempaktif();
+        
 
         if ($keywordcari || $kategori) {
 
@@ -239,10 +239,10 @@ class Cari extends BaseController
                 'section'        => $this->section->list(),
                 'kategori'       => $this->kategoriebook->orderBy('kategoriebook_id', 'ASC')->findAll(),
                 'beritaterkini' => $this->berita->terkini(),
-                'folder'         => esc($template['folder'])
+                
             ];
             // Menuju ke web front end;
-            if ($template['duatema'] == 1) {
+            if (0) {
                 $agent = $this->request->getUserAgent();
                 if ($agent->isMobile()) {
                     return view('frontend/' . esc($template['folder']) . '/mobile/' . 'content/v_hasilcaribuku', $data);
@@ -255,7 +255,7 @@ class Cari extends BaseController
         } else {
 
             $ebook = $this->ebook->listebookpage();
-            $template = $this->template->tempaktif();
+            
             $data = [
                 'title'         => 'E-Book | ' . esc($konfigurasi->nama),
                 'deskripsi'     => esc($konfigurasi->deskripsi),
@@ -276,9 +276,9 @@ class Cari extends BaseController
                 'linkterkaitall'    => $this->linkterkait->publishlinkall(),
                 'beritaterkini' => $this->berita->terkini(),
                 'kategori' => $this->kategoriebook->orderBy('kategoriebook_id', 'ASC')->findAll(),
-                'folder'        => esc($template['folder'])
+                
             ];
-            if ($template['duatema'] == 1) {
+            if (0) {
                 $agent = $this->request->getUserAgent();
                 if ($agent->isMobile()) {
                     return view('frontend/' . esc($template['folder']) . '/mobile/' . 'content/semua_ebook', $data);
@@ -296,7 +296,7 @@ class Cari extends BaseController
     public function berita()
     {
         $konfigurasi  = $this->konfigurasi->vkonfig();
-        $template     = $this->template->tempaktif();
+        
         $keywordcari  = esc($this->request->getVar('keyword'));
         $keywordjudul = esc($this->request->getVar('keywordjudul'));
         $kategori     = esc($this->request->getVar('kategori'));
@@ -348,7 +348,7 @@ class Cari extends BaseController
                 'agenda'         => $this->agenda->listagendapage()->paginate(4),
                 'pengumuman'     => $this->pengumuman->listpengumumanpage()->paginate(10),
                 'section'        => $this->section->list(),
-                'folder'         => esc($template['folder']),
+                
             ];
 
             // Tambahkan data khusus ebook

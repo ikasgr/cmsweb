@@ -8,7 +8,7 @@ class Jadwal extends BaseController
     public function index()
     {
         $konfigurasi = $this->konfigurasi->vkonfig();
-        $template = $this->template->tempaktif();
+        
         
         // Jadwal upcoming
         $jadwal = $this->jadwalpelayanan->upcoming(20);
@@ -24,13 +24,13 @@ class Jadwal extends BaseController
             'topmenu'       => $this->menu->topmenu(),
             'section'       => $this->section->list(),
             'linkterkaitall' => $this->linkterkait->publishlinkall(),
-            'folder'        => $template['folder'],
+            
             'jadwal'        => $jadwal,
             'hariini'       => $this->jadwalpelayanan->hariini(),
             'mingguini'     => $this->jadwalpelayanan->mingguini(),
         ];
 
-        return view('frontend/' . $template['folder'] . '/desktop/content/jadwal_index', $data);
+        return view('frontend/desktop/content/jadwal_index', $data);
     }
 
     // Frontend - Jadwal by bulan (untuk calendar)
@@ -78,7 +78,7 @@ class Jadwal extends BaseController
         if (!$jenis) return redirect()->to('jadwal');
 
         $konfigurasi = $this->konfigurasi->vkonfig();
-        $template = $this->template->tempaktif();
+        
         
         $jadwal = $this->jadwalpelayanan->byjenis($jenis);
 
@@ -93,12 +93,12 @@ class Jadwal extends BaseController
             'topmenu'       => $this->menu->topmenu(),
             'section'       => $this->section->list(),
             'linkterkaitall' => $this->linkterkait->publishlinkall(),
-            'folder'        => $template['folder'],
+            
             'jadwal'        => $jadwal,
             'jenis'         => $jenis,
         ];
 
-        return view('frontend/' . $template['folder'] . '/desktop/content/jadwal_jenis', $data);
+        return view('frontend/desktop/content/jadwal_jenis', $data);
     }
 
     // Widget jadwal untuk homepage

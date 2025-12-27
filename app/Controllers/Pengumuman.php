@@ -6,33 +6,33 @@ class Pengumuman extends BaseController
 {
     public function index()
     {
-        $konfigurasi        = $this->konfigurasi->vkonfig();
+        $konfigurasi = $this->konfigurasi->vkonfig();
         $pengumuman = $this->pengumuman->listpengumumanpage();
-        $template = $this->template->tempaktif();
+
         $data = [
-            'title'         => 'Pengumuman | ' . $konfigurasi->nama,
-            'deskripsi'     => $konfigurasi->deskripsi,
-            'url'           => $konfigurasi->website,
-            'img'           => base_url('/public/img/konfigurasi/logo/' . $konfigurasi->logo),
-            'konfigurasi'   => $konfigurasi,
-            'mainmenu'      => $this->menu->mainmenu(),
-            'footer'        => $this->menu->footermenu(),
-            'topmenu'       => $this->menu->topmenu(),
-            'pengumuman'    => $pengumuman->paginate(6, 'hal'),
-            'pager'         => $pengumuman->pager,
-            'jum'           => $this->pengumuman->totpengumuman(),
-            'banner'        => $this->banner->list(),
-            'infografis'    => $this->banner->listinfo(),
-            'infografis1'   => $this->banner->listinfo1(),
-            'agenda'        => $this->agenda->listagendapage()->paginate(4),
+            'title' => 'Pengumuman | ' . $konfigurasi->nama,
+            'deskripsi' => $konfigurasi->deskripsi,
+            'url' => $konfigurasi->website,
+            'img' => base_url('/public/img/konfigurasi/logo/' . $konfigurasi->logo),
+            'konfigurasi' => $konfigurasi,
+            'mainmenu' => $this->menu->mainmenu(),
+            'footer' => $this->menu->footermenu(),
+            'topmenu' => $this->menu->topmenu(),
+            'pengumuman' => $pengumuman->paginate(6, 'hal'),
+            'pager' => $pengumuman->pager,
+            'jum' => $this->pengumuman->totpengumuman(),
+            'banner' => $this->banner->list(),
+            'infografis' => $this->banner->listinfo(),
+            'infografis1' => $this->banner->listinfo1(),
+            'agenda' => $this->agenda->listagendapage()->paginate(4),
             'beritapopuler' => $this->berita->populer()->paginate(8),
-            'section'       => $this->section->list(),
+            'section' => $this->section->list(),
             'linkterkaitall' => $this->linkterkait->publishlinkall(),
-            'infografis10'  => $this->banner->listinfopage()->paginate(10),
-            'kategori'      => $this->kategori->list(),
-            'grafisrandom'  => $this->banner->grafisrandom(),
-            'terkini3'      => $this->berita->terkini3(),
-            'folder'        => $template['folder']
+            'infografis10' => $this->banner->listinfopage()->paginate(10),
+            'kategori' => $this->kategori->list(),
+            'grafisrandom' => $this->banner->grafisrandom(),
+            'terkini3' => $this->berita->terkini3(),
+            'folder' => $template['folder']
 
         ];
         if ($template['duatema'] == 1) {
@@ -53,14 +53,14 @@ class Pengumuman extends BaseController
         if (!session()->get('id')) {
             return redirect()->to('');
         }
-        $tadmin = $this->template->tempadminaktif();
+
         $data = [
-            'title'        => 'Informasi',
-            'subtitle'    => 'Pengumuman',
-            'folder'    =>  esc($tadmin['folder']),
+            'title' => 'Informasi',
+            'subtitle' => 'Pengumuman',
+
 
         ];
-        return view('backend/' . esc($tadmin['folder']) . '/' . 'informasi/pengumuman/index', $data);
+        return view('backend/' . 'informasi/pengumuman/index', $data);
     }
 
     public function getdata()
@@ -97,7 +97,7 @@ class Pengumuman extends BaseController
         }
 
         // Siapkan data untuk tampilan
-        $tadmin = $this->template->tempadminaktif();
+
         $data = [
             'title' => 'Pengumuman',
             'list' => $list,
@@ -109,7 +109,7 @@ class Pengumuman extends BaseController
 
         // Siapkan respons JSON dengan data tampilan
         $msg = [
-            'data' => view('backend/' . esc($tadmin['folder']) . '/informasi/pengumuman/list', $data)
+            'data' => view('backend/informasi/pengumuman/list', $data)
         ];
 
         echo json_encode($msg);
@@ -121,13 +121,13 @@ class Pengumuman extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            $tadmin = $this->template->tempadminaktif();
+
             $data = [
-                'title'                 => 'Tambah Pengumuman',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'title' => 'Tambah Pengumuman',
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             $msg = [
-                'data' => view('backend/' . esc($tadmin['folder']) . '/' . 'informasi/pengumuman/tambah', $data)
+                'data' => view('backend/' . 'informasi/pengumuman/tambah', $data)
             ];
             echo json_encode($msg);
         }
@@ -173,11 +173,11 @@ class Pengumuman extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'nama'           => $validation->getError('nama'),
-                        'isi_informasi'  => $validation->getError('isi_informasi'),
-                        'gambar'       => $validation->getError('gambar')
+                        'nama' => $validation->getError('nama'),
+                        'isi_informasi' => $validation->getError('isi_informasi'),
+                        'gambar' => $validation->getError('gambar')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
                 echo json_encode($msg);
             } else {
@@ -190,31 +190,31 @@ class Pengumuman extends BaseController
                 if ($filegambar->GetError() == 4) {
 
                     $insertdata = [
-                        'nama'  => $this->request->getVar('nama'),
-                        'slug_informasi'   => mb_url_title($this->request->getVar('nama'), '-', TRUE),
-                        'isi_informasi'   => $this->request->getVar('isi_informasi'),
-                        'tgl_informasi'    => date('Y-m-d'),
-                        'gambar'        => 'default.png',
-                        'id'            => $userid,
-                        'type'            => '1',
-                        'hits'            => '0'
+                        'nama' => $this->request->getVar('nama'),
+                        'slug_informasi' => mb_url_title($this->request->getVar('nama'), '-', TRUE),
+                        'isi_informasi' => $this->request->getVar('isi_informasi'),
+                        'tgl_informasi' => date('Y-m-d'),
+                        'gambar' => 'default.png',
+                        'id' => $userid,
+                        'type' => '1',
+                        'hits' => '0'
                     ];
                     $this->pengumuman->insert($insertdata);
                     $msg = [
-                        'sukses'                => 'Pengumuman berhasil disimpan!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'sukses' => 'Pengumuman berhasil disimpan!',
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                 } else {
 
                     $insertdata = [
-                        'nama'  => $this->request->getVar('nama'),
-                        'slug_informasi'   => mb_url_title($this->request->getVar('nama'), '-', TRUE),
-                        'isi_informasi'   => $this->request->getVar('isi_informasi'),
-                        'tgl_informasi'    => date('Y-m-d'),
-                        'gambar'        => $nama_file,
-                        'id'            => $userid,
-                        'type'            => '1',
-                        'hits'            => '0'
+                        'nama' => $this->request->getVar('nama'),
+                        'slug_informasi' => mb_url_title($this->request->getVar('nama'), '-', TRUE),
+                        'isi_informasi' => $this->request->getVar('isi_informasi'),
+                        'tgl_informasi' => date('Y-m-d'),
+                        'gambar' => $nama_file,
+                        'id' => $userid,
+                        'type' => '1',
+                        'hits' => '0'
                     ];
 
                     $this->pengumuman->insert($insertdata);
@@ -224,8 +224,8 @@ class Pengumuman extends BaseController
 
 
                     $msg = [
-                        'sukses'                => 'Pengumuman berhasil disimpan!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'sukses' => 'Pengumuman berhasil disimpan!',
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                 }
                 echo json_encode($msg);
@@ -275,7 +275,7 @@ class Pengumuman extends BaseController
             if (!$cekdata) {
                 $msg = [
                     'error' => 'Data tidak ditemukan.',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
                 echo json_encode($msg);
                 return;
@@ -288,7 +288,7 @@ class Pengumuman extends BaseController
                 if (!unlink($filepath)) {
                     $msg = [
                         'error' => 'Gagal menghapus file. Silakan coba lagi.',
-                        'csrf_tokencmsdatagoe' => csrf_hash(),
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                     echo json_encode($msg);
                     return;
@@ -300,12 +300,12 @@ class Pengumuman extends BaseController
             if ($this->pengumuman->update($id, $updatedata)) {
                 $msg = [
                     'sukses' => 'File berhasil dihapus.',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 $msg = [
                     'error' => 'Gagal memperbarui data file.',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
 
@@ -339,8 +339,8 @@ class Pengumuman extends BaseController
             }
 
             $msg = [
-                'sukses'                => "$jmldata Data pengumuman berhasil dihapus",
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => "$jmldata Data pengumuman berhasil dihapus",
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -354,18 +354,18 @@ class Pengumuman extends BaseController
         if ($this->request->isAJAX()) {
 
             $informasi_id = $this->request->getVar('informasi_id');
-            $list =  $this->pengumuman->find($informasi_id);
-            $tadmin = $this->template->tempadminaktif();
+            $list = $this->pengumuman->find($informasi_id);
+
             $data = [
-                'title'          => 'Edit Pengumuman',
-                'informasi_id'   => $list['informasi_id'],
-                'nama'           => $list['nama'],
-                'isi_informasi'  => $list['isi_informasi']
+                'title' => 'Edit Pengumuman',
+                'informasi_id' => $list['informasi_id'],
+                'nama' => $list['nama'],
+                'isi_informasi' => $list['isi_informasi']
 
             ];
             $msg = [
-                'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'informasi/pengumuman/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/' . 'informasi/pengumuman/edit', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -402,23 +402,23 @@ class Pengumuman extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'nama'           => $validation->getError('nama'),
-                        'isi_informasi'     => $validation->getError('isi_informasi'),
+                        'nama' => $validation->getError('nama'),
+                        'isi_informasi' => $validation->getError('isi_informasi'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
                 $updatedata = [
 
-                    'nama'          => $this->request->getVar('nama'),
-                    'slug_informasi'   => mb_url_title($this->request->getVar('nama'), '-', TRUE),
-                    'isi_informasi'   => $this->request->getVar('isi_informasi'),
+                    'nama' => $this->request->getVar('nama'),
+                    'slug_informasi' => mb_url_title($this->request->getVar('nama'), '-', TRUE),
+                    'isi_informasi' => $this->request->getVar('isi_informasi'),
                 ];
                 $this->pengumuman->update($informasi_id, $updatedata);
                 $msg = [
-                    'sukses'                => 'Data pengumuman berhasil diubah!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Data pengumuman berhasil diubah!',
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -432,16 +432,16 @@ class Pengumuman extends BaseController
         }
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('informasi_id');
-            $list =  $this->pengumuman->find($id);
-            $tadmin = $this->template->tempadminaktif();
+            $list = $this->pengumuman->find($id);
+
             $data = [
-                'title'    => 'Ganti Cover',
-                'id'       => $list['informasi_id'],
-                'gambar'   => $list['gambar']
+                'title' => 'Ganti Cover',
+                'id' => $list['informasi_id'],
+                'gambar' => $list['gambar']
             ];
             $msg = [
-                'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'informasi/pengumuman/gantifoto', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/' . 'informasi/pengumuman/gantifoto', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -475,7 +475,7 @@ class Pengumuman extends BaseController
                     'error' => [
                         'gambar' => $validation->getError('gambar')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
@@ -516,17 +516,17 @@ class Pengumuman extends BaseController
         }
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('informasi_id');
-            $list =  $this->pengumuman->find($id);
-            $tadmin = $this->template->tempadminaktif();
+            $list = $this->pengumuman->find($id);
+
             $data = [
-                'title'       => 'File Unduhan',
-                'id'          => $list['informasi_id'],
-                'gambar'      => $list['gambar'],
-                'fileunduh'   => $list['fileunduh']
+                'title' => 'File Unduhan',
+                'id' => $list['informasi_id'],
+                'gambar' => $list['gambar'],
+                'fileunduh' => $list['fileunduh']
             ];
             $msg = [
-                'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'informasi/pengumuman/uploadfile', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/' . 'informasi/pengumuman/uploadfile', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -563,7 +563,7 @@ class Pengumuman extends BaseController
                     'error' => [
                         'fileunduh' => $validation->getError('fileunduh')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
@@ -600,27 +600,27 @@ class Pengumuman extends BaseController
     {
         if ($this->request->isAJAX()) {
             $informasi_id = $this->request->getVar('informasi_id');
-            $list =  $this->pengumuman->find($informasi_id);
-            $tadmin = $this->template->tempadminaktif();
+            $list = $this->pengumuman->find($informasi_id);
+
             // Update hits
             $data = [
-                'hits'        => $list['hits'] + 1
+                'hits' => $list['hits'] + 1
             ];
             $this->pengumuman->update($list['informasi_id'], $data);
 
             $data = [
-                'title'          => 'Detail Pengumuman',
-                'informasi_id'   => $list['informasi_id'],
-                'nama'           => $list['nama'],
-                'isi_informasi'  => $list['isi_informasi'],
-                'tgl_informasi'  => $list['tgl_informasi'],
-                'gambar'         => $list['gambar'],
-                'fileunduh'       => $list['fileunduh'],
+                'title' => 'Detail Pengumuman',
+                'informasi_id' => $list['informasi_id'],
+                'nama' => $list['nama'],
+                'isi_informasi' => $list['isi_informasi'],
+                'tgl_informasi' => $list['tgl_informasi'],
+                'gambar' => $list['gambar'],
+                'fileunduh' => $list['fileunduh'],
                 // 'folder'          => $template['folder']
             ];
             $msg = [
-                'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'modal/v_pengumuman', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/' . 'modal/v_pengumuman', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
 
             ];
             echo json_encode($msg);
@@ -630,63 +630,64 @@ class Pengumuman extends BaseController
     # detail front
     public function bacapengumuman($informasi_id = null)
     {
-        if (!isset($informasi_id)) return redirect()->to('/');
+        if (!isset($informasi_id))
+            return redirect()->to('/');
 
-        $konfigurasi        = $this->konfigurasi->vkonfig();
-        $berita             = $this->berita->detail_halaman($informasi_id);
-        $list               = $this->pengumuman->detailpengumuman($informasi_id);
-        $template           = $this->template->tempaktif();
-        $kategori           = $this->kategori->list();
+        $konfigurasi = $this->konfigurasi->vkonfig();
+        $berita = $this->berita->detail_halaman($informasi_id);
+        $list = $this->pengumuman->detailpengumuman($informasi_id);
+
+        $kategori = $this->kategori->list();
         if ($list) {
 
             // Update hits
             $datahit = [
-                'hits'        => $list->hits + 1
+                'hits' => $list->hits + 1
             ];
             // $informasi
             $this->pengumuman->update($informasi_id, $datahit);
 
-            $judulpengumuman    = esc($list->nama);
-            $isi_informasi      = $list->isi_informasi;
-            $tgl_informasi      = date_indo($list->tgl_informasi);
-            $gambar             = $list->gambar;
-            $fileunduh          = $list->fileunduh;
-            $fullname           = $list->fullname;
-            $hits               = $list->hits;
+            $judulpengumuman = esc($list->nama);
+            $isi_informasi = $list->isi_informasi;
+            $tgl_informasi = date_indo($list->tgl_informasi);
+            $gambar = $list->gambar;
+            $fileunduh = $list->fileunduh;
+            $fullname = $list->fullname;
+            $hits = $list->hits;
 
             $data = [
-                'title'          => ($judulpengumuman),
-                'deskripsi'      => esc($konfigurasi->deskripsi),
-                'url'            => base_url('baca-pengumuman/' . $informasi_id),
-                'img'            => base_url('/public/img/informasi/pengumuman/' . $gambar),
+                'title' => ($judulpengumuman),
+                'deskripsi' => esc($konfigurasi->deskripsi),
+                'url' => base_url('baca-pengumuman/' . $informasi_id),
+                'img' => base_url('/public/img/informasi/pengumuman/' . $gambar),
 
-                'konfigurasi'    => $konfigurasi,
-                'berita'         => $berita,
-                'informasi_id'   => $informasi_id,
-                'nama'           => $judulpengumuman,
-                'isi_informasi'  => $isi_informasi,
-                'tgl_informasi'  => $tgl_informasi,
+                'konfigurasi' => $konfigurasi,
+                'berita' => $berita,
+                'informasi_id' => $informasi_id,
+                'nama' => $judulpengumuman,
+                'isi_informasi' => $isi_informasi,
+                'tgl_informasi' => $tgl_informasi,
                 // 'gambar'         => $gambar,
-                'fileunduh'      => $fileunduh,
-                'fullname'       => $fullname,
-                'hits'          => $hits,
+                'fileunduh' => $fileunduh,
+                'fullname' => $fullname,
+                'hits' => $hits,
 
-                'beritapopuler'  => $this->berita->populer()->paginate(8),
-                'populer3'       => $this->berita->populer()->paginate(3),
-                'terkini3'       => $this->berita->terkini3(),
+                'beritapopuler' => $this->berita->populer()->paginate(8),
+                'populer3' => $this->berita->populer()->paginate(3),
+                'terkini3' => $this->berita->terkini3(),
 
                 'pengumumanlain' => $this->pengumuman->pengumumanlain($informasi_id),
-                'mainmenu'       => $this->menu->mainmenu(),
-                'footer'         => $this->menu->footermenu(),
-                'topmenu'        => $this->menu->topmenu(),
-                'banner'         => $this->banner->list(),
-                'infografis'     => $this->banner->listinfo(),
-                'infografis1'    => $this->banner->listinfo1(),
-                'agenda'         => $this->agenda->listagendapage()->paginate(4),
-                'pengumuman'     => $this->pengumuman->listpengumumanpage()->paginate(10),
+                'mainmenu' => $this->menu->mainmenu(),
+                'footer' => $this->menu->footermenu(),
+                'topmenu' => $this->menu->topmenu(),
+                'banner' => $this->banner->list(),
+                'infografis' => $this->banner->listinfo(),
+                'infografis1' => $this->banner->listinfo1(),
+                'agenda' => $this->agenda->listagendapage()->paginate(4),
+                'pengumuman' => $this->pengumuman->listpengumumanpage()->paginate(10),
                 'linkterkaitall' => $this->linkterkait->publishlinkall(),
-                'iklankanan1'    => $this->banner->listiklankanan1(),
-                'folder'         => $template['folder']
+                'iklankanan1' => $this->banner->listiklankanan1(),
+                'folder' => $template['folder']
 
             ];
 

@@ -330,38 +330,6 @@ $routes->group('', ['namespace' => 'App\Controllers'], function ($routes) {
     $routes->post('pengumuman/douploadPengumuman', 'Pengumuman::douploadPengumuman');
     $routes->post('pengumuman/updatepengumuman', 'Pengumuman::updatepengumuman');
 
-    // produk hukum
-    $routes->get('produkhukum', 'Produkhukum::index');
-    $routes->get('produkhukum/all', 'Produkhukum::all');
-    $routes->get('produkhukum/getdata', 'Produkhukum::getdata');
-    $routes->get('produkhukum/formtambah', 'Produkhukum::formtambah');
-    $routes->post('produkhukum/simpanprodukhukum', 'Produkhukum::simpanprodukhukum');
-    $routes->post('produkhukum/formedit', 'Produkhukum::formedit');
-    $routes->post('produkhukum/updateproduk', 'Produkhukum::updateproduk');
-    $routes->post('produkhukum/hapus', 'Produkhukum::hapus');
-    // subprodukhukum
-    $routes->get('produkhukum/subproduk/(:segment)', 'Produkhukum::subproduk/$1');
-    $routes->get('produkhukum/subprodukajx/', 'Produkhukum::subprodukajx');
-    $routes->get('produkhukum/formtambahsubproduk/', 'Produkhukum::formtambahsubproduk');
-    $routes->post('produkhukum/simpanSubproduk', 'Produkhukum::simpanSubproduk');
-    $routes->post('produkhukum/formeditsub', 'Produkhukum::formeditsub');
-    $routes->post('produkhukum/updatesubproduk', 'Produkhukum::updatesubproduk');
-    $routes->post('produkhukum/formuploadfile', 'Produkhukum::formuploadfile');
-    $routes->post('produkhukum/douploadsubproduk', 'Produkhukum::douploadsubproduk');
-    $routes->post('produkhukum/hapussub', 'Produkhukum::hapussub');
-    $routes->post('produkhukum/hapussuball', 'Produkhukum::hapussuball');
-
-    // subsubprodukhukum
-    $routes->get('produkhukum/detailsubproduk/(:segment)', 'Produkhukum::detailsubproduk/$1');
-    $routes->get('produkhukum/subsubprodukajx/', 'Produkhukum::subsubprodukajx');
-    $routes->get('produkhukum/formtambahsubsubproduk/', 'Produkhukum::formtambahsubsubproduk');
-    $routes->post('produkhukum/simpanSubsubproduk', 'Produkhukum::simpanSubsubproduk');
-    $routes->post('produkhukum/formeditsubsub', 'Produkhukum::formeditsubsub');
-    $routes->post('produkhukum/updatesubsubproduk', 'Produkhukum::updatesubsubproduk');
-    $routes->post('produkhukum/formuploadsubfile', 'Produkhukum::formuploadsubfile');
-    $routes->post('produkhukum/douploadsubsubproduk', 'Produkhukum::douploadsubsubproduk');
-    $routes->post('produkhukum/hapussubsub', 'Produkhukum::hapussubsub');
-    $routes->post('produkhukum/hapussubsuball', 'Produkhukum::hapussubsuball');
 
     //    kategori foto
     $routes->get('foto', 'Foto::index');

@@ -11,11 +11,11 @@ class KategoriProduk extends BaseController
             return redirect()->to('');
         }
         $data = [
-            'title'     => 'Kategori Produk',
-            'subtitle'  => 'Manajemen Kategori',
-            'folder'    => 'morvin',
+            'title' => 'Kategori Produk',
+            'subtitle' => 'Manajemen Kategori',
+            'folder' => 'morvin',
         ];
-        return view('backend/morvin/cmscust/kategori_produk/index', $data);
+        return view('backend/cmscust/kategori_produk/index', $data);
     }
 
     // Backend - Get data
@@ -24,21 +24,21 @@ class KategoriProduk extends BaseController
         if ($this->request->isAJAX()) {
             $id_grup = session()->get('id_grup');
             $url = 'kategori-produk/list';
-            $listgrupf =  $this->grupakses->listgrupakses($id_grup, $url);
+            $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
 
-            foreach ($listgrupf as $data) :
+            foreach ($listgrupf as $data):
                 $akses = $data['akses'];
             endforeach;
 
             if ($listgrupf) {
                 if ($akses == '1' || $akses == '2') {
                     $data = [
-                        'title'     => 'Kategori Produk',
-                        'list'      => $this->kategoriproduk->list(),
-                        'akses'     => $akses
+                        'title' => 'Kategori Produk',
+                        'list' => $this->kategoriproduk->list(),
+                        'akses' => $akses
                     ];
                     $msg = [
-                        'data' => view('backend/morvin/cmscust/kategori_produk/list', $data)
+                        'data' => view('backend/cmscust/kategori_produk/list', $data)
                     ];
                 } else {
                     $msg = [
@@ -63,7 +63,7 @@ class KategoriProduk extends BaseController
                 'title' => 'Tambah Kategori'
             ];
             $msg = [
-                'data' => view('backend/morvin/cmscust/kategori_produk/tambah', $data)
+                'data' => view('backend/cmscust/kategori_produk/tambah', $data)
             ];
             echo json_encode($msg);
         }
@@ -97,9 +97,9 @@ class KategoriProduk extends BaseController
                 $insertdata = [
                     'nama_kategori' => $this->request->getVar('nama_kategori'),
                     'slug_kategori' => $slug,
-                    'deskripsi'     => $this->request->getVar('deskripsi'),
-                    'urutan'        => $this->request->getVar('urutan'),
-                    'status'        => $this->request->getVar('status'),
+                    'deskripsi' => $this->request->getVar('deskripsi'),
+                    'urutan' => $this->request->getVar('urutan'),
+                    'status' => $this->request->getVar('status'),
                 ];
 
                 $this->kategoriproduk->insert($insertdata);
@@ -117,14 +117,14 @@ class KategoriProduk extends BaseController
     {
         if ($this->request->isAJAX()) {
             $kategori_id = $this->request->getVar('kategori_id');
-            $list =  $this->kategoriproduk->find($kategori_id);
+            $list = $this->kategoriproduk->find($kategori_id);
 
             $data = [
                 'title' => 'Edit Kategori',
-                'data'  => $list
+                'data' => $list
             ];
             $msg = [
-                'sukses' => view('backend/morvin/cmscust/kategori_produk/edit', $data)
+                'sukses' => view('backend/cmscust/kategori_produk/edit', $data)
             ];
             echo json_encode($msg);
         }
@@ -160,9 +160,9 @@ class KategoriProduk extends BaseController
                 $updatedata = [
                     'nama_kategori' => $this->request->getVar('nama_kategori'),
                     'slug_kategori' => $slug,
-                    'deskripsi'     => $this->request->getVar('deskripsi'),
-                    'urutan'        => $this->request->getVar('urutan'),
-                    'status'        => $this->request->getVar('status'),
+                    'deskripsi' => $this->request->getVar('deskripsi'),
+                    'urutan' => $this->request->getVar('urutan'),
+                    'status' => $this->request->getVar('status'),
                 ];
 
                 $this->kategoriproduk->update($kategori_id, $updatedata);
@@ -180,9 +180,9 @@ class KategoriProduk extends BaseController
     {
         if ($this->request->isAJAX()) {
             $kategori_id = $this->request->getVar('kategori_id');
-            
+
             $this->kategoriproduk->delete($kategori_id);
-            
+
             $msg = [
                 'sukses' => 'Kategori berhasil dihapus!'
             ];

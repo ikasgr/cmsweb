@@ -10,36 +10,36 @@ class Permohonaninfo extends BaseController
     //front end
     public function index()
     {
-        $konfigurasi    = $this->konfigurasi->vkonfig();
-        $template       = $this->template->tempaktif();
+        $konfigurasi = $this->konfigurasi->vkonfig();
+        
         $data = [
-            'title'         => 'Permohonan Informasi ' . $konfigurasi->nama,
-            'deskripsi'     => $konfigurasi->deskripsi,
-            'url'           => $konfigurasi->website,
-            'img'           => base_url('/public/img/konfigurasi/logo/' . $konfigurasi->logo),
-            'konfigurasi'   => $konfigurasi,
-            'mainmenu'      => $this->menu->mainmenu(),
-            'footer'        => $this->menu->footermenu(),
-            'topmenu'       => $this->menu->topmenu(),
+            'title' => 'Permohonan Informasi ' . $konfigurasi->nama,
+            'deskripsi' => $konfigurasi->deskripsi,
+            'url' => $konfigurasi->website,
+            'img' => base_url('/public/img/konfigurasi/logo/' . $konfigurasi->logo),
+            'konfigurasi' => $konfigurasi,
+            'mainmenu' => $this->menu->mainmenu(),
+            'footer' => $this->menu->footermenu(),
+            'topmenu' => $this->menu->topmenu(),
 
-            'caraperolehinfo'   => $this->masterdata->list1(),
-            'pekerjaan'         => $this->masterdata->list2(),
-            'caradapatinfo'     => $this->masterdata->list3(),
+            'caraperolehinfo' => $this->masterdata->list1(),
+            'pekerjaan' => $this->masterdata->list2(),
+            'caradapatinfo' => $this->masterdata->list3(),
 
-            'linkterkaitall'  => $this->linkterkait->publishlinkall(),
-            'sitekey'         => $konfigurasi->g_sitekey,
+            'linkterkaitall' => $this->linkterkait->publishlinkall(),
+            'sitekey' => $konfigurasi->g_sitekey,
 
-            'folder'        => $template['folder']
+            
         ];
-        if ($template['duatema'] == 1) {
+        if (0) {
             $agent = $this->request->getUserAgent();
             if ($agent->isMobile()) {
-                return view('frontend/' . $template['folder'] . '/mobile/' . 'content/permohonan_info', $data);
+                return view('frontend/desktop/' . 'content/permohonan_info', $data);
             } else {
-                return view('frontend/' . $template['folder'] . '/desktop/' . 'content/permohonan_info', $data);
+                return view('frontend/desktop/' . 'content/permohonan_info', $data);
             }
         } else {
-            return view('frontend/' . $template['folder'] . '/desktop/' . 'content/permohonan_info', $data);
+            return view('frontend/desktop/' . 'content/permohonan_info', $data);
         }
     }
 
@@ -52,14 +52,14 @@ class Permohonaninfo extends BaseController
         if (!session()->get('id')) {
             return redirect()->to('');
         }
-        $tadmin = $this->template->tempadminaktif();
+        
         $data = [
-            'title'           => 'Permintaan',
-            'subtitle'        => 'Informasi',
-            'folder'          => esc($tadmin['folder']),
+            'title' => 'Permintaan',
+            'subtitle' => 'Informasi',
+
         ];
 
-        return view('backend/' . esc($tadmin['folder']) . '/' . 'interaksi/permintaan-info/index', $data);
+        return view('backend/' . 'interaksi/permintaan-info/index', $data);
     }
 
     public function getdata()
@@ -71,28 +71,28 @@ class Permohonaninfo extends BaseController
             $id_grup = session()->get('id_grup');
 
             $url = 'permintaan-info/list';
-            $listgrupf =  $this->grupakses->listgrupakses($id_grup, $url);
+            $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
 
-            foreach ($listgrupf as $data) :
+            foreach ($listgrupf as $data):
                 $akses = $data['akses'];
                 $hapus = $data['hapus'];
                 $ubah = $data['ubah'];
 
             endforeach;
             // jika temukan maka eksekusi
-            $tadmin = $this->template->tempadminaktif();
+            
             if ($listgrupf) {
                 # cek akses
                 if ($akses == '1' || $akses == '2') {
                     $data = [
-                        'title'     => 'Permintaan Informasi',
-                        'list'      => $this->permohonaninfo->list(),
-                        'akses'     => $akses,
-                        'hapus'     => $hapus,
-                        'ubah'      => $ubah
+                        'title' => 'Permintaan Informasi',
+                        'list' => $this->permohonaninfo->list(),
+                        'akses' => $akses,
+                        'hapus' => $hapus,
+                        'ubah' => $ubah
                     ];
                     $msg = [
-                        'data' => view('backend/' . esc($tadmin['folder']) . '/' . 'interaksi/permintaan-info/list', $data),
+                        'data' => view('backend/' . 'interaksi/permintaan-info/list', $data),
 
                     ];
                 } else {
@@ -118,15 +118,15 @@ class Permohonaninfo extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            $tadmin             = $this->template->tempadminaktif();
+            
             $data = [
 
-                'list'      => $this->kritiksaran->listkritiknew(),
+                'list' => $this->kritiksaran->listkritiknew(),
                 'totkritik' => $this->kritiksaran->totkritik()
 
             ];
             $msg = [
-                'data' => view('backend/' . esc($tadmin['folder']) . '/' . 'interaksi/kritiksaran/vmenukritik', $data)
+                'data' => view('backend/' . 'interaksi/kritiksaran/vmenukritik', $data)
 
             ];
             echo json_encode($msg);
@@ -204,48 +204,48 @@ class Permohonaninfo extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'nama_pemohon'      => $validation->getError('nama_pemohon'),
-                        'email_pemohon'     => $validation->getError('email_pemohon'),
-                        'hp_pemohon'        => $validation->getError('hp_pemohon'),
-                        'alamat_pemohon'    => $validation->getError('alamat_pemohon'),
-                        'foto_ktp'          => $validation->getError('foto_ktp'),
+                        'nama_pemohon' => $validation->getError('nama_pemohon'),
+                        'email_pemohon' => $validation->getError('email_pemohon'),
+                        'hp_pemohon' => $validation->getError('hp_pemohon'),
+                        'alamat_pemohon' => $validation->getError('alamat_pemohon'),
+                        'foto_ktp' => $validation->getError('foto_ktp'),
                         'info_ygdibutuhkan' => $validation->getError('info_ygdibutuhkan'),
-                        'tujuan_info'       => $validation->getError('tujuan_info'),
+                        'tujuan_info' => $validation->getError('tujuan_info'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             } else {
-                $email              = $this->request->getVar('email_pemohon');
-                $hpuser             = $this->request->getVar('hp_pemohon');
+                $email = $this->request->getVar('email_pemohon');
+                $hpuser = $this->request->getVar('hp_pemohon');
 
-                $nama_pemohon       = htmlspecialchars($this->request->getVar('nama_pemohon'), ENT_QUOTES);
-                $alamat_pemohon     = htmlspecialchars($this->request->getVar('alamat_pemohon'), ENT_QUOTES);
-                $info_ygdibutuhkan  = htmlspecialchars($this->request->getVar('info_ygdibutuhkan'), ENT_QUOTES);
-                $tujuan_info        = htmlspecialchars($this->request->getVar('tujuan_info'), ENT_QUOTES);
+                $nama_pemohon = htmlspecialchars($this->request->getVar('nama_pemohon'), ENT_QUOTES);
+                $alamat_pemohon = htmlspecialchars($this->request->getVar('alamat_pemohon'), ENT_QUOTES);
+                $info_ygdibutuhkan = htmlspecialchars($this->request->getVar('info_ygdibutuhkan'), ENT_QUOTES);
+                $tujuan_info = htmlspecialchars($this->request->getVar('tujuan_info'), ENT_QUOTES);
 
-                $filefoto           = $this->request->getFile('foto_ktp');
-                $foto_ktp           = $filefoto->getRandomName();
+                $filefoto = $this->request->getFile('foto_ktp');
+                $foto_ktp = $filefoto->getRandomName();
                 // konfig
-                $konfigurasi        = $this->konfigurasi->orderBy('id_setaplikasi')->first();
-                $apikey             = $konfigurasi['wa_token'];
-                $phone              = $konfigurasi['wa_sender_number'];
-                $secretkey          = $konfigurasi['google_secret'];
-                $g_sitekey          = $konfigurasi['g_sitekey'];
+                $konfigurasi = $this->konfigurasi->orderBy('id_setaplikasi')->first();
+                $apikey = $konfigurasi['wa_token'];
+                $phone = $konfigurasi['wa_sender_number'];
+                $secretkey = $konfigurasi['google_secret'];
+                $g_sitekey = $konfigurasi['g_sitekey'];
 
                 // arr data
                 $insertdata = [
-                    'nama_pemohon'         => $nama_pemohon,
-                    'alamat_pemohon'       => $alamat_pemohon,
-                    'pek_pemohon'          => $this->request->getVar('pek_pemohon'),
-                    'hp_pemohon'           => $hpuser,
-                    'email_pemohon'        => $email,
-                    'info_ygdibutuhkan'    => $info_ygdibutuhkan,
-                    'tujuan_info'          => $tujuan_info,
-                    'foto_ktp'             => $foto_ktp,
-                    'cara_perolehinfo'     => $this->request->getVar('cara_perolehinfo'),
-                    'cara_dapatkaninfo'    => $this->request->getVar('cara_dapatkaninfo'),
-                    'tgl_ajuan'            => date('Y-m-d H:i:s'),
-                    'sts_info'             => '0'
+                    'nama_pemohon' => $nama_pemohon,
+                    'alamat_pemohon' => $alamat_pemohon,
+                    'pek_pemohon' => $this->request->getVar('pek_pemohon'),
+                    'hp_pemohon' => $hpuser,
+                    'email_pemohon' => $email,
+                    'info_ygdibutuhkan' => $info_ygdibutuhkan,
+                    'tujuan_info' => $tujuan_info,
+                    'foto_ktp' => $foto_ktp,
+                    'cara_perolehinfo' => $this->request->getVar('cara_perolehinfo'),
+                    'cara_dapatkaninfo' => $this->request->getVar('cara_dapatkaninfo'),
+                    'tgl_ajuan' => date('Y-m-d H:i:s'),
+                    'sts_info' => '0'
 
                 ];
 
@@ -254,7 +254,7 @@ class Permohonaninfo extends BaseController
                 if ($secretkey != '' && $g_sitekey != '') {
 
                     $recaptchaResponse = trim($this->request->getVar('g-recaptcha-response'));
-                    $secret            = $secretkey;
+                    $secret = $secretkey;
 
                     $credential = array(
                         'secret' => $secret,
@@ -276,7 +276,7 @@ class Permohonaninfo extends BaseController
                         $this->permohonaninfo->insert($insertdata);
                         \Config\Services::image()
                             ->withFile($filefoto)
-                            ->save('public/file/dokumen/' .  $foto_ktp);
+                            ->save('public/file/dokumen/' . $foto_ktp);
 
                         $isipesan = 'Permohonan dari : *' . $nama_pemohon . '* Informasi yang dibutuhkan : *' . $info_ygdibutuhkan . '* _[Klik disini untuk balas](' . base_url('permintaan-info/list') . ')';
 
@@ -296,7 +296,7 @@ class Permohonaninfo extends BaseController
                     $this->permohonaninfo->insert($insertdata);
                     \Config\Services::image()
                         ->withFile($filefoto)
-                        ->save('public/file/dokumen/' .  $foto_ktp);
+                        ->save('public/file/dokumen/' . $foto_ktp);
 
                     $isipesan = 'Permohonan dari : *' . $nama_pemohon . '* Informasi yang dibutuhkan : *' . $info_ygdibutuhkan . '* _[Klik disini untuk balas](' . base_url('permintaan-info/list') . ')';
 
@@ -325,8 +325,8 @@ class Permohonaninfo extends BaseController
 
         $data = [
             'api_key' => $apikey,
-            'sender'  => $phone, //dari Wa gateway
-            'number'  => $hpuser, // yg terima wa
+            'sender' => $phone, //dari Wa gateway
+            'number' => $hpuser, // yg terima wa
             'message' => $isipesan
         ];
 
@@ -359,57 +359,57 @@ class Permohonaninfo extends BaseController
         }
         if ($this->request->isAJAX()) {
 
-            $id_grup        = session()->get('id_grup');
-            $id_mohoninfo   = $this->request->getVar('id_mohoninfo');
-            $url            = 'permintaan-info/list';
-            $listgrupf      = $this->grupakses->listgrupakses($id_grup, $url);
-            $tadmin         = $this->template->tempadminaktif();
-            foreach ($listgrupf as $data) :
+            $id_grup = session()->get('id_grup');
+            $id_mohoninfo = $this->request->getVar('id_mohoninfo');
+            $url = 'permintaan-info/list';
+            $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
+            
+            foreach ($listgrupf as $data):
                 $akses = $data['akses'];
             endforeach;
             // jika temukan maka eksekusi
             if ($listgrupf) {
                 # cek akses
-                $list                   = $this->permohonaninfo->find($id_mohoninfo);
-                $idpek                  = $list['pek_pemohon'];
-                $idcara_perolehinfo     = $list['cara_perolehinfo'];
-                $idcara_dapatkaninfo    = $list['cara_dapatkaninfo'];
+                $list = $this->permohonaninfo->find($id_mohoninfo);
+                $idpek = $list['pek_pemohon'];
+                $idcara_perolehinfo = $list['cara_perolehinfo'];
+                $idcara_dapatkaninfo = $list['cara_dapatkaninfo'];
 
 
-                $pek                    = $this->masterdata->find($idpek);
-                $caraperoleh            = $this->masterdata->find($idcara_perolehinfo);
-                $caradapat              = $this->masterdata->find($idcara_dapatkaninfo);
-                $pekerjaan              = $pek['nama_master'];
-                $caraperolehinfo        = $caraperoleh['nama_master'];
-                $caradapatinfo          = $caradapat['nama_master'];
+                $pek = $this->masterdata->find($idpek);
+                $caraperoleh = $this->masterdata->find($idcara_perolehinfo);
+                $caradapat = $this->masterdata->find($idcara_dapatkaninfo);
+                $pekerjaan = $pek['nama_master'];
+                $caraperolehinfo = $caraperoleh['nama_master'];
+                $caradapatinfo = $caradapat['nama_master'];
 
                 if ($akses == '1' || $akses == '2') {
                     $data = [
-                        'title'             => 'Detail Permohonan Informasi',
-                        'id_mohoninfo'      => $list['id_mohoninfo'],
-                        'nama_pemohon'      => $list['nama_pemohon'],
-                        'alamat_pemohon'    => $list['alamat_pemohon'],
+                        'title' => 'Detail Permohonan Informasi',
+                        'id_mohoninfo' => $list['id_mohoninfo'],
+                        'nama_pemohon' => $list['nama_pemohon'],
+                        'alamat_pemohon' => $list['alamat_pemohon'],
                         // 'pek_pemohon'       => $pekerjaan,
-                        'hp_pemohon'        => $list['hp_pemohon'],
-                        'email_pemohon'     => $list['email_pemohon'],
+                        'hp_pemohon' => $list['hp_pemohon'],
+                        'email_pemohon' => $list['email_pemohon'],
                         'info_ygdibutuhkan' => $list['info_ygdibutuhkan'],
-                        'tujuan_info'       => $list['tujuan_info'],
-                        'foto_ktp'          => $list['foto_ktp'],
+                        'tujuan_info' => $list['tujuan_info'],
+                        'foto_ktp' => $list['foto_ktp'],
                         // 'cara_perolehinfo'  => $list['cara_perolehinfo'],
                         // 'cara_dapatkaninfo' => $list['cara_dapatkaninfo'],
-                        'tgl_ajuan'         => $list['tgl_ajuan'],
-                        'sts_info'          => $list['sts_info'],
-                        'respon_balas'      => $list['respon_balas'],
-                        'akses'             => $akses,
-                        'caraperolehinfo'   => $caraperolehinfo,
-                        'pekerjaan'         => $pekerjaan,
-                        'caradapatinfo'     => $caradapatinfo,
+                        'tgl_ajuan' => $list['tgl_ajuan'],
+                        'sts_info' => $list['sts_info'],
+                        'respon_balas' => $list['respon_balas'],
+                        'akses' => $akses,
+                        'caraperolehinfo' => $caraperolehinfo,
+                        'pekerjaan' => $pekerjaan,
+                        'caradapatinfo' => $caradapatinfo,
 
 
                     ];
                     $msg = [
-                        'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'interaksi/permintaan-info/edit', $data),
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'sukses' => view('backend/' . 'interaksi/permintaan-info/edit', $data),
+                        'csrf_tokencmsdatagoe' => csrf_hash(),
 
                     ];
                 } else {
@@ -448,30 +448,30 @@ class Permohonaninfo extends BaseController
                     'error' => [
                         'respon_balas' => $validation->getError('respon_balas'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             } else {
-                $id             = session()->get('id');
-                $konfigurasi    = $this->konfigurasi->orderBy('id_setaplikasi')->first();
-                $balasbuka      = $konfigurasi['smtp_pesanbalas']; //email dinas penyamaran
-                $apikey         = $konfigurasi['wa_token'];
-                $phone          = $konfigurasi['wa_sender_number']; //nomor wa gateway
+                $id = session()->get('id');
+                $konfigurasi = $this->konfigurasi->orderBy('id_setaplikasi')->first();
+                $balasbuka = $konfigurasi['smtp_pesanbalas']; //email dinas penyamaran
+                $apikey = $konfigurasi['wa_token'];
+                $phone = $konfigurasi['wa_sender_number']; //nomor wa gateway
 
-                $id_mohoninfo   = $this->request->getVar('id_mohoninfo');
-                $sts_info       = $this->request->getVar('sts_info');
-                $email_pemohon  = $this->request->getVar('email_pemohon'); //email user
-                $nama_pemohon   = $this->request->getVar('nama_pemohon'); //nama_pemohon user
-                $hp_pemohon     = $this->request->getVar('hp_pemohon');
-                $balas          = $this->request->getVar('respon_balas'); //isi balasan
-                $title          = 'Balasan Permohonan Informasi';
-                $pesanbalas     = '<h2> ' . $balasbuka . ' </h2><p> <h4> ' . $balas . '</h4></p>';
-                $isibalas       = 'Hallo, *' . $nama_pemohon . '*.. ' . $balasbuka . 'Berikut tanggapan kami.. *' . $balas . '* _Jangan balas pesan ini, karena otomatis dari Sistem_ ' . $konfigurasi['website'];
+                $id_mohoninfo = $this->request->getVar('id_mohoninfo');
+                $sts_info = $this->request->getVar('sts_info');
+                $email_pemohon = $this->request->getVar('email_pemohon'); //email user
+                $nama_pemohon = $this->request->getVar('nama_pemohon'); //nama_pemohon user
+                $hp_pemohon = $this->request->getVar('hp_pemohon');
+                $balas = $this->request->getVar('respon_balas'); //isi balasan
+                $title = 'Balasan Permohonan Informasi';
+                $pesanbalas = '<h2> ' . $balasbuka . ' </h2><p> <h4> ' . $balas . '</h4></p>';
+                $isibalas = 'Hallo, *' . $nama_pemohon . '*.. ' . $balasbuka . 'Berikut tanggapan kami.. *' . $balas . '* _Jangan balas pesan ini, karena otomatis dari Sistem_ ' . $konfigurasi['website'];
 
                 $data = [
-                    'sts_info'      => $sts_info,
-                    'respon_balas'  => $balas,
-                    'id'            => $id,
-                    'tgl_respon'    => date('Y-m-d H:i:s'),
+                    'sts_info' => $sts_info,
+                    'respon_balas' => $balas,
+                    'id' => $id,
+                    'tgl_respon' => date('Y-m-d H:i:s'),
                 ];
 
                 $this->permohonaninfo->update($id_mohoninfo, $data);
@@ -489,8 +489,8 @@ class Permohonaninfo extends BaseController
                 }
 
                 $msg = [
-                    'sukses'                => $titelbalas,
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => $titelbalas,
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -507,8 +507,8 @@ class Permohonaninfo extends BaseController
 
         $data = [
             'api_key' => $apikey,
-            'sender'  => $phone, //dari Wa gateway
-            'number'  => $no_hpusr, // yg terima wa
+            'sender' => $phone, //dari Wa gateway
+            'number' => $no_hpusr, // yg terima wa
             'message' => $isibalas
         ];
 
@@ -549,15 +549,15 @@ class Permohonaninfo extends BaseController
         $config["protocol"] = "smtp";
 
         //isi sesuai nama domain/mail server
-        $config["SMTPHost"]  = $namadomain;
+        $config["SMTPHost"] = $namadomain;
 
         //alamat email SMTP
-        $config["SMTPUser"]  = $smptuser;
+        $config["SMTPUser"] = $smptuser;
 
         //password email SMTP
-        $config["SMTPPass"]  = $pass;
+        $config["SMTPPass"] = $pass;
 
-        $config["SMTPPort"]  = $port;
+        $config["SMTPPort"] = $port;
         $config["SMTPCrypto"] = "ssl";
 
         $email_smtp->initialize($config);
@@ -578,29 +578,29 @@ class Permohonaninfo extends BaseController
         }
         if ($this->request->isAJAX()) {
             $id_mohoninfo = $this->request->getVar('id_mohoninfo');
-            $cari =  $this->permohonaninfo->find($id_mohoninfo);
+            $cari = $this->permohonaninfo->find($id_mohoninfo);
 
             if ($cari['sts_public'] == '1') {
-                $list =  $this->permohonaninfo->getaktif($id_mohoninfo);
+                $list = $this->permohonaninfo->getaktif($id_mohoninfo);
                 $toggle = $list ? 0 : 1;
                 $updatedata = [
-                    'sts_public'        => $toggle,
+                    'sts_public' => $toggle,
                 ];
                 $this->permohonaninfo->update($id_mohoninfo, $updatedata);
                 $msg = [
-                    'sukses'                => 'Berhasil dinonaktifkan!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Berhasil dinonaktifkan!',
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             } else {
-                $list =  $this->permohonaninfo->getnonaktif($id_mohoninfo);
+                $list = $this->permohonaninfo->getnonaktif($id_mohoninfo);
                 $toggle = $list ? 1 : 0;
                 $updatedata = [
-                    'sts_public'        => $toggle,
+                    'sts_public' => $toggle,
                 ];
                 $this->permohonaninfo->update($id_mohoninfo, $updatedata);
                 $msg = [
                     'sukses' => 'Berhasil menampilkan ke publik!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             }
 
@@ -615,17 +615,17 @@ class Permohonaninfo extends BaseController
         }
         if ($this->request->isAJAX()) {
 
-            $id_mohoninfo   = $this->request->getVar('id_mohoninfo');
-            $cekdata        = $this->permohonaninfo->find($id_mohoninfo);
-            $filelama       = $cekdata['foto_ktp'];
+            $id_mohoninfo = $this->request->getVar('id_mohoninfo');
+            $cekdata = $this->permohonaninfo->find($id_mohoninfo);
+            $filelama = $cekdata['foto_ktp'];
 
             if ($filelama != '' && file_exists('public/file/dokumen/' . $filelama)) {
                 unlink('public/file/dokumen/' . $filelama);
             }
             $this->permohonaninfo->delete($id_mohoninfo);
             $msg = [
-                'sukses'                => 'Data berhasil dihapus!',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => 'Data berhasil dihapus!',
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -641,8 +641,8 @@ class Permohonaninfo extends BaseController
             $id_mohoninfo = $this->request->getVar('id_mohoninfo');
             $jmldata = count($id_mohoninfo);
             for ($i = 0; $i < $jmldata; $i++) {
-                $cekdata        = $this->permohonaninfo->find($id_mohoninfo[$i]);
-                $filelama       = $cekdata['foto_ktp'];
+                $cekdata = $this->permohonaninfo->find($id_mohoninfo[$i]);
+                $filelama = $cekdata['foto_ktp'];
 
                 if ($filelama != '' && file_exists('public/file/dokumen/' . $filelama)) {
                     unlink('public/file/dokumen/' . $filelama);

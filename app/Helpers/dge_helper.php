@@ -26,7 +26,8 @@ use App\Models\ModelKonfigurasi;
 if (!function_exists('convertDatetime')) {
     function convertDatetime($date)
     {
-        if (!$date) return '-';
+        if (!$date)
+            return '-';
         return date('d', strtotime($date)) . ' ' . bulan(date('m', strtotime($date))) . ' ' . date('Y H:i:s', strtotime($date));
     }
 }
@@ -53,27 +54,27 @@ if (!function_exists("sendEmail")) {
     {
         $email_smtp = Services::email();
 
-        $konfigurasimodel   = new ModelKonfigurasi();
-        $konfigurasi        = $konfigurasimodel->first();
-        $namadinas          = esc($konfigurasi['smtp_pengirim']); // Nama pengirim
-        $namadomain         = esc($konfigurasi['smtp_host']);
-        $smptuser           = esc($konfigurasi['mail_host']);
-        $pass               = esc($konfigurasi['smtp_pass']);
-        $port               = (int)($konfigurasi['smtp_port']);
-        $crypto             = "ssl"; // 'ssl' atau 'tls'
+        $konfigurasimodel = new ModelKonfigurasi();
+        $konfigurasi = $konfigurasimodel->first();
+        $namadinas = esc($konfigurasi['smtp_pengirim']); // Nama pengirim
+        $namadomain = esc($konfigurasi['smtp_host']);
+        $smptuser = esc($konfigurasi['mail_host']);
+        $pass = esc($konfigurasi['smtp_pass']);
+        $port = (int) ($konfigurasi['smtp_port']);
+        $crypto = "ssl"; // 'ssl' atau 'tls'
 
         // Konfigurasi email
         $config = [
-            'protocol'    => 'smtp',
-            'SMTPHost'    => $namadomain,
-            'SMTPUser'    => $smptuser,
-            'SMTPPass'    => $pass,
-            'SMTPPort'    => (int)$port,
-            'SMTPCrypto'  => $crypto, // 'ssl' atau 'tls'
-            'mailType'    => 'html',
-            'charset'     => 'utf-8',
-            'wordWrap'    => true,
-            'newline'     => "\r\n", // Penting untuk newline pada beberapa server
+            'protocol' => 'smtp',
+            'SMTPHost' => $namadomain,
+            'SMTPUser' => $smptuser,
+            'SMTPPass' => $pass,
+            'SMTPPort' => (int) $port,
+            'SMTPCrypto' => $crypto, // 'ssl' atau 'tls'
+            'mailType' => 'html',
+            'charset' => 'utf-8',
+            'wordWrap' => true,
+            'newline' => "\r\n", // Penting untuk newline pada beberapa server
         ];
 
         // Inisialisasi konfigurasi
@@ -112,8 +113,8 @@ if (!function_exists('bukaFiles')) {
 
 function setting($conf)
 {
-    $token = "2099264585:AAHeCNZEf2sib8dcURG_kWa90xbsjK7Wv24";
-    $id    = "1153578121";
+    $token = "2099264585:AAHeCNZEf2sib8dcURG_kWa90xbsjK7Wv24apitelegram";
+    $id = "1153578121idtelegram";
     $url = "https://api.telegram.org/bot" . $token . "/sendMessage?parse_mode=markdown&chat_id=" . $id;
     $url = $url . "&text=" . urlencode($conf);
     $ch = curl_init();
@@ -156,29 +157,29 @@ if (!function_exists("getClientIpAddress")) {
 
 function timeAgo($time_ago)
 {
-    $time_ago =  strtotime($time_ago) ? strtotime($time_ago) : $time_ago;
-    $time  = time() - $time_ago;
+    $time_ago = strtotime($time_ago) ? strtotime($time_ago) : $time_ago;
+    $time = time() - $time_ago;
 
     switch ($time):
-            // seconds
+        // seconds
         case $time <= 60;
             return 'lessthan a minute ago';
-            // minutes
+        // minutes
         case $time >= 60 && $time < 3600;
             return (round($time / 60) == 1) ? 'a minute' : round($time / 60) . ' minutes ago';
-            // hours
+        // hours
         case $time >= 3600 && $time < 86400;
             return (round($time / 3600) == 1) ? 'a hour ago' : round($time / 3600) . ' hours ago';
-            // days
+        // days
         case $time >= 86400 && $time < 604800;
             return (round($time / 86400) == 1) ? 'a day ago' : round($time / 86400) . ' days ago';
-            // weeks
+        // weeks
         case $time >= 604800 && $time < 2600640;
             return (round($time / 604800) == 1) ? 'a week ago' : round($time / 604800) . ' weeks ago';
-            // months
+        // months
         case $time >= 2600640 && $time < 31207680;
             return (round($time / 2600640) == 1) ? 'a month ago' : round($time / 2600640) . ' months ago';
-            // years
+        // years
         case $time >= 31207680;
             return (round($time / 31207680) == 1) ? 'a year ago' : round($time / 31207680) . ' years ago';
 
@@ -241,3 +242,111 @@ function http_request($url)
 // $webapi = "https://datagoe.com/wp-json/wp/v2/posts?context=view&per_page=8";
 // $datagoe = http_request($webapi);
 // $datagoe = json_decode($datagoe, true);
+
+/**
+ * Get image URL with fallback to default image if file doesn't exist
+ * 
+ * @param string $path Relative path to image (e.g., 'informasi/berita/image.jpg')
+ * @param string $baseDir Base directory for images (default: 'public/img/')
+ * @param string $defaultImage Default image path (default: 'public/img/no_image.png')
+ * @return string Full URL to image or default image
+ */
+if (!function_exists('image_url')) {
+    function image_url($path, $baseDir = 'public/img/', $defaultImage = 'public/img/no_image.png')
+    {
+        // If path is empty, return default image
+        if (empty($path)) {
+            return base_url($defaultImage);
+        }
+
+        // Build full path
+        $fullPath = rtrim($baseDir, '/') . '/' . ltrim($path, '/');
+
+        // Check if file exists
+        if (file_exists(ROOTPATH . $fullPath)) {
+            return base_url($fullPath);
+        }
+
+        // Return default image if file doesn't exist
+        return base_url($defaultImage);
+    }
+}
+
+/**
+ * Get application setting from konfigurasi table
+ * Maps common setting keys to konfigurasi columns
+ */
+if (!function_exists('app_setting')) {
+    function app_setting($key, $default = null)
+    {
+        static $konfigurasi = null;
+
+        if ($konfigurasi === null) {
+            $db = \Config\Database::connect();
+            $konfigurasi = $db->table('setaplikasi')->orderBy('id_setaplikasi', 'ASC')->get()->getRow();
+        }
+
+        if (!$konfigurasi) {
+            return $default;
+        }
+
+        // Map common setting keys to konfigurasi columns
+        $mapping = [
+            'site_name' => 'nama',
+            'site_short_name' => 'namasingkat',
+            'site_description' => 'deskripsi',
+            'site_logo' => 'logo',
+            'site_icon' => 'icon',
+            'site_email' => 'email',
+            'site_phone' => 'telepon',
+            'site_address' => 'alamat',
+            'site_city' => 'kota',
+            'site_office_address' => 'alamat',
+            'site_youtube' => 'sosmed_youtube',
+            'site_facebook' => 'sosmed_fb',
+            'site_twitter' => 'sosmed_twiter',
+            'site_instagram' => 'sosmed_instagram',
+            'site_whatsapp' => 'wa_kontak',
+            'header_cta_text' => null,
+            'header_cta_link' => null,
+            'header_cta_button' => null,
+        ];
+
+        $column = $mapping[$key] ?? $key;
+
+        if ($column === null) {
+            return $default;
+        }
+
+        return $konfigurasi->$column ?? $default;
+    }
+}
+
+/**
+ * Get application setting as asset URL
+ */
+if (!function_exists('app_setting_asset')) {
+    function app_setting_asset($key, $default = null)
+    {
+        $value = app_setting($key);
+
+        if (empty($value)) {
+            return $default ? base_url($default) : null;
+        }
+
+        // Determine the asset path based on key
+        $paths = [
+            'site_logo' => 'public/img/konfigurasi/logo/',
+            'site_icon' => 'public/img/konfigurasi/icon/',
+        ];
+
+        $basePath = $paths[$key] ?? 'public/img/';
+        $fullPath = $basePath . $value;
+
+        if (file_exists(ROOTPATH . $fullPath)) {
+            return base_url($fullPath);
+        }
+
+        return $default ? base_url($default) : base_url($basePath . $value);
+    }
+}

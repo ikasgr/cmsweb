@@ -6,34 +6,34 @@ class Layanan extends BaseController
 {
     public function index()
     {
-        $konfigurasi        = $this->konfigurasi->vkonfig();
-        $layanan            = $this->layanan->listlayananpage();
-        $template           = $this->template->tempaktif();
+        $konfigurasi = $this->konfigurasi->vkonfig();
+        $layanan = $this->layanan->listlayananpage();
+
 
         $data = [
-            'title'         => 'Layanan | ' . esc($konfigurasi->nama),
-            'deskripsi'     => esc($konfigurasi->deskripsi),
-            'url'           => esc($konfigurasi->website),
-            'img'           => base_url('/public/img/konfigurasi/logo/' . esc($konfigurasi->logo)),
-            'konfigurasi'   => $konfigurasi,
-            'mainmenu'      => $this->menu->mainmenu(),
-            'footer'        => $this->menu->footermenu(),
-            'topmenu'       => $this->menu->topmenu(),
-            'layanan'       => $layanan->paginate(6, 'hal'),
-            'pager'         => $layanan->pager,
-            'jum'           => $this->layanan->totlayanan(),
-            'banner'        => $this->banner->list(),
-            'infografis'    => $this->banner->listinfo(),
-            'infografis10'    => $this->banner->listinfopage()->paginate(10),
-            'infografis1'   => $this->banner->listinfo1(),
-            'agenda'        => $this->agenda->listagendapage()->paginate(4),
+            'title' => 'Layanan | ' . esc($konfigurasi->nama),
+            'deskripsi' => esc($konfigurasi->deskripsi),
+            'url' => esc($konfigurasi->website),
+            'img' => base_url('/public/img/konfigurasi/logo/' . esc($konfigurasi->logo)),
+            'konfigurasi' => $konfigurasi,
+            'mainmenu' => $this->menu->mainmenu(),
+            'footer' => $this->menu->footermenu(),
+            'topmenu' => $this->menu->topmenu(),
+            'layanan' => $layanan->paginate(6, 'hal'),
+            'pager' => $layanan->pager,
+            'jum' => $this->layanan->totlayanan(),
+            'banner' => $this->banner->list(),
+            'infografis' => $this->banner->listinfo(),
+            'infografis10' => $this->banner->listinfopage()->paginate(10),
+            'infografis1' => $this->banner->listinfo1(),
+            'agenda' => $this->agenda->listagendapage()->paginate(4),
             'beritapopuler' => $this->berita->populer()->paginate(8),
-            'kategori'      => $this->kategori->list(),
-            'section'       => $this->section->list(),
-            'linkterkaitall'    => $this->linkterkait->publishlinkall(),
-            'grafisrandom'         => $this->banner->grafisrandom(),
-            'terkini3'       => $this->berita->terkini3(),
-            'folder'        => $template['folder'],
+            'kategori' => $this->kategori->list(),
+            'section' => $this->section->list(),
+            'linkterkaitall' => $this->linkterkait->publishlinkall(),
+            'grafisrandom' => $this->banner->grafisrandom(),
+            'terkini3' => $this->berita->terkini3(),
+            'folder' => $template['folder'],
 
         ];
         if ($template['duatema'] == 1) {
@@ -54,14 +54,14 @@ class Layanan extends BaseController
         if (!session()->get('id')) {
             return redirect()->to('');
         }
-        $tadmin = $this->template->tempadminaktif();
+
         $data = [
-            'title'        => 'Informasi',
-            'subtitle'    => 'Layanan',
-            'folder'    =>  esc($tadmin['folder']),
+            'title' => 'Informasi',
+            'subtitle' => 'Layanan',
+
 
         ];
-        return view('backend/' . esc($tadmin['folder']) . '/' . 'informasi/layanan/index', $data);
+        return view('backend/' . 'informasi/layanan/index', $data);
     }
 
     public function getdata($id = null)
@@ -96,7 +96,7 @@ class Layanan extends BaseController
         }
 
         // Siapkan data untuk tampilan
-        $tadmin = $this->template->tempadminaktif();
+
         $data = [
             'title' => 'Layanan',
             'list' => $list,
@@ -109,7 +109,7 @@ class Layanan extends BaseController
 
         // Siapkan respons JSON dengan data tampilan
         $msg = [
-            'data' => view('backend/' . esc($tadmin['folder']) . '/informasi/layanan/list', $data)
+            'data' => view('backend/informasi/layanan/list', $data)
         ];
 
         echo json_encode($msg);
@@ -122,13 +122,13 @@ class Layanan extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            $tadmin = $this->template->tempadminaktif();
+
             $data = [
-                'title'                 => 'Tambah Layanan',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'title' => 'Tambah Layanan',
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             $msg = [
-                'data' => view('backend/' . esc($tadmin['folder']) . '/' . 'informasi/layanan/tambah', $data)
+                'data' => view('backend/' . 'informasi/layanan/tambah', $data)
             ];
             echo json_encode($msg);
         }
@@ -173,18 +173,18 @@ class Layanan extends BaseController
             if (!$valid) {
                 echo json_encode([
                     'error' => [
-                        'nama'          => $validation->getError('nama'),
+                        'nama' => $validation->getError('nama'),
                         'isi_informasi' => $validation->getError('isi_informasi'),
-                        'gambar'        => $validation->getError('gambar')
+                        'gambar' => $validation->getError('gambar')
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ]);
                 return;
             }
 
             // Ambil data form
-            $userid     = session()->get('id');
-            $nama_file  = 'default.png';
+            $userid = session()->get('id');
+            $nama_file = 'default.png';
             $filegambar = $this->request->getFile('gambar');
 
             // Jika ada gambar, proses upload
@@ -197,20 +197,20 @@ class Layanan extends BaseController
 
             // Simpan data ke database
             $this->layanan->insert([
-                'nama'              => $this->request->getVar('nama'),
-                'slug_informasi'    => mb_url_title($this->request->getVar('nama'), '-', true),
-                'isi_informasi'     => $this->request->getVar('isi_informasi'),
-                'ket'               => $this->request->getVar('ket'),
-                'tgl_informasi'     => date('Y-m-d'),
-                'gambar'            => $nama_file,
-                'id'                => $userid,
-                'type'              => '0',
-                'hits'              => '0'
+                'nama' => $this->request->getVar('nama'),
+                'slug_informasi' => mb_url_title($this->request->getVar('nama'), '-', true),
+                'isi_informasi' => $this->request->getVar('isi_informasi'),
+                'ket' => $this->request->getVar('ket'),
+                'tgl_informasi' => date('Y-m-d'),
+                'gambar' => $nama_file,
+                'id' => $userid,
+                'type' => '0',
+                'hits' => '0'
             ]);
 
             echo json_encode([
                 'sukses' => 'Layanan berhasil disimpan!',
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ]);
         }
     }
@@ -238,7 +238,7 @@ class Layanan extends BaseController
             $this->layanan->delete($id);
             $msg = [
                 'sukses' => 'Data Layanan Berhasil Dihapus',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
 
             ];
 
@@ -263,14 +263,14 @@ class Layanan extends BaseController
             }
 
             $updatedata = [
-                'fileunduh'           => ''
+                'fileunduh' => ''
             ];
 
             $this->layanan->update($id, $updatedata);
 
             $msg = [
-                'sukses'                => 'Data file yang disematkan sukses Dihapus',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => 'Data file yang disematkan sukses Dihapus',
+                'csrf_tokencmsikasmedia' => csrf_hash(),
 
             ];
 
@@ -302,8 +302,8 @@ class Layanan extends BaseController
             }
 
             $msg = [
-                'sukses'                => "$jmldata Data layanan berhasil dihapus",
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => "$jmldata Data layanan berhasil dihapus",
+                'csrf_tokencmsikasmedia' => csrf_hash(),
 
             ];
             echo json_encode($msg);
@@ -318,20 +318,20 @@ class Layanan extends BaseController
         if ($this->request->isAJAX()) {
 
             $informasi_id = $this->request->getVar('informasi_id');
-            $list =  $this->layanan->find($informasi_id);
-            $tadmin = $this->template->tempadminaktif();
+            $list = $this->layanan->find($informasi_id);
+
 
             $data = [
-                'title'          => 'Edit Layanan',
-                'informasi_id'   => $list['informasi_id'],
-                'nama'           => $list['nama'],
-                'isi_informasi'  => $list['isi_informasi'],
+                'title' => 'Edit Layanan',
+                'informasi_id' => $list['informasi_id'],
+                'nama' => $list['nama'],
+                'isi_informasi' => $list['isi_informasi'],
 
 
             ];
             $msg = [
-                'sukses' => view('backend/' . esc($tadmin['folder']) . '/' . 'informasi/layanan/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/' . 'informasi/layanan/edit', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
 
             ];
             echo json_encode($msg);
@@ -369,24 +369,24 @@ class Layanan extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'nama'           => $validation->getError('nama'),
-                        'isi_informasi'     => $validation->getError('isi_informasi'),
+                        'nama' => $validation->getError('nama'),
+                        'isi_informasi' => $validation->getError('isi_informasi'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
 
                 ];
             } else {
 
                 $updatedata = [
 
-                    'nama'              => $this->request->getVar('nama'),
-                    'slug_informasi'   => mb_url_title($this->request->getVar('nama'), '-', TRUE),
-                    'isi_informasi'   => $this->request->getVar('isi_informasi'),
+                    'nama' => $this->request->getVar('nama'),
+                    'slug_informasi' => mb_url_title($this->request->getVar('nama'), '-', TRUE),
+                    'isi_informasi' => $this->request->getVar('isi_informasi'),
                 ];
                 $this->layanan->update($informasi_id, $updatedata);
                 $msg = [
                     'sukses' => 'Data Layanan berhasil diubah!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
 
                 ];
             }
@@ -401,16 +401,16 @@ class Layanan extends BaseController
         }
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('informasi_id');
-            $list =  $this->layanan->find($id);
-            $tadmin = $this->template->tempadminaktif();
+            $list = $this->layanan->find($id);
+
             $data = [
-                'title'       => 'Ganti Cover',
-                'id'          => $list['informasi_id'],
-                'gambar'      => $list['gambar'],
+                'title' => 'Ganti Cover',
+                'id' => $list['informasi_id'],
+                'gambar' => $list['gambar'],
             ];
             $msg = [
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
-                'sukses'    => view('backend/' . esc($tadmin['folder']) . '/' . 'informasi/layanan/gantifoto', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
+                'sukses' => view('backend/' . 'informasi/layanan/gantifoto', $data),
             ];
             echo json_encode($msg);
         }
@@ -444,7 +444,7 @@ class Layanan extends BaseController
                     'error' => [
                         'gambar' => $validation->getError('gambar')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
@@ -484,17 +484,17 @@ class Layanan extends BaseController
         }
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('informasi_id');
-            $list =  $this->layanan->find($id);
-            $tadmin = $this->template->tempadminaktif();
+            $list = $this->layanan->find($id);
+
             $data = [
-                'title'       => 'File Unduhan',
-                'id'          => $list['informasi_id'],
-                'gambar'      => $list['gambar'],
-                'fileunduh'   => $list['fileunduh']
+                'title' => 'File Unduhan',
+                'id' => $list['informasi_id'],
+                'gambar' => $list['gambar'],
+                'fileunduh' => $list['fileunduh']
             ];
             $msg = [
-                'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'informasi/layanan/uploadfile', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/' . 'informasi/layanan/uploadfile', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -533,7 +533,7 @@ class Layanan extends BaseController
                     'error' => [
                         'fileunduh' => $validation->getError('fileunduh')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
@@ -575,11 +575,11 @@ class Layanan extends BaseController
     public function formlihatlayananAsx()
     {
         if ($this->request->isAJAX()) {
-            $informasi_id   = $this->request->getVar('informasi_id');
-            $list           = $this->layanan->find($informasi_id);
-            $tadmin         = $this->template->tempadminaktif();
-            $jenis          = $this->request->getVar('jns');
-            $konfigurasi    = $this->konfigurasi->vkonfig();
+            $informasi_id = $this->request->getVar('informasi_id');
+            $list = $this->layanan->find($informasi_id);
+
+            $jenis = $this->request->getVar('jns');
+            $konfigurasi = $this->konfigurasi->vkonfig();
             if ($jenis == '') {
                 $folform = 'v_layanan';
             } else {
@@ -587,24 +587,24 @@ class Layanan extends BaseController
             }
             // Update hits
             $data = [
-                'hits'        => $list['hits'] + 1
+                'hits' => $list['hits'] + 1
             ];
             $this->layanan->update($list['informasi_id'], $data);
 
             $data = [
-                'title'          => 'Detail Layanan',
-                'informasi_id'   => $list['informasi_id'],
-                'nama'           => $list['nama'],
-                'isi_informasi'  => $list['isi_informasi'],
-                'tgl_informasi'  => $list['tgl_informasi'],
-                'gambar'         => $list['gambar'],
-                'fileunduh'      => $list['fileunduh'],
-                'webutama'       => $konfigurasi->website,
+                'title' => 'Detail Layanan',
+                'informasi_id' => $list['informasi_id'],
+                'nama' => $list['nama'],
+                'isi_informasi' => $list['isi_informasi'],
+                'tgl_informasi' => $list['tgl_informasi'],
+                'gambar' => $list['gambar'],
+                'fileunduh' => $list['fileunduh'],
+                'webutama' => $konfigurasi->website,
 
             ];
             $msg = [
-                'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'modal/' . $folform . '', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/' . 'modal/' . $folform . '', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -623,8 +623,8 @@ class Layanan extends BaseController
         if (!$list) {
             return json_encode(['error' => 'Data tidak ditemukan']);
         }
-        $template                 = $this->template->tempaktif();
-        $tadmin = $this->template->tempadminaktif();
+
+
         $konfigurasi = $this->konfigurasi->vkonfig();
         $folform = $jenis === '' ? 'v_layanan' : 'v_layananfr';
 
@@ -633,20 +633,20 @@ class Layanan extends BaseController
 
         // Data untuk dikirim ke view
         $data = [
-            'title'         => 'Detail Layanan',
-            'informasi_id'  => $list['informasi_id'],
-            'nama'          => $list['nama'],
+            'title' => 'Detail Layanan',
+            'informasi_id' => $list['informasi_id'],
+            'nama' => $list['nama'],
             'isi_informasi' => $list['isi_informasi'],
             'tgl_informasi' => $list['tgl_informasi'],
-            'gambar'        => $list['gambar'],
-            'fileunduh'     => $list['fileunduh'],
-            'webutama'      => $konfigurasi->website,
-            'folder'        => esc($template['folder']),
+            'gambar' => $list['gambar'],
+            'fileunduh' => $list['fileunduh'],
+            'webutama' => $konfigurasi->website,
+            'folder' => esc($template['folder']),
         ];
 
         $msg = [
-            'sukses' => view('backend/' . esc($tadmin['folder']) . '/modal/' . $folform, $data),
-            'csrf_tokencmsdatagoe' => csrf_hash(),
+            'sukses' => view('backend/modal/' . $folform, $data),
+            'csrf_tokencmsikasmedia' => csrf_hash(),
         ];
 
         return $this->response->setJSON($msg);
@@ -667,26 +667,26 @@ class Layanan extends BaseController
             return $this->response->setJSON(['error' => 'Data tidak ditemukan']);
         }
 
-        $tadmin                   = $this->template->tempadminaktif();
-        $template                 = $this->template->tempaktif();
+
+
         // Update hits
         $this->layanan->update($informasi_id, ['hits' => $list['hits'] + 1]);
 
         // Data untuk dikirim ke view
         $data = [
-            'title'         => 'Detail Layanan',
-            'informasi_id'  => $list['informasi_id'],
-            'nama'          => esc($list['nama']),
+            'title' => 'Detail Layanan',
+            'informasi_id' => $list['informasi_id'],
+            'nama' => esc($list['nama']),
             'isi_informasi' => $list['isi_informasi'],
             'tgl_informasi' => $list['tgl_informasi'],
-            'gambar'        => esc($list['gambar']),
-            'fileunduh'     => esc($list['fileunduh']),
-            'folder'        => esc($template['folder']),
+            'gambar' => esc($list['gambar']),
+            'fileunduh' => esc($list['fileunduh']),
+            'folder' => esc($template['folder']),
 
         ];
 
         $msg = [
-            'sukses' => view('backend/' . esc($tadmin['folder']) . '/modal/v_layananfr', $data),
+            'sukses' => view('backend/modal/v_layananfr', $data),
         ];
 
         return $this->response->setJSON($msg);
@@ -695,10 +695,10 @@ class Layanan extends BaseController
     function download($fileupload)
     {
 
-        $list =  $this->bankdata->downloadfile($fileupload);
+        $list = $this->bankdata->downloadfile($fileupload);
         if ($list) {
             $datahits = [
-                'hits'        => $list['hits'] + 1
+                'hits' => $list['hits'] + 1
             ];
             $this->bankdata->update($list['bankdata_id'], $datahits);
             return $this->response->download('public/unduh/bankdata/' . $list['fileupload'], null);
@@ -709,7 +709,7 @@ class Layanan extends BaseController
 
     function download_layananlocal($fileupload)
     {
-        $list =  $this->layanan->downloadfile($fileupload);
+        $list = $this->layanan->downloadfile($fileupload);
         if ($list) {
             // $datahits = [
             //     'hits'        => $list['hits'] + 1
@@ -769,17 +769,17 @@ class Layanan extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            $id     = $this->request->getVar('informasi_id');
-            $cari   = $this->layanan->find($id);
+            $id = $this->request->getVar('informasi_id');
+            $cari = $this->layanan->find($id);
 
-            $sts    = $cari['utm'] == '1' ? 0 : 1;
+            $sts = $cari['utm'] == '1' ? 0 : 1;
             $stsket = $sts ? 'Berhasil Aktifkan layanan Utama!' : 'Berhasil Non Aktifkan layanan Utama!';
 
             $this->layanan->update($id, ['utm' => $sts]);
 
             echo json_encode([
-                'sukses'                => $stsket,
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => $stsket,
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ]);
         }
     }
@@ -792,15 +792,15 @@ class Layanan extends BaseController
         }
         if ($this->request->isAJAX()) {
 
-            $informasi_id      = $this->request->getVar('informasi_id');
-            $nama              = $this->request->getVar('nama');
-            $datapoling        = $this->poling->list();
-            $userid            = session()->get('id');
+            $informasi_id = $this->request->getVar('informasi_id');
+            $nama = $this->request->getVar('nama');
+            $datapoling = $this->poling->list();
+            $userid = session()->get('id');
             // jika data ditemukan maka tampilkan
             if ($datapoling) {
                 foreach ($datapoling as $a) {
 
-                    $type           = $a['type'];
+                    $type = $a['type'];
                     if ($type == 'Pertanyaan') {
                         $isipil = 'Bagaimanakah menurut Anda tentang layanan ' . $nama;
                     } else {
@@ -808,24 +808,24 @@ class Layanan extends BaseController
                     }
 
                     $data = array(
-                        "pilihan"           => $isipil,
-                        "type"              => $type,
-                        "rating"            => 0,
-                        "status"            => $a['status'],
-                        "id"                => $userid,
-                        'informasi_id'      => $informasi_id,
+                        "pilihan" => $isipil,
+                        "type" => $type,
+                        "rating" => 0,
+                        "status" => $a['status'],
+                        "id" => $userid,
+                        'informasi_id' => $informasi_id,
                     );
                     $this->poling->insert($data);
                 }
 
                 $msg = [
-                    'sukses'                => 'Data berhasil di duplikasi!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Data berhasil di duplikasi!',
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 $msg = [
-                    'nodata'                => 'Data tidak ditemukan',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'nodata' => 'Data tidak ditemukan',
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             // }
@@ -839,15 +839,15 @@ class Layanan extends BaseController
         if (session()->get('id') == '' || $informasi_id == '') {
             return redirect()->to('');
         }
-        $tadmin             = $this->template->tempadminaktif();
+
 
         $data = [
-            'title'           => 'Interaksi',
-            'subtitle'        => 'Jajak Pendapat',
-            'informasi_id'    => $informasi_id,
-            'folder'          => esc($tadmin['folder']),
+            'title' => 'Interaksi',
+            'subtitle' => 'Jajak Pendapat',
+            'informasi_id' => $informasi_id,
+
         ];
-        return view('backend/' . esc($tadmin['folder']) . '/' . 'informasi/layanan/poling/index', $data);
+        return view('backend/' . 'informasi/layanan/poling/index', $data);
     }
 
     public function getpoling()
@@ -858,11 +858,11 @@ class Layanan extends BaseController
 
         if ($this->request->isAJAX()) {
             $informasi_id = $this->request->getVar('informasi_id');
-            $id_grup      = session()->get('id_grup');
-            $url          = 'layanan/all';
+            $id_grup = session()->get('id_grup');
+            $url = 'layanan/all';
 
-            $list         = $this->layanan->find($informasi_id);
-            $listgrupf    = $this->grupakses->viewgrupakses($id_grup, $url);
+            $list = $this->layanan->find($informasi_id);
+            $listgrupf = $this->grupakses->viewgrupakses($id_grup, $url);
 
             // Jika data layanan atau akses grup tidak ditemukan
             if (!$list || !$listgrupf) {
@@ -876,8 +876,8 @@ class Layanan extends BaseController
 
             // Bangun data respons
             $data = $this->buildPolingData($list, $informasi_id, $listgrupf);
-            $tadmin = $this->template->tempadminaktif();
-            $view   = view('backend/' . esc($tadmin['folder']) . '/informasi/layanan/poling/list', $data);
+
+            $view = view('backend/informasi/layanan/poling/list', $data);
 
             return $this->jsonResponse('data', $view);
         }
@@ -886,18 +886,18 @@ class Layanan extends BaseController
     private function buildPolingData($list, $informasi_id, $listgrupf)
     {
         return [
-            'title'     => 'Jajak Pendapat',
-            'list'      => $this->poling->listpolinglay($informasi_id),
-            'jumpol'    => $this->poling->selectSum('rating')->where(['type' => 'Jawaban', 'status' => 'Y', 'informasi_id' => $informasi_id])->first()['rating'] ?? 0,
-            'jjawab'    => $this->poling->selectCount('rating')
+            'title' => 'Jajak Pendapat',
+            'list' => $this->poling->listpolinglay($informasi_id),
+            'jumpol' => $this->poling->selectSum('rating')->where(['type' => 'Jawaban', 'status' => 'Y', 'informasi_id' => $informasi_id])->first()['rating'] ?? 0,
+            'jjawab' => $this->poling->selectCount('rating')
                 ->where(['type' => 'Jawaban', 'informasi_id' => $informasi_id])
                 ->first()['rating'] ?? 0,
-            'poljawab'  => $this->poling->poljawablay($informasi_id),
-            'nama'      => esc($list['nama']),
-            'akses'     => $listgrupf->akses,
-            'hapus'     => $listgrupf->hapus,
-            'ubah'      => $listgrupf->ubah,
-            'tambah'    => $listgrupf->tambah,
+            'poljawab' => $this->poling->poljawablay($informasi_id),
+            'nama' => esc($list['nama']),
+            'akses' => $listgrupf->akses,
+            'hapus' => $listgrupf->hapus,
+            'ubah' => $listgrupf->ubah,
+            'tambah' => $listgrupf->tambah,
         ];
     }
 
@@ -912,16 +912,16 @@ class Layanan extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            $informasi_id    = $this->request->getVar('informasi_id');
+            $informasi_id = $this->request->getVar('informasi_id');
             $data = [
-                'title'                 => 'Tambah Jawaban',
-                'informasi_id'          => $informasi_id,
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'title' => 'Tambah Jawaban',
+                'informasi_id' => $informasi_id,
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
-            $tadmin             = $this->template->tempadminaktif();
+
 
             $msg = [
-                'data' => view('backend/' . esc($tadmin['folder']) . '/' . 'informasi/layanan/poling/tambah', $data)
+                'data' => view('backend/' . 'informasi/layanan/poling/tambah', $data)
 
             ];
             echo json_encode($msg);
@@ -952,21 +952,21 @@ class Layanan extends BaseController
                         'pilihan' => $validation->getError('pilihan'),
 
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 $userid = session()->get('id');
                 $simpandata = [
-                    'pilihan'           => $this->request->getVar('pilihan'),
-                    'informasi_id'      => $this->request->getVar('informasi_id'),
-                    'type'              => 'Jawaban',
-                    'id'                => $userid
+                    'pilihan' => $this->request->getVar('pilihan'),
+                    'informasi_id' => $this->request->getVar('informasi_id'),
+                    'type' => 'Jawaban',
+                    'id' => $userid
                 ];
 
                 $this->poling->insert($simpandata);
                 $msg = [
-                    'sukses'                => 'Data berhasil disimpan',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Data berhasil disimpan',
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -978,8 +978,8 @@ class Layanan extends BaseController
     {
         if ($this->request->isAJAX()) {
             $informasi_id = $this->request->getVar('informasi_id');
-            $list         = $this->layanan->find($informasi_id);
-            $tadmin       = $this->template->tempadminaktif();
+            $list = $this->layanan->find($informasi_id);
+
 
             // Cek apakah polling untuk layanan ini sudah diisi
             $existing_layid = get_cookie("layid");
@@ -994,7 +994,7 @@ class Layanan extends BaseController
             // Ambil data polling
             $poltanya = $this->poling->poltanyalay($informasi_id);
             $poljawab = $this->poling->poljawablay($informasi_id);
-            $jumpol   = $this->poling->selectSum('rating')
+            $jumpol = $this->poling->selectSum('rating')
                 ->where('type', 'Jawaban')
                 ->where('status', 'Y')
                 ->where('informasi_id', $informasi_id)
@@ -1002,20 +1002,20 @@ class Layanan extends BaseController
 
             // Siapkan data untuk tampilan modal
             $data = [
-                'title'          => 'Vote Layanan',
-                'informasi_id'   => $list['informasi_id'],
-                'nama'           => $list['nama'],
-                'poltanya'       => $poltanya['pilihan'],
-                'polsts'         => $poltanya['status'],
-                'poljawab'       => $poljawab,
-                'jumpol'         => $jumpol['rating'],
+                'title' => 'Vote Layanan',
+                'informasi_id' => $list['informasi_id'],
+                'nama' => $list['nama'],
+                'poltanya' => $poltanya['pilihan'],
+                'polsts' => $poltanya['status'],
+                'poljawab' => $poljawab,
+                'jumpol' => $jumpol['rating'],
                 'is_poling_closed' => $is_poling_closed, // Tambahkan variabel ke data
             ];
 
             // Kirim response ke AJAX
             $msg = [
-                'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'modal/poling_layanan', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/' . 'modal/poling_layanan', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -1026,26 +1026,26 @@ class Layanan extends BaseController
     {
 
         if ($this->request->isAJAX()) {
-            $informasi_id   = $this->request->getVar('informasi_id');
-            $list           = $this->layanan->find($informasi_id);
-            $tadmin         = $this->template->tempadminaktif();
+            $informasi_id = $this->request->getVar('informasi_id');
+            $list = $this->layanan->find($informasi_id);
 
-            $poltanya       = $this->poling->poltanyalay($informasi_id);
-            $poljawab       = $this->poling->poljawablay($informasi_id);
-            $jumpol         = $this->poling->selectSum('rating')->where('type', 'Jawaban')->where('status', 'Y')->where('informasi_id', $informasi_id)->first();
+
+            $poltanya = $this->poling->poltanyalay($informasi_id);
+            $poljawab = $this->poling->poljawablay($informasi_id);
+            $jumpol = $this->poling->selectSum('rating')->where('type', 'Jawaban')->where('status', 'Y')->where('informasi_id', $informasi_id)->first();
             $data = [
-                'title'          => 'Vote Layanan',
-                'informasi_id'   => $list['informasi_id'],
-                'nama'           => $list['nama'],
-                'poltanya'       => $poltanya['pilihan'],
-                'polsts'         => $poltanya['status'],
-                'poljawab'       => $poljawab,
-                'jumpol'         => $jumpol['rating'],
+                'title' => 'Vote Layanan',
+                'informasi_id' => $list['informasi_id'],
+                'nama' => $list['nama'],
+                'poltanya' => $poltanya['pilihan'],
+                'polsts' => $poltanya['status'],
+                'poljawab' => $poljawab,
+                'jumpol' => $jumpol['rating'],
 
             ];
             $msg = [
-                'sukses'                => view('backend/' . esc($tadmin['folder']) . '/' . 'modal/poling_layanan', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/' . 'modal/poling_layanan', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -1076,8 +1076,8 @@ class Layanan extends BaseController
         if ($this->request->isAJAX()) {
             if ($is_poling_closed) {
                 $msg = [
-                    'gagal'                 => 'Anda sudah berpartisipasi untuk layanan ini..!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'gagal' => 'Anda sudah berpartisipasi untuk layanan ini..!',
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 // Tambahkan `informasi_id` ke array cookie
@@ -1098,7 +1098,7 @@ class Layanan extends BaseController
 
                 $msg = [
                     'sukses' => 'Terima kasih atas partisipasi Anda mengikuti polling layanan kami',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);

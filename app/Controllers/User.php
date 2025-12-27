@@ -10,14 +10,14 @@ class User extends BaseController
         if (!session()->get('id')) {
             return redirect()->to('');
         }
-        $tadmin             = $this->template->tempadminaktif();
+
 
         $data = [
-            'title'        => 'Setting',
-            'subtitle'     => 'Manage User',
-            'folder'       => $tadmin['folder'],
+            'title' => 'Setting',
+            'subtitle' => 'Manage User',
+
         ];
-        return view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/user/index', $data);
+        return view('backend/pengaturan/user/index', $data);
     }
 
     public function getdata()
@@ -50,7 +50,7 @@ class User extends BaseController
                     'ubah' => $listgrupf->ubah,
                     'tambah' => $listgrupf->tambah,
                 ];
-                $msg = ['data' => view('backend/' . esc($this->template->tempadminaktif()['folder']) . '/pengaturan/user/list', $data)];
+                $msg = ['data' => view('backend/pengaturan/user/list', $data)];
             } else {
                 // Tidak ada akses
                 $msg = ['noakses' => []];
@@ -71,7 +71,7 @@ class User extends BaseController
         }
 
         if ($this->request->isAJAX()) {
-            $id  = $this->request->getVar('id');
+            $id = $this->request->getVar('id');
             $jns = $this->request->getVar('jns');
 
             $updatedata = ($jns == 1)
@@ -85,8 +85,8 @@ class User extends BaseController
             $this->user->update($id, $updatedata);
 
             echo json_encode([
-                'sukses'                => $pesan,
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => $pesan,
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ]);
         }
     }
@@ -97,23 +97,23 @@ class User extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            $list =  $this->konfigurasi->orderBy('id_setaplikasi ')->first();
+            $list = $this->konfigurasi->orderBy('id_setaplikasi ')->first();
             $konopd = $list['konek_opd'];
-            $tadmin             = $this->template->tempadminaktif();
+
             if ($konopd == 1) {
-                $opd       = $this->unitkerja->listopd();
+                $opd = $this->unitkerja->listopd();
             } else {
-                $opd       = '';
+                $opd = '';
             }
             $data = [
-                'title'       => 'Tambah User',
-                'opd'         => $opd,
-                'listgrup'              => $this->grupuser->listgrups(),
+                'title' => 'Tambah User',
+                'opd' => $opd,
+                'listgrup' => $this->grupuser->listgrups(),
 
             ];
 
             $msg = [
-                'data' => view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/user/tambah', $data)
+                'data' => view('backend/pengaturan/user/tambah', $data)
 
             ];
             echo json_encode($msg);
@@ -122,7 +122,8 @@ class User extends BaseController
 
     public function simpanUser()
     {
-        if (!session()->get('id')) return redirect()->to('');
+        if (!session()->get('id'))
+            return redirect()->to('');
 
         if ($this->request->isAJAX()) {
             $validation = \Config\Services::validation();
@@ -185,7 +186,7 @@ class User extends BaseController
             if (!$this->validate($rules)) {
                 echo json_encode([
                     'error' => $validation->getErrors(),
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ]);
                 return;
             }
@@ -196,20 +197,20 @@ class User extends BaseController
             $nama_file = $filegambar->isValid() ? $filegambar->getRandomName() : 'default.png';
 
             $insertdata = [
-                'username'      => $this->request->getVar('username'),
-                'email'         => $this->request->getVar('email'),
+                'username' => $this->request->getVar('username'),
+                'email' => $this->request->getVar('email'),
                 'password_hash' => password_hash($this->request->getVar('password'), PASSWORD_BCRYPT),
-                'fullname'      => $this->request->getVar('fullname'),
-                'user_image'    => $nama_file,
-                'id_grup'       => $this->request->getVar('id_grup'),
-                'active'        => 1,
+                'fullname' => $this->request->getVar('fullname'),
+                'user_image' => $nama_file,
+                'id_grup' => $this->request->getVar('id_grup'),
+                'active' => 1,
                 'login_attempts' => 0,
             ];
 
             if ($konopd == 1 && $opd_id == '') {
                 echo json_encode([
                     'gopdid' => 'Unit kerja belum dipilih!',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ]);
                 return;
             }
@@ -223,7 +224,7 @@ class User extends BaseController
 
             echo json_encode([
                 'sukses' => 'User berhasil ditambahkan!',
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ]);
         }
     }
@@ -245,8 +246,8 @@ class User extends BaseController
             }
             $this->user->delete($id);
             $msg = [
-                'sukses'                => 'Data User Berhasil Dihapus',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => 'Data User Berhasil Dihapus',
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -272,8 +273,8 @@ class User extends BaseController
             }
 
             $msg = [
-                'sukses'                => "$jmldata Data berhasil dihapus",
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => "$jmldata Data berhasil dihapus",
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -287,35 +288,35 @@ class User extends BaseController
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('id');
 
-            $list =  $this->user->find($id);
+            $list = $this->user->find($id);
 
-            $listset =  $this->konfigurasi->orderBy('id_setaplikasi ')->first();
+            $listset = $this->konfigurasi->orderBy('id_setaplikasi ')->first();
             // cari setingkan konek opd di seting
             $konopd = $listset['konek_opd'];
 
             if ($konopd == 1) {
-                $opd       = $this->unitkerja->listopd();
+                $opd = $this->unitkerja->listopd();
             } else {
-                $opd       = '';
+                $opd = '';
             }
-            $tadmin             = $this->template->tempadminaktif();
+
             $data = [
-                'title'      => 'Edit User',
-                'id'         => $list['id'],
-                'username'   => $list['username'],
-                'email'      => $list['email'],
-                'fullname'   => $list['fullname'],
+                'title' => 'Edit User',
+                'id' => $list['id'],
+                'username' => $list['username'],
+                'email' => $list['email'],
+                'fullname' => $list['fullname'],
                 // 'level'      => $list['level'],
-                'opd_id'     => $list['opd_id'],
-                'opd'        => $opd,
-                'id_grup'    => $list['id_grup'],
-                'jenisgrp'    => $this->request->getVar('jenisgrp'),
-                'listgrup'   => $this->grupuser->listgrups()
+                'opd_id' => $list['opd_id'],
+                'opd' => $opd,
+                'id_grup' => $list['id_grup'],
+                'jenisgrp' => $this->request->getVar('jenisgrp'),
+                'listgrup' => $this->grupuser->listgrups()
 
             ];
             $msg = [
-                'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/user/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/pengaturan/user/edit', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -366,17 +367,17 @@ class User extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'username'      => $validation->getError('username'),
-                        'email'         => $validation->getError('email'),
-                        'fullname'      => $validation->getError('fullname'),
-                        'id_grup'       => $validation->getError('id_grup')
+                        'username' => $validation->getError('username'),
+                        'email' => $validation->getError('email'),
+                        'fullname' => $validation->getError('fullname'),
+                        'id_grup' => $validation->getError('id_grup')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 $namausernew = $this->request->getVar('username');
                 $namauserold = $this->request->getpost('userold');
-                $opd_id      = $this->request->getVar('opd_id');
+                $opd_id = $this->request->getVar('opd_id');
 
                 $pass = $this->request->getpost('password');
 
@@ -387,23 +388,23 @@ class User extends BaseController
                             'label' => 'Password',
                             'rules' => 'min_length[10]|max_length[20]|regex_match[/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/]',
                             'errors' => [
-                                'min_length'    => 'Masukkan {field} minimal 10 Karakter!',
-                                'max_length'    => 'Masukkan {field} maksimal 20 Karakter!',
-                                'regex_match'   => 'Ganti {field} yang kuat!',
+                                'min_length' => 'Masukkan {field} minimal 10 Karakter!',
+                                'max_length' => 'Masukkan {field} maksimal 20 Karakter!',
+                                'regex_match' => 'Ganti {field} yang kuat!',
                             ]
                         ],
                     ]);
                     if (!$valid) {
 
                         $msg = [
-                            'errorpass'             => $validation->getError('password'),
-                            'csrf_tokencmsdatagoe'  => csrf_hash(),
+                            'errorpass' => $validation->getError('password'),
+                            'csrf_tokencmsikasmedia' => csrf_hash(),
                         ];
                         // echo json_encode($msg);
                     } else {
 
                         $data = array(
-                            'password_hash'  => (password_hash($this->request->getVar('password'), PASSWORD_BCRYPT)),
+                            'password_hash' => (password_hash($this->request->getVar('password'), PASSWORD_BCRYPT)),
                         );
                         $this->user->update($user_id, $data);
                     }
@@ -411,35 +412,35 @@ class User extends BaseController
                 }
                 if ($namausernew == $namauserold) {
                     $updatedata = [
-                        'email'          => $this->request->getVar('email'),
-                        'fullname'       => $this->request->getVar('fullname'),
-                        'id_grup'        => $this->request->getVar('id_grup'),
-                        'opd_id'         => $opd_id
+                        'email' => $this->request->getVar('email'),
+                        'fullname' => $this->request->getVar('fullname'),
+                        'id_grup' => $this->request->getVar('id_grup'),
+                        'opd_id' => $opd_id
                     ];
                     $this->user->update($user_id, $updatedata);
                     $msg = [
-                        'sukses'                => 'Data berhasil diubah!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'sukses' => 'Data berhasil diubah!',
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                 } else {
-                    $userganda =  $this->user->listuserganda($namausernew);
+                    $userganda = $this->user->listuserganda($namausernew);
                     if ($userganda) {
                         $msg = [
-                            'namaganda'             => 'Data gagal diubah..!',
-                            'csrf_tokencmsdatagoe'  => csrf_hash(),
+                            'namaganda' => 'Data gagal diubah..!',
+                            'csrf_tokencmsikasmedia' => csrf_hash(),
                         ];
                     } else {
                         $updatedata = [
-                            'username'       => $namausernew,
-                            'email'          => $this->request->getVar('email'),
-                            'fullname'       => $this->request->getVar('fullname'),
-                            'id_grup'        => $this->request->getVar('id_grup'),
-                            'opd_id'         => $opd_id
+                            'username' => $namausernew,
+                            'email' => $this->request->getVar('email'),
+                            'fullname' => $this->request->getVar('fullname'),
+                            'id_grup' => $this->request->getVar('id_grup'),
+                            'opd_id' => $opd_id
                         ];
                         $this->user->update($user_id, $updatedata);
                         $msg = [
-                            'sukses'                => 'Data berhasil diubah!',
-                            'csrf_tokencmsdatagoe'  => csrf_hash(),
+                            'sukses' => 'Data berhasil diubah!',
+                            'csrf_tokencmsikasmedia' => csrf_hash(),
                         ];
                     }
                 }
@@ -455,17 +456,17 @@ class User extends BaseController
         }
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('id');
-            $list =  $this->user->find($id);
-            $tadmin           = $this->template->tempadminaktif();
+            $list = $this->user->find($id);
+
             $data = [
-                'title'       => 'Ganti Foto Profil',
-                'id'          => $list['id'],
-                'user_image'  => $list['user_image'],
-                'username'    => $list['username']
+                'title' => 'Ganti Foto Profil',
+                'id' => $list['id'],
+                'user_image' => $list['user_image'],
+                'username' => $list['username']
             ];
             $msg = [
-                'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/user/gantifoto', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/pengaturan/user/gantifoto', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -499,7 +500,7 @@ class User extends BaseController
                     'error' => [
                         'fotouser' => $validation->getError('fotouser')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
@@ -524,8 +525,8 @@ class User extends BaseController
                     ->fit(215, 220, 'center')
                     ->save('public/img/user/' . $nama_file);
                 $msg = [
-                    'sukses'                => 'Foto profil berhasil diganti!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Foto profil berhasil diganti!',
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -538,145 +539,145 @@ class User extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            $id         = $this->request->getVar('id');
-            $list       =  $this->user->find($id);
-            $listset =  $this->konfigurasi->orderBy('id_setaplikasi ')->first();
+            $id = $this->request->getVar('id');
+            $list = $this->user->find($id);
+            $listset = $this->konfigurasi->orderBy('id_setaplikasi ')->first();
             // cari setingkan konek opd di seting
             $konopd = $listset['konek_opd'];
 
             if ($konopd == 1) {
-                $opd       = $this->unitkerja->listopd();
+                $opd = $this->unitkerja->listopd();
             } else {
-                $opd       = '';
+                $opd = '';
             }
-            $berita     = $this->berita->selectCount('berita_id')->where('id', $id)->where('jenis_berita', 'Berita')->first();
+            $berita = $this->berita->selectCount('berita_id')->where('id', $id)->where('jenis_berita', 'Berita')->first();
             if ($berita) {
-                $jberita    = $berita['berita_id'];
+                $jberita = $berita['berita_id'];
             } else {
-                $jberita    = 0;
+                $jberita = 0;
             }
 
-            $halaman    = $this->berita->selectCount('berita_id')->where('id', $id)->where('jenis_berita', 'Halaman')->first();
+            $halaman = $this->berita->selectCount('berita_id')->where('id', $id)->where('jenis_berita', 'Halaman')->first();
 
             if ($halaman) {
-                $jhalaman    = $halaman['berita_id'];
+                $jhalaman = $halaman['berita_id'];
             } else {
-                $jhalaman    = 0;
+                $jhalaman = 0;
             }
-            $pengumuman     = $this->pengumuman->selectCount('informasi_id')->where('id', $id)->where('type', '1')->first();
+            $pengumuman = $this->pengumuman->selectCount('informasi_id')->where('id', $id)->where('type', '1')->first();
             if ($pengumuman) {
-                $jpengumuman    = $pengumuman['informasi_id'];
+                $jpengumuman = $pengumuman['informasi_id'];
                 # code...
             } else {
-                $jpengumuman    = 0;
+                $jpengumuman = 0;
             }
 
-            $layanan     = $this->layanan->selectCount('informasi_id')->where('id', $id)->where('type', '0')->first();
+            $layanan = $this->layanan->selectCount('informasi_id')->where('id', $id)->where('type', '0')->first();
             if ($layanan) {
-                $jlayanan    = $layanan['informasi_id'];
+                $jlayanan = $layanan['informasi_id'];
                 # code...
             } else {
-                $jlayanan    = 0;
+                $jlayanan = 0;
             }
-            $bank           = $this->bankdata->selectCount('bankdata_id')->where('id', $id)->first();
+            $bank = $this->bankdata->selectCount('bankdata_id')->where('id', $id)->first();
             if ($bank) {
-                $jbankdata      = $bank['bankdata_id'];
+                $jbankdata = $bank['bankdata_id'];
                 # code...
             } else {
-                $jbankdata      = 0;
+                $jbankdata = 0;
             }
 
-            $foto           = $this->foto->selectCount('foto_id')->where('id', $id)->first();
+            $foto = $this->foto->selectCount('foto_id')->where('id', $id)->first();
             if ($foto) {
-                $jfoto          = $foto = $foto['foto_id'];
+                $jfoto = $foto = $foto['foto_id'];
                 # code...
             } else {
-                $jfoto          = 0;
+                $jfoto = 0;
             }
-            $video          = $this->video->selectCount('video_id')->where('id', $id)->first();
+            $video = $this->video->selectCount('video_id')->where('id', $id)->first();
             if ($video) {
-                $jvideo         = $video['video_id'];
+                $jvideo = $video['video_id'];
                 # code...
             } else {
-                $jvideo         = 0;
+                $jvideo = 0;
             }
-            $ebook          = $this->ebook->selectCount('ebook_id')->where('id', $id)->first();
+            $ebook = $this->ebook->selectCount('ebook_id')->where('id', $id)->first();
             if ($ebook) {
-                $jebook         = $ebook['ebook_id'];
+                $jebook = $ebook['ebook_id'];
                 # code...
             } else {
-                $jebook         = 0;
+                $jebook = 0;
             }
-            $beritakomen    = $this->beritakomen->selectCount('beritakomen_id')->where('id', $id)->first();
+            $beritakomen = $this->beritakomen->selectCount('beritakomen_id')->where('id', $id)->first();
             if ($beritakomen) {
-                $jberitakomen   = $beritakomen['beritakomen_id'];
+                $jberitakomen = $beritakomen['beritakomen_id'];
                 # code...
             } else {
-                $jberitakomen   = 0;
+                $jberitakomen = 0;
             }
-            $poling         = $this->poling->selectCount('poling_id')->where('id', $id)->first();
+            $poling = $this->poling->selectCount('poling_id')->where('id', $id)->first();
 
             if ($poling) {
-                $jpoling        = $poling['poling_id'];
+                $jpoling = $poling['poling_id'];
                 # code...
             } else {
-                $jpoling        = 0;
+                $jpoling = 0;
             }
 
-            $produkhukum         = $this->produkhukum->selectCount('produk_id')->where('id', $id)->first();
+            $produkhukum = $this->produkhukum->selectCount('produk_id')->where('id', $id)->first();
             if ($produkhukum) {
-                $jprodukhukum        = $produkhukum['produk_id'];
+                $jprodukhukum = $produkhukum['produk_id'];
                 # code...
             } else {
-                $jprodukhukum        = 0;
+                $jprodukhukum = 0;
             }
-            $surveytopik         = $this->surveytopik->selectCount('survey_id')->where('id', $id)->first();
+            $surveytopik = $this->surveytopik->selectCount('survey_id')->where('id', $id)->first();
             if ($surveytopik) {
-                $jsurveytopik        = $surveytopik['survey_id'];
+                $jsurveytopik = $surveytopik['survey_id'];
                 # code...
             } else {
-                $jsurveytopik        = 0;
+                $jsurveytopik = 0;
             }
-            $transparan         = $this->transparan->selectCount('transparan_id')->where('id', $id)->first();
+            $transparan = $this->transparan->selectCount('transparan_id')->where('id', $id)->first();
             if ($transparan) {
-                $jtransparan        = $transparan['transparan_id'];
+                $jtransparan = $transparan['transparan_id'];
                 # code...
             } else {
-                $jtransparan        = 0;
+                $jtransparan = 0;
             }
-            $totposting = $jtransparan + $jsurveytopik + $jprodukhukum +  $jpoling + $jberitakomen
+            $totposting = $jtransparan + $jsurveytopik + $jprodukhukum + $jpoling + $jberitakomen
                 + $jebook + $jvideo + $jfoto + $jbankdata + $jlayanan + $jpengumuman + $jhalaman + $jberita;
             $data = [
-                'title'      => 'Statistik Postingan ' . esc($list['fullname']),
-                'id'         => $list['id'],
-                'username'   => esc($list['username']),
-                'email'      => esc($list['email']),
-                'fullname'   => esc($list['fullname']),
-                'opd_id'     => $list['opd_id'],
-                'opd'        => $opd,
-                'id_grup'    => $list['id_grup'],
-                'jenisgrp'      => $this->request->getVar('jenisgrp'),
-                'listgrup'      => $this->grupuser->listgrups(),
-                'berita'        => $jberita,
-                'totlayanan'    => $jlayanan,
+                'title' => 'Statistik Postingan ' . esc($list['fullname']),
+                'id' => $list['id'],
+                'username' => esc($list['username']),
+                'email' => esc($list['email']),
+                'fullname' => esc($list['fullname']),
+                'opd_id' => $list['opd_id'],
+                'opd' => $opd,
+                'id_grup' => $list['id_grup'],
+                'jenisgrp' => $this->request->getVar('jenisgrp'),
+                'listgrup' => $this->grupuser->listgrups(),
+                'berita' => $jberita,
+                'totlayanan' => $jlayanan,
                 'totpengumuman' => $jpengumuman,
-                'bankdata'      => $jbankdata,
-                'foto'          => $jfoto,
-                'video'         => $jvideo,
-                'ebook'         => $jebook,
-                'jtransparan'    => $jtransparan,
-                'jhalaman'      => $jhalaman,
-                'jsurveytopik'    => $jsurveytopik,
-                'jprodukhukum'    => $jprodukhukum,
-                'jpoling'           => $jpoling,
-                'jberitakomen'    => $jberitakomen,
-                'totposting'    => $totposting,
+                'bankdata' => $jbankdata,
+                'foto' => $jfoto,
+                'video' => $jvideo,
+                'ebook' => $jebook,
+                'jtransparan' => $jtransparan,
+                'jhalaman' => $jhalaman,
+                'jsurveytopik' => $jsurveytopik,
+                'jprodukhukum' => $jprodukhukum,
+                'jpoling' => $jpoling,
+                'jberitakomen' => $jberitakomen,
+                'totposting' => $totposting,
 
             ];
-            $tadmin             = $this->template->tempadminaktif();
+
             $msg = [
-                'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/user/lihat', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/pengaturan/user/lihat', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -689,13 +690,13 @@ class User extends BaseController
         if (!session()->get('id')) {
             return redirect()->to('');
         }
-        $tadmin             = $this->template->tempadminaktif();
+
         $data = [
-            'title'        => 'Pengaturan',
-            'subtitle'     => 'User Group',
-            'folder'       => $tadmin['folder'],
+            'title' => 'Pengaturan',
+            'subtitle' => 'User Group',
+
         ];
-        return view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/user/grup/index', $data);
+        return view('backend/pengaturan/user/grup/index', $data);
     }
 
     public function getgrup()
@@ -705,34 +706,34 @@ class User extends BaseController
         }
         if ($this->request->isAJAX()) {
             $id_grup = session()->get('id_grup');
-            $url        = 'user';
-            $listgrupf  =  $this->grupakses->viewgrupakses($id_grup, $url);
+            $url = 'user';
+            $listgrupf = $this->grupakses->viewgrupakses($id_grup, $url);
 
-            $akses  = $listgrupf->akses;
-            $hapus  = $listgrupf->hapus;
-            $ubah   = $listgrupf->ubah;
+            $akses = $listgrupf->akses;
+            $hapus = $listgrupf->hapus;
+            $ubah = $listgrupf->ubah;
             $tambah = $listgrupf->tambah;
 
             if ($akses == 1) {
-                $list =  $this->grupuser->list();
+                $list = $this->grupuser->list();
             } elseif ($akses == 2) {
                 $list = $this->grupuser->listbyid($id_grup);
             }
             // jika temukan maka eksekusi
-            $tadmin             = $this->template->tempadminaktif();
+
             if ($listgrupf) {
                 # cek akses
                 if ($akses == '1' || $akses == '2') {
                     $data = [
-                        'title'     => 'Group User',
-                        'list'      =>  $list,
-                        'akses'     => $akses,
-                        'hapus'     => $hapus,
-                        'ubah'      => $ubah,
-                        'tambah'    => $tambah,
+                        'title' => 'Group User',
+                        'list' => $list,
+                        'akses' => $akses,
+                        'hapus' => $hapus,
+                        'ubah' => $ubah,
+                        'tambah' => $tambah,
                     ];
                     $msg = [
-                        'data' => view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/user/grup/list', $data)
+                        'data' => view('backend/pengaturan/user/grup/list', $data)
 
                     ];
                 } else {
@@ -759,13 +760,13 @@ class User extends BaseController
         if ($this->request->isAJAX()) {
 
             $data = [
-                'title'         => 'Tambah Grup',
+                'title' => 'Tambah Grup',
                 'listgrupakses' => $this->modulecms->listmodulgrup(),
 
             ];
-            $tadmin             = $this->template->tempadminaktif();
+
             $msg = [
-                'data' => view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/user/grup/tambah', $data)
+                'data' => view('backend/pengaturan/user/grup/tambah', $data)
 
             ];
             echo json_encode($msg);
@@ -794,11 +795,11 @@ class User extends BaseController
                     'error' => [
                         'nama_grup' => $validation->getError('nama_grup'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
-                $akses    = $this->request->getVar('akses');
+                $akses = $this->request->getVar('akses');
                 $id_modul = $this->request->getVar('id_modul');
 
                 $simpandata = [
@@ -816,17 +817,17 @@ class User extends BaseController
                 $jdata = count($id_modul);
                 for ($i = 0; $i < $jdata; $i++) {
                     $insertakses = [
-                        'id_grup'    => $id_grup,
-                        'id_modul'   => $id_modul[$i],
-                        'akses'      => $akses[$i],
+                        'id_grup' => $id_grup,
+                        'id_modul' => $id_modul[$i],
+                        'akses' => $akses[$i],
                     ];
 
                     $this->grupakses->insert($insertakses);
                 }
 
                 $msg = [
-                    'sukses'                => 'Data berhasil disimpan',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Data berhasil disimpan',
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -840,23 +841,23 @@ class User extends BaseController
         }
         if ($this->request->isAJAX()) {
             $id_grup = $this->request->getVar('id_grup');
-            $list =  $this->grupuser->find($id_grup);
+            $list = $this->grupuser->find($id_grup);
 
-            $tadmin             = $this->template->tempadminaktif();
+
             $data = [
-                'title'         => 'Edit Group',
-                'id_grup'       => $list['id_grup'],
-                'nama_grup'     => $list['nama_grup'],
+                'title' => 'Edit Group',
+                'id_grup' => $list['id_grup'],
+                'nama_grup' => $list['nama_grup'],
                 // 'modul'         => $this->modulecms->list() 
                 // 'listgrupakses' => $this->modulecms->listmodulgrup(), listgrupedit
                 // 'modul'         => $this->grupakses->listgrupaksesedit($id_grup),
-                'modul'         => $this->grupakses->listgrupedit($id_grup),
+                'modul' => $this->grupakses->listgrupedit($id_grup),
 
 
             ];
             $msg = [
-                'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/user/grup/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/pengaturan/user/grup/edit', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -884,17 +885,17 @@ class User extends BaseController
                     'error' => [
                         'nama_grup' => $validation->getError('nama_grup'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
-                $id_grup        = $this->request->getVar('id_grup');
-                $akses          = $this->request->getVar('akses');
-                $tambah         = $this->request->getVar('tambah');
-                $ubah           = $this->request->getVar('ubah');
-                $hapus          = $this->request->getVar('hapus');
-                $id_modul       = $this->request->getVar('id_modul');
-                $id_grupakses   = $this->request->getVar('id_grupakses');
+                $id_grup = $this->request->getVar('id_grup');
+                $akses = $this->request->getVar('akses');
+                $tambah = $this->request->getVar('tambah');
+                $ubah = $this->request->getVar('ubah');
+                $hapus = $this->request->getVar('hapus');
+                $id_modul = $this->request->getVar('id_modul');
+                $id_grupakses = $this->request->getVar('id_grupakses');
 
                 // $listakses      =  $this->grupakses->editaksesmenu($id_grup);
 
@@ -905,20 +906,20 @@ class User extends BaseController
                 $jdata = count($id_modul);
                 for ($i = 0; $i < $jdata; $i++) {
                     $updatedatadet = [
-                        'id_grup'    => $id_grup,
-                        'id_modul'   => $id_modul[$i],
-                        'akses'      => $akses[$i],
-                        'tambah'     => $tambah[$i],
-                        'ubah'       => $ubah[$i],
-                        'hapus'      => $hapus[$i],
+                        'id_grup' => $id_grup,
+                        'id_modul' => $id_modul[$i],
+                        'akses' => $akses[$i],
+                        'tambah' => $tambah[$i],
+                        'ubah' => $ubah[$i],
+                        'hapus' => $hapus[$i],
                     ];
                     $this->grupakses->update($id_grupakses[$i], $updatedatadet);
                     // $this->grupakses->insert($updatedatadet);
                 }
 
                 $msg = [
-                    'sukses'                => 'Hak Akses berhasil diubah',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Hak Akses berhasil diubah',
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -932,18 +933,18 @@ class User extends BaseController
         }
         if ($this->request->isAJAX()) {
             $id_grup = $this->request->getVar('id_grup');
-            $list =  $this->grupuser->find($id_grup);
-            $tadmin             = $this->template->tempadminaktif();
+            $list = $this->grupuser->find($id_grup);
+
             $data = [
-                'title'         => 'Lihat Akses',
-                'id_grup'       => $list['id_grup'],
-                'nama_grup'     => $list['nama_grup'],
-                'modul'         => $this->grupakses->listgrupedit($id_grup),
+                'title' => 'Lihat Akses',
+                'id_grup' => $list['id_grup'],
+                'nama_grup' => $list['nama_grup'],
+                'modul' => $this->grupakses->listgrupedit($id_grup),
                 // 'modul'         => $this->grupakses->listgrupaksesedit($id_grup),
             ];
             $msg = [
-                'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/user/grup/lihatakses', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/pengaturan/user/grup/lihatakses', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -957,19 +958,19 @@ class User extends BaseController
         }
         if ($this->request->isAJAX()) {
             $id_grup = $this->request->getVar('id_grup');
-            $list =  $this->grupuser->find($id_grup);
-            $tadmin             = $this->template->tempadminaktif();
+            $list = $this->grupuser->find($id_grup);
+
             $data = [
-                'title'         => 'Edit Group',
-                'id_grup'       => $id_grup,
-                'nama_grup'     => $list['nama_grup'],
-                'ketgrup'       => $list['ketgrup'],
+                'title' => 'Edit Group',
+                'id_grup' => $id_grup,
+                'nama_grup' => $list['nama_grup'],
+                'ketgrup' => $list['ketgrup'],
                 // 'modul'         => $this->grupakses->listgrupaksesedit($id_grup),
 
             ];
             $msg = [
-                'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/user/grup/editnm', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/pengaturan/user/grup/editnm', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -996,20 +997,20 @@ class User extends BaseController
                     'error' => [
                         'nama_grup' => $validation->getError('nama_grup'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 $updatedata = [
                     'nama_grup' => $this->request->getVar('nama_grup'),
-                    'ketgrup'   => $this->request->getVar('ketgrup'),
+                    'ketgrup' => $this->request->getVar('ketgrup'),
                 ];
 
                 $id_grup = $this->request->getVar('id_grup');
                 $this->grupuser->update($id_grup, $updatedata);
 
                 $msg = [
-                    'sukses'                => 'Data berhasil diubah',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Data berhasil diubah',
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -1025,17 +1026,17 @@ class User extends BaseController
         }
         if ($this->request->isAJAX()) {
             $id_grup = $this->request->getVar('id_grup');
-            $tadmin             = $this->template->tempadminaktif();
+
 
             $data = [
-                'title'         => 'Tambah Akses Menu',
-                'id_grup'       => $id_grup,
-                'modul'         => $this->modulecms->listmenuutama()
+                'title' => 'Tambah Akses Menu',
+                'id_grup' => $id_grup,
+                'modul' => $this->modulecms->listmenuutama()
 
             ];
             $msg = [
-                'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/user/grup/addmenu', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/pengaturan/user/grup/addmenu', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -1048,7 +1049,7 @@ class User extends BaseController
         }
         if ($this->request->isAJAX()) {
 
-            $aksesmenu    = $this->request->getVar('aksesmenu');
+            $aksesmenu = $this->request->getVar('aksesmenu');
             $id_modul = $this->request->getVar('id_modul');
 
             // ubah status menu agar siap ditambahkan di konfigurasi & user
@@ -1065,16 +1066,16 @@ class User extends BaseController
             $jdata = count($id_modul);
             for ($i = 0; $i < $jdata; $i++) {
                 $insertakses = [
-                    'id_grup'    => $id_grup,
-                    'id_modul'   => $id_modul[$i],
-                    'aksesmenu'  => $aksesmenu[$i],
+                    'id_grup' => $id_grup,
+                    'id_modul' => $id_modul[$i],
+                    'aksesmenu' => $aksesmenu[$i],
                 ];
 
                 $this->grupakses->insert($insertakses);
             }
             $msg = [
-                'sukses'                => 'Data berhasil disimpan',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => 'Data berhasil disimpan',
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -1091,16 +1092,16 @@ class User extends BaseController
         if ($this->request->isAJAX()) {
             $id_grup = $this->request->getVar('id_grup');
             $data = [
-                'title'         => 'Tambah Akses Menu',
-                'id_grup'       => $id_grup,
-                'modul'         => $this->grupakses->editaksesmenu($id_grup),
+                'title' => 'Tambah Akses Menu',
+                'id_grup' => $id_grup,
+                'modul' => $this->grupakses->editaksesmenu($id_grup),
 
             ];
-            $tadmin             = $this->template->tempadminaktif();
+
 
             $msg = [
-                'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/user/grup/editmenu', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/pengaturan/user/grup/editmenu', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -1115,10 +1116,10 @@ class User extends BaseController
         if ($this->request->isAJAX()) {
 
             $id_grup = $this->request->getVar('id_grup');
-            $aksesmenu    = $this->request->getVar('aksesmenu');
+            $aksesmenu = $this->request->getVar('aksesmenu');
             $id_modul = $this->request->getVar('id_modul');
             $id_grupakses = $this->request->getVar('id_grupakses');
-            $listakses =  $this->grupakses->editaksesmenu($id_grup);
+            $listakses = $this->grupakses->editaksesmenu($id_grup);
 
             foreach ($listakses as $key => $value) {
                 $this->grupakses->delete($id_grupakses);
@@ -1128,16 +1129,16 @@ class User extends BaseController
             for ($i = 0; $i < $jdata; $i++) {
 
                 $updatedatadet = [
-                    'id_grup'    => $id_grup,
-                    'id_modul'   => $id_modul[$i],
-                    'aksesmenu'  => $aksesmenu[$i],
+                    'id_grup' => $id_grup,
+                    'id_modul' => $id_modul[$i],
+                    'aksesmenu' => $aksesmenu[$i],
                 ];
 
                 $this->grupakses->insert($updatedatadet);
             }
             $msg = [
-                'sukses'                => 'Hak Akses Menu berhasil diubah',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => 'Hak Akses Menu berhasil diubah',
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
         }
         echo json_encode($msg);
@@ -1152,18 +1153,18 @@ class User extends BaseController
             $id_grup = $this->request->getVar('id_grup');
 
             //   cek dan hapus juga di grup akses
-            $cekmodulakses =  $this->grupakses->listaksesgrup($id_grup);
+            $cekmodulakses = $this->grupakses->listaksesgrup($id_grup);
             // GRUPAKSES 
             if ($cekmodulakses) {
-                foreach ($cekmodulakses as $data) :
+                foreach ($cekmodulakses as $data):
                     $this->grupakses->delete($data['id_grupakses']);
                 endforeach;
             }
 
             $this->grupuser->delete($id_grup);
             $msg = [
-                'sukses'                => 'Data Berhasil Dihapus',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => 'Data Berhasil Dihapus',
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);

@@ -11,11 +11,11 @@ class MajelisGereja extends BaseController
             return redirect()->to('');
         }
         $data = [
-            'title'     => 'Majelis Gereja',
-            'subtitle'  => 'Data Majelis & Pelayan Gereja',
-            'folder'    => 'morvin',
+            'title' => 'Majelis Gereja',
+            'subtitle' => 'Data Majelis & Pelayan Gereja',
+            'folder' => 'morvin',
         ];
-        return view('backend/morvin/cmscust/majelis_gereja/index', $data);
+        return view('backend/cmscust/majelis_gereja/index', $data);
     }
 
     // Backend - Get data untuk datatables
@@ -24,22 +24,22 @@ class MajelisGereja extends BaseController
         if ($this->request->isAJAX()) {
             $id_grup = session()->get('id_grup');
             $url = 'majelis-gereja/list';
-            $listgrupf =  $this->grupakses->listgrupakses($id_grup, $url);
+            $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
 
-            foreach ($listgrupf as $data) :
+            foreach ($listgrupf as $data):
                 $akses = $data['akses'];
             endforeach;
 
             if ($listgrupf) {
                 if ($akses == '1' || $akses == '2') {
                     $data = [
-                        'title'     => 'Majelis Gereja',
-                        'list'      => $this->majelisgereja->list(),
-                        'akses'     => $akses,
+                        'title' => 'Majelis Gereja',
+                        'list' => $this->majelisgereja->list(),
+                        'akses' => $akses,
                         'statistik' => $this->majelisgereja->getStatistics()
                     ];
                     $msg = [
-                        'data' => view('backend/morvin/cmscust/majelis_gereja/list', $data)
+                        'data' => view('backend/cmscust/majelis_gereja/list', $data)
                     ];
                 } else {
                     $msg = [
@@ -66,7 +66,7 @@ class MajelisGereja extends BaseController
                 'komisi_list' => $this->komisimajelis->listAktif()
             ];
             $msg = [
-                'data' => view('backend/morvin/cmscust/majelis_gereja/tambah', $data)
+                'data' => view('backend/cmscust/majelis_gereja/tambah', $data)
             ];
             echo json_encode($msg);
         }
@@ -124,7 +124,7 @@ class MajelisGereja extends BaseController
                 // Upload foto
                 $foto = $this->request->getFile('gambar');
                 $nama_foto = '';
-                
+
                 if ($foto && $foto->isValid() && !$foto->hasMoved()) {
                     $nama_foto = $foto->getRandomName();
                     $foto->move('public/img/informasi/majelis/', $nama_foto);
@@ -133,7 +133,7 @@ class MajelisGereja extends BaseController
                 // Upload file SK
                 $file_sk = $this->request->getFile('file_sk_pengangkatan');
                 $nama_sk = '';
-                
+
                 if ($file_sk && $file_sk->isValid() && !$file_sk->hasMoved()) {
                     $nama_sk = $file_sk->getRandomName();
                     $file_sk->move('public/img/informasi/majelis/', $nama_sk);
@@ -142,7 +142,7 @@ class MajelisGereja extends BaseController
                 // Upload file sertifikat
                 $file_sertifikat = $this->request->getFile('file_sertifikat');
                 $nama_sertifikat = '';
-                
+
                 if ($file_sertifikat && $file_sertifikat->isValid() && !$file_sertifikat->hasMoved()) {
                     $nama_sertifikat = $file_sertifikat->getRandomName();
                     $file_sertifikat->move('public/img/informasi/majelis/', $nama_sertifikat);
@@ -189,14 +189,14 @@ class MajelisGereja extends BaseController
     {
         if ($this->request->isAJAX()) {
             $majelis_id = $this->request->getVar('majelis_id');
-            $list =  $this->majelisgereja->getMajelisWithDetails($majelis_id);
+            $list = $this->majelisgereja->getMajelisWithDetails($majelis_id);
 
             $data = [
                 'title' => 'Detail Data Majelis',
-                'data'  => $list
+                'data' => $list
             ];
             $msg = [
-                'sukses' => view('backend/morvin/cmscust/majelis_gereja/lihat', $data)
+                'sukses' => view('backend/cmscust/majelis_gereja/lihat', $data)
             ];
             echo json_encode($msg);
         }
@@ -207,16 +207,16 @@ class MajelisGereja extends BaseController
     {
         if ($this->request->isAJAX()) {
             $majelis_id = $this->request->getVar('majelis_id');
-            $list =  $this->majelisgereja->find($majelis_id);
+            $list = $this->majelisgereja->find($majelis_id);
 
             $data = [
                 'title' => 'Edit Data Majelis',
-                'data'  => $list,
+                'data' => $list,
                 'jabatan_list' => $this->jabatanmajelis->listAktif(),
                 'komisi_list' => $this->komisimajelis->listAktif()
             ];
             $msg = [
-                'sukses' => view('backend/morvin/cmscust/majelis_gereja/edit', $data)
+                'sukses' => view('backend/cmscust/majelis_gereja/edit', $data)
             ];
             echo json_encode($msg);
         }
@@ -265,11 +265,11 @@ class MajelisGereja extends BaseController
                 ];
             } else {
                 $majelis = $this->majelisgereja->find($majelis_id);
-                
+
                 // Upload foto baru
                 $foto = $this->request->getFile('gambar');
                 $nama_foto = $majelis['gambar'];
-                
+
                 if ($foto && $foto->isValid() && !$foto->hasMoved()) {
                     // Hapus foto lama
                     if ($majelis['gambar'] && file_exists('public/img/informasi/majelis/' . $majelis['gambar'])) {
@@ -282,7 +282,7 @@ class MajelisGereja extends BaseController
                 // Upload file SK baru
                 $file_sk = $this->request->getFile('file_sk_pengangkatan');
                 $nama_sk = $majelis['file_sk_pengangkatan'];
-                
+
                 if ($file_sk && $file_sk->isValid() && !$file_sk->hasMoved()) {
                     // Hapus file lama
                     if ($majelis['file_sk_pengangkatan'] && file_exists('public/img/informasi/majelis/' . $majelis['file_sk_pengangkatan'])) {
@@ -295,7 +295,7 @@ class MajelisGereja extends BaseController
                 // Upload file sertifikat baru
                 $file_sertifikat = $this->request->getFile('file_sertifikat');
                 $nama_sertifikat = $majelis['file_sertifikat'];
-                
+
                 if ($file_sertifikat && $file_sertifikat->isValid() && !$file_sertifikat->hasMoved()) {
                     // Hapus file lama
                     if ($majelis['file_sertifikat'] && file_exists('public/img/informasi/majelis/' . $majelis['file_sertifikat'])) {
@@ -438,15 +438,15 @@ class MajelisGereja extends BaseController
         $anniversary = $this->majelisgereja->getUpcomingAnniversary(30);
 
         $data = [
-            'title'     => 'Dashboard Majelis Gereja',
-            'subtitle'  => 'Statistik & Informasi',
-            'folder'    => 'morvin',
-            'stats'     => $stats,
-            'expiring'  => $expiring,
+            'title' => 'Dashboard Majelis Gereja',
+            'subtitle' => 'Statistik & Informasi',
+            'folder' => 'morvin',
+            'stats' => $stats,
+            'expiring' => $expiring,
             'anniversary' => $anniversary
         ];
 
-        return view('backend/morvin/cmscust/majelis_gereja/dashboard', $data);
+        return view('backend/cmscust/majelis_gereja/dashboard', $data);
     }
 
     // ============================================
@@ -457,30 +457,30 @@ class MajelisGereja extends BaseController
     public function index()
     {
         $konfigurasi = $this->konfigurasi->vkonfig();
-        $template = $this->template->tempaktif();
+
 
         $data = [
-            'title'         => 'Majelis Gereja - ' . esc($konfigurasi->nama),
-            'deskripsi'     => 'Daftar Majelis dan Pelayan Gereja ' . esc($konfigurasi->nama),
-            'url'           => base_url('majelis-gereja'),
-            'img'           => base_url('/public/img/konfigurasi/logo/' . esc($konfigurasi->logo)),
-            'konfigurasi'   => $konfigurasi,
-            'mainmenu'      => $this->menu->mainmenu(),
-            'footer'        => $this->menu->footermenu(),
-            'topmenu'       => $this->menu->topmenu(),
-            'banner'        => $this->banner->list(),
-            'infografis'    => $this->banner->listgrafis(),
-            'infografis1'   => $this->banner->listinfo1(),
-            'infografis2'   => $this->banner->listinfo(),
-            'infografis3'   => $this->banner->listinfo3(),
+            'title' => 'Majelis Gereja - ' . esc($konfigurasi->nama),
+            'deskripsi' => 'Daftar Majelis dan Pelayan Gereja ' . esc($konfigurasi->nama),
+            'url' => base_url('majelis-gereja'),
+            'img' => base_url('/public/img/konfigurasi/logo/' . esc($konfigurasi->logo)),
+            'konfigurasi' => $konfigurasi,
+            'mainmenu' => $this->menu->mainmenu(),
+            'footer' => $this->menu->footermenu(),
+            'topmenu' => $this->menu->topmenu(),
+            'banner' => $this->banner->list(),
+            'infografis' => $this->banner->listgrafis(),
+            'infografis1' => $this->banner->listinfo1(),
+            'infografis2' => $this->banner->listinfo(),
+            'infografis3' => $this->banner->listinfo3(),
             'linkterkaitall' => $this->linkterkait->publishlinkall(),
             // 'foto1'         => $this->galeri->fototerbaru(),
-            'folder'        => esc($template['folder']),
-            
+
+
             // Data Majelis
-            'majelis'       => $this->majelisgereja->listMajelisPage()->paginate(12, 'majelis'),
-            'pager'         => $this->majelisgereja->pager,
-            'jabatan'       => $this->jabatanmajelis->listAktif(),
+            'majelis' => $this->majelisgereja->listMajelisPage()->paginate(12, 'majelis'),
+            'pager' => $this->majelisgereja->pager,
+            'jabatan' => $this->jabatanmajelis->listAktif(),
         ];
 
         return view('frontend/' . esc($template['folder']) . '/desktop/content/v_majelis', $data);
@@ -490,7 +490,7 @@ class MajelisGereja extends BaseController
     public function detail($majelis_id)
     {
         $konfigurasi = $this->konfigurasi->vkonfig();
-        $template = $this->template->tempaktif();
+
         $majelis = $this->majelisgereja->find($majelis_id);
 
         if (!$majelis) {
@@ -498,25 +498,25 @@ class MajelisGereja extends BaseController
         }
 
         $data = [
-            'title'         => esc($majelis['nama']) . ' - Majelis Gereja',
-            'deskripsi'     => 'Profil ' . esc($majelis['nama']) . ' - ' . esc($majelis['jenis_jabatan']),
-            'url'           => base_url('majelis-gereja/detail/' . $majelis_id),
-            'img'           => base_url('/public/img/informasi/majelis/' . esc($majelis['gambar'])),
-            'konfigurasi'   => $konfigurasi,
-            'mainmenu'      => $this->menu->mainmenu(),
-            'footer'        => $this->menu->footermenu(),
-            'topmenu'       => $this->menu->topmenu(),
-            'banner'        => $this->banner->list(),
-            'infografis'    => $this->banner->listgrafis(),
+            'title' => esc($majelis['nama']) . ' - Majelis Gereja',
+            'deskripsi' => 'Profil ' . esc($majelis['nama']) . ' - ' . esc($majelis['jenis_jabatan']),
+            'url' => base_url('majelis-gereja/detail/' . $majelis_id),
+            'img' => base_url('/public/img/informasi/majelis/' . esc($majelis['gambar'])),
+            'konfigurasi' => $konfigurasi,
+            'mainmenu' => $this->menu->mainmenu(),
+            'footer' => $this->menu->footermenu(),
+            'topmenu' => $this->menu->topmenu(),
+            'banner' => $this->banner->list(),
+            'infografis' => $this->banner->listgrafis(),
             'linkterkaitall' => $this->linkterkait->publishlinkall(),
-            'folder'        => esc($template['folder']),
-            
+
+
             // Data Majelis
-            'majelis'       => $majelis,
-            'terkait'       => $this->majelisgereja->where('status_jabatan', 'Aktif')
-                                                    ->where('majelis_id !=', $majelis_id)
-                                                    ->limit(4)
-                                                    ->findAll(),
+            'majelis' => $majelis,
+            'terkait' => $this->majelisgereja->where('status_jabatan', 'Aktif')
+                ->where('majelis_id !=', $majelis_id)
+                ->limit(4)
+                ->findAll(),
         ];
 
         return view('frontend/' . esc($template['folder']) . '/desktop/content/v_majelis_detail', $data);

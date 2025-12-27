@@ -1,0 +1,234 @@
+<?php
+
+use App\Models\M_Ikasmedia_modul;
+
+$this->modulecms = new M_Ikasmedia_modul();
+
+?>
+<div class="modal fade" id="modaltambah" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title mt-0"><?= esc($title) ?></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+
+                </button>
+            </div>
+            <?= form_open_multipart('', ['class' => 'formtambahgrp']) ?>
+
+            <div class="modal-body">
+                <div class="row mb-2">
+                    <div class="form-group col-md-6 col-12">
+                        <label>Nama Grup</label>
+                        <input type="text" class="form-control form-control-sm" id="nama_grup" name="nama_grup">
+                        <div class="invalid-feedback errornama_grup"></div>
+                    </div>
+
+                    <div class="form-group col-md-6 col-12">
+
+                        <label>Keterangan</label>
+                        <input type="text" class="form-control form-control-sm" id="ketgrup" name="ketgrup">
+                    </div>
+
+                </div>
+
+                <div id="accordion" class="custom-accordion">
+                    <?php $no = 0;
+                    foreach ($listgrupakses as $data):
+                        $no++;
+
+                        ?>
+                        <div class="card mb-1 shadow-sm">
+
+                            <div class="card-header" id="heading<?= $no ?>">
+                                <!-- <h6 class="m-0 font-14"> -->
+                                <a href="#collapse<?= $no ?>" class="text-dark" data-bs-toggle="collapse"
+                                    aria-expanded="true" aria-controls="collapse<?= $no ?>">
+
+                                    <div class="card-header p-0" id="headingOne">
+                                        <h6 class="m-0">
+                                            <?= strtoupper(esc($data['gm'])) ?>
+                                            <i
+                                                class="mdi mdi-<?= $no == 1 ? 'minus' : 'plus' ?> float-end accor-plus-icon"></i>
+                                        </h6>
+                                    </div>
+                                </a>
+                                <!-- <div class="float-right m-0"> -->
+                                <!-- <a href="#collapse<?= $no ?>" class="text-light" data-bs-toggle="collapse" aria-expanded="true" aria-controls="collapse<?= $no ?>">
+                                        <i class="fas fa-angle-down"></i>
+                                    </a> -->
+                                <!-- </div> -->
+                                <!-- </h6> -->
+                            </div>
+
+                            <div id="collapse<?= $no ?>" class="collapse <?= $no == 1 ? 'show' : '' ?>"
+                                aria-labelledby="heading<?= $no ?>" data-bs-parent="#accordion">
+
+                                <?php $listmodul = $this->modulecms->listbygrup(esc($data['gm'])); ?>
+
+                                <div class="table-responsive p-1">
+                                    <table class="table dataTable table-hover">
+                                        <thead class="bg-light p-0 m-0">
+                                            <tr>
+                                                <th class="text-center p-1">NO</th>
+                                                <th class="p-1">MODUL</th>
+                                                <th class="p-1">AKSES DATA</th>
+                                                <th class="text-center p-1">TAMBAH</th>
+                                                <th class="text-center p-1">EDIT</th>
+                                                <th class="text-center p-1">HAPUS</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php $nomor = 0;
+                                            foreach ($listmodul as $data):
+                                                $nomor++; ?>
+                                                <tr>
+                                                    <td class="text-center p-1">
+                                                        <?= $nomor ?>
+                                                    </td>
+                                                    <td class="p-1">
+                                                        <?php if (esc($data['gm']) == '-') { ?>
+                                                            => <?= esc($data['modul']) ?>
+                                                        <?php } else { ?>
+                                                            <?= esc($data['modul']) ?>
+                                                        <?php } ?>
+                                                    </td>
+
+                                                    <td class="p-1">
+                                                        <select name="akses[]" id="akses"
+                                                            class="form-control form-control-sm pointer">
+                                                            <!-- <option Disabled=true Selected=true>--Pilih Wewenang--</option> -->
+                                                            <option value="1">Akses Semua Data</option>
+                                                            <option value="2">Hanya Data Miliknya</option>
+                                                            <option value="3" selected>Tidak Boleh Akses</option>
+                                                        </select>
+                                                        <div class="invalid-feedback errorakses"></div>
+                                                    </td>
+                                                    <td class="p-1">
+                                                        <select name="tambah[]" id="tambah"
+                                                            class="form-control form-control-sm pointer">
+                                                            <option value="1">Ya</option>
+                                                            <option value="0" selected>Tidak</option>
+                                                        </select>
+
+                                                    </td>
+                                                    <td class="p-1">
+                                                        <select name="ubah[]" id="ubah"
+                                                            class="form-control form-control-sm pointer">
+                                                            <option value="1">Ya</option>
+                                                            <option value="0" selected>Tidak</option>
+                                                        </select>
+
+                                                    </td>
+                                                    <td class="p-1">
+                                                        <select name="hapus[]" id="hapus"
+                                                            class="form-control form-control-sm pointer">
+                                                            <option value="1">Ya</option>
+                                                            <option value="0" selected>Tidak</option>
+                                                        </select>
+                                                        <!-- <div class="checkbox-wrapper-mail form-control form-control-sm">
+                                                            <input type="checkbox" id="hapus" name="hapus[]" value="1">
+                                                        </div> -->
+                                                    </td>
+                                                    <td style="display:none"> <input type="hidden" id="id_modul"
+                                                            name="id_modul[]" value="<?= $data['id_modul'] ?>"
+                                                            class="form-control">
+                                                    </td>
+                                                </tr>
+
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
+            <div class="modal-footer p-1">
+                <button type="submit" class="btn btn-primary btnsimpan"><i class="mdi mdi-content-save-all"></i>
+                    Simpan</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="mdi mdi-cancel"></i>
+                    Batal</button>
+            </div>
+            <?= form_close() ?>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $('.btnsimpan').click(function (e) {
+            e.preventDefault();
+            let form = $('.formtambahgrp')[0];
+            let data = new FormData(form);
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            },
+                $.ajax({
+                    type: "post",
+                    url: '<?= site_url('user/simpangrup') ?>',
+                    data: data,
+                    enctype: 'multipart/form-data',
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    dataType: "json",
+                    beforeSend: function () {
+                        $('.btnsimpan').attr('disable', 'disable');
+                        $('.btnsimpan').html('<span class="spinner-border spinner-grow-sm" role="status" aria-hidden="true"></span> <i>Loading...</i>');
+                    },
+                    complete: function () {
+                        $('.btnsimpan').removeAttr('disable', 'disable');
+                        $('.btnsimpan').html('<i class="mdi mdi-content-save-all"></i>  Simpan');
+                    },
+                    success: function (response) {
+                        if (response.error) {
+
+                            if (response.error.nama_grup) {
+                                $('#nama_grup').addClass('is-invalid');
+                                $('.errornama_grup').html(response.error.nama_grup);
+                            } else {
+                                $('#nama_grup').removeClass('is-invalid');
+                                $('.errornama_grup').html('');
+                            }
+
+                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                        } else {
+
+                            toastr["success"](response.sukses)
+                            $('#modaltambah').modal('hide');
+                            $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                            listgrup();
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownerror) {
+                        toastr["error"]("Maaf gagal proses Kode Error:  " + (xhr.status + "\n"),);
+                        $('#modaltambah').modal('hide');
+                        $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
+                    }
+                });
+        });
+    });
+</script>

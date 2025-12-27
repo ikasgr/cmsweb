@@ -8,35 +8,35 @@ class Agenda extends BaseController
     public function index()
     {
 
-        $konfigurasi            = $this->konfigurasi->vkonfig();
-        $agenda                 = $this->agenda->listagendapage();
-        $template               = $this->template->tempaktif();
+        $konfigurasi = $this->konfigurasi->vkonfig();
+        $agenda = $this->agenda->listagendapage();
+
         $data = [
-            'title'             => 'Agenda | ' . $konfigurasi->nama,
-            'deskripsi'         => $konfigurasi->deskripsi,
-            'url'               => $konfigurasi->website,
-            'img'               => base_url('/public/img/konfigurasi/logo/' . $konfigurasi->logo),
-            'konfigurasi'       => $konfigurasi,
-            'mainmenu'          => $this->menu->mainmenu(),
-            'footer'            => $this->menu->footermenu(),
-            'topmenu'           => $this->menu->topmenu(),
-            'agenda'            => $agenda->paginate(8, 'hal'),
-            'agenda6'           => $agenda->paginate(6, 'hal'),
-            'pager'             => $agenda->pager,
-            'jum'               => $this->agenda->totagenda(),
-            'banner'            => $this->banner->list(),
-            'infografis'        => $this->banner->listinfo(),
-            'infografis1'       => $this->banner->listinfo1(),
-            'beritapopuler'     => $this->berita->populer()->paginate(8),
-            'beritapopuler6'     => $this->berita->populer()->paginate(6),
-            'beritaterkini'     => $this->berita->terkini(),
-            'section'           => $this->section->list(),
-            'linkterkaitall'    => $this->linkterkait->publishlinkall(),
-            'infografis10'    => $this->banner->listinfopage()->paginate(10),
-            'kategori'      => $this->kategori->list(),
-            'grafisrandom'         => $this->banner->grafisrandom(),
-            'terkini3'       => $this->berita->terkini3(),
-            'folder'            => $template['folder'],
+            'title' => 'Agenda | ' . $konfigurasi->nama,
+            'deskripsi' => $konfigurasi->deskripsi,
+            'url' => $konfigurasi->website,
+            'img' => base_url('/public/img/konfigurasi/logo/' . $konfigurasi->logo),
+            'konfigurasi' => $konfigurasi,
+            'mainmenu' => $this->menu->mainmenu(),
+            'footer' => $this->menu->footermenu(),
+            'topmenu' => $this->menu->topmenu(),
+            'agenda' => $agenda->paginate(8, 'hal'),
+            'agenda6' => $agenda->paginate(6, 'hal'),
+            'pager' => $agenda->pager,
+            'jum' => $this->agenda->totagenda(),
+            'banner' => $this->banner->list(),
+            'infografis' => $this->banner->listinfo(),
+            'infografis1' => $this->banner->listinfo1(),
+            'beritapopuler' => $this->berita->populer()->paginate(8),
+            'beritapopuler6' => $this->berita->populer()->paginate(6),
+            'beritaterkini' => $this->berita->terkini(),
+            'section' => $this->section->list(),
+            'linkterkaitall' => $this->linkterkait->publishlinkall(),
+            'infografis10' => $this->banner->listinfopage()->paginate(10),
+            'kategori' => $this->kategori->list(),
+            'grafisrandom' => $this->banner->grafisrandom(),
+            'terkini3' => $this->berita->terkini3(),
+            'folder' => $template['folder'],
 
         ];
         if ($template['duatema'] == 1) {
@@ -57,13 +57,13 @@ class Agenda extends BaseController
         if (!session()->get('id')) {
             return redirect()->to('');
         }
-        $tadmin = $this->template->tempadminaktif();
+
         $data = [
-            'title'       => 'Informasi',
-            'subtitle'    => 'Agenda',
-            'folder'      =>  $tadmin['folder'],
+            'title' => 'Informasi',
+            'subtitle' => 'Agenda',
+
         ];
-        return view('backend/' . $tadmin['folder'] . '/' . 'informasi/agenda/index', $data);
+        return view('backend/informasi/agenda/index', $data);
     }
 
     public function getdata($id = null)
@@ -98,7 +98,7 @@ class Agenda extends BaseController
         $list = ($akses == 1) ? $this->agenda->listagenda() : $this->agenda->listagendaauthor(session()->get('id'));
 
         // Ambil template admin aktif
-        $tadmin = $this->template->tempadminaktif();
+
 
         // Siapkan data untuk tampilan
         $data = [
@@ -112,7 +112,7 @@ class Agenda extends BaseController
 
         // Siapkan respons JSON dengan data tampilan
         $msg = [
-            'data' => view('backend/' . esc($tadmin['folder']) . '/informasi/agenda/list', $data)
+            'data' => view('backend/informasi/agenda/list', $data)
         ];
 
         echo json_encode($msg);
@@ -124,13 +124,13 @@ class Agenda extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            $tadmin = $this->template->tempadminaktif();
+
             $data = [
-                'title'                 => 'Tambah Agenda',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'title' => 'Tambah Agenda',
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             $msg = [
-                'data' => view('backend/' . $tadmin['folder'] . '/' . 'informasi/agenda/tambah', $data)
+                'data' => view('backend/informasi/agenda/tambah', $data)
 
             ];
             echo json_encode($msg);
@@ -213,46 +213,46 @@ class Agenda extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'tema'           => $validation->getError('tema'),
-                        'isi_agenda'     => $validation->getError('isi_agenda'),
-                        'gambar'       => $validation->getError('gambar'),
-                        'tempat'       => $validation->getError('tempat'),
-                        'pengirim'       => $validation->getError('pengirim'),
-                        'tgl_mulai'       => $validation->getError('tgl_mulai'),
-                        'tgl_selesai'       => $validation->getError('tgl_selesai'),
-                        'pengirim'       => $validation->getError('pengirim'),
-                        'jam'       => $validation->getError('jam')
+                        'tema' => $validation->getError('tema'),
+                        'isi_agenda' => $validation->getError('isi_agenda'),
+                        'gambar' => $validation->getError('gambar'),
+                        'tempat' => $validation->getError('tempat'),
+                        'pengirim' => $validation->getError('pengirim'),
+                        'tgl_mulai' => $validation->getError('tgl_mulai'),
+                        'tgl_selesai' => $validation->getError('tgl_selesai'),
+                        'pengirim' => $validation->getError('pengirim'),
+                        'jam' => $validation->getError('jam')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
                 echo json_encode($msg);
             } else {
 
-                $userid             = session()->get('id');
-                $filegambar         = $this->request->getFile('gambar');
-                $nama_file          = $filegambar->getRandomName();
-                $tgl_mulai_input    = $this->request->getVar('tgl_mulai');
-                $tgl_selesai_input  = $this->request->getVar('tgl_selesai');
+                $userid = session()->get('id');
+                $filegambar = $this->request->getFile('gambar');
+                $nama_file = $filegambar->getRandomName();
+                $tgl_mulai_input = $this->request->getVar('tgl_mulai');
+                $tgl_selesai_input = $this->request->getVar('tgl_selesai');
 
-                $tgl_mulai          = \DateTime::createFromFormat('d M, Y', $tgl_mulai_input); // Konversi ke objek DateTime
-                $tgl_selesai        = \DateTime::createFromFormat('d M, Y', $tgl_selesai_input); // Konversi ke objek DateTime
+                $tgl_mulai = \DateTime::createFromFormat('d M, Y', $tgl_mulai_input); // Konversi ke objek DateTime
+                $tgl_selesai = \DateTime::createFromFormat('d M, Y', $tgl_selesai_input); // Konversi ke objek DateTime
                 //jika gambar tidak ada
                 if ($filegambar->GetError() == 4) {
 
                     $insertdata = [
 
-                        'tema'  => $this->request->getVar('tema'),
-                        'slug_tema'   => mb_url_title($this->request->getVar('tema'), '-', TRUE),
-                        'isi_agenda'   => $this->request->getVar('isi_agenda'),
-                        'tempat'        => $this->request->getVar('tempat'),
-                        'pengirim'      => $this->request->getVar('pengirim'),
-                        'tgl_mulai'     => $tgl_mulai ? $tgl_mulai->format('Y-m-d') : null, // Format untuk tipe DATE
-                        'tgl_selesai'   => $tgl_selesai ? $tgl_selesai->format('Y-m-d') : null, // Format untuk tipe DATE
-                        'tgl_posting'    => date('Y-m-d'),
-                        'jam'            => $this->request->getVar('jam'),
-                        'gambar'        => 'default.png',
-                        'id'            => $userid,
-                        'hits'            => '0'
+                        'tema' => $this->request->getVar('tema'),
+                        'slug_tema' => mb_url_title($this->request->getVar('tema'), '-', TRUE),
+                        'isi_agenda' => $this->request->getVar('isi_agenda'),
+                        'tempat' => $this->request->getVar('tempat'),
+                        'pengirim' => $this->request->getVar('pengirim'),
+                        'tgl_mulai' => $tgl_mulai ? $tgl_mulai->format('Y-m-d') : null, // Format untuk tipe DATE
+                        'tgl_selesai' => $tgl_selesai ? $tgl_selesai->format('Y-m-d') : null, // Format untuk tipe DATE
+                        'tgl_posting' => date('Y-m-d'),
+                        'jam' => $this->request->getVar('jam'),
+                        'gambar' => 'default.png',
+                        'id' => $userid,
+                        'hits' => '0'
 
                     ];
 
@@ -260,24 +260,24 @@ class Agenda extends BaseController
 
                     $msg = [
                         'sukses' => 'Agenda berhasil disimpan!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                 } else {
 
                     $insertdata = [
 
-                        'tema'          => $this->request->getVar('tema'),
-                        'slug_tema'     => mb_url_title($this->request->getVar('tema'), '-', TRUE),
-                        'isi_agenda'    => $this->request->getVar('isi_agenda'),
-                        'tempat'        => $this->request->getVar('tempat'),
-                        'pengirim'      => $this->request->getVar('pengirim'),
-                        'tgl_mulai'     => $tgl_mulai ? $tgl_mulai->format('Y-m-d') : null, // Format untuk tipe DATE
-                        'tgl_selesai'   => $tgl_selesai ? $tgl_selesai->format('Y-m-d') : null, // Format untuk tipe DATE
-                        'tgl_posting'    => date('Y-m-d'),
-                        'jam'           => $this->request->getVar('jam'),
-                        'gambar'        => $nama_file,
-                        'id'            => $userid,
-                        'hits'          => '0'
+                        'tema' => $this->request->getVar('tema'),
+                        'slug_tema' => mb_url_title($this->request->getVar('tema'), '-', TRUE),
+                        'isi_agenda' => $this->request->getVar('isi_agenda'),
+                        'tempat' => $this->request->getVar('tempat'),
+                        'pengirim' => $this->request->getVar('pengirim'),
+                        'tgl_mulai' => $tgl_mulai ? $tgl_mulai->format('Y-m-d') : null, // Format untuk tipe DATE
+                        'tgl_selesai' => $tgl_selesai ? $tgl_selesai->format('Y-m-d') : null, // Format untuk tipe DATE
+                        'tgl_posting' => date('Y-m-d'),
+                        'jam' => $this->request->getVar('jam'),
+                        'gambar' => $nama_file,
+                        'id' => $userid,
+                        'hits' => '0'
 
                     ];
 
@@ -287,7 +287,7 @@ class Agenda extends BaseController
                         ->save('public/img/informasi/agenda/' . $nama_file, 70);
                     $msg = [
                         'sukses' => 'Agenda berhasil disimpan!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                 }
                 echo json_encode($msg);
@@ -311,8 +311,8 @@ class Agenda extends BaseController
             }
             $this->agenda->delete($id);
             $msg = [
-                'sukses'                => 'Data Agenda Berhasil Dihapus',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => 'Data Agenda Berhasil Dihapus',
+                'csrf_tokencmsikasmedia' => csrf_hash(),
 
             ];
 
@@ -340,7 +340,7 @@ class Agenda extends BaseController
 
             $msg = [
                 'sukses' => "$jmldata Data agenda berhasil dihapus",
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
 
             ];
             echo json_encode($msg);
@@ -355,24 +355,24 @@ class Agenda extends BaseController
         if ($this->request->isAJAX()) {
 
             $agenda_id = $this->request->getVar('agenda_id');
-            $list =  $this->agenda->find($agenda_id);
-            $tadmin = $this->template->tempadminaktif();
+            $list = $this->agenda->find($agenda_id);
+
 
             $data = [
-                'title'          => 'Edit Agenda',
-                'agenda_id'      => $list['agenda_id'],
-                'tema'           => $list['tema'],
-                'isi_agenda'     => $list['isi_agenda'],
-                'tempat'         => $list['tempat'],
-                'tgl_mulai'      => $list['tgl_mulai'],
-                'tgl_selesai'     => $list['tgl_selesai'],
-                'jam'            => $list['jam'],
-                'pengirim'     => $list['pengirim'],
+                'title' => 'Edit Agenda',
+                'agenda_id' => $list['agenda_id'],
+                'tema' => $list['tema'],
+                'isi_agenda' => $list['isi_agenda'],
+                'tempat' => $list['tempat'],
+                'tgl_mulai' => $list['tgl_mulai'],
+                'tgl_selesai' => $list['tgl_selesai'],
+                'jam' => $list['jam'],
+                'pengirim' => $list['pengirim'],
 
             ];
             $msg = [
-                'sukses' => view('backend/' . $tadmin['folder'] . '/' . 'informasi/agenda/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/informasi/agenda/edit', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
 
             ];
             echo json_encode($msg);
@@ -449,31 +449,31 @@ class Agenda extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'tema'           => $validation->getError('tema'),
-                        'isi_agenda'     => $validation->getError('isi_agenda'),
-                        'tempat'       => $validation->getError('tempat'),
-                        'pengirim'       => $validation->getError('pengirim'),
-                        'tgl_mulai'       => $validation->getError('tgl_mulai'),
-                        'tgl_selesai'       => $validation->getError('tgl_selesai'),
-                        'pengirim'       => $validation->getError('pengirim'),
-                        'jam'       => $validation->getError('jam')
+                        'tema' => $validation->getError('tema'),
+                        'isi_agenda' => $validation->getError('isi_agenda'),
+                        'tempat' => $validation->getError('tempat'),
+                        'pengirim' => $validation->getError('pengirim'),
+                        'tgl_mulai' => $validation->getError('tgl_mulai'),
+                        'tgl_selesai' => $validation->getError('tgl_selesai'),
+                        'pengirim' => $validation->getError('pengirim'),
+                        'jam' => $validation->getError('jam')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
 
                 ];
             } else {
 
                 $updatedata = [
 
-                    'tema'          => $this->request->getVar('tema'),
-                    'slug_tema'   => mb_url_title($this->request->getVar('tema'), '-', TRUE),
-                    'isi_agenda'   => $this->request->getVar('isi_agenda'),
-                    'tempat'   => $this->request->getVar('tempat'),
-                    'pengirim'   => $this->request->getVar('pengirim'),
-                    'tgl_mulai'    => date('Y-m-d', strtotime($this->request->getVar('tgl_mulai'))),
-                    'tgl_selesai'    => date('Y-m-d', strtotime($this->request->getVar('tgl_selesai'))),
-                    'tgl_posting'    => date('Y-m-d'),
-                    'jam'            => $this->request->getVar('jam'),
+                    'tema' => $this->request->getVar('tema'),
+                    'slug_tema' => mb_url_title($this->request->getVar('tema'), '-', TRUE),
+                    'isi_agenda' => $this->request->getVar('isi_agenda'),
+                    'tempat' => $this->request->getVar('tempat'),
+                    'pengirim' => $this->request->getVar('pengirim'),
+                    'tgl_mulai' => date('Y-m-d', strtotime($this->request->getVar('tgl_mulai'))),
+                    'tgl_selesai' => date('Y-m-d', strtotime($this->request->getVar('tgl_selesai'))),
+                    'tgl_posting' => date('Y-m-d'),
+                    'jam' => $this->request->getVar('jam'),
 
                 ];
 
@@ -481,7 +481,7 @@ class Agenda extends BaseController
 
                 $msg = [
                     'sukses' => 'Data Agenda berhasil diubah!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
 
                 ];
             }
@@ -496,18 +496,18 @@ class Agenda extends BaseController
         }
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('agenda_id');
-            $list =  $this->agenda->find($id);
-            $tadmin = $this->template->tempadminaktif();
+            $list = $this->agenda->find($id);
+
 
             $data = [
-                'title'       => 'Ganti Cover',
-                'id'          => $list['agenda_id'],
-                'gambar'   => $list['gambar']
+                'title' => 'Ganti Cover',
+                'id' => $list['agenda_id'],
+                'gambar' => $list['gambar']
 
             ];
             $msg = [
-                'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'informasi/agenda/gantifoto', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/informasi/agenda/gantifoto', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -542,7 +542,7 @@ class Agenda extends BaseController
                     'error' => [
                         'gambar' => $validation->getError('gambar')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
@@ -581,31 +581,31 @@ class Agenda extends BaseController
 
         if ($this->request->isAJAX()) {
             $agenda_id = $this->request->getVar('agenda_id');
-            $list =  $this->agenda->find($agenda_id);
-            // $template = $this->template->tempaktif();
-            $tadmin = $this->template->tempadminaktif();
+            $list = $this->agenda->find($agenda_id);
+            // 
+
             // Update hits
             $data = [
-                'hits'        => $list['hits'] + 1
+                'hits' => $list['hits'] + 1
             ];
             $this->agenda->update($list['agenda_id'], $data);
 
             $data = [
-                'title'       => 'Detail Agenda',
-                'agenda_id'   => $list['agenda_id'],
-                'tema'        => $list['tema'],
-                'isi'         => $list['isi_agenda'],
-                'tgl_mulai'   => $list['tgl_mulai'],
+                'title' => 'Detail Agenda',
+                'agenda_id' => $list['agenda_id'],
+                'tema' => $list['tema'],
+                'isi' => $list['isi_agenda'],
+                'tgl_mulai' => $list['tgl_mulai'],
                 'tgl_selesai' => $list['tgl_selesai'],
-                'jam'         => $list['jam'],
-                'tempat'      => $list['tempat'],
-                'pengirim'    => $list['pengirim'],
-                'gambar'      => $list['gambar'],
+                'jam' => $list['jam'],
+                'tempat' => $list['tempat'],
+                'pengirim' => $list['pengirim'],
+                'gambar' => $list['gambar'],
 
             ];
             $msg = [
-                'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'modal/v_agenda', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/modal/v_agenda', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
 
             ];
             echo json_encode($msg);

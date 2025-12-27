@@ -15,7 +15,7 @@ class PendaftaranBaptis extends BaseController
     public function index()
     {
         $konfigurasi = $this->konfigurasi->vkonfig();
-        $template = $this->template->tempaktif();
+
 
         $data = [
             'title' => 'Pendaftaran Baptis | ' . $konfigurasi->nama,
@@ -29,7 +29,7 @@ class PendaftaranBaptis extends BaseController
             'section' => $this->section->list(),
             'sitekey' => $konfigurasi->g_sitekey,
             'linkterkaitall' => $this->linkterkait->publishlinkall(),
-            'folder' => $template['folder'],
+
             'validation' => \Config\Services::validation()
         ];
 
@@ -330,7 +330,7 @@ class PendaftaranBaptis extends BaseController
             'subtitle' => 'Manajemen Data',
             'folder' => 'morvin',
         ];
-        return view('backend/morvin/cmscust/pendaftaran_baptis/index', $data);
+        return view('backend/cmscust/pendaftaran_baptis/index', $data);
     }
 
     // Backend - Get data untuk datatables
@@ -355,7 +355,7 @@ class PendaftaranBaptis extends BaseController
                         'akses' => $akses
                     ];
                     $msg = [
-                        'data' => view('backend/morvin/cmscust/pendaftaran_baptis/list', $data)
+                        'data' => view('backend/cmscust/pendaftaran_baptis/list', $data)
                     ];
                 } else {
                     $msg = [
@@ -384,7 +384,7 @@ class PendaftaranBaptis extends BaseController
                 'data' => $list
             ];
             $msg = [
-                'sukses' => view('backend/morvin/cmscust/pendaftaran_baptis/lihat', $data)
+                'sukses' => view('backend/cmscust/pendaftaran_baptis/lihat', $data)
             ];
             echo json_encode($msg);
         }
@@ -402,7 +402,7 @@ class PendaftaranBaptis extends BaseController
                 'data' => $list
             ];
             $msg = [
-                'sukses' => view('backend/morvin/cmscust/pendaftaran_baptis/edit', $data)
+                'sukses' => view('backend/cmscust/pendaftaran_baptis/edit', $data)
             ];
             echo json_encode($msg);
         }
@@ -485,7 +485,7 @@ class PendaftaranBaptis extends BaseController
                 'title' => 'Tambah Pendaftaran Baptis',
             ];
             $msg = [
-                'data' => view('backend/morvin/cmscust/pendaftaran_baptis/tambah', $data)
+                'data' => view('backend/cmscust/pendaftaran_baptis/tambah', $data)
             ];
             echo json_encode($msg);
         }
@@ -644,7 +644,7 @@ class PendaftaranBaptis extends BaseController
                 'data' => $list
             ];
             $msg = [
-                'sukses' => view('backend/morvin/cmscust/pendaftaran_baptis/upload', $data)
+                'sukses' => view('backend/cmscust/pendaftaran_baptis/upload', $data)
             ];
             echo json_encode($msg);
         }

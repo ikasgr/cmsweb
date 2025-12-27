@@ -10,11 +10,10 @@ use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
 
-// use App\Models\M_Cust_anggota;
-use App\Models\M_Dge_grupakses;
-use App\Models\M_Dge_grupuser;
-use App\Models\M_Dge_modul;
-use App\Models\M_Dge_modulpublic;
+use App\Models\M_Ikasmedia_grupakses;
+use App\Models\M_Ikasmedia_grupuser;
+use App\Models\M_Ikasmedia_modul;
+use App\Models\M_Ikasmedia_modulpublic;
 use App\Models\M_Dokumen;
 use App\Models\M_Dokumenkat;
 use App\Models\M_Fasilitas;
@@ -86,9 +85,8 @@ use App\Models\ModelMenu;
 use App\Models\ModelModalPop;
 use App\Models\ModelPegawai;
 use App\Models\ModelPoling;
-use App\Models\ModelProdukHukum;
-use App\Models\ModelProdukKatHukum;
-use App\Models\ModelProdukKatSubHukum;
+
+
 use App\Models\ModelSection;
 use App\Models\ModelSubMenu;
 use App\Models\ModelSubsubMenu;
@@ -97,10 +95,10 @@ use App\Models\ModelSurveyPertanyaan;
 use App\Models\ModelSurveyResponden;
 use App\Models\ModelSurveyTopik;
 use App\Models\ModelTag;
-use App\Models\ModelTemplate;
 use App\Models\ModelTransparan;
 use App\Models\ModelTransparanDetail;
 use App\Models\ModelVideo;
+
 
 
 
@@ -113,8 +111,43 @@ use App\Models\ModelVideo;
  *     class Home extends BaseController
  *
  * For security be sure to declare any new methods as protected or private.
+ *
+ * @property \CodeIgniter\Database\BaseConnection $db
+ * @property \App\Models\ModelKategori $kategori
+ * @property \App\Models\ModelKonfigurasi $konfigurasi
+ * @property \App\Models\ModelMenu $menu
+ * @property \App\Models\ModelAgenda $agenda
+ * @property \App\Models\ModelBerita $berita
+ * @property \App\Models\ModelBanner $banner
+ * @property \App\Models\ModelFaq_Tanya $faqtanya
+ * @property \App\Models\ModelEbook $ebook
+ * @property \App\Models\ModelVideo $video
+ * @property \App\Models\ModelFoto $foto
+ * @property \App\Models\ModelLinkterkait $linkterkait
+ * @property \App\Models\ModelSection $section
+ * @property \App\Models\ModelCounter $counter
+ * @property \App\Models\ModelPoling $poling
+ * @property \App\Models\ModelUser $user
+ * @property \App\Models\ModelInformasi $pengumuman
+ * @property \App\Models\M_MajelisGereja $majelisgereja
+ * @property \App\Models\M_JadwalPelayanan $jadwalpelayanan
+ * @property \App\Models\M_ProdukUmkm $produkumkm
+ * @property \App\Models\ModelInformasi $layanan
+ * @property \App\Models\ModelModalPop $modalpopup
+ * @property \App\Models\ModelBankData $bankdata
+ * @property \App\Models\ModelTransparan $transparan
+ * @property \App\Models\ModelTransparanDetail $transparandetail
+ * @property \App\Models\ModelKategoriFoto $kategorifoto
+ * @property \App\Models\ModelKritikSaran $kritiksaran
+ * @property \App\Models\M_Ikasmedia_grupakses $grupakses
+ * @property \App\Models\ModelKategoriVideo $kategorivideo
+ * @property \App\Models\M_Ikasmedia_modulpublic $modulpublic
+ * @property \App\Models\ModelTag $tag
+ * @property \App\Models\ModelBeritaTag $beritatag
+ * @property \App\Models\ModelBeritaKomen $beritakomen
+ * @property \App\Models\M_Ikasmedia_grupuser $grupuser
  */
-abstract class BaseController extends Controller
+class BaseController extends Controller
 {
     /**
      * Instance of the main Request object.
@@ -153,10 +186,10 @@ abstract class BaseController extends Controller
         $this->dokumen = new M_Dokumen();
         $this->dokumenkat = new M_Dokumenkat();
         // pengaturan hak akses
-        $this->modulecms = new M_Dge_modul();
-        $this->grupuser = new M_Dge_grupuser();
-        $this->grupakses = new M_Dge_grupakses();
-        $this->modulpublic = new M_Dge_modulpublic();
+        $this->modulecms = new M_Ikasmedia_modul();
+        $this->grupuser = new M_Ikasmedia_grupuser();
+        $this->grupakses = new M_Ikasmedia_grupakses();
+        $this->modulpublic = new M_Ikasmedia_modulpublic();
 
         $this->db = \Config\Database::connect();
         $this->session = \Config\Services::session();
@@ -186,9 +219,8 @@ abstract class BaseController extends Controller
         $this->section = new ModelSection();
         $this->ebook = new ModelEbook();
         $this->kategoriebook = new ModelKategoriEbook();
-        $this->produkhukum = new ModelProdukHukum();
-        $this->produkkathukum = new ModelProdukKatHukum();
-        $this->produkkatsubhukum = new ModelProdukKatSubHukum();
+
+
         $this->surveytopik = new ModelSurveyTopik();
         $this->pertanyaan = new ModelSurveyPertanyaan();
         $this->jawaban = new ModelSurveyJawaban();
@@ -196,7 +228,7 @@ abstract class BaseController extends Controller
         // buku tamu
         $this->bidang = new ModelBtBidang();
         $this->bukutamu = new ModelBukutamu();
-        $this->template = new ModelTemplate();
+        $this->bukutamu = new ModelBukutamu();
         $this->counter = new ModelCounter();
         $this->kategorivideo = new ModelKategoriVideo();
         $this->tag = new ModelTag();

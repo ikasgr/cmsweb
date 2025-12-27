@@ -10,15 +10,15 @@ class Banner extends BaseController
         if (!session()->get('id')) {
             return redirect()->to('');
         }
-        $tadmin = $this->template->tempadminaktif();
+
         $data = [
-            'title'        => 'Setting',
-            'subtitle'        => 'Banner',
-            'folder'        => $tadmin['folder']
+            'title' => 'Setting',
+            'subtitle' => 'Banner',
+
 
         ];
 
-        return view('backend/' . $tadmin['folder'] . '/' . 'setkonten/banner/index', $data);
+        return view('backend/setkonten/banner/index', $data);
     }
 
 
@@ -31,7 +31,7 @@ class Banner extends BaseController
 
         $id_grup = session()->get('id_grup');
         $url = 'banner';
-        $tadminFolder = $this->template->tempadminaktif()['folder'];
+
 
         // Ambil grup akses
         $listgrupf = $this->grupakses->viewgrupakses($id_grup, $url);
@@ -57,7 +57,7 @@ class Banner extends BaseController
 
         // Kirimkan data melalui respons JSON
         echo json_encode([
-            'data' => view("backend/$tadminFolder/setkonten/banner/list", $data)
+            'data' => view("backend/setkonten/banner/list", $data)
         ]);
     }
 
@@ -68,17 +68,17 @@ class Banner extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            $tadmin = $this->template->tempadminaktif();
+
             $data = [
                 'title' => 'Tambah Banner',
                 'kategori' => $this->kategori->list(),
                 'halaman' => $this->berita->listhalaman(),
                 'berita' => $this->berita->listberitabaner(),
-                'modulpublic'       => $this->modulpublic->listaktif(),
+                'modulpublic' => $this->modulpublic->listaktif(),
 
             ];
             $msg = [
-                'data' => view('backend/' . $tadmin['folder'] . '/' . 'setkonten/banner/tambah', $data)
+                'data' => view('backend/setkonten/banner/tambah', $data)
             ];
             echo json_encode($msg);
         }
@@ -114,24 +114,24 @@ class Banner extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'ket'           => $validation->getError('ket'),
-                        'banner_image'  => $validation->getError('banner_image')
+                        'ket' => $validation->getError('ket'),
+                        'banner_image' => $validation->getError('banner_image')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
-                $template = $this->template->tempaktif();
+
                 $lebar = $template['wlbanner'];
                 $panjang = $template['hpbanner'];
 
                 $filegambar = $this->request->getFile('banner_image');
                 $nama_file = $filegambar->getRandomName();
                 $insertdata = [
-                    'ket'           => $this->request->getVar('ket'),
-                    'link'          => $this->request->getVar('link'),
-                    'banner_image'  => $nama_file,
-                    'type'          => '0'
+                    'ket' => $this->request->getVar('ket'),
+                    'link' => $this->request->getVar('link'),
+                    'banner_image' => $nama_file,
+                    'type' => '0'
                 ];
 
                 $this->banner->insert($insertdata);
@@ -139,11 +139,11 @@ class Banner extends BaseController
                 \Config\Services::image()
                     ->withFile($filegambar)
                     ->fit($lebar, $panjang, 'center')
-                    ->save('public/img/banner/' .  $nama_file, 70);
+                    ->save('public/img/banner/' . $nama_file, 70);
 
                 $msg = [
-                    'sukses'                => 'Banner berhasil diupload!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Banner berhasil diupload!',
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -157,22 +157,22 @@ class Banner extends BaseController
         }
         if ($this->request->isAJAX()) {
             $id_banner = $this->request->getVar('id_banner');
-            $list =  $this->banner->find($id_banner);
-            $tadmin = $this->template->tempadminaktif();
+            $list = $this->banner->find($id_banner);
+
             $data = [
-                'title'             => 'Edit Banner',
-                'id_banner'         => $list['id_banner'],
-                'ket'               => $list['ket'],
-                'link'              => $list['link'],
-                'banner'            => $list['banner_image'],
-                'kategori'          => $this->kategori->list(),
-                'halaman'           => $this->berita->listhalaman(),
-                'berita'            => $this->berita->listberitabaner(),
-                'modulpublic'       => $this->modulpublic->listaktif(),
+                'title' => 'Edit Banner',
+                'id_banner' => $list['id_banner'],
+                'ket' => $list['ket'],
+                'link' => $list['link'],
+                'banner' => $list['banner_image'],
+                'kategori' => $this->kategori->list(),
+                'halaman' => $this->berita->listhalaman(),
+                'berita' => $this->berita->listberitabaner(),
+                'modulpublic' => $this->modulpublic->listaktif(),
             ];
             $msg = [
-                'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'setkonten/banner/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/setkonten/banner/edit', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -204,20 +204,20 @@ class Banner extends BaseController
                         'ket' => $validation->getError('ket'),
 
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
                 echo json_encode($msg);
             } else {
 
                 $data = [
-                    'ket'   => $this->request->getVar('ket'),
-                    'link'   => $this->request->getVar('link'),
+                    'ket' => $this->request->getVar('ket'),
+                    'link' => $this->request->getVar('link'),
                 ];
 
                 $this->banner->update($id_banner, $data);
                 $msg = [
                     'sukses' => 'Data berhasil diubah!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
 
 
@@ -233,16 +233,16 @@ class Banner extends BaseController
         }
         if ($this->request->isAJAX()) {
             $id_banner = $this->request->getVar('id_banner');
-            $list =  $this->banner->find($id_banner);
-            $tadmin = $this->template->tempadminaktif();
+            $list = $this->banner->find($id_banner);
+
             $data = [
-                'title'       => 'Ganti Banner',
-                'id_banner'   => $list['id_banner'],
-                'banner_image'      => $list['banner_image']
+                'title' => 'Ganti Banner',
+                'id_banner' => $list['id_banner'],
+                'banner_image' => $list['banner_image']
             ];
             $msg = [
-                'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'setkonten/banner/gantibanner', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/setkonten/banner/gantibanner', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -274,13 +274,13 @@ class Banner extends BaseController
                     'error' => [
                         'banner_image' => $validation->getError('banner_image')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
                 //check
 
-                $template = $this->template->tempaktif();
+
                 $lebar = $template['wlbanner'];
                 $panjang = $template['hpbanner'];
 
@@ -293,7 +293,7 @@ class Banner extends BaseController
                 $filegambar = $this->request->getFile('banner_image');
                 $nama_file = $filegambar->getRandomName();
                 $updatedata = [
-                    'banner_image'             => $nama_file,
+                    'banner_image' => $nama_file,
                 ];
 
                 $this->banner->update($id_banner, $updatedata);
@@ -301,11 +301,11 @@ class Banner extends BaseController
                 \Config\Services::image()
                     ->withFile($filegambar)
                     ->fit($lebar, $panjang, 'center')
-                    ->save('public/img/banner/' .  $nama_file, 70);
+                    ->save('public/img/banner/' . $nama_file, 70);
 
                 $msg = [
                     'sukses' => 'Banner berhasil diganti!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -328,8 +328,8 @@ class Banner extends BaseController
             }
             $this->banner->delete($id_banner);
             $msg = [
-                'sukses'                 => 'Data berhasil dihapus!',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => 'Data berhasil dihapus!',
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -355,8 +355,8 @@ class Banner extends BaseController
                 $this->banner->delete($id_banner[$i]);
             }
             $msg = [
-                'sukses'                => "$jmldata Banner berhasil dihapus",
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => "$jmldata Banner berhasil dihapus",
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }

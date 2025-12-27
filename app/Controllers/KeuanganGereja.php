@@ -11,11 +11,11 @@ class KeuanganGereja extends BaseController
             return redirect()->to('');
         }
         $data = [
-            'title'     => 'Keuangan Gereja',
-            'subtitle'  => 'Manajemen Keuangan',
-            'folder'    => 'morvin',
+            'title' => 'Keuangan Gereja',
+            'subtitle' => 'Manajemen Keuangan',
+            'folder' => 'morvin',
         ];
-        return view('backend/morvin/cmscust/keuangan_gereja/index', $data);
+        return view('backend/cmscust/keuangan_gereja/index', $data);
     }
 
     // Backend - Get data untuk datatables
@@ -24,24 +24,24 @@ class KeuanganGereja extends BaseController
         if ($this->request->isAJAX()) {
             $id_grup = session()->get('id_grup');
             $url = 'keuangan-gereja/list';
-            $listgrupf =  $this->grupakses->listgrupakses($id_grup, $url);
+            $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
 
-            foreach ($listgrupf as $data) :
+            foreach ($listgrupf as $data):
                 $akses = $data['akses'];
             endforeach;
 
             if ($listgrupf) {
                 if ($akses == '1' || $akses == '2') {
                     $data = [
-                        'title'     => 'Keuangan Gereja',
-                        'list'      => $this->keuangangereja->list(),
-                        'akses'     => $akses,
+                        'title' => 'Keuangan Gereja',
+                        'list' => $this->keuangangereja->list(),
+                        'akses' => $akses,
                         'statistik' => $this->keuangangereja->getStatistik(),
                         'statistik_status' => $this->keuangangereja->getStatistikStatus(),
                         'total_saldo' => $this->kasgereja->getTotalSaldo()
                     ];
                     $msg = [
-                        'data' => view('backend/morvin/cmscust/keuangan_gereja/list', $data)
+                        'data' => view('backend/cmscust/keuangan_gereja/list', $data)
                     ];
                 } else {
                     $msg = [
@@ -68,15 +68,15 @@ class KeuanganGereja extends BaseController
                 custome__kategori_keuangan.nama_kategori,
                 custome__kategori_keuangan.warna
             ')
-            ->join('custome__kategori_keuangan', 'custome__kategori_keuangan.id_kategori = custome__transaksi_keuangan.id_kategori')
-            ->find($id_transaksi);
+                ->join('custome__kategori_keuangan', 'custome__kategori_keuangan.id_kategori = custome__transaksi_keuangan.id_kategori')
+                ->find($id_transaksi);
 
             $data = [
                 'title' => 'Detail Transaksi Keuangan',
-                'data'  => $list
+                'data' => $list
             ];
             $msg = [
-                'sukses' => view('backend/morvin/cmscust/keuangan_gereja/lihat', $data)
+                'sukses' => view('backend/cmscust/keuangan_gereja/lihat', $data)
             ];
             echo json_encode($msg);
         }
@@ -91,13 +91,13 @@ class KeuanganGereja extends BaseController
 
             $data = [
                 'title' => 'Edit Transaksi Keuangan',
-                'data'  => $list,
+                'data' => $list,
                 'kategori_pemasukan' => $this->kategorikeuangan->listByJenis('Pemasukan'),
                 'kategori_pengeluaran' => $this->kategorikeuangan->listByJenis('Pengeluaran'),
                 'kas_list' => $this->kasgereja->listAktif()
             ];
             $msg = [
-                'sukses' => view('backend/morvin/cmscust/keuangan_gereja/edit', $data)
+                'sukses' => view('backend/cmscust/keuangan_gereja/edit', $data)
             ];
             echo json_encode($msg);
         }
@@ -146,23 +146,23 @@ class KeuanganGereja extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'id_kategori'       => $validation->getError('id_kategori'),
+                        'id_kategori' => $validation->getError('id_kategori'),
                         'tanggal_transaksi' => $validation->getError('tanggal_transaksi'),
-                        'jumlah'            => $validation->getError('jumlah'),
-                        'keterangan'        => $validation->getError('keterangan'),
+                        'jumlah' => $validation->getError('jumlah'),
+                        'keterangan' => $validation->getError('keterangan'),
                     ]
                 ];
             } else {
                 $updatedata = [
-                    'id_kategori'       => $this->request->getVar('id_kategori'),
+                    'id_kategori' => $this->request->getVar('id_kategori'),
                     'tanggal_transaksi' => $this->request->getVar('tanggal_transaksi'),
-                    'jenis_transaksi'   => $this->request->getVar('jenis_transaksi'),
-                    'jumlah'            => str_replace(',', '', $this->request->getVar('jumlah')),
-                    'sumber_dana'       => $this->request->getVar('sumber_dana'),
-                    'penerima'          => $this->request->getVar('penerima'),
-                    'keterangan'        => $this->request->getVar('keterangan'),
+                    'jenis_transaksi' => $this->request->getVar('jenis_transaksi'),
+                    'jumlah' => str_replace(',', '', $this->request->getVar('jumlah')),
+                    'sumber_dana' => $this->request->getVar('sumber_dana'),
+                    'penerima' => $this->request->getVar('penerima'),
+                    'keterangan' => $this->request->getVar('keterangan'),
                     'metode_pembayaran' => $this->request->getVar('metode_pembayaran'),
-                    'no_referensi'      => $this->request->getVar('no_referensi'),
+                    'no_referensi' => $this->request->getVar('no_referensi'),
                 ];
 
                 $this->keuangangereja->update($id_transaksi, $updatedata);
@@ -187,7 +187,7 @@ class KeuanganGereja extends BaseController
                 'kas_list' => $this->kasgereja->listAktif()
             ];
             $msg = [
-                'data' => view('backend/morvin/cmscust/keuangan_gereja/tambah', $data)
+                'data' => view('backend/cmscust/keuangan_gereja/tambah', $data)
             ];
             echo json_encode($msg);
         }
@@ -234,26 +234,26 @@ class KeuanganGereja extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'id_kategori'       => $validation->getError('id_kategori'),
+                        'id_kategori' => $validation->getError('id_kategori'),
                         'tanggal_transaksi' => $validation->getError('tanggal_transaksi'),
-                        'jumlah'            => $validation->getError('jumlah'),
-                        'keterangan'        => $validation->getError('keterangan'),
+                        'jumlah' => $validation->getError('jumlah'),
+                        'keterangan' => $validation->getError('keterangan'),
                     ]
                 ];
             } else {
                 $insertdata = [
-                    'kode_transaksi'    => $this->keuangangereja->generateKodeTransaksi(),
-                    'id_kategori'       => $this->request->getVar('id_kategori'),
+                    'kode_transaksi' => $this->keuangangereja->generateKodeTransaksi(),
+                    'id_kategori' => $this->request->getVar('id_kategori'),
                     'tanggal_transaksi' => $this->request->getVar('tanggal_transaksi'),
-                    'jenis_transaksi'   => $this->request->getVar('jenis_transaksi'),
-                    'jumlah'            => str_replace(',', '', $this->request->getVar('jumlah')),
-                    'sumber_dana'       => $this->request->getVar('sumber_dana'),
-                    'penerima'          => $this->request->getVar('penerima'),
-                    'keterangan'        => $this->request->getVar('keterangan'),
+                    'jenis_transaksi' => $this->request->getVar('jenis_transaksi'),
+                    'jumlah' => str_replace(',', '', $this->request->getVar('jumlah')),
+                    'sumber_dana' => $this->request->getVar('sumber_dana'),
+                    'penerima' => $this->request->getVar('penerima'),
+                    'keterangan' => $this->request->getVar('keterangan'),
                     'metode_pembayaran' => $this->request->getVar('metode_pembayaran') ?: 'Tunai',
-                    'no_referensi'      => $this->request->getVar('no_referensi'),
-                    'status'            => 'Pending',
-                    'created_by'        => session()->get('id'),
+                    'no_referensi' => $this->request->getVar('no_referensi'),
+                    'status' => 'Pending',
+                    'created_by' => session()->get('id'),
                 ];
 
                 $this->keuangangereja->insert($insertdata);
@@ -271,13 +271,13 @@ class KeuanganGereja extends BaseController
     {
         if ($this->request->isAJAX()) {
             $id_transaksi = $this->request->getVar('id_transaksi');
-            
+
             // Hapus mutasi kas jika ada
             $this->mutasikas->hapusMutasi($id_transaksi);
-            
+
             // Hapus transaksi
             $this->keuangangereja->delete($id_transaksi);
-            
+
             $msg = [
                 'sukses' => 'Transaksi keuangan berhasil dihapus!'
             ];
@@ -292,11 +292,11 @@ class KeuanganGereja extends BaseController
         if ($this->request->isAJAX()) {
             $id_transaksi = $this->request->getVar('id_transaksi');
             $jmldata = count($id_transaksi);
-            
+
             for ($i = 0; $i < $jmldata; $i++) {
                 // Hapus mutasi kas jika ada
                 $this->mutasikas->hapusMutasi($id_transaksi[$i]);
-                
+
                 // Hapus transaksi
                 $this->keuangangereja->delete($id_transaksi[$i]);
             }
@@ -349,16 +349,16 @@ class KeuanganGereja extends BaseController
                 custome__kategori_keuangan.nama_kategori,
                 custome__kategori_keuangan.warna
             ')
-            ->join('custome__kategori_keuangan', 'custome__kategori_keuangan.id_kategori = custome__transaksi_keuangan.id_kategori')
-            ->find($id_transaksi);
+                ->join('custome__kategori_keuangan', 'custome__kategori_keuangan.id_kategori = custome__transaksi_keuangan.id_kategori')
+                ->find($id_transaksi);
 
             $data = [
                 'title' => 'Approve Transaksi',
-                'data'  => $transaksi,
+                'data' => $transaksi,
                 'kas_list' => $this->kasgereja->listAktif()
             ];
             $msg = [
-                'sukses' => view('backend/morvin/cmscust/keuangan_gereja/approve', $data)
+                'sukses' => view('backend/cmscust/keuangan_gereja/approve', $data)
             ];
             echo json_encode($msg);
         }
@@ -388,7 +388,7 @@ class KeuanganGereja extends BaseController
                 'saldo_per_jenis' => $saldo_per_jenis
             ];
             $msg = [
-                'data' => view('backend/morvin/cmscust/keuangan_gereja/dashboard', $data)
+                'data' => view('backend/cmscust/keuangan_gereja/dashboard', $data)
             ];
             echo json_encode($msg);
         }
@@ -403,11 +403,11 @@ class KeuanganGereja extends BaseController
 
             $data = [
                 'title' => 'Hasil Pencarian: ' . $keyword,
-                'list'  => $hasil,
+                'list' => $hasil,
                 'keyword' => $keyword
             ];
             $msg = [
-                'data' => view('backend/morvin/cmscust/keuangan_gereja/hasil_cari', $data)
+                'data' => view('backend/cmscust/keuangan_gereja/hasil_cari', $data)
             ];
             echo json_encode($msg);
         }
@@ -419,17 +419,17 @@ class KeuanganGereja extends BaseController
         if ($this->request->isAJAX()) {
             $tanggal_mulai = $this->request->getVar('tanggal_mulai');
             $tanggal_selesai = $this->request->getVar('tanggal_selesai');
-            
+
             $hasil = $this->keuangangereja->listByPeriode($tanggal_mulai, $tanggal_selesai);
 
             $data = [
                 'title' => 'Transaksi ' . date('d/m/Y', strtotime($tanggal_mulai)) . ' - ' . date('d/m/Y', strtotime($tanggal_selesai)),
-                'list'  => $hasil,
+                'list' => $hasil,
                 'tanggal_mulai' => $tanggal_mulai,
                 'tanggal_selesai' => $tanggal_selesai
             ];
             $msg = [
-                'data' => view('backend/morvin/cmscust/keuangan_gereja/hasil_filter', $data)
+                'data' => view('backend/cmscust/keuangan_gereja/hasil_filter', $data)
             ];
             echo json_encode($msg);
         }
@@ -441,7 +441,7 @@ class KeuanganGereja extends BaseController
         if ($this->request->isAJAX()) {
             $tanggal_mulai = $this->request->getVar('tanggal_mulai');
             $tanggal_selesai = $this->request->getVar('tanggal_selesai');
-            
+
             $laporan = $this->keuangangereja->getLaporanPeriode($tanggal_mulai, $tanggal_selesai);
 
             $data = [
@@ -451,7 +451,7 @@ class KeuanganGereja extends BaseController
                 'laporan' => $laporan
             ];
             $msg = [
-                'data' => view('backend/morvin/cmscust/keuangan_gereja/laporan', $data)
+                'data' => view('backend/cmscust/keuangan_gereja/laporan', $data)
             ];
             echo json_encode($msg);
         }
@@ -462,7 +462,7 @@ class KeuanganGereja extends BaseController
     {
         if ($this->request->isAJAX()) {
             $id_transaksi = $this->request->getVar('id_transaksi');
-            
+
             $validation = \Config\Services::validation();
             $valid = $this->validate([
                 'bukti_transaksi' => [

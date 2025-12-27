@@ -11,15 +11,15 @@ class PesananUmkm extends BaseController
             return redirect()->to('/login');
         }
 
-        $tadmin = $this->template->tempadminaktif();
-        
+
+
         $data = [
             'title' => 'Kelola Pesanan UMKM',
             'subtitle' => 'Manajemen Pesanan Produk UMKM',
-            'folder' => $tadmin['folder']
+
         ];
 
-        return view('backend/' . $tadmin['folder'] . '/cmscust/pesanan_umkm/list', $data);
+        return view('backend/cmscust/pesanan_umkm/list', $data);
     }
 
     // Backend - Get data untuk DataTables
@@ -51,11 +51,11 @@ class PesananUmkm extends BaseController
             }
 
             $recordsTotal = $builder->countAllResults(false);
-            
+
             // Pagination
             $start = $request->getVar('start') ?? 0;
             $length = $request->getVar('length') ?? 10;
-            
+
             $data = $builder->limit($length, $start)->get()->getResultArray();
 
             $output = [
@@ -96,8 +96,8 @@ class PesananUmkm extends BaseController
                 ->orderBy('tgl_update', 'DESC')
                 ->get()->getResultArray();
 
-            $tadmin = $this->template->tempadminaktif();
-            
+
+
             $data = [
                 'title' => 'Detail Pesanan',
                 'pesanan' => $pesanan,
@@ -106,7 +106,7 @@ class PesananUmkm extends BaseController
             ];
 
             $msg = [
-                'sukses' => view('backend/' . $tadmin['folder'] . '/cmscust/pesanan_umkm/lihat', $data)
+                'sukses' => view('backend/cmscust/pesanan_umkm/lihat', $data)
             ];
 
             echo json_encode($msg);
@@ -157,7 +157,7 @@ class PesananUmkm extends BaseController
 
             $msg = [
                 'sukses' => 'Status pesanan berhasil diupdate!',
-                'csrf_tokencmsdatagoe' => csrf_hash()
+                'csrf_tokencmsikasmedia' => csrf_hash()
             ];
 
             echo json_encode($msg);
@@ -169,7 +169,7 @@ class PesananUmkm extends BaseController
     {
         if ($this->request->isAJAX()) {
             $pesanan_id = $this->request->getVar('pesanan_id');
-            
+
             $pesanan = $this->pesanan->find($pesanan_id);
             if (!$pesanan) {
                 $msg = ['error' => 'Data tidak ditemukan!'];
@@ -182,7 +182,7 @@ class PesananUmkm extends BaseController
 
             $msg = [
                 'sukses' => 'Pesanan berhasil dihapus!',
-                'csrf_tokencmsdatagoe' => csrf_hash()
+                'csrf_tokencmsikasmedia' => csrf_hash()
             ];
 
             echo json_encode($msg);
@@ -202,7 +202,7 @@ class PesananUmkm extends BaseController
 
             $msg = [
                 'sukses' => "$jmldata pesanan berhasil dihapus!",
-                'csrf_tokencmsdatagoe' => csrf_hash()
+                'csrf_tokencmsikasmedia' => csrf_hash()
             ];
 
             echo json_encode($msg);
@@ -228,7 +228,7 @@ class PesananUmkm extends BaseController
             ->get()->getResultArray();
 
         $konfigurasi = $this->konfigurasi->vkonfig();
-        $tadmin = $this->template->tempadminaktif();
+
 
         $data = [
             'title' => 'Print Invoice',
@@ -237,7 +237,7 @@ class PesananUmkm extends BaseController
             'konfigurasi' => $konfigurasi
         ];
 
-        return view('backend/' . $tadmin['folder'] . '/cmscust/pesanan_umkm/print', $data);
+        return view('backend/cmscust/pesanan_umkm/print', $data);
     }
 
     // Backend - Export Excel
@@ -257,8 +257,8 @@ class PesananUmkm extends BaseController
             'pesanan' => $pesanan
         ];
 
-        $tadmin = $this->template->tempadminaktif();
-        return view('backend/' . $tadmin['folder'] . '/cmscust/pesanan_umkm/export', $data);
+
+        return view('backend/cmscust/pesanan_umkm/export', $data);
     }
 
     // Backend - Dashboard/Statistik
@@ -289,12 +289,12 @@ class PesananUmkm extends BaseController
             ->limit(10)
             ->get()->getResultArray();
 
-        $tadmin = $this->template->tempadminaktif();
+
 
         $data = [
             'title' => 'Dashboard Pesanan UMKM',
             'subtitle' => 'Statistik & Monitoring Pesanan',
-            'folder' => $tadmin['folder'],
+
             'pending' => $pending,
             'diproses' => $diproses,
             'dikirim' => $dikirim,
@@ -304,6 +304,6 @@ class PesananUmkm extends BaseController
             'terbaru' => $terbaru
         ];
 
-        return view('backend/' . $tadmin['folder'] . '/cmscust/pesanan_umkm/dashboard', $data);
+        return view('backend/cmscust/pesanan_umkm/dashboard', $data);
     }
 }

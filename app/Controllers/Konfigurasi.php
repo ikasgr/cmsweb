@@ -12,11 +12,11 @@ class Konfigurasi extends BaseController
         if (!session()->get('id')) {
             return redirect()->to('');
         }
-        $tadmin             = $this->template->tempadminaktif();
-        $id_grup            = session()->get('id_grup');
-        $url                = 'konfigurasi';
-        $listgrupf          = $this->grupakses->viewgrupakses($id_grup, $url);
-        $akses              = $listgrupf->akses;
+
+        $id_grup = session()->get('id_grup');
+        $url = 'konfigurasi';
+        $listgrupf = $this->grupakses->viewgrupakses($id_grup, $url);
+        $akses = $listgrupf->akses;
 
         // jika temukan maka eksekusi
         if ($listgrupf) {
@@ -24,79 +24,79 @@ class Konfigurasi extends BaseController
 
             $fileName = date('Y-m-d') . '-backup.sql';
 
-            $list       =  $this->konfigurasi->first();
-            $template   = $this->template->tempaktif();
+            $list = $this->konfigurasi->first();
+
             if ($akses == '1') {
                 $data = [
-                    'title'             => 'Dashboard',
-                    'subtitle'          => 'Konfigurasi',
-                    'konfigurasi'       => $this->konfigurasi->list(),
-                    'mkategori'         => $this->kategori->list(),
-                    'id_setaplikasi'    => $list['id_setaplikasi'],
-                    'nama'              => esc($list['nama']),
-                    'alamat'            => esc($list['alamat']),
-                    'no_telp'           => $list['no_telp'],
-                    'google_map'        => $list['google_map'],
-                    'login_alias'       => $list['kecamatan'], //url page login
-                    'kabupaten'         => $list['kabupaten'],
-                    'provinsi'          => $list['provinsi'],
-                    'website'           => $list['website'],
-                    'email'             => $list['email'],
-                    'deskripsi'         => $list['deskripsi'],
-                    'logo'              => $list['logo'],
-                    'sts_sambutan'      => $list['sts_sambutan'],
-                    'icon'              => $list['icon'],
-                    'link_gmap'         => $list['link_gmap'],
-                    'sosmed_fb'         => $list['sosmed_fb'],
-                    'sosmed_instagram'  => $list['sosmed_instagram'],
-                    'sosmed_twiter'     => $list['sosmed_twiter'],
-                    'sosmed_youtube'    => $list['sosmed_youtube'],
-                    'kategori_id'       => $list['kategori_id'],
-                    'judul_section'     => $list['judul_section'],
-                    'sts_section'       => $list['sts_section'],
-                    'sts_modal'         => $list['sts_modal'],
-                    'sts_rt'            => $list['sts_rt'],
-                    'sts_count'         => $list['sts_count'],
-                    'vercms'            => $list['vercms'],
-                    'sts_regis'         => $list['sts_regis'],
-                    'sts_web'           => $list['sts_web'],
-                    'sts_posting'       => $list['sts_posting'],
-                    'mail_host'         => $list['mail_host'],
-                    'mail_user'     => $list['mail_user'],
-                    'smtp_pass'     => $list['smtp_pass'],
-                    'smtp_port'         => $list['smtp_port'],
-                    'smtp_pengirim'     => $list['smtp_pengirim'],
-                    'smtp_pesanbalas'   => $list['smtp_pesanbalas'],
-                    'konek_opd'         => $list['konek_opd'],
-                    'id_grup'           => $list['id_grup'],
-                    'footer_cms'        => $list['footer_cms'],
-                    'saveweb'           => session()->get('setweb'),
-                    'listgrup'          => $this->grupuser->listgrups(),
-                    'akses'             => $akses,
-                    'katamutiara'       => $list['katamutiara'],
-                    'wa_token'           => $list['wa_token'],
-                    'wa_sender_number'      => $list['wa_sender_number'],
-                    'wa_receiver'       => $list['wa_receiver'],
-                    'namasingkat'       => $list['namasingkat'],
-                    'urlserver'         => $list['urlserver'],
-                    'google_secret'       => $list['google_secret'],
-                    'g_sitekey'         => $list['g_sitekey'],
-                    'is_maintenance'    => $list['is_maintenance'],
-                    'otp_akses'         => $list['otp_akses'],
+                    'title' => 'Dashboard',
+                    'subtitle' => 'Konfigurasi',
+                    'konfigurasi' => $this->konfigurasi->list(),
+                    'mkategori' => $this->kategori->list(),
+                    'id_setaplikasi' => $list['id_setaplikasi'],
+                    'nama' => esc($list['nama']),
+                    'alamat' => esc($list['alamat']),
+                    'no_telp' => $list['no_telp'],
+                    'google_map' => $list['google_map'],
+                    'login_alias' => $list['kecamatan'], //url page login
+                    'kabupaten' => $list['kabupaten'],
+                    'provinsi' => $list['provinsi'],
+                    'website' => $list['website'],
+                    'email' => $list['email'],
+                    'deskripsi' => $list['deskripsi'],
+                    'logo' => $list['logo'],
+                    'sts_sambutan' => $list['sts_sambutan'],
+                    'icon' => $list['icon'],
+                    'link_gmap' => $list['link_gmap'],
+                    'sosmed_fb' => $list['sosmed_fb'],
+                    'sosmed_instagram' => $list['sosmed_instagram'],
+                    'sosmed_twiter' => $list['sosmed_twiter'],
+                    'sosmed_youtube' => $list['sosmed_youtube'],
+                    'kategori_id' => $list['kategori_id'],
+                    'judul_section' => $list['judul_section'],
+                    'sts_section' => $list['sts_section'],
+                    'sts_modal' => $list['sts_modal'],
+                    'sts_rt' => $list['sts_rt'],
+                    'sts_count' => $list['sts_count'],
+                    'vercms' => $list['vercms'],
+                    'sts_regis' => $list['sts_regis'],
+                    'sts_web' => $list['sts_web'],
+                    'sts_posting' => $list['sts_posting'],
+                    'mail_host' => $list['mail_host'],
+                    'mail_user' => $list['mail_user'],
+                    'smtp_pass' => $list['smtp_pass'],
+                    'smtp_port' => $list['smtp_port'],
+                    'smtp_pengirim' => $list['smtp_pengirim'],
+                    'smtp_pesanbalas' => $list['smtp_pesanbalas'],
+                    'konek_opd' => $list['konek_opd'],
+                    'id_grup' => $list['id_grup'],
+                    'footer_cms' => $list['footer_cms'],
+                    'saveweb' => session()->get('setweb'),
+                    'listgrup' => $this->grupuser->listgrups(),
+                    'akses' => $akses,
+                    'katamutiara' => $list['katamutiara'],
+                    'wa_token' => $list['wa_token'],
+                    'wa_sender_number' => $list['wa_sender_number'],
+                    'wa_receiver' => $list['wa_receiver'],
+                    'namasingkat' => $list['namasingkat'],
+                    'urlserver' => $list['urlserver'],
+                    'google_secret' => $list['google_secret'],
+                    'g_sitekey' => $list['g_sitekey'],
+                    'is_maintenance' => $list['is_maintenance'],
+                    'otp_akses' => $list['otp_akses'],
                     // 'multi_login'       => $list['multi_login'],
-                    'verdb'             => $list['verdb'],
-                    'folder'            => $tadmin['folder'],
-                    'wllogo'            => $template['wllogo'],
-                    'hplogo'            => $template['hplogo'],
-                    'wlbanner'          => $template['wlbanner'],
-                    'hpbanner'          => $template['hpbanner'],
-                    'verbost'           => $template['verbost'],
-                    'temaaktif'         => $template['nama'],
-                    'fileName'          => $fileName,
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'verdb' => $list['verdb'],
+
+                    'wllogo' => 200,
+                    'hplogo' => 60,
+                    'wlbanner' => 1200,
+                    'hpbanner' => 400,
+                    'verbost' => 1,
+                    'temaaktif' => 'Default',
+                    'fileName' => $fileName,
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
 
                 ];
-                return view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/konfigurasi/index', $data);
+                return view('backend/pengaturan/konfigurasi/index', $data);
             } else {
                 return redirect()->to(base_url('dasboard'));
             }
@@ -231,63 +231,63 @@ class Konfigurasi extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => $this->validator->getErrors(),
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
-                $id_setaplikasi         = $this->request->getVar('id_setaplikasi');
-                $smtp_pass              = $this->request->getVar('smtp_pass');
+                $id_setaplikasi = $this->request->getVar('id_setaplikasi');
+                $smtp_pass = $this->request->getVar('smtp_pass');
 
                 $otp_akses = ($smtp_pass == 'xxxxx') ? 0 : $this->request->getVar('otp_akses');
 
                 $simpandata = [
-                    'nama'              => $this->request->getVar('nama'),
-                    'alamat'            => $this->request->getVar('alamat'),
-                    'no_telp'           => $this->request->getVar('no_telp'),
-                    'kecamatan'         => mb_url_title($this->request->getVar('login_alias'), '-', TRUE),
-                    'kabupaten'         => $this->request->getVar('kabupaten'),
-                    'provinsi'          => $this->request->getVar('provinsi'),
-                    'website'           => $this->request->getVar('website'),
-                    'email'             => $this->request->getVar('email'),
-                    'deskripsi'         => $this->request->getVar('deskripsi'),
-                    'google_map'        => $this->request->getVar('google_map'),
-                    'link_gmap'         => $this->request->getVar('link_gmap'),
-                    'sosmed_fb'         => $this->request->getVar('sosmed_fb'),
-                    'sosmed_instagram'  => $this->request->getVar('sosmed_instagram'),
-                    'sosmed_twiter'     => $this->request->getVar('sosmed_twiter'),
-                    'sosmed_youtube'    => $this->request->getVar('sosmed_youtube'),
-                    'kategori_id'       => $this->request->getVar('kategori'),
-                    'judul_section'     => $this->request->getVar('judul_section'),
-                    'sts_section'       => $this->request->getVar('sts_section'),
-                    'sts_modal'         => $this->request->getVar('sts_modal'),
-                    'sts_rt'            => $this->request->getVar('sts_rt'),
-                    'sts_count'         => $this->request->getVar('sts_count'),
-                    'sts_regis'         => $this->request->getVar('sts_regis'),
-                    'sts_posting'       => $this->request->getVar('sts_posting'),
-                    'mail_host'         => $this->request->getVar('mail_host'),
-                    'mail_user'         => $this->request->getVar('mail_user'),
-                    'smtp_pass'         => $smtp_pass,
-                    'smtp_port'         => $this->request->getVar('smtp_port'),
-                    'smtp_pengirim'     => $this->request->getVar('smtp_pengirim'),
-                    'smtp_pesanbalas'   => $this->request->getVar('smtp_pesanbalas'),
-                    'konek_opd'         => $this->request->getVar('konek_opd'),
-                    'id_grup'           => $this->request->getVar('id_grup'),
-                    'footer_cms'        => $this->request->getVar('footer_cms'),
-                    'katamutiara'       => $this->request->getVar('katamutiara'),
-                    'wa_token'           => $this->request->getVar('wa_token'),
-                    'wa_sender_number'      => $this->request->getVar('wa_sender_number'),
-                    'wa_receiver'       => $this->request->getVar('wa_receiver'),
-                    'namasingkat'       => $this->request->getVar('namasingkat'),
-                    'urlserver'         => $this->request->getVar('urlserver'),
-                    'google_secret'       => $this->request->getVar('google_secret'),
-                    'g_sitekey'         => $this->request->getVar('g_sitekey'),
-                    'otp_akses'         => $otp_akses,
+                    'nama' => $this->request->getVar('nama'),
+                    'alamat' => $this->request->getVar('alamat'),
+                    'no_telp' => $this->request->getVar('no_telp'),
+                    'kecamatan' => mb_url_title($this->request->getVar('login_alias'), '-', TRUE),
+                    'kabupaten' => $this->request->getVar('kabupaten'),
+                    'provinsi' => $this->request->getVar('provinsi'),
+                    'website' => $this->request->getVar('website'),
+                    'email' => $this->request->getVar('email'),
+                    'deskripsi' => $this->request->getVar('deskripsi'),
+                    'google_map' => $this->request->getVar('google_map'),
+                    'link_gmap' => $this->request->getVar('link_gmap'),
+                    'sosmed_fb' => $this->request->getVar('sosmed_fb'),
+                    'sosmed_instagram' => $this->request->getVar('sosmed_instagram'),
+                    'sosmed_twiter' => $this->request->getVar('sosmed_twiter'),
+                    'sosmed_youtube' => $this->request->getVar('sosmed_youtube'),
+                    'kategori_id' => $this->request->getVar('kategori'),
+                    'judul_section' => $this->request->getVar('judul_section'),
+                    'sts_section' => $this->request->getVar('sts_section'),
+                    'sts_modal' => $this->request->getVar('sts_modal'),
+                    'sts_rt' => $this->request->getVar('sts_rt'),
+                    'sts_count' => $this->request->getVar('sts_count'),
+                    'sts_regis' => $this->request->getVar('sts_regis'),
+                    'sts_posting' => $this->request->getVar('sts_posting'),
+                    'mail_host' => $this->request->getVar('mail_host'),
+                    'mail_user' => $this->request->getVar('mail_user'),
+                    'smtp_pass' => $smtp_pass,
+                    'smtp_port' => $this->request->getVar('smtp_port'),
+                    'smtp_pengirim' => $this->request->getVar('smtp_pengirim'),
+                    'smtp_pesanbalas' => $this->request->getVar('smtp_pesanbalas'),
+                    'konek_opd' => $this->request->getVar('konek_opd'),
+                    'id_grup' => $this->request->getVar('id_grup'),
+                    'footer_cms' => $this->request->getVar('footer_cms'),
+                    'katamutiara' => $this->request->getVar('katamutiara'),
+                    'wa_token' => $this->request->getVar('wa_token'),
+                    'wa_sender_number' => $this->request->getVar('wa_sender_number'),
+                    'wa_receiver' => $this->request->getVar('wa_receiver'),
+                    'namasingkat' => $this->request->getVar('namasingkat'),
+                    'urlserver' => $this->request->getVar('urlserver'),
+                    'google_secret' => $this->request->getVar('google_secret'),
+                    'g_sitekey' => $this->request->getVar('g_sitekey'),
+                    'otp_akses' => $otp_akses,
 
                 ];
                 $this->konfigurasi->update($id_setaplikasi, $simpandata);
 
                 $msg = [
-                    'sukses'                => 'Data berhasil diupdate',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Data berhasil diupdate',
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
 
@@ -301,16 +301,16 @@ class Konfigurasi extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            $tadmin = $this->template->tempadminaktif();
-            $list =  $this->konfigurasi->orderBy('id_setaplikasi ')->first();
+
+            $list = $this->konfigurasi->orderBy('id_setaplikasi ')->first();
             $data = [
-                'title'          => 'Ganti Logo Website',
-                'logo'           => $list['logo'],
+                'title' => 'Ganti Logo Website',
+                'logo' => $list['logo'],
                 'id_setaplikasi' => $list['id_setaplikasi']
             ];
             $msg = [
-                'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/konfigurasi/uploadlogo', $data),
-                'csrf_tokencmsdatagoe' => csrf_hash()
+                'sukses' => view('backend/pengaturan/konfigurasi/uploadlogo', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash()
             ];
             echo json_encode($msg);
         }
@@ -341,15 +341,15 @@ class Konfigurasi extends BaseController
                         'logo' => $validation->getError('logo'),
 
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash()
+                    'csrf_tokencmsikasmedia' => csrf_hash()
                 ];
             } else {
                 $id_setaplikasi = $this->request->getVar('id_setaplikasi');
                 // $konfigurasi = $this->konfigurasi->orderBy('id_setaplikasi')->first();
-                $template = $this->template->tempaktif();
 
-                $lebar = $template['wllogo'];
-                $panjang = $template['hplogo'];
+
+                $lebar = 200;  // Default logo width
+                $panjang = 60; // Default logo height
 
                 //check
                 $cekdata = $this->konfigurasi->find($id_setaplikasi);
@@ -364,7 +364,7 @@ class Konfigurasi extends BaseController
                 $filegambar = $this->request->getFile('logo');
                 $nama_file = $filegambar->getRandomName();
                 $updatedata = [
-                    'logo'             => $nama_file,
+                    'logo' => $nama_file,
                 ];
 
                 $this->konfigurasi->update($id_setaplikasi, $updatedata);
@@ -372,11 +372,11 @@ class Konfigurasi extends BaseController
                 \Config\Services::image()
                     ->withFile($filegambar)
                     ->fit($lebar, $panjang, 'center')
-                    ->save('public/img/konfigurasi/logo/' .  $nama_file);
+                    ->save('public/img/konfigurasi/logo/' . $nama_file);
 
                 $msg = [
-                    'sukses'                => 'Logo berhasil diupload!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Logo berhasil diupload!',
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -391,15 +391,15 @@ class Konfigurasi extends BaseController
         if ($this->request->isAJAX()) {
             $id_setaplikasi = $this->request->getVar('id_setaplikasi');
             $list = $this->konfigurasi->find($id_setaplikasi);
-            $tadmin = $this->template->tempadminaktif();
+
             $data = [
                 'title' => 'Upload Icon Website',
-                'list'  => $list,
+                'list' => $list,
                 'id_setaplikasi' => $list['id_setaplikasi']
             ];
             $msg = [
-                'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/konfigurasi/uploadicon', $data),
-                'csrf_tokencmsdatagoe' => csrf_hash()
+                'sukses' => view('backend/pengaturan/konfigurasi/uploadicon', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash()
             ];
             echo json_encode($msg);
         }
@@ -432,7 +432,7 @@ class Konfigurasi extends BaseController
                         'icon' => $validation->getError('icon')
                     ],
 
-                    'csrf_tokencmsdatagoe' => csrf_hash()
+                    'csrf_tokencmsikasmedia' => csrf_hash()
                 ];
             } else {
 
@@ -454,11 +454,11 @@ class Konfigurasi extends BaseController
 
                 \Config\Services::image()
                     ->withFile($filegambar)
-                    ->save('public/img/konfigurasi/icon/' .  $nama_file);
+                    ->save('public/img/konfigurasi/icon/' . $nama_file);
 
                 $msg = [
-                    'sukses'                => 'Icon berhasil diupload!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash()
+                    'sukses' => 'Icon berhasil diupload!',
+                    'csrf_tokencmsikasmedia' => csrf_hash()
                 ];
             }
             echo json_encode($msg);
@@ -486,15 +486,15 @@ class Konfigurasi extends BaseController
                 $dump->start($fileName);
 
                 $msg = [
-                    'sukses'                => 'DB berhasil dibackup!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
-                    'file'                  => $fileName,
+                    'sukses' => 'DB berhasil dibackup!',
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
+                    'file' => $fileName,
                 ];
             } catch (\Exception $e) {
                 // echo 'mysqldump-php error: ' . $e->getMessage();
                 $msg = [
-                    'error'                 => 'mysqldump-php error:' . $e->getMessage(),
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'error' => 'mysqldump-php error:' . $e->getMessage(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
         }
@@ -507,15 +507,15 @@ class Konfigurasi extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            $filename      = $this->request->getVar('filename');
+            $filename = $this->request->getVar('filename');
 
             if (file_exists('public/file/db/' . $filename)) {
                 unlink('public/file/db/' . $filename);
             }
 
             $msg = [
-                'sukses'                => 'file Berhasil Dihapus',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => 'file Berhasil Dihapus',
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -528,15 +528,15 @@ class Konfigurasi extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            $is_maintenance         = $this->request->getVar('is_maintenance');
+            $is_maintenance = $this->request->getVar('is_maintenance');
             if ($is_maintenance == 1) {
                 $data = [
-                    'is_maintenance'        => false,
+                    'is_maintenance' => false,
                 ];
                 $ketsukses = 'Berhasil nonaktifkan Mode Maintanance';
             } else {
                 $data = [
-                    'is_maintenance'        => true,
+                    'is_maintenance' => true,
                 ];
                 $ketsukses = 'Berhasil aktifkan Mode Maintanance';
             }

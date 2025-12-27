@@ -11,11 +11,11 @@ class ProdukUmkm extends BaseController
             return redirect()->to('');
         }
         $data = [
-            'title'     => 'Produk UMKM',
-            'subtitle'  => 'Manajemen Produk',
-            'folder'    => 'morvin',
+            'title' => 'Produk UMKM',
+            'subtitle' => 'Manajemen Produk',
+            'folder' => 'morvin',
         ];
-        return view('backend/morvin/cmscust/produk_umkm/index', $data);
+        return view('backend/cmscust/produk_umkm/index', $data);
     }
 
     // Backend - Get data
@@ -24,21 +24,21 @@ class ProdukUmkm extends BaseController
         if ($this->request->isAJAX()) {
             $id_grup = session()->get('id_grup');
             $url = 'produk-umkm/list';
-            $listgrupf =  $this->grupakses->listgrupakses($id_grup, $url);
+            $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
 
-            foreach ($listgrupf as $data) :
+            foreach ($listgrupf as $data):
                 $akses = $data['akses'];
             endforeach;
 
             if ($listgrupf) {
                 if ($akses == '1' || $akses == '2') {
                     $data = [
-                        'title'     => 'Produk UMKM',
-                        'list'      => $this->produkumkm->list(),
-                        'akses'     => $akses
+                        'title' => 'Produk UMKM',
+                        'list' => $this->produkumkm->list(),
+                        'akses' => $akses
                     ];
                     $msg = [
-                        'data' => view('backend/morvin/cmscust/produk_umkm/list', $data)
+                        'data' => view('backend/cmscust/produk_umkm/list', $data)
                     ];
                 } else {
                     $msg = [
@@ -64,7 +64,7 @@ class ProdukUmkm extends BaseController
                 'kategori' => $this->kategoriproduk->listaktif()
             ];
             $msg = [
-                'data' => view('backend/morvin/cmscust/produk_umkm/tambah', $data)
+                'data' => view('backend/cmscust/produk_umkm/tambah', $data)
             ];
             echo json_encode($msg);
         }
@@ -120,11 +120,11 @@ class ProdukUmkm extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'nama_produk'   => $validation->getError('nama_produk'),
-                        'kategori_id'   => $validation->getError('kategori_id'),
-                        'harga'         => $validation->getError('harga'),
-                        'stok'          => $validation->getError('stok'),
-                        'gambar'        => $validation->getError('gambar'),
+                        'nama_produk' => $validation->getError('nama_produk'),
+                        'kategori_id' => $validation->getError('kategori_id'),
+                        'harga' => $validation->getError('harga'),
+                        'stok' => $validation->getError('stok'),
+                        'gambar' => $validation->getError('gambar'),
                     ]
                 ];
             } else {
@@ -135,31 +135,31 @@ class ProdukUmkm extends BaseController
                 $slug = url_title($this->request->getVar('nama_produk'), '-', true);
 
                 $insertdata = [
-                    'nama_produk'       => $this->request->getVar('nama_produk'),
-                    'slug_produk'       => $slug,
-                    'kategori_id'       => $this->request->getVar('kategori_id'),
-                    'deskripsi'         => $this->request->getVar('deskripsi'),
-                    'harga'             => $this->request->getVar('harga'),
-                    'harga_promo'       => $this->request->getVar('harga_promo'),
-                    'stok'              => $this->request->getVar('stok'),
-                    'berat'             => $this->request->getVar('berat'),
-                    'satuan'            => $this->request->getVar('satuan'),
-                    'gambar'            => $nama_file,
-                    'status'            => $this->request->getVar('status'),
-                    'featured'          => $this->request->getVar('featured'),
-                    'whatsapp_admin'    => $this->request->getVar('whatsapp_admin'),
+                    'nama_produk' => $this->request->getVar('nama_produk'),
+                    'slug_produk' => $slug,
+                    'kategori_id' => $this->request->getVar('kategori_id'),
+                    'deskripsi' => $this->request->getVar('deskripsi'),
+                    'harga' => $this->request->getVar('harga'),
+                    'harga_promo' => $this->request->getVar('harga_promo'),
+                    'stok' => $this->request->getVar('stok'),
+                    'berat' => $this->request->getVar('berat'),
+                    'satuan' => $this->request->getVar('satuan'),
+                    'gambar' => $nama_file,
+                    'status' => $this->request->getVar('status'),
+                    'featured' => $this->request->getVar('featured'),
+                    'whatsapp_admin' => $this->request->getVar('whatsapp_admin'),
                     'whatsapp_template' => $this->request->getVar('whatsapp_template'),
-                    'tgl_input'         => date('Y-m-d H:i:s'),
-                    'user_id'           => session()->get('id'),
+                    'tgl_input' => date('Y-m-d H:i:s'),
+                    'user_id' => session()->get('id'),
                 ];
 
                 $this->produkumkm->insert($insertdata);
-                
+
                 // Pastikan folder ada
                 if (!is_dir('public/img/produk')) {
                     mkdir('public/img/produk', 0755, true);
                 }
-                
+
                 // Upload gambar
                 \Config\Services::image()
                     ->withFile($file)
@@ -179,14 +179,14 @@ class ProdukUmkm extends BaseController
     {
         if ($this->request->isAJAX()) {
             $id_produk = $this->request->getVar('id_produk');
-            $list =  $this->produkumkm->find($id_produk);
+            $list = $this->produkumkm->find($id_produk);
 
             $data = [
                 'title' => 'Detail Produk',
-                'data'  => $list
+                'data' => $list
             ];
             $msg = [
-                'sukses' => view('backend/morvin/cmscust/produk_umkm/lihat', $data)
+                'sukses' => view('backend/cmscust/produk_umkm/lihat', $data)
             ];
             echo json_encode($msg);
         }
@@ -197,15 +197,15 @@ class ProdukUmkm extends BaseController
     {
         if ($this->request->isAJAX()) {
             $id_produk = $this->request->getVar('id_produk');
-            $list =  $this->produkumkm->find($id_produk);
+            $list = $this->produkumkm->find($id_produk);
 
             $data = [
                 'title' => 'Edit Produk',
-                'data'  => $list,
+                'data' => $list,
                 'kategori' => $this->kategoriproduk->listaktif()
             ];
             $msg = [
-                'sukses' => view('backend/morvin/cmscust/produk_umkm/edit', $data)
+                'sukses' => view('backend/cmscust/produk_umkm/edit', $data)
             ];
             echo json_encode($msg);
         }
@@ -239,8 +239,8 @@ class ProdukUmkm extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'nama_produk'   => $validation->getError('nama_produk'),
-                        'harga'         => $validation->getError('harga'),
+                        'nama_produk' => $validation->getError('nama_produk'),
+                        'harga' => $validation->getError('harga'),
                     ]
                 ];
             } else {
@@ -248,18 +248,18 @@ class ProdukUmkm extends BaseController
                 $slug = url_title($this->request->getVar('nama_produk'), '-', true);
 
                 $updatedata = [
-                    'nama_produk'       => $this->request->getVar('nama_produk'),
-                    'slug_produk'       => $slug,
-                    'kategori_id'       => $this->request->getVar('kategori_id'),
-                    'deskripsi'         => $this->request->getVar('deskripsi'),
-                    'harga'             => $this->request->getVar('harga'),
-                    'harga_promo'       => $this->request->getVar('harga_promo'),
-                    'stok'              => $this->request->getVar('stok'),
-                    'berat'             => $this->request->getVar('berat'),
-                    'satuan'            => $this->request->getVar('satuan'),
-                    'status'            => $this->request->getVar('status'),
-                    'featured'          => $this->request->getVar('featured'),
-                    'whatsapp_admin'    => $this->request->getVar('whatsapp_admin'),
+                    'nama_produk' => $this->request->getVar('nama_produk'),
+                    'slug_produk' => $slug,
+                    'kategori_id' => $this->request->getVar('kategori_id'),
+                    'deskripsi' => $this->request->getVar('deskripsi'),
+                    'harga' => $this->request->getVar('harga'),
+                    'harga_promo' => $this->request->getVar('harga_promo'),
+                    'stok' => $this->request->getVar('stok'),
+                    'berat' => $this->request->getVar('berat'),
+                    'satuan' => $this->request->getVar('satuan'),
+                    'status' => $this->request->getVar('status'),
+                    'featured' => $this->request->getVar('featured'),
+                    'whatsapp_admin' => $this->request->getVar('whatsapp_admin'),
                     'whatsapp_template' => $this->request->getVar('whatsapp_template'),
                 ];
 
@@ -411,12 +411,12 @@ class ProdukUmkm extends BaseController
 
             foreach ($id as $i) {
                 $cekdata = $this->produkumkm->find($i);
-                
+
                 // Hapus gambar
                 if (!empty($cekdata['gambar']) && file_exists('public/img/produk/' . $cekdata['gambar'])) {
                     unlink('public/img/produk/' . $cekdata['gambar']);
                 }
-                
+
                 $this->produkumkm->delete($i);
             }
 
@@ -439,7 +439,7 @@ class ProdukUmkm extends BaseController
                 'status' => $status,
             ];
             $this->produkumkm->update($id, $updatedata);
-            
+
             $msg = [
                 'sukses' => 'Status berhasil diubah!'
             ];

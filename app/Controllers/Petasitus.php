@@ -9,7 +9,7 @@ class Petasitus extends BaseController
     {
 
         $konfigurasi        = $this->konfigurasi->vkonfig();
-        $template = $this->template->tempaktif();
+        
 
         $data = [
             'title'             => 'Peta Situs | ' . $konfigurasi->nama,
@@ -31,18 +31,18 @@ class Petasitus extends BaseController
             'beritautama'   => $this->berita->headlineall(),
             'grafisrandom'         => $this->banner->grafisrandom(),
             'terkini3'       => $this->berita->terkini3(),
-            'folder'        => $template['folder']
+            
 
         ];
-        if ($template['duatema'] == 1) {
+        if (0) {
             $agent = $this->request->getUserAgent();
             if ($agent->isMobile()) {
-                return view('frontend/' . $template['folder'] . '/mobile/' . 'content/petasitus', $data);
+                return view('frontend/desktop/' . 'content/petasitus', $data);
             } else {
-                return view('frontend/' . $template['folder'] . '/desktop/' . 'content/petasitus', $data);
+                return view('frontend/desktop/' . 'content/petasitus', $data);
             }
         } else {
-            return view('frontend/' . $template['folder'] . '/desktop/' . 'content/petasitus', $data);
+            return view('frontend/desktop/' . 'content/petasitus', $data);
         }
     }
 }

@@ -10,13 +10,13 @@ class Linkterkait extends BaseController
         if (!session()->get('id')) {
             return redirect()->to('');
         }
-        $tadmin = $this->template->tempadminaktif();
+
         $data = [
-            'title'        => 'Setting',
-            'subtitle'     => 'Link Terkait',
-            'folder'        => $tadmin['folder']
+            'title' => 'Setting',
+            'subtitle' => 'Link Terkait',
+
         ];
-        return view('backend/' . $tadmin['folder'] . '/' . 'setkonten/linkterkait/index', $data);
+        return view('backend/setkonten/linkterkait/index', $data);
     }
 
 
@@ -27,8 +27,8 @@ class Linkterkait extends BaseController
             return redirect()->to('');
         }
 
-        $id_grup    = session()->get('id_grup');
-        $url        = 'linkterkait';
+        $id_grup = session()->get('id_grup');
+        $url = 'linkterkait';
 
         $listgrupf = $this->grupakses->viewgrupakses($id_grup, $url);
 
@@ -45,17 +45,17 @@ class Linkterkait extends BaseController
         }
         // Siapkan data untuk tampilan
         $data = [
-            'title'     => 'Link Terkait',
-            'list'      => $this->linkterkait->list(),
-            'akses'     => $akses,
-            'hapus'     => $listgrupf->hapus,
-            'ubah'      => $listgrupf->ubah,
-            'tambah'    => $listgrupf->tambah,
+            'title' => 'Link Terkait',
+            'list' => $this->linkterkait->list(),
+            'akses' => $akses,
+            'hapus' => $listgrupf->hapus,
+            'ubah' => $listgrupf->ubah,
+            'tambah' => $listgrupf->tambah,
         ];
 
-        $tadmin = $this->template->tempadminaktif();
+
         $msg = [
-            'data' => view('backend/' . esc($tadmin['folder']) . '/' . 'setkonten/linkterkait/list', $data)
+            'data' => view('backend/' . 'setkonten/linkterkait/list', $data)
         ];
 
         echo json_encode($msg);
@@ -70,23 +70,23 @@ class Linkterkait extends BaseController
         }
 
         if ($this->request->isAJAX()) {
-            $id     = $this->request->getVar('id');
-            $jns     = $this->request->getVar('jns');
-            $cari   = $this->linkterkait->find($id);
+            $id = $this->request->getVar('id');
+            $jns = $this->request->getVar('jns');
+            $cari = $this->linkterkait->find($id);
             if ($jns == 1) {
                 # code...
-                $sts    = $cari['status'] == '1' ? 0 : 1;
+                $sts = $cari['status'] == '1' ? 0 : 1;
                 $stsket = $sts ? 'Berhasil Aktifkan!' : 'Berhasil Non Aktifkan!';
                 $this->linkterkait->update($id, ['status' => $sts]);
             } else {
-                $sts    = $cari['utm'] == '1' ? 0 : 1;
+                $sts = $cari['utm'] == '1' ? 0 : 1;
                 $stsket = $sts ? 'Berhasil Aktifkan tampilan utama!' : 'Berhasil nonaktifkan tampilan utama!';
                 $this->linkterkait->update($id, ['utm' => $sts]);
             }
 
             echo json_encode([
-                'sukses'                => $stsket,
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => $stsket,
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ]);
         }
     }
@@ -97,13 +97,13 @@ class Linkterkait extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            $tadmin = $this->template->tempadminaktif();
+
             $data = [
                 'title' => 'Tambah Link Terkait',
 
             ];
             $msg = [
-                'data' => view('backend/' . $tadmin['folder'] . '/' . 'setkonten/linkterkait/tambah', $data)
+                'data' => view('backend/setkonten/linkterkait/tambah', $data)
 
             ];
             echo json_encode($msg);
@@ -151,11 +151,11 @@ class Linkterkait extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'nama_link'  => $validation->getError('nama_link'),
-                        'url'           => $validation->getError('url'),
-                        'gambar'       => $validation->getError('gambar')
+                        'nama_link' => $validation->getError('nama_link'),
+                        'url' => $validation->getError('url'),
+                        'gambar' => $validation->getError('gambar')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
                 echo json_encode($msg);
             } else {
@@ -168,10 +168,10 @@ class Linkterkait extends BaseController
 
                     $insertdata = [
 
-                        'nama_link'  => $this->request->getVar('nama_link'),
-                        'url'           => $this->request->getVar('url'),
-                        'status'        => '1',
-                        'gambar'        => 'url.png'
+                        'nama_link' => $this->request->getVar('nama_link'),
+                        'url' => $this->request->getVar('url'),
+                        'status' => '1',
+                        'gambar' => 'url.png'
 
                     ];
 
@@ -179,26 +179,26 @@ class Linkterkait extends BaseController
 
                     $msg = [
                         'sukses' => 'Link terkait berhasil disimpan!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                 } else {
 
                     $insertdata = [
 
-                        'nama_link'  => $this->request->getVar('nama_link'),
-                        'url'           => $this->request->getVar('url'),
-                        'status'        => '1',
-                        'gambar'        => $nama_file,
+                        'nama_link' => $this->request->getVar('nama_link'),
+                        'url' => $this->request->getVar('url'),
+                        'status' => '1',
+                        'gambar' => $nama_file,
 
                     ];
 
                     $this->linkterkait->insert($insertdata);
                     \Config\Services::image()
                         ->withFile($filegambar)
-                        ->save('public/img/linkterkait/' .  $nama_file);
+                        ->save('public/img/linkterkait/' . $nama_file);
                     $msg = [
-                        'sukses'                => 'Link terkait berhasil disimpan!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'sukses' => 'Link terkait berhasil disimpan!',
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                 }
                 echo json_encode($msg);
@@ -223,8 +223,8 @@ class Linkterkait extends BaseController
             }
             $this->linkterkait->delete($id);
             $msg = [
-                'sukses'                => 'Data Berhasil Dihapus',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => 'Data Berhasil Dihapus',
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -250,8 +250,8 @@ class Linkterkait extends BaseController
             }
 
             $msg = [
-                'sukses'                => "$jmldata Data link terkait berhasil dihapus",
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => "$jmldata Data link terkait berhasil dihapus",
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -265,18 +265,18 @@ class Linkterkait extends BaseController
         if ($this->request->isAJAX()) {
 
             $id_link = $this->request->getVar('id_link');
-            $list =  $this->linkterkait->find($id_link);
-            $tadmin = $this->template->tempadminaktif();
+            $list = $this->linkterkait->find($id_link);
+
             $data = [
-                'title'       => 'Edit Link Terkait',
-                'id_link'     => $list['id_link'],
-                'nama_link'   => $list['nama_link'],
-                'url'         => $list['url']
+                'title' => 'Edit Link Terkait',
+                'id_link' => $list['id_link'],
+                'nama_link' => $list['nama_link'],
+                'url' => $list['url']
 
             ];
             $msg = [
-                'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'setkonten/linkterkait/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/setkonten/linkterkait/edit', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -313,22 +313,22 @@ class Linkterkait extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'nama_link'   => $validation->getError('nama_link'),
-                        'url'       => $validation->getError('url')
+                        'nama_link' => $validation->getError('nama_link'),
+                        'url' => $validation->getError('url')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 $updatedata = [
-                    'nama_link'  => $this->request->getVar('nama_link'),
-                    'url'        => $this->request->getVar('url')
+                    'nama_link' => $this->request->getVar('nama_link'),
+                    'url' => $this->request->getVar('url')
                 ];
 
                 $this->linkterkait->update($id_link, $updatedata);
 
                 $msg = [
-                    'sukses'                => 'Data berhasil diubah!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Data berhasil diubah!',
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -342,17 +342,17 @@ class Linkterkait extends BaseController
         }
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('id_link');
-            $list =  $this->linkterkait->find($id);
-            $tadmin = $this->template->tempadminaktif();
+            $list = $this->linkterkait->find($id);
+
             $data = [
-                'title'       => 'Ganti Logo',
-                'id'          => $list['id_link'],
-                'gambar'      => $list['gambar']
+                'title' => 'Ganti Logo',
+                'id' => $list['id_link'],
+                'gambar' => $list['gambar']
 
             ];
             $msg = [
-                'sukses'                => view('backend/' . $tadmin['folder'] . '/' . 'setkonten/linkterkait/gantifoto', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/setkonten/linkterkait/gantifoto', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -387,7 +387,7 @@ class Linkterkait extends BaseController
                     'error' => [
                         'gambar' => $validation->getError('gambar')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
@@ -409,11 +409,11 @@ class Linkterkait extends BaseController
                 $this->linkterkait->update($id, $updatedata);
                 \Config\Services::image()
                     ->withFile($filegambar)
-                    ->save('public/img/linkterkait/' .  $nama_file);
+                    ->save('public/img/linkterkait/' . $nama_file);
 
                 $msg = [
-                    'sukses'                => 'Logo link terkait berhasil diganti!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Logo link terkait berhasil diganti!',
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);

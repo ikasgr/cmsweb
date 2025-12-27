@@ -10,14 +10,14 @@ class Section extends BaseController
         if (!session()->get('id')) {
             return redirect()->to('');
         }
-        $tadmin = $this->template->tempadminaktif();
+
         $data = [
-            'title'             => 'Setting',
-            'subtitle'          => 'Section',
-            'folder'            => esc($tadmin['folder'])
+            'title' => 'Setting',
+            'subtitle' => 'Section',
+
         ];
 
-        return view('backend/' . esc($tadmin['folder']) . '/' . 'setkonten/section/index', $data);
+        return view('backend/' . 'setkonten/section/index', $data);
     }
 
     public function getdata()
@@ -29,7 +29,7 @@ class Section extends BaseController
         if ($this->request->isAJAX()) {
             $id_grup = session()->get('id_grup');
             $url = 'section';
-            $tadminFolder = $this->template->tempadminaktif()['folder'];
+
 
             // Ambil grup akses
             $listgrupf = $this->grupakses->viewgrupakses($id_grup, $url);
@@ -63,7 +63,7 @@ class Section extends BaseController
 
             // Kirimkan data melalui respons JSON
             $msg = [
-                'data' => view("backend/$tadminFolder/setkonten/section/list", $data)
+                'data' => view("backend/setkonten/section/list", $data)
             ];
 
             echo json_encode($msg);
@@ -77,15 +77,15 @@ class Section extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            $tadmin = $this->template->tempadminaktif();
+
             $data = [
-                'title'             => 'Tambah Section',
-                'kategoriberita'    => $this->kategori->list(),
-                'halaman'           => $this->berita->listhalaman(),
-                'modulpublic'       => $this->modulpublic->listaktif(),
+                'title' => 'Tambah Section',
+                'kategoriberita' => $this->kategori->list(),
+                'halaman' => $this->berita->listhalaman(),
+                'modulpublic' => $this->modulpublic->listaktif(),
             ];
             $msg = [
-                'data' => view('backend/' . esc($tadmin['folder']) . '/' . 'setkonten/section/tambah', $data)
+                'data' => view('backend/' . 'setkonten/section/tambah', $data)
             ];
             echo json_encode($msg);
         }
@@ -122,28 +122,28 @@ class Section extends BaseController
                     'errors' => [
                         'uploaded' => 'Masukkan gambar',
                         'max_size' => 'Ukuran {field} Maksimal 1024 KB..!!',
-                        'mime_in'  => 'Format file {field} PNG, Jpeg, Jpg, atau Gif..!!'
+                        'mime_in' => 'Format file {field} PNG, Jpeg, Jpg, atau Gif..!!'
                     ]
                 ]
             ]);
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'nama_section'  => $validation->getError('nama_section'),
-                        'link'          => $validation->getError('link'),
-                        'gambar'        => $validation->getError('gambar')
+                        'nama_section' => $validation->getError('nama_section'),
+                        'link' => $validation->getError('link'),
+                        'gambar' => $validation->getError('gambar')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
                 $filegambar = $this->request->getFile('gambar');
                 $nama_file = $filegambar->getRandomName();
                 $insertdata = [
-                    'nama_section'  => $this->request->getVar('nama_section'),
-                    'link'          => $this->request->getVar('link'),
-                    'linksumber'          => $this->request->getVar('linksumber'),
-                    'gambar'        => $nama_file,
+                    'nama_section' => $this->request->getVar('nama_section'),
+                    'link' => $this->request->getVar('link'),
+                    'linksumber' => $this->request->getVar('linksumber'),
+                    'gambar' => $nama_file,
 
                 ];
 
@@ -151,12 +151,12 @@ class Section extends BaseController
                 \Config\Services::image()
                     ->withFile($filegambar)
                     ->fit(300, 300, 'center')
-                    ->save('public/img/section/' .  $nama_file, 70);
+                    ->save('public/img/section/' . $nama_file, 70);
 
                 // $filegambar->move('public/img/section/', $nama_file); //folder gbr
                 $msg = [
-                    'sukses'                => 'Gambar berhasil diupload!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'sukses' => 'Gambar berhasil diupload!',
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -170,22 +170,22 @@ class Section extends BaseController
         }
         if ($this->request->isAJAX()) {
             $section_id = $this->request->getVar('section_id');
-            $list =  $this->section->find($section_id);
-            $tadmin = $this->template->tempadminaktif();
+            $list = $this->section->find($section_id);
+
             $data = [
-                'title'             => 'Edit section',
-                'section_id'        => $list['section_id'],
-                'nama_section'      => esc($list['nama_section']),
-                'link'              => esc($list['link']),
-                'linksumber'        => $list['linksumber'],
-                'gambar'            => $list['gambar'],
-                'kategoriberita'    => $this->kategori->list(),
-                'halaman'           => $this->berita->listhalaman(),
-                'modulpublic'       => $this->modulpublic->listaktif(),
+                'title' => 'Edit section',
+                'section_id' => $list['section_id'],
+                'nama_section' => esc($list['nama_section']),
+                'link' => esc($list['link']),
+                'linksumber' => $list['linksumber'],
+                'gambar' => $list['gambar'],
+                'kategoriberita' => $this->kategori->list(),
+                'halaman' => $this->berita->listhalaman(),
+                'modulpublic' => $this->modulpublic->listaktif(),
             ];
             $msg = [
-                'sukses' => view('backend/' . esc($tadmin['folder']) . '/' . 'setkonten/section/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/' . 'setkonten/section/edit', $data),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -235,7 +235,7 @@ class Section extends BaseController
                         'link' => $validation->getError('link')
 
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 $filegambar = $this->request->getFile('gambar');
@@ -243,15 +243,15 @@ class Section extends BaseController
                 //jika edit saja
                 if ($filegambar->GetError() == 4) {
                     $data = [
-                        'nama_section'   => $this->request->getVar('nama_section'),
-                        'link'           => $this->request->getVar('link'),
-                        'linksumber'     => $this->request->getVar('linksumber'),
+                        'nama_section' => $this->request->getVar('nama_section'),
+                        'link' => $this->request->getVar('link'),
+                        'linksumber' => $this->request->getVar('linksumber'),
                     ];
 
                     $this->section->update($section_id, $data);
                     $msg = [
-                        'sukses'                => 'Data berhasil diubah!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'sukses' => 'Data berhasil diubah!',
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                 } else {
 
@@ -263,9 +263,9 @@ class Section extends BaseController
                     }
 
                     $updatedata = [
-                        'nama_section'   => $this->request->getVar('nama_section'),
-                        'link'   => $this->request->getVar('link'),
-                        'linksumber'          => $this->request->getVar('linksumber'),
+                        'nama_section' => $this->request->getVar('nama_section'),
+                        'link' => $this->request->getVar('link'),
+                        'linksumber' => $this->request->getVar('linksumber'),
                         'gambar' => $nama_file
                     ];
 
@@ -274,12 +274,12 @@ class Section extends BaseController
                     \Config\Services::image()
                         ->withFile($filegambar)
                         ->fit(300, 300, 'center')
-                        ->save('public/img/section/' .  $nama_file, 70);
+                        ->save('public/img/section/' . $nama_file, 70);
                     // $filegambar->move('public/img/section/', $nama_file); //folder foto
 
                     $msg = [
-                        'sukses'                => 'section berhasil diganti!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'sukses' => 'section berhasil diganti!',
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                 }
 
@@ -304,8 +304,8 @@ class Section extends BaseController
             }
             $this->section->delete($id);
             $msg = [
-                'sukses'                => 'Data Section berhasil dihapus.',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => 'Data Section berhasil dihapus.',
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -333,8 +333,8 @@ class Section extends BaseController
             }
 
             $msg = [
-                'sukses'                => "$jmldata Data section berhasil dihapus",
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => "$jmldata Data section berhasil dihapus",
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }

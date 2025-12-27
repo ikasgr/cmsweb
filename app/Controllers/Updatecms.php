@@ -31,22 +31,22 @@ class Updatecms extends BaseController
         if (!session()->get('id')) {
             return redirect()->to('');
         }
-        $tadmin     = $this->template->tempadminaktif();
-        $id_grup    = session()->get('id_grup');
-        $url        = 'konfigurasi';
-        $listgrupf  = $this->grupakses->viewgrupakses($id_grup, $url);
-        $akses      = $listgrupf->akses;
-        $list       = $this->konfigurasi->select('sts_regis, sts_posting, verdb,vercms')->first();
+        
+        $id_grup = session()->get('id_grup');
+        $url = 'konfigurasi';
+        $listgrupf = $this->grupakses->viewgrupakses($id_grup, $url);
+        $akses = $listgrupf->akses;
+        $list = $this->konfigurasi->select('sts_regis, sts_posting, verdb,vercms')->first();
         if ($akses == 1) {
             $data = [
-                'title'             => 'Konfigurasi',
-                'subtitle'          => 'Upgrade CMS',
-                'folder'            => $tadmin['folder'],
-                'akses'             => $akses,
-                'verdb'             => $list['verdb'],
-                'vercms'            => $list['vercms'],
+                'title' => 'Konfigurasi',
+                'subtitle' => 'Upgrade CMS',
+
+                'akses' => $akses,
+                'verdb' => $list['verdb'],
+                'vercms' => $list['vercms'],
             ];
-            return view('backend/' . $tadmin['folder'] . '/' . 'pengaturan/database/index', $data);
+            return view('backend/pengaturan/database/index', $data);
         } else {
             return redirect()->to(base_url(''));
         }
@@ -60,7 +60,7 @@ class Updatecms extends BaseController
         }
 
         if ($this->request->isAJAX()) {
-            $tadmin = $this->template->tempadminaktif();
+            
             $id_grup = session()->get('id_grup');
             $url = 'konfigurasi';
             $listgrupf = $this->grupakses->viewgrupakses($id_grup, $url);
@@ -68,56 +68,56 @@ class Updatecms extends BaseController
             if ($listgrupf) {
                 $akses = $listgrupf->akses;
                 if ($akses == '1') {
-                    $list               = $this->konfigurasi->select('id_setaplikasi, sts_regis, sts_posting, verdb')->first();
-                    $fileakses          = $this->request->getPost('fileUrl') ?: 'https://datagoe.com/';
-                    $serverkonek        = dataKoneksi();
-                    $fileUrl            = $serverkonek . $fileakses . '.txt';
+                    $list = $this->konfigurasi->select('id_setaplikasi, sts_regis, sts_posting, verdb')->first();
+                    $fileakses = $this->request->getPost('fileUrl') ?: 'https://datagoe.com/';
+                    $serverkonek = dataKoneksi();
+                    $fileUrl = $serverkonek . $fileakses . '.txt';
 
-                    $dbnewonline        = "errkoneksi";
-                    $cmsnewonline       = "errkoneksi";
-                    $cmsurldbline       = "errkoneksi";
-                    $cmsurlfileline     = "errkoneksi";
-                    $isValidUrl         = false;
-                    $error_message      = null;
+                    $dbnewonline = "errkoneksi";
+                    $cmsnewonline = "errkoneksi";
+                    $cmsurldbline = "errkoneksi";
+                    $cmsurlfileline = "errkoneksi";
+                    $isValidUrl = false;
+                    $error_message = null;
 
                     // if (checkInternetConnection()) {
                     $fileContent = $this->fetchFileContent($fileUrl);
                     if ($fileContent !== false) {
 
-                        $tempFilePath           = WRITEPATH . 'uploads/fileUpgrade.txt';
+                        $tempFilePath = WRITEPATH . 'uploads/fileUpgrade.txt';
                         file_put_contents($tempFilePath, $fileContent);
-                        $kodeakses              = aksesServer();
-                        $FilePath               = WRITEPATH . 'uploads/fileUpgrade.txt';
+                        $kodeakses = aksesServer();
+                        $FilePath = WRITEPATH . 'uploads/fileUpgrade.txt';
                         bukaFiles($tempFilePath, $kodeakses, $FilePath);
 
-                        $tampilContent          = bukaFiles($FilePath, $kodeakses);
+                        $tampilContent = bukaFiles($FilePath, $kodeakses);
 
                         $lines = explode("\n", $tampilContent);
                         if (count($lines) == 4) {
-                            $dbnewonline    = isset($lines[0]) ? htmlspecialchars(trim($lines[0])) : "errkoneksi";
-                            $cmsnewonline   = isset($lines[1]) ? htmlspecialchars(trim($lines[1])) : "errkoneksi";
-                            $cmsurldbline   = isset($lines[2]) ? htmlspecialchars(trim($lines[2])) : "errkoneksi";
+                            $dbnewonline = isset($lines[0]) ? htmlspecialchars(trim($lines[0])) : "errkoneksi";
+                            $cmsnewonline = isset($lines[1]) ? htmlspecialchars(trim($lines[1])) : "errkoneksi";
+                            $cmsurldbline = isset($lines[2]) ? htmlspecialchars(trim($lines[2])) : "errkoneksi";
                             $cmsurlfileline = isset($lines[3]) ? htmlspecialchars(trim($lines[3])) : "errkoneksi";
                             $data = [
-                                'title'             => 'Konfigurasi',
-                                'subtitle'          => 'Upgrade CMS',
-                                'id_setaplikasi'    => $list['id_setaplikasi'],
-                                'sts_regis'         => $list['sts_regis'],
-                                'sts_posting'       => $list['sts_posting'],
-                                'verdb'             => $list['verdb'],
-                                'folder'            => $tadmin['folder'],
-                                'isValidUrl'        => true,
-                                'error_message'     => null, // Tidak ada error
-                                'dbnewonline'       => $dbnewonline,
-                                'cmsnew_on'         => $cmsnewonline,
-                                'cmsurldb_on'       => $cmsurldbline,
-                                'fileUrl'           => $fileUrl,
-                                'cmsurlfile_on'     => $cmsurlfileline,
-                                'akses'             => $akses,
+                                'title' => 'Konfigurasi',
+                                'subtitle' => 'Upgrade CMS',
+                                'id_setaplikasi' => $list['id_setaplikasi'],
+                                'sts_regis' => $list['sts_regis'],
+                                'sts_posting' => $list['sts_posting'],
+                                'verdb' => $list['verdb'],
+
+                                'isValidUrl' => true,
+                                'error_message' => null, // Tidak ada error
+                                'dbnewonline' => $dbnewonline,
+                                'cmsnew_on' => $cmsnewonline,
+                                'cmsurldb_on' => $cmsurldbline,
+                                'fileUrl' => $fileUrl,
+                                'cmsurlfile_on' => $cmsurlfileline,
+                                'akses' => $akses,
                             ];
 
                             $msg = [
-                                'data' => view('backend/' . $tadmin['folder'] . '/pengaturan/database/list', $data)
+                                'data' => view('backend/pengaturan/database/list', $data)
                             ];
                         } else {
                             $error_message = "Akses ke Server tidak valid.";
@@ -190,7 +190,7 @@ class Updatecms extends BaseController
         }
 
         $uploadDir = WRITEPATH . 'uploads/';
-        $tempFile  = $uploadDir . 'fileupdate.zip';
+        $tempFile = $uploadDir . 'fileupdate.zip';
 
         // 1. Cek apakah folder bisa ditulis, jika tidak ubah permission sementara
         $originalPermission = fileperms($uploadDir) & 0777; // Simpan izin asli
@@ -235,8 +235,8 @@ class Updatecms extends BaseController
             chmod($uploadDir, $originalPermission);
 
             return $this->response->setJSON([
-                'status'    => 'success',
-                'message'   => 'Tahap (1) sukses. Proses dilanjutkan.'
+                'status' => 'success',
+                'message' => 'Tahap (1) sukses. Proses dilanjutkan.'
             ]);
         } catch (\Throwable $e) {
             // 4. Jika terjadi error, tetap kembalikan izin folder
@@ -257,7 +257,7 @@ class Updatecms extends BaseController
         }
 
         // Tentukan direktori yang akan diubah izinnya
-        $uploadDir   = WRITEPATH . 'uploads/';
+        $uploadDir = WRITEPATH . 'uploads/';
         $extractPath = ROOTPATH;
 
         // Simpan izin asli direktori (hanya 4 digit permission)
@@ -269,13 +269,13 @@ class Updatecms extends BaseController
             $url = $this->request->getPost('urlupdate');
             if (empty($url)) {
                 return $this->response->setJSON([
-                    'status'  => 'error',
+                    'status' => 'error',
                     'message' => 'No URL provided.'
                 ]);
             }
             if (!filter_var($url, FILTER_VALIDATE_URL)) {
                 return $this->response->setJSON([
-                    'status'  => 'error',
+                    'status' => 'error',
                     'message' => 'Invalid URL format.'
                 ]);
             }
@@ -284,7 +284,7 @@ class Updatecms extends BaseController
             if (!is_writable($uploadDir)) {
                 if (!chmod($uploadDir, 0777)) {
                     return $this->response->setJSON([
-                        'status'  => 'error',
+                        'status' => 'error',
                         'message' => 'Gagal mengubah permission folder uploads.'
                     ]);
                 }
@@ -293,7 +293,7 @@ class Updatecms extends BaseController
             if (!is_writable($extractPath)) {
                 if (!chmod($extractPath, 0777)) {
                     return $this->response->setJSON([
-                        'status'  => 'error',
+                        'status' => 'error',
                         'message' => 'Gagal mengubah permission folder ekstrak.'
                     ]);
                 }
@@ -311,7 +311,7 @@ class Updatecms extends BaseController
                 chmod($extractPath, $originalPermissionExtract);
 
                 return $this->response->setJSON([
-                    'status'  => 'error',
+                    'status' => 'error',
                     'message' => 'File ZIP tidak ditemukan setelah diunduh.'
                 ]);
             }
@@ -327,7 +327,7 @@ class Updatecms extends BaseController
                 chmod($extractPath, $originalPermissionExtract);
 
                 return $this->response->setJSON([
-                    'status'  => 'error',
+                    'status' => 'error',
                     'message' => 'Gagal membuka file ZIP.'
                 ]);
             }
@@ -340,7 +340,7 @@ class Updatecms extends BaseController
                     chmod($extractPath, $originalPermissionExtract);
 
                     return $this->response->setJSON([
-                        'status'  => 'error',
+                        'status' => 'error',
                         'message' => 'Gagal menghapus file ZIP setelah ekstraksi.'
                     ]);
                 }
@@ -352,7 +352,7 @@ class Updatecms extends BaseController
 
             // 6. Respons sukses
             return $this->response->setJSON([
-                'status'  => 'success',
+                'status' => 'success',
                 'message' => 'Proses upgrade CMS berhasil!'
             ]);
         } catch (\Throwable $e) {
@@ -361,7 +361,7 @@ class Updatecms extends BaseController
             chmod($extractPath, $originalPermissionExtract);
 
             return $this->response->setJSON([
-                'status'  => 'error',
+                'status' => 'error',
                 'message' => 'Terjadi kesalahan: ' . $e->getMessage()
             ]);
         }
@@ -412,12 +412,12 @@ class Updatecms extends BaseController
         }
 
         $id_setaplikasi = $this->request->getVar('id_setaplikasi');
-        $cmsnew         = $this->request->getVar('cmsnew_on');
-        $verdb          = $this->request->getVar('verdb');
-        $versinew       = $this->request->getVar('versinew');
+        $cmsnew = $this->request->getVar('cmsnew_on');
+        $verdb = $this->request->getVar('verdb');
+        $versinew = $this->request->getVar('versinew');
 
-        $verdbold       = empty($verdb) ? '1.0' : $verdb;
-        $db             = \Config\Database::connect();
+        $verdbold = empty($verdb) ? '1.0' : $verdb;
+        $db = \Config\Database::connect();
 
         if (!$db) {
             return json_encode(['error' => 'Koneksi ke database gagal.']);
@@ -462,8 +462,8 @@ class Updatecms extends BaseController
                     $db->query($query);
                 }
                 return $this->response->setJSON([
-                    'sukses'    => 'Berhasil upgrade database.',
-                    'nextStep'  => true // Lanjut ke update CMS
+                    'sukses' => 'Berhasil upgrade database.',
+                    'nextStep' => true // Lanjut ke update CMS
                 ]);
             } catch (\Exception $e) {
                 return $this->response->setJSON([
@@ -475,8 +475,8 @@ class Updatecms extends BaseController
 
         // Jika tidak ada perubahan, tetap lanjut update CMS
         return $this->response->setJSON([
-            'info'      => 'Tidak ada perubahan yang diperlukan.',
-            'nextStep'  => true // Tetap lanjut update CMS meski tidak ada perubahan
+            'info' => 'Tidak ada perubahan yang diperlukan.',
+            'nextStep' => true // Tetap lanjut update CMS meski tidak ada perubahan
         ]);
     }
 }

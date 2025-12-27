@@ -7,53 +7,54 @@ class Halaman extends BaseController
     //Detail Halaman Front
     public function detail($slug_berita = null)
     {
-        if (!isset($slug_berita)) return redirect()->to('/');
-        $konfigurasi        = $this->konfigurasi->vkonfig();
-        $berita             = $this->berita->detail_halaman($slug_berita);
-        $template           = $this->template->tempaktif();
-        $kategori           = $this->kategori->list();
+        if (!isset($slug_berita))
+            return redirect()->to('/');
+        $konfigurasi = $this->konfigurasi->vkonfig();
+        $berita = $this->berita->detail_halaman($slug_berita);
+        
+        $kategori = $this->kategori->list();
         if ($berita) {
 
             // Update hits
             $data = [
-                'hits'        => $berita->hits + 1
+                'hits' => $berita->hits + 1
             ];
             $this->berita->update($berita->berita_id, $data);
 
             $data = [
-                'title'          => esc($berita->judul_berita),
-                'deskripsi'      => esc($berita->ringkasan),
-                'url'            => base_url('page/' . $berita->slug_berita),
-                'img'            => base_url('/public/img/informasi/profil/' . esc($berita->gambar)),
-                'konfigurasi'    => $konfigurasi,
-                'berita'         => $berita,
-                'beritapopuler'  => $this->berita->populer()->paginate(8),
-                'populer3'       => $this->berita->populer()->paginate(3),
-                'terkini3'       => $this->berita->terkini3(),
-                'kategori'       => $kategori,
-                'mainmenu'       => $this->menu->mainmenu(),
-                'footer'         => $this->menu->footermenu(),
-                'topmenu'        => $this->menu->topmenu(),
-                'banner'         => $this->banner->list(),
-                'infografis'     => $this->banner->listinfo(),
-                'infografis1'    => $this->banner->listinfo1(),
-                'agenda'         => $this->agenda->listagendapage()->paginate(4),
-                'pengumuman'     => $this->pengumuman->listpengumumanpage()->paginate(10),
+                'title' => esc($berita->judul_berita),
+                'deskripsi' => esc($berita->ringkasan),
+                'url' => base_url('page/' . $berita->slug_berita),
+                'img' => base_url('/public/img/informasi/profil/' . esc($berita->gambar)),
+                'konfigurasi' => $konfigurasi,
+                'berita' => $berita,
+                'beritapopuler' => $this->berita->populer()->paginate(8),
+                'populer3' => $this->berita->populer()->paginate(3),
+                'terkini3' => $this->berita->terkini3(),
+                'kategori' => $kategori,
+                'mainmenu' => $this->menu->mainmenu(),
+                'footer' => $this->menu->footermenu(),
+                'topmenu' => $this->menu->topmenu(),
+                'banner' => $this->banner->list(),
+                'infografis' => $this->banner->listinfo(),
+                'infografis1' => $this->banner->listinfo1(),
+                'agenda' => $this->agenda->listagendapage()->paginate(4),
+                'pengumuman' => $this->pengumuman->listpengumumanpage()->paginate(10),
                 'linkterkaitall' => $this->linkterkait->publishlinkall(),
-                'iklankanan1'    => $this->banner->listiklankanan1(),
-                'folder'         => $template['folder']
+                'iklankanan1' => $this->banner->listiklankanan1(),
+                
 
             ];
 
-            if ($template['duatema'] == 1) {
+            if (0) {
                 $agent = $this->request->getUserAgent();
                 if ($agent->isMobile()) {
-                    return view('frontend/' . $template['folder'] . '/mobile/' . 'content/detailhalaman', $data);
+                    return view('frontend/desktop/' . 'content/detailhalaman', $data);
                 } else {
-                    return view('frontend/' . $template['folder'] . '/desktop/' . 'content/detailhalaman', $data);
+                    return view('frontend/desktop/' . 'content/detailhalaman', $data);
                 }
             } else {
-                return view('frontend/' . $template['folder'] . '/desktop/' . 'content/detailhalaman', $data);
+                return view('frontend/desktop/' . 'content/detailhalaman', $data);
             }
         } else {
             return redirect()->to('/');
@@ -65,51 +66,51 @@ class Halaman extends BaseController
         $uri = service('uri');
         $request = $uri->getSegment(1);
 
-        $konfigurasi    = $this->konfigurasi->vkonfig();
-        $berita         = $this->berita->detail_halaman($request);
-        $template       = $this->template->tempaktif();
-        $kategori       = $this->kategori->list();
+        $konfigurasi = $this->konfigurasi->vkonfig();
+        $berita = $this->berita->detail_halaman($request);
+        
+        $kategori = $this->kategori->list();
 
         // Update hits
         $data = [
-            'hits'        => $berita->hits + 1
+            'hits' => $berita->hits + 1
         ];
         $this->berita->update($berita->berita_id, $data);
 
         $data = [
-            'title'          => esc($berita->judul_berita),
-            'deskripsi'      => esc($berita->ringkasan),
-            'url'            => base_url($request),
-            'img'            => base_url('/public/img/informasi/profil/' . esc($berita->gambar)),
+            'title' => esc($berita->judul_berita),
+            'deskripsi' => esc($berita->ringkasan),
+            'url' => base_url($request),
+            'img' => base_url('/public/img/informasi/profil/' . esc($berita->gambar)),
 
-            'konfigurasi'    => $konfigurasi,
-            'berita'         => $berita,
-            'beritapopuler'  => $this->berita->populer()->paginate(8),
-            'populer3'       => $this->berita->populer()->paginate(3),
-            'terkini3'       => $this->berita->terkini3(),
-            'kategori'       => $kategori,
-            'mainmenu'       => $this->menu->mainmenu(),
-            'footer'         => $this->menu->footermenu(),
-            'topmenu'        => $this->menu->topmenu(),
-            'banner'         => $this->banner->list(),
-            'infografis'     => $this->banner->listinfo(),
-            'infografis1'    => $this->banner->listinfo1(),
-            'agenda'         => $this->agenda->listagendapage()->paginate(4),
-            'pengumuman'     => $this->pengumuman->listpengumumanpage()->paginate(10),
+            'konfigurasi' => $konfigurasi,
+            'berita' => $berita,
+            'beritapopuler' => $this->berita->populer()->paginate(8),
+            'populer3' => $this->berita->populer()->paginate(3),
+            'terkini3' => $this->berita->terkini3(),
+            'kategori' => $kategori,
+            'mainmenu' => $this->menu->mainmenu(),
+            'footer' => $this->menu->footermenu(),
+            'topmenu' => $this->menu->topmenu(),
+            'banner' => $this->banner->list(),
+            'infografis' => $this->banner->listinfo(),
+            'infografis1' => $this->banner->listinfo1(),
+            'agenda' => $this->agenda->listagendapage()->paginate(4),
+            'pengumuman' => $this->pengumuman->listpengumumanpage()->paginate(10),
             'linkterkaitall' => $this->linkterkait->publishlinkall(),
-            'iklankanan1'    => $this->banner->listiklankanan1(),
-            'folder'         => $template['folder']
+            'iklankanan1' => $this->banner->listiklankanan1(),
+            
 
         ];
-        if ($template['duatema'] == 1) {
+        if (0) {
             $agent = $this->request->getUserAgent();
             if ($agent->isMobile()) {
-                return view('frontend/' . $template['folder'] . '/mobile/' . 'content/detailhalaman', $data);
+                return view('frontend/desktop/' . 'content/detailhalaman', $data);
             } else {
-                return view('frontend/' . $template['folder'] . '/desktop/' . 'content/detailhalaman', $data);
+                return view('frontend/desktop/' . 'content/detailhalaman', $data);
             }
         } else {
-            return view('frontend/' . $template['folder'] . '/desktop/' . 'content/detailhalaman', $data);
+            return view('frontend/desktop/' . 'content/detailhalaman', $data);
         }
     }
 
@@ -118,14 +119,14 @@ class Halaman extends BaseController
         if (!session()->get('id')) {
             return redirect()->to('');
         }
-        $tadmin = $this->template->tempadminaktif();
+        
         $data = [
-            'title'       => 'Halaman',
-            'subtitle'    => 'Statis',
-            'folder'        => $tadmin['folder'],
-            'csrf_tokencmsdatagoe'  => csrf_hash(),
+            'title' => 'Halaman',
+            'subtitle' => 'Statis',
+
+            'csrf_tokencmsdatagoe' => csrf_hash(),
         ];
-        return view('backend/' . $tadmin['folder'] . '/' . 'setkonten/halaman/index', $data);
+        return view('backend/setkonten/halaman/index', $data);
     }
 
 
@@ -140,7 +141,7 @@ class Halaman extends BaseController
             // Ambil grup dan akses pengguna
             $id_grup = session()->get('id_grup');
             $urlget = 'halaman';
-            $tadmin = $this->template->tempadminaktif();
+            
 
             // Ambil data akses grup
             $listgrupf = $this->grupakses->viewgrupakses($id_grup, $urlget);
@@ -154,7 +155,7 @@ class Halaman extends BaseController
             // Ambil data akses pengguna
             $akses = $listgrupf->akses;
             $hapus = $listgrupf->hapus;
-            $ubah  = $listgrupf->ubah;
+            $ubah = $listgrupf->ubah;
             $tambah = $listgrupf->tambah;
 
             // Cek apakah pengguna memiliki akses yang valid
@@ -165,17 +166,17 @@ class Halaman extends BaseController
 
             // Siapkan data untuk tampilan
             $data = [
-                'title'    => 'Halaman',
-                'list'     => 'cmsdatagoe',
-                'akses'    => $akses,
-                'hapus'    => $hapus,
-                'ubah'     => $ubah,
-                'tambah'   => $tambah,
+                'title' => 'Halaman',
+                'list' => 'cmsdatagoe',
+                'akses' => $akses,
+                'hapus' => $hapus,
+                'ubah' => $ubah,
+                'tambah' => $tambah,
             ];
 
             // Kembalikan data dan token CSRF
             echo json_encode([
-                'data' => view('backend/' . $tadmin['folder'] . '/setkonten/halaman/list', $data),
+                'data' => view('backend/setkonten/halaman/list', $data),
                 'csrf_tokencmsdatagoe' => csrf_hash(),
             ]);
         }
@@ -188,18 +189,18 @@ class Halaman extends BaseController
             return redirect()->to('');
         }
 
-        $request    = \Config\Services::request();
-        $list_data  = $this->berita;
-        $id         = session()->get('id');
-        $id_grup    = session()->get('id_grup');
-        $urlget     = 'halaman';
-        $listgrupf  = $this->grupakses->viewgrupakses($id_grup, $urlget);
+        $request = \Config\Services::request();
+        $list_data = $this->berita;
+        $id = session()->get('id');
+        $id_grup = session()->get('id_grup');
+        $urlget = 'halaman';
+        $listgrupf = $this->grupakses->viewgrupakses($id_grup, $urlget);
 
         // Tentukan akses dan izin grup
-        $akses      = $listgrupf->akses;
-        $hapus      = $listgrupf->hapus;
-        $ubah       = $listgrupf->ubah;
-        $tambah     = $listgrupf->tambah;
+        $akses = $listgrupf->akses;
+        $hapus = $listgrupf->hapus;
+        $ubah = $listgrupf->ubah;
+        $tambah = $listgrupf->tambah;
 
         // Tentukan kondisi where untuk query
         // $where = ($akses == '1') ? ['jenis_berita' => 'Halaman'] : ['berita.id' => $id, 'jenis_berita' => 'Halaman'];
@@ -235,21 +236,21 @@ class Halaman extends BaseController
         }
 
         // Set column order, column search, and order
-        $column_order   = [null, null, 'berita.judul_berita', null, null, null, null];
-        $column_search  = ['berita.judul_berita', 'berita.tgl_berita'];
-        $order          = ['berita.berita_id' => 'DESC'];
+        $column_order = [null, null, 'berita.judul_berita', null, null, null, null];
+        $column_search = ['berita.judul_berita', 'berita.tgl_berita'];
+        $order = ['berita.berita_id' => 'DESC'];
 
         // Ambil data berita
         $lists = $list_data->get_datatables('berita', $column_order, $column_search, $order, $where);
         $data = [];
 
         foreach ($lists as $list) {
-            $gambar         = esc($list->gambar);
-            $judulberita    = esc($list->judul_berita);
-            $status         = $list->status;
-            $filepdf        = $list->filepdf;
-            $slug           = $list->slug_berita;
-            $berita_id      = $list->berita_id;
+            $gambar = esc($list->gambar);
+            $judulberita = esc($list->judul_berita);
+            $status = $list->status;
+            $filepdf = $list->filepdf;
+            $slug = $list->slug_berita;
+            $berita_id = $list->berita_id;
 
             // Gambar
             $gambarHtml = ($gambar == 'default.png') ?
@@ -286,10 +287,10 @@ class Halaman extends BaseController
 
         // Siapkan output untuk datatables
         return json_encode([
-            "draw"              => $request->getPost("draw"),
-            "recordsTotal"      => ($totalcount['berita_id']),
-            "recordsFiltered"   => $recordsFiltered,
-            "data"              => $data,
+            "draw" => $request->getPost("draw"),
+            "recordsTotal" => ($totalcount['berita_id']),
+            "recordsFiltered" => $recordsFiltered,
+            "data" => $data,
         ]);
     }
 
@@ -302,28 +303,28 @@ class Halaman extends BaseController
         }
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('id');
-            $cari =  $this->berita->find($id);
+            $cari = $this->berita->find($id);
 
             if ($cari['status'] == '1') {
-                $list =  $this->berita->getaktif($id);
+                $list = $this->berita->getaktif($id);
                 $toggle = $list ? 0 : 1;
                 $updatedata = [
-                    'status'        => $toggle,
+                    'status' => $toggle,
                 ];
                 $this->berita->update($id, $updatedata);
                 $msg = [
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                     'sukses' => 'Berhasil nonaktifkan halaman!',
                 ];
             } else {
-                $list =  $this->berita->getnonaktif($id);
+                $list = $this->berita->getnonaktif($id);
                 $toggle = $list ? 1 : 0;
                 $updatedata = [
-                    'status'        => $toggle,
+                    'status' => $toggle,
                 ];
                 $this->berita->update($id, $updatedata);
                 $msg = [
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                     'sukses' => 'Berhasil mengaktifkan halaman!',
                 ];
             }
@@ -339,13 +340,13 @@ class Halaman extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            $tadmin = $this->template->tempadminaktif();
+            
             $data = [
                 'title' => 'Tambah Halaman',
 
             ];
             $msg = [
-                'data' => view('backend/' . $tadmin['folder'] . '/' . 'setkonten/halaman/tambah', $data)
+                'data' => view('backend/setkonten/halaman/tambah', $data)
             ];
             echo json_encode($msg);
         }
@@ -393,11 +394,11 @@ class Halaman extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'judul_berita'  => $validation->getError('judul_berita'),
-                        'isi'           => $validation->getError('isi'),
-                        'gambar'       => $validation->getError('gambar'),
+                        'judul_berita' => $validation->getError('judul_berita'),
+                        'isi' => $validation->getError('isi'),
+                        'gambar' => $validation->getError('gambar'),
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
                 echo json_encode($msg);
             } else {
@@ -410,9 +411,9 @@ class Halaman extends BaseController
                 // cek role halaman
                 $id_grup = session()->get('id_grup');
                 $urlget = 'halaman';
-                $listgrupf =  $this->grupakses->listgrupakses($id_grup, $urlget);
+                $listgrupf = $this->grupakses->listgrupakses($id_grup, $urlget);
 
-                foreach ($listgrupf as $data) :
+                foreach ($listgrupf as $data):
                     $akses = $data['akses'];
                 endforeach;
 
@@ -433,40 +434,40 @@ class Halaman extends BaseController
 
                     $insertdata = [
 
-                        'judul_berita'  => $this->request->getVar('judul_berita'),
-                        'slug_berita'   => mb_url_title($this->request->getVar('judul_berita'), '-', TRUE),
-                        'isi'           => $this->request->getVar('isi'),
-                        'status'        => $stspos,
-                        'gambar'        => 'default.png',
-                        'tgl_berita'    => date('Y-m-d'),
-                        'id'            => $userid,
-                        'jenis_berita'  => 'Halaman',
-                        'hits'          => '0',
-                        'kategori_id'   => '0',
-                        'ket_foto'      => $this->request->getVar('ket_foto'),
+                        'judul_berita' => $this->request->getVar('judul_berita'),
+                        'slug_berita' => mb_url_title($this->request->getVar('judul_berita'), '-', TRUE),
+                        'isi' => $this->request->getVar('isi'),
+                        'status' => $stspos,
+                        'gambar' => 'default.png',
+                        'tgl_berita' => date('Y-m-d'),
+                        'id' => $userid,
+                        'jenis_berita' => 'Halaman',
+                        'hits' => '0',
+                        'kategori_id' => '0',
+                        'ket_foto' => $this->request->getVar('ket_foto'),
                     ];
 
                     $this->berita->insert($insertdata);
 
                     $msg = [
                         'sukses' => 'Halaman berhasil disimpan!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'csrf_tokencmsdatagoe' => csrf_hash(),
                     ];
                 } else {
 
                     $insertdata = [
 
-                        'judul_berita'  => $this->request->getVar('judul_berita'),
-                        'slug_berita'   => mb_url_title($this->request->getVar('judul_berita'), '-', TRUE),
-                        'isi'           => $this->request->getVar('isi'),
-                        'status'        => $stspos,
-                        'gambar'        => $nama_file,
-                        'tgl_berita'    => date('Y-m-d'),
-                        'id'            => $userid,
-                        'jenis_berita'  => 'Halaman',
-                        'hits'          => '0',
-                        'kategori_id'   => '0',
-                        'ket_foto'      => $this->request->getVar('ket_foto'),
+                        'judul_berita' => $this->request->getVar('judul_berita'),
+                        'slug_berita' => mb_url_title($this->request->getVar('judul_berita'), '-', TRUE),
+                        'isi' => $this->request->getVar('isi'),
+                        'status' => $stspos,
+                        'gambar' => $nama_file,
+                        'tgl_berita' => date('Y-m-d'),
+                        'id' => $userid,
+                        'jenis_berita' => 'Halaman',
+                        'hits' => '0',
+                        'kategori_id' => '0',
+                        'ket_foto' => $this->request->getVar('ket_foto'),
                     ];
 
                     $this->berita->insert($insertdata);
@@ -479,18 +480,18 @@ class Halaman extends BaseController
                         ->text(
                             $nama,
                             [
-                                'color'      => '#fff',
-                                'opacity'    => 0.7,
+                                'color' => '#fff',
+                                'opacity' => 0.7,
                                 'withShadow' => false,
-                                'hAlign'     => 'center',
-                                'vAlign'     => 'middle',
-                                'fontSize'   => 20
+                                'hAlign' => 'center',
+                                'vAlign' => 'middle',
+                                'fontSize' => 20
                             ]
                         )
                         ->save('public/img/informasi/profil/' . $nama_file, 65);
                     $msg = [
                         'sukses' => 'Halaman berhasil disimpan!',
-                        'csrf_tokencmsdatagoe'  => csrf_hash(),
+                        'csrf_tokencmsdatagoe' => csrf_hash(),
                     ];
                 }
                 echo json_encode($msg);
@@ -524,7 +525,7 @@ class Halaman extends BaseController
             $this->berita->delete($id);
             $msg = [
                 'sukses' => 'Data Berhasil Dihapus',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -548,14 +549,14 @@ class Halaman extends BaseController
             }
 
             $updatedata = [
-                'filepdf'           => ''
+                'filepdf' => ''
             ];
 
             $this->berita->update($id, $updatedata);
 
             $msg = [
-                'sukses'                => 'Data PDF yang disematkan sukses Dihapus',
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => 'Data PDF yang disematkan sukses Dihapus',
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -589,8 +590,8 @@ class Halaman extends BaseController
             }
 
             $msg = [
-                'sukses'                => "$jmldata Data berita berhasil dihapus",
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => "$jmldata Data berita berhasil dihapus",
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -604,21 +605,21 @@ class Halaman extends BaseController
         if ($this->request->isAJAX()) {
 
             $berita_id = $this->request->getVar('berita_id');
-            $list =  $this->berita->find($berita_id);
-            $tadmin = $this->template->tempadminaktif();
+            $list = $this->berita->find($berita_id);
+            
             $data = [
-                'title'          => 'Edit Halaman',
-                'berita_id'      => $list['berita_id'],
-                'judul_berita'   => $list['judul_berita'],
-                'isi'            => $list['isi'],
-                'filepdf'        => $list['filepdf'],
-                'ket_foto'       => $list['ket_foto'],
+                'title' => 'Edit Halaman',
+                'berita_id' => $list['berita_id'],
+                'judul_berita' => $list['judul_berita'],
+                'isi' => $list['isi'],
+                'filepdf' => $list['filepdf'],
+                'ket_foto' => $list['ket_foto'],
 
 
             ];
             $msg = [
-                'sukses' => view('backend/' . $tadmin['folder'] . '/' . 'setkonten/halaman/edit', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/setkonten/halaman/edit', $data),
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -655,18 +656,18 @@ class Halaman extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'judul_berita'   => $validation->getError('judul_berita'),
-                        'isi'       => $validation->getError('isi')
+                        'judul_berita' => $validation->getError('judul_berita'),
+                        'isi' => $validation->getError('isi')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             } else {
 
                 $updatedata = [
-                    'judul_berita'  => $this->request->getVar('judul_berita'),
-                    'slug_berita'   => mb_url_title($this->request->getVar('judul_berita'), '-', TRUE),
-                    'isi'           => $this->request->getVar('isi'),
-                    'ket_foto'      => $this->request->getVar('ket_foto'),
+                    'judul_berita' => $this->request->getVar('judul_berita'),
+                    'slug_berita' => mb_url_title($this->request->getVar('judul_berita'), '-', TRUE),
+                    'isi' => $this->request->getVar('isi'),
+                    'ket_foto' => $this->request->getVar('ket_foto'),
 
                 ];
 
@@ -674,7 +675,7 @@ class Halaman extends BaseController
 
                 $msg = [
                     'sukses' => 'Data berhasil diubah!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -689,17 +690,17 @@ class Halaman extends BaseController
         }
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('berita_id');
-            $list =  $this->berita->find($id);
-            $tadmin = $this->template->tempadminaktif();
+            $list = $this->berita->find($id);
+            
             $data = [
-                'title'       => 'Upload File PDF',
-                'id'          => $list['berita_id'],
-                'filepdf'   => $list['filepdf']
+                'title' => 'Upload File PDF',
+                'id' => $list['berita_id'],
+                'filepdf' => $list['filepdf']
 
             ];
             $msg = [
-                'sukses' => view('backend/' . $tadmin['folder'] . '/' . 'setkonten/halaman/gantipdf', $data),
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'sukses' => view('backend/setkonten/halaman/gantipdf', $data),
+                'csrf_tokencmsdatagoe' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -739,7 +740,7 @@ class Halaman extends BaseController
                     'error' => [
                         'filepdf' => $validation->getError('filepdf')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             } else {
 
@@ -766,7 +767,7 @@ class Halaman extends BaseController
 
                 $msg = [
                     'sukses' => 'File PDF berhasil diupdate!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -780,18 +781,18 @@ class Halaman extends BaseController
         }
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('berita_id');
-            $list =  $this->berita->find($id);
-            $tadmin = $this->template->tempadminaktif();
+            $list = $this->berita->find($id);
+            
             $data = [
-                'title'       => 'Ganti Cover',
-                'id'          => $list['berita_id'],
-                'gambar'   => $list['gambar'],
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
+                'title' => 'Ganti Cover',
+                'id' => $list['berita_id'],
+                'gambar' => $list['gambar'],
+                'csrf_tokencmsdatagoe' => csrf_hash(),
 
             ];
             $msg = [
-                'csrf_tokencmsdatagoe'  => csrf_hash(),
-                'sukses' => view('backend/' . $tadmin['folder'] . '/' . 'setkonten/halaman/gantifoto', $data),
+                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'sukses' => view('backend/setkonten/halaman/gantifoto', $data),
             ];
             echo json_encode($msg);
         }
@@ -825,7 +826,7 @@ class Halaman extends BaseController
                     'error' => [
                         'gambar' => $validation->getError('gambar')
                     ],
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             } else {
 
@@ -857,7 +858,7 @@ class Halaman extends BaseController
 
                 $msg = [
                     'sukses' => 'Cover berhasil diganti!',
-                    'csrf_tokencmsdatagoe'  => csrf_hash(),
+                    'csrf_tokencmsdatagoe' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
