@@ -41,23 +41,30 @@
 <script>
     function listpendaftaranbaptis() {
         $.ajax({
-            url: "<?= base_url('pendaftaran-baptis/list') ?>",
+            url: "<?= base_url('pendaftaran-baptis/getdata') ?>",
             dataType: "json",
-            beforeSend: function() {
+            beforeSend: function () {
                 $('.viewdata').html('<div class="text-center"><i class="fas fa-spin fa-spinner"></i> Loading...</div>');
             },
-            success: function(response) {
+            success: function (response) {
                 $('.viewdata').html(response.data);
             },
-            error: function(xhr, ajaxOptions, thrownError) {
+            error: function (xhr, ajaxOptions, thrownError) {
                 alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
             }
         });
     }
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         listpendaftaranbaptis();
     });
 </script>
 
+<?= $this->endSection() ?>
+
+<?= $this->section('script') ?>
+<script
+    src="<?= base_url('public/template/backend/' . esc($folder) . '/assets/libs/datatables.net/js/jquery.dataTables.min.js') ?>"></script>
+<script
+    src="<?= base_url('public/template/backend/' . esc($folder) . '/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') ?>"></script>
 <?= $this->endSection() ?>

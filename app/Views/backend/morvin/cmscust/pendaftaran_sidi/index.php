@@ -33,7 +33,7 @@
 </div>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         listsidi();
     });
 
@@ -41,9 +41,9 @@
         $.ajax({
             url: "<?= site_url('pendaftaran-sidi/getdata') ?>",
             dataType: "json",
-            success: function(response) {
+            success: function (response) {
                 $('.viewdata').html(response.data);
-                
+
                 if (response.noakses) {
                     Swal.fire({
                         title: "Gagal Akses!",
@@ -53,7 +53,7 @@
                         timer: 2500
                     });
                 }
-                
+
                 if (response.blmakses) {
                     Swal.fire({
                         title: "Maaf gagal load Modul!",
@@ -65,23 +65,23 @@
                     });
                 }
             },
-            error: function(xhr, ajaxOptions, thrownError) {
+            error: function (xhr, ajaxOptions, thrownError) {
                 alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
             }
         });
     }
 
     // Tambah data
-    $(document).on('click', '.tambah', function(e) {
+    $(document).on('click', '.tambah', function (e) {
         e.preventDefault();
         $.ajax({
             url: "<?= site_url('pendaftaran-sidi/formtambah') ?>",
             dataType: "json",
-            success: function(response) {
+            success: function (response) {
                 $('.viewmodal').html(response.data).show();
                 $('#modaltambah').modal('show');
             },
-            error: function(xhr, ajaxOptions, thrownError) {
+            error: function (xhr, ajaxOptions, thrownError) {
                 alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
             }
         });
@@ -97,13 +97,13 @@
                 id_sidi: id_sidi
             },
             dataType: "json",
-            success: function(response) {
+            success: function (response) {
                 if (response.sukses) {
                     $('.viewmodal').html(response.sukses).show();
                     $('#modallihat').modal('show');
                 }
             },
-            error: function(xhr, ajaxOptions, thrownError) {
+            error: function (xhr, ajaxOptions, thrownError) {
                 alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
             }
         });
@@ -119,13 +119,13 @@
                 id_sidi: id_sidi
             },
             dataType: "json",
-            success: function(response) {
+            success: function (response) {
                 if (response.sukses) {
                     $('.viewmodal').html(response.sukses).show();
                     $('#modaledit').modal('show');
                 }
             },
-            error: function(xhr, ajaxOptions, thrownError) {
+            error: function (xhr, ajaxOptions, thrownError) {
                 alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
             }
         });
@@ -153,13 +153,13 @@
                         csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
                         id_sidi: id_sidi
                     },
-                    success: function(response) {
+                    success: function (response) {
                         if (response.sukses) {
                             toastr.success(response.sukses);
                             listsidi();
                         }
                     },
-                    error: function(xhr, ajaxOptions, thrownError) {
+                    error: function (xhr, ajaxOptions, thrownError) {
                         alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
                     }
                 });
@@ -168,10 +168,10 @@
     }
 
     // Hapus multiple
-    $(document).on('submit', '.formhapus', function(e) {
+    $(document).on('submit', '.formhapus', function (e) {
         e.preventDefault();
         let jmldata = $('.centangid:checked').length;
-        
+
         if (jmldata === 0) {
             Swal.fire({
                 icon: 'error',
@@ -197,13 +197,13 @@
                         type: "post",
                         dataType: "json",
                         data: $(this).serialize(),
-                        success: function(response) {
+                        success: function (response) {
                             if (response.sukses) {
                                 toastr.success(response.sukses);
                                 listsidi();
                             }
                         },
-                        error: function(xhr, ajaxOptions, thrownError) {
+                        error: function (xhr, ajaxOptions, thrownError) {
                             alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
                         }
                     });
@@ -234,7 +234,7 @@
             } else if (result.isDenied) {
                 status = '2'; // Ditolak
             }
-            
+
             if (status !== null) {
                 $.ajax({
                     type: "post",
@@ -245,13 +245,13 @@
                         status: status
                     },
                     dataType: "json",
-                    success: function(response) {
+                    success: function (response) {
                         if (response.sukses) {
                             toastr.success(response.sukses);
                             listsidi();
                         }
                     },
-                    error: function(xhr, ajaxOptions, thrownError) {
+                    error: function (xhr, ajaxOptions, thrownError) {
                         alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
                     }
                 });
@@ -269,13 +269,13 @@
                 id_sidi: id_sidi
             },
             dataType: "json",
-            success: function(response) {
+            success: function (response) {
                 if (response.sukses) {
                     $('.viewmodal').html(response.sukses).show();
                     $('#modalupload').modal('show');
                 }
             },
-            error: function(xhr, ajaxOptions, thrownError) {
+            error: function (xhr, ajaxOptions, thrownError) {
                 alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
             }
         });
@@ -303,13 +303,13 @@
                         id_sidi: id_sidi,
                         jenis_dok: jenis_dok
                     },
-                    success: function(response) {
+                    success: function (response) {
                         if (response.sukses) {
                             toastr.success(response.sukses);
                             listsidi();
                         }
                     },
-                    error: function(xhr, ajaxOptions, thrownError) {
+                    error: function (xhr, ajaxOptions, thrownError) {
                         alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
                     }
                 });
@@ -318,4 +318,11 @@
     }
 </script>
 
+<?= $this->endSection() ?>
+
+<?= $this->section('script') ?>
+<script
+    src="<?= base_url('public/template/backend/' . esc($folder) . '/assets/libs/datatables.net/js/jquery.dataTables.min.js') ?>"></script>
+<script
+    src="<?= base_url('public/template/backend/' . esc($folder) . '/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') ?>"></script>
 <?= $this->endSection() ?>

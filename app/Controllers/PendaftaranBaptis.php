@@ -16,23 +16,23 @@ class PendaftaranBaptis extends BaseController
     {
         $konfigurasi = $this->konfigurasi->vkonfig();
         $template = $this->template->tempaktif();
-        
+
         $data = [
-            'title'         => 'Pendaftaran Baptis | ' . $konfigurasi->nama,
-            'deskripsi'     => $konfigurasi->deskripsi,
-            'url'           => $konfigurasi->website,
-            'img'           => base_url('/public/img/konfigurasi/logo/' . $konfigurasi->logo),
-            'konfigurasi'   => $konfigurasi,
-            'mainmenu'      => $this->menu->mainmenu(),
-            'footer'        => $this->menu->footermenu(),
-            'topmenu'       => $this->menu->topmenu(),
-            'section'       => $this->section->list(),
-            'sitekey'       => $konfigurasi->g_sitekey,
+            'title' => 'Pendaftaran Baptis | ' . $konfigurasi->nama,
+            'deskripsi' => $konfigurasi->deskripsi,
+            'url' => $konfigurasi->website,
+            'img' => base_url('/public/img/konfigurasi/logo/' . $konfigurasi->logo),
+            'konfigurasi' => $konfigurasi,
+            'mainmenu' => $this->menu->mainmenu(),
+            'footer' => $this->menu->footermenu(),
+            'topmenu' => $this->menu->topmenu(),
+            'section' => $this->section->list(),
+            'sitekey' => $konfigurasi->g_sitekey,
             'linkterkaitall' => $this->linkterkait->publishlinkall(),
-            'folder'        => $template['folder'],
-            'validation'    => \Config\Services::validation()
+            'folder' => $template['folder'],
+            'validation' => \Config\Services::validation()
         ];
-        
+
         return view('frontend/' . $template['folder'] . '/content/pendaftaran_baptis', $data);
     }
 
@@ -42,7 +42,7 @@ class PendaftaranBaptis extends BaseController
     public function simpanpendaftaran()
     {
         $this->pendaftaranBaptisModel = new PendaftaranBaptisModel();
-        
+
         // Validasi CSRF Token
         if (!$this->request->isAJAX() || !$this->validate(['_method' => 'post'])) {
             return $this->response->setJSON([
@@ -55,7 +55,7 @@ class PendaftaranBaptis extends BaseController
         if ($this->konfigurasi->recaptcha == 1) {
             $recaptcha = \Config\Services::recaptcha();
             $recaptchaResponse = $this->request->getPost('g-recaptcha-response');
-            
+
             if (!$recaptcha->verify($recaptchaResponse)) {
                 return $this->response->setJSON([
                     'status' => 'error',
@@ -209,7 +209,7 @@ class PendaftaranBaptis extends BaseController
         // Proses upload file
         $uploadedFiles = [];
         $uploadPath = WRITEPATH . 'uploads/pendaftaran_baptis/' . date('Y/m/d');
-        
+
         // Buat direktori jika belum ada
         if (!is_dir($uploadPath)) {
             mkdir($uploadPath, 0777, true);
@@ -217,10 +217,10 @@ class PendaftaranBaptis extends BaseController
 
         // Daftar field file yang akan diupload
         $fileFields = ['dok_ktp', 'dok_kk', 'dok_akta_lahir', 'dok_foto', 'dok_surat_nikah_ortu'];
-        
+
         foreach ($fileFields as $field) {
             $file = $this->request->getFile($field);
-            
+
             // Skip jika tidak ada file yang diupload
             if ($file && $file->isValid() && !$file->hasMoved()) {
                 $newName = $file->getRandomName();
@@ -259,7 +259,7 @@ class PendaftaranBaptis extends BaseController
         try {
             // Simpan data
             $saved = $this->pendaftaranBaptisModel->save($data);
-            
+
             if (!$saved) {
                 // Hapus file yang sudah diupload jika gagal menyimpan ke database
                 foreach ($uploadedFiles as $file) {
@@ -267,7 +267,7 @@ class PendaftaranBaptis extends BaseController
                         unlink(WRITEPATH . 'uploads/' . $file);
                     }
                 }
-                
+
                 throw new \RuntimeException('Gagal menyimpan data pendaftaran');
             }
 
@@ -307,15 +307,15 @@ class PendaftaranBaptis extends BaseController
 
         $email = \Config\Services::email();
         $template = view('emails/pendaftaran_baptis', $data);
-        
+
         $email->setTo($data['email']);
         $email->setFrom($this->konfigurasi->email_from, $this->konfigurasi->nama);
         $email->setSubject('Konfirmasi Pendaftaran Baptis - ' . $data['no_pendaftaran']);
         $email->setMessage($template);
-        
+
         // Attach files if needed
         // $email->attach(WRITEPATH . 'uploads/' . $data['dok_ktp']);
-        
+
         return $email->send();
     }
 
@@ -326,31 +326,33 @@ class PendaftaranBaptis extends BaseController
             return redirect()->to('');
         }
         $data = [
-            'title'     => 'Pendaftaran Baptis',
-            'subtitle'  => 'Manajemen Data',
-            'folder'    => 'morvin',
+            'title' => 'Pendaftaran Baptis',
+            'subtitle' => 'Manajemen Data',
+            'folder' => 'morvin',
         ];
         return view('backend/morvin/cmscust/pendaftaran_baptis/index', $data);
     }
 
+    // Backend - Get data untuk datatables
     // Backend - Get data untuk datatables
     public function getdata()
     {
         if ($this->request->isAJAX()) {
             $id_grup = session()->get('id_grup');
             $url = 'pendaftaran-baptis/list';
-            $listgrupf =  $this->grupakses->listgrupakses($id_grup, $url);
+            $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
 
-            foreach ($listgrupf as $data) :
+            $akses = 0;
+            foreach ($listgrupf as $data):
                 $akses = $data['akses'];
             endforeach;
 
             if ($listgrupf) {
                 if ($akses == '1' || $akses == '2') {
                     $data = [
-                        'title'     => 'Pendaftaran Baptis',
-                        'list'      => $this->pendaftaranbaptis->list(),
-                        'akses'     => $akses
+                        'title' => 'Pendaftaran Baptis',
+                        'list' => $this->pendaftaranbaptis->list(),
+                        'akses' => $akses
                     ];
                     $msg = [
                         'data' => view('backend/morvin/cmscust/pendaftaran_baptis/list', $data)
@@ -375,11 +377,11 @@ class PendaftaranBaptis extends BaseController
     {
         if ($this->request->isAJAX()) {
             $id_baptis = $this->request->getVar('id_baptis');
-            $list =  $this->pendaftaranbaptis->find($id_baptis);
+            $list = $this->pendaftaranbaptis->find($id_baptis);
 
             $data = [
                 'title' => 'Detail Pendaftaran Baptis',
-                'data'  => $list
+                'data' => $list
             ];
             $msg = [
                 'sukses' => view('backend/morvin/cmscust/pendaftaran_baptis/lihat', $data)
@@ -393,11 +395,11 @@ class PendaftaranBaptis extends BaseController
     {
         if ($this->request->isAJAX()) {
             $id_baptis = $this->request->getVar('id_baptis');
-            $list =  $this->pendaftaranbaptis->find($id_baptis);
+            $list = $this->pendaftaranbaptis->find($id_baptis);
 
             $data = [
                 'title' => 'Edit Pendaftaran Baptis',
-                'data'  => $list
+                'data' => $list
             ];
             $msg = [
                 'sukses' => view('backend/morvin/cmscust/pendaftaran_baptis/edit', $data)
@@ -441,28 +443,28 @@ class PendaftaranBaptis extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'nama_lengkap'  => $validation->getError('nama_lengkap'),
-                        'no_hp'         => $validation->getError('no_hp'),
-                        'email'         => $validation->getError('email'),
+                        'nama_lengkap' => $validation->getError('nama_lengkap'),
+                        'no_hp' => $validation->getError('no_hp'),
+                        'email' => $validation->getError('email'),
                     ]
                 ];
             } else {
                 $updatedata = [
-                    'nama_lengkap'          => $this->request->getVar('nama_lengkap'),
-                    'tempat_lahir'          => $this->request->getVar('tempat_lahir'),
-                    'tgl_lahir'             => date('Y-m-d', strtotime($this->request->getVar('tgl_lahir'))),
-                    'jenis_kelamin'         => $this->request->getVar('jenis_kelamin'),
-                    'alamat'                => $this->request->getVar('alamat'),
-                    'no_hp'                 => $this->request->getVar('no_hp'),
-                    'email'                 => $this->request->getVar('email'),
-                    'nama_ayah'             => $this->request->getVar('nama_ayah'),
-                    'nama_ibu'              => $this->request->getVar('nama_ibu'),
-                    'jenis_baptis'          => $this->request->getVar('jenis_baptis'),
-                    'nama_pendamping'       => $this->request->getVar('nama_pendamping'),
-                    'hubungan_pendamping'   => $this->request->getVar('hubungan_pendamping'),
-                    'tgl_baptis'            => $this->request->getVar('tgl_baptis') ? date('Y-m-d', strtotime($this->request->getVar('tgl_baptis'))) : null,
-                    'status'                => $this->request->getVar('status'),
-                    'keterangan'            => $this->request->getVar('keterangan'),
+                    'nama_lengkap' => $this->request->getVar('nama_lengkap'),
+                    'tempat_lahir' => $this->request->getVar('tempat_lahir'),
+                    'tgl_lahir' => date('Y-m-d', strtotime($this->request->getVar('tgl_lahir'))),
+                    'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
+                    'alamat' => $this->request->getVar('alamat'),
+                    'no_hp' => $this->request->getVar('no_hp'),
+                    'email' => $this->request->getVar('email'),
+                    'nama_ayah' => $this->request->getVar('nama_ayah'),
+                    'nama_ibu' => $this->request->getVar('nama_ibu'),
+                    'jenis_baptis' => $this->request->getVar('jenis_baptis'),
+                    'nama_pendamping' => $this->request->getVar('nama_pendamping'),
+                    'hubungan_pendamping' => $this->request->getVar('hubungan_pendamping'),
+                    'tgl_baptis' => $this->request->getVar('tgl_baptis') ? date('Y-m-d', strtotime($this->request->getVar('tgl_baptis'))) : null,
+                    'status' => $this->request->getVar('status'),
+                    'keterangan' => $this->request->getVar('keterangan'),
                 ];
 
                 $this->pendaftaranbaptis->update($id_baptis, $updatedata);
@@ -522,29 +524,29 @@ class PendaftaranBaptis extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'nama_lengkap'  => $validation->getError('nama_lengkap'),
-                        'no_hp'         => $validation->getError('no_hp'),
-                        'email'         => $validation->getError('email'),
+                        'nama_lengkap' => $validation->getError('nama_lengkap'),
+                        'no_hp' => $validation->getError('no_hp'),
+                        'email' => $validation->getError('email'),
                     ]
                 ];
             } else {
                 $insertdata = [
-                    'nama_lengkap'          => $this->request->getVar('nama_lengkap'),
-                    'tempat_lahir'          => $this->request->getVar('tempat_lahir'),
-                    'tgl_lahir'             => date('Y-m-d', strtotime($this->request->getVar('tgl_lahir'))),
-                    'jenis_kelamin'         => $this->request->getVar('jenis_kelamin'),
-                    'alamat'                => $this->request->getVar('alamat'),
-                    'no_hp'                 => $this->request->getVar('no_hp'),
-                    'email'                 => $this->request->getVar('email'),
-                    'nama_ayah'             => $this->request->getVar('nama_ayah'),
-                    'nama_ibu'              => $this->request->getVar('nama_ibu'),
-                    'jenis_baptis'          => $this->request->getVar('jenis_baptis'),
-                    'nama_pendamping'       => $this->request->getVar('nama_pendamping'),
-                    'hubungan_pendamping'   => $this->request->getVar('hubungan_pendamping'),
-                    'tgl_daftar'            => date('Y-m-d'),
-                    'tgl_baptis'            => $this->request->getVar('tgl_baptis') ? date('Y-m-d', strtotime($this->request->getVar('tgl_baptis'))) : null,
-                    'status'                => $this->request->getVar('status'),
-                    'keterangan'            => $this->request->getVar('keterangan'),
+                    'nama_lengkap' => $this->request->getVar('nama_lengkap'),
+                    'tempat_lahir' => $this->request->getVar('tempat_lahir'),
+                    'tgl_lahir' => date('Y-m-d', strtotime($this->request->getVar('tgl_lahir'))),
+                    'jenis_kelamin' => $this->request->getVar('jenis_kelamin'),
+                    'alamat' => $this->request->getVar('alamat'),
+                    'no_hp' => $this->request->getVar('no_hp'),
+                    'email' => $this->request->getVar('email'),
+                    'nama_ayah' => $this->request->getVar('nama_ayah'),
+                    'nama_ibu' => $this->request->getVar('nama_ibu'),
+                    'jenis_baptis' => $this->request->getVar('jenis_baptis'),
+                    'nama_pendamping' => $this->request->getVar('nama_pendamping'),
+                    'hubungan_pendamping' => $this->request->getVar('hubungan_pendamping'),
+                    'tgl_daftar' => date('Y-m-d'),
+                    'tgl_baptis' => $this->request->getVar('tgl_baptis') ? date('Y-m-d', strtotime($this->request->getVar('tgl_baptis'))) : null,
+                    'status' => $this->request->getVar('status'),
+                    'keterangan' => $this->request->getVar('keterangan'),
                 ];
 
                 $this->pendaftaranbaptis->insert($insertdata);
@@ -587,10 +589,10 @@ class PendaftaranBaptis extends BaseController
         if ($this->request->isAJAX()) {
             $id_baptis = $this->request->getVar('id_baptis');
             $jmldata = count($id_baptis);
-            
+
             for ($i = 0; $i < $jmldata; $i++) {
                 $cekdata = $this->pendaftaranbaptis->find($id_baptis[$i]);
-                
+
                 // Hapus file dokumen jika ada
                 $dokumen = ['dok_ktp', 'dok_kk', 'dok_akta_lahir', 'dok_foto', 'dok_surat_nikah_ortu'];
                 foreach ($dokumen as $dok) {
@@ -598,7 +600,7 @@ class PendaftaranBaptis extends BaseController
                         unlink('public/file/dokumen/baptis/' . $cekdata[$dok]);
                     }
                 }
-                
+
                 $this->pendaftaranbaptis->delete($id_baptis[$i]);
             }
 
@@ -620,7 +622,7 @@ class PendaftaranBaptis extends BaseController
                 'status' => $status,
             ];
             $this->pendaftaranbaptis->update($id, $updatedata);
-            
+
             $statusText = ['Pending', 'Disetujui', 'Ditolak'];
             $msg = [
                 'sukses' => 'Status berhasil diubah menjadi: ' . $statusText[$status]
@@ -635,11 +637,11 @@ class PendaftaranBaptis extends BaseController
     {
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('id_baptis');
-            $list =  $this->pendaftaranbaptis->find($id);
-            
+            $list = $this->pendaftaranbaptis->find($id);
+
             $data = [
                 'title' => 'Upload Dokumen',
-                'data'  => $list
+                'data' => $list
             ];
             $msg = [
                 'sukses' => view('backend/morvin/cmscust/pendaftaran_baptis/upload', $data)
@@ -654,7 +656,7 @@ class PendaftaranBaptis extends BaseController
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('id_baptis');
             $jenis_dok = $this->request->getVar('jenis_dok');
-            
+
             $validation = \Config\Services::validation();
             $valid = $this->validate([
                 'file_dokumen' => [
@@ -707,7 +709,7 @@ class PendaftaranBaptis extends BaseController
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('id_baptis');
             $jenis_dok = $this->request->getVar('jenis_dok');
-            
+
             $cekdata = $this->pendaftaranbaptis->find($id);
             $file = $cekdata[$jenis_dok];
 

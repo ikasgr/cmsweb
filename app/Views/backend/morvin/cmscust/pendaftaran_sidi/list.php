@@ -31,9 +31,9 @@
         </thead>
         <tbody>
             <?php $nomor = 0;
-            foreach ($list as $value) :
+            foreach ($list as $value):
                 $nomor++;
-                
+
                 // Status badge
                 if ($value['status'] == '0') {
                     $badge = '<span class="badge badge-warning">Pending</span>';
@@ -42,14 +42,18 @@
                 } else {
                     $badge = '<span class="badge badge-danger">Ditolak</span>';
                 }
-                
+
                 // Icon dokumen
                 $dok_count = 0;
-                if (!empty($value['dok_ktp'])) $dok_count++;
-                if (!empty($value['dok_kk'])) $dok_count++;
-                if (!empty($value['dok_baptis'])) $dok_count++;
-                if (!empty($value['dok_foto'])) $dok_count++;
-            ?>
+                if (!empty($value['dok_ktp']))
+                    $dok_count++;
+                if (!empty($value['dok_kk']))
+                    $dok_count++;
+                if (!empty($value['dok_baptis']))
+                    $dok_count++;
+                if (!empty($value['dok_foto']))
+                    $dok_count++;
+                ?>
                 <tr>
                     <td class="text-center">
                         <input type="checkbox" name="id_sidi[]" class="centangid" value="<?= $value['id_sidi'] ?>">
@@ -57,7 +61,7 @@
                     <td><?= $nomor ?></td>
                     <td>
                         <?= esc($value['nama_lengkap']) ?>
-                        <?php if ($dok_count > 0) : ?>
+                        <?php if ($dok_count > 0): ?>
                             <span class="badge badge-info badge-pill" title="<?= $dok_count ?> dokumen">
                                 <i class="fas fa-paperclip"></i> <?= $dok_count ?>
                             </span>
@@ -70,45 +74,48 @@
                     <td><?= date_indo($value['tgl_baptis']) ?></td>
                     <td><?= date_indo($value['tgl_daftar']) ?></td>
                     <td class="text-center">
-                        <?php 
+                        <?php
                         $kelengkapan = isset($value['kelengkapan_dokumen']) ? $value['kelengkapan_dokumen'] : 0;
                         $color = 'danger';
-                        if ($kelengkapan >= 80) $color = 'success';
-                        elseif ($kelengkapan >= 50) $color = 'warning';
+                        if ($kelengkapan >= 80)
+                            $color = 'success';
+                        elseif ($kelengkapan >= 50)
+                            $color = 'warning';
                         ?>
                         <div class="progress" style="height: 20px;">
-                            <div class="progress-bar bg-<?= $color ?>" role="progressbar" 
-                                 style="width: <?= $kelengkapan ?>%" 
-                                 aria-valuenow="<?= $kelengkapan ?>" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar bg-<?= $color ?>" role="progressbar"
+                                style="width: <?= $kelengkapan ?>%" aria-valuenow="<?= $kelengkapan ?>" aria-valuemin="0"
+                                aria-valuemax="100">
                                 <?= $kelengkapan ?>%
                             </div>
                         </div>
                     </td>
                     <td class="text-center"><?= $badge ?></td>
                     <td class="text-center">
-                        <button type="button" onclick="lihat('<?= $value['id_sidi'] ?>')" 
-                                class="btn btn-info btn-sm" title="Lihat Detail">
+                        <button type="button" onclick="lihat('<?= $value['id_sidi'] ?>')" class="btn btn-info btn-sm"
+                            title="Lihat Detail">
                             <i class="fas fa-eye"></i>
                         </button>
-                        
+
                         <?php if ($akses == 1) { ?>
-                            <button type="button" onclick="edit('<?= $value['id_sidi'] ?>')" 
-                                    class="btn btn-warning btn-sm" title="Edit">
+                            <button type="button" onclick="edit('<?= $value['id_sidi'] ?>')" class="btn btn-warning btn-sm"
+                                title="Edit">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            
-                            <button type="button" onclick="uploaddok('<?= $value['id_sidi'] ?>')" 
-                                    class="btn btn-primary btn-sm" title="Upload Dokumen">
+
+                            <button type="button" onclick="uploaddok('<?= $value['id_sidi'] ?>')" class="btn btn-primary btn-sm"
+                                title="Upload Dokumen">
                                 <i class="fas fa-upload"></i>
                             </button>
-                            
-                            <button type="button" onclick="toggle('<?= $value['id_sidi'] ?>')" 
-                                    class="btn btn-secondary btn-sm" title="Ubah Status">
+
+                            <button type="button" onclick="toggle('<?= $value['id_sidi'] ?>')" class="btn btn-secondary btn-sm"
+                                title="Ubah Status">
                                 <i class="fas fa-sync-alt"></i>
                             </button>
-                            
-                            <button type="button" onclick="hapus('<?= $value['id_sidi'] ?>','<?= esc($value['nama_lengkap']) ?>')" 
-                                    class="btn btn-danger btn-sm" title="Hapus">
+
+                            <button type="button"
+                                onclick="hapus('<?= $value['id_sidi'] ?>','<?= esc($value['nama_lengkap']) ?>')"
+                                class="btn btn-danger btn-sm" title="Hapus">
                                 <i class="fas fa-trash"></i>
                             </button>
                         <?php } ?>
@@ -121,16 +128,31 @@
 <?= form_close() ?>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#listsidi').DataTable({
             "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Indonesian.json"
+                "sEmptyTable": "Tidak ada data yang tersedia pada tabel ini",
+                "sProcessing": "Sedang memproses...",
+                "sLengthMenu": "Tampilkan _MENU_ entri",
+                "sZeroRecords": "Tidak ditemukan data yang sesuai",
+                "sInfo": "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+                "sInfoEmpty": "Menampilkan 0 sampai 0 dari 0 entri",
+                "sInfoFiltered": "(disaring dari _MAX_ entri keseluruhan)",
+                "sInfoPostFix": "",
+                "sSearch": "Cari:",
+                "sUrl": "",
+                "oPaginate": {
+                    "sFirst": "Pertama",
+                    "sPrevious": "Sebelumnya",
+                    "sNext": "Selanjutnya",
+                    "sLast": "Terakhir"
+                }
             },
             "order": [[8, "desc"]] // Sort by Tgl Daftar descending
         });
-        
+
         // Centang semua checkbox
-        $('#centangSemua').click(function(e) {
+        $('#centangSemua').click(function (e) {
             if ($(this).is(':checked')) {
                 $('.centangid').prop('checked', true);
             } else {

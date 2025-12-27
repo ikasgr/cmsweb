@@ -11,9 +11,9 @@ $routes->resource('api-show', ['controller' => 'Apiupdate']);
 $routes->get('post-cms', 'Apiupdate::berita');
 
 $routes->group('', ['namespace' => 'App\Controllers'], function ($routes) {
-    $db                 = \Config\Database::connect();
-    $builder            = $db->table('tbl_setaplikasi');
-    $loginalias         = $builder->select('kecamatan')->get()->getRow();
+    $db = \Config\Database::connect();
+    $builder = $db->table('tbl_setaplikasi');
+    $loginalias = $builder->select('kecamatan')->get()->getRow();
 
     $routes->get($loginalias->kecamatan, 'Login::index');
 
@@ -959,7 +959,7 @@ $routes->group('', ['namespace' => 'App\Controllers'], function ($routes) {
     // Majelis Gereja - Frontend
     $routes->get('majelis-gereja', 'MajelisGereja::index');
     $routes->get('majelis-gereja/detail/(:num)', 'MajelisGereja::detail/$1');
-    
+
     // Majelis Gereja - Backend
     $routes->get('majelis-gereja/list', 'MajelisGereja::list');
     $routes->get('majelis_gereja/all', 'MajelisGereja::list');
@@ -1033,6 +1033,9 @@ $routes->group('', ['namespace' => 'App\Controllers'], function ($routes) {
     $routes->get('inventaris-gereja/print', 'InventarisGereja::print');
     $routes->get('inventaris-gereja/printqr/(:num)', 'InventarisGereja::printqr/$1');
     $routes->post('inventaris-gereja/generateqr', 'InventarisGereja::generateqr');
+
+    // Setup Menu
+    $routes->get('setupmenu', 'SetupMenu::index');
 
     $routes->get('(:segment)', 'Berita::detail/$1');
 });

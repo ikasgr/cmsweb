@@ -7,22 +7,40 @@ use CodeIgniter\I18n\Time;
 
 class M_PendaftaranBaptis extends Model
 {
-    protected $table      = 'custome__pendaftaran_baptis';
+    protected $table = 'custome__pendaftaran_baptis';
     protected $primaryKey = 'id_baptis';
     protected $useAutoIncrement = true;
-    protected $returnType     = 'array';
+    protected $returnType = 'array';
     protected $useSoftDeletes = true;
     protected $useTimestamps = true;
-    protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
-    protected $deletedField  = 'deleted_at';
-    
+    protected $createdField = 'created_at';
+    protected $updatedField = 'updated_at';
+    protected $deletedField = 'deleted_at';
+
     protected $allowedFields = [
-        'nama_lengkap', 'tempat_lahir', 'tgl_lahir', 'jenis_kelamin', 'alamat', 
-        'no_hp', 'email', 'nama_ayah', 'nama_ibu', 'jenis_baptis',
-        'nama_pendamping', 'hubungan_pendamping', 'tgl_daftar', 'tgl_baptis', 
-        'status', 'keterangan', 'created_by', 'updated_by',
-        'dok_ktp', 'dok_kk', 'dok_akta_lahir', 'dok_foto', 'dok_surat_nikah_ortu'
+        'nama_lengkap',
+        'tempat_lahir',
+        'tgl_lahir',
+        'jenis_kelamin',
+        'alamat',
+        'no_hp',
+        'email',
+        'nama_ayah',
+        'nama_ibu',
+        'jenis_baptis',
+        'nama_pendamping',
+        'hubungan_pendamping',
+        'tgl_daftar',
+        'tgl_baptis',
+        'status',
+        'keterangan',
+        'created_by',
+        'updated_by',
+        'dok_ktp',
+        'dok_kk',
+        'dok_akta_lahir',
+        'dok_foto',
+        'dok_surat_nikah_ortu'
     ];
 
     // Aturan validasi untuk insert dan update
@@ -63,12 +81,12 @@ class M_PendaftaranBaptis extends Model
         } else {
             $data['data']['created_by'] = 0; // System or guest
         }
-        
+
         // Set tanggal daftar
         if (!isset($data['data']['tgl_daftar'])) {
             $data['data']['tgl_daftar'] = Time::now('Asia/Jakarta')->toDateString();
         }
-        
+
         return $data;
     }
 
@@ -95,45 +113,45 @@ class M_PendaftaranBaptis extends Model
     public function getAll($filters = [], $perPage = 10)
     {
         $builder = $this->builder();
-        
+
         // Apply filters
         if (!empty($filters['status'])) {
             $builder->where('status', $filters['status']);
         }
-        
+
         if (!empty($filters['jenis_baptis'])) {
             $builder->where('jenis_baptis', $filters['jenis_baptis']);
         }
-        
+
         if (!empty($filters['search'])) {
             $search = $filters['search'];
             $builder->groupStart()
-                   ->like('nama_lengkap', $search)
-                   ->orLike('no_hp', $search)
-                   ->orLike('email', $search)
-                   ->orLike('no_pendaftaran', $search)
-                   ->groupEnd();
+                ->like('nama_lengkap', $search)
+                ->orLike('no_hp', $search)
+                ->orLike('email', $search)
+                ->orLike('no_pendaftaran', $search)
+                ->groupEnd();
         }
-        
+
         // Date range filter
         if (!empty($filters['start_date'])) {
             $builder->where('tgl_daftar >=', $filters['start_date']);
         }
-        
+
         if (!empty($filters['end_date'])) {
             $builder->where('tgl_daftar <=', $filters['end_date']);
         }
-        
+
         // Order and pagination
         $builder->orderBy('created_at', 'DESC');
-        
+
         if ($perPage > 0) {
             return [
                 'data' => $builder->paginate($perPage),
                 'pager' => $this->pager
             ];
         }
-        
+
         return $builder->get()->getResultArray();
     }
 
@@ -143,7 +161,7 @@ class M_PendaftaranBaptis extends Model
     public function getById($id)
     {
         return $this->where('id_baptis', $id)
-                   ->first();
+            ->first();
     }
 
     /**
@@ -152,12 +170,12 @@ class M_PendaftaranBaptis extends Model
     public function getByStatus($status, $limit = 0)
     {
         $builder = $this->where('status', $status)
-                       ->orderBy('tgl_daftar', 'DESC');
-        
+            ->orderBy('tgl_daftar', 'DESC');
+
         if ($limit > 0) {
             $builder->limit($limit);
         }
-        
+
         return $builder->findAll();
     }
 
@@ -169,7 +187,7 @@ class M_PendaftaranBaptis extends Model
         if ($status !== null) {
             return $this->where('status', $status)->countAllResults();
         }
-        
+
         return [
             'pending' => $this->where('status', '0')->countAllResults(),
             'approved' => $this->where('status', '1')->countAllResults(),
@@ -184,17 +202,17 @@ class M_PendaftaranBaptis extends Model
     {
         $prefix = 'BAP' . date('Ym');
         $last = $this->select('no_pendaftaran')
-                    ->like('no_pendaftaran', $prefix, 'after')
-                    ->orderBy('no_pendaftaran', 'DESC')
-                    ->first();
-        
+            ->like('no_pendaftaran', $prefix, 'after')
+            ->orderBy('no_pendaftaran', 'DESC')
+            ->first();
+
         if ($last) {
             $lastNumber = (int) substr($last['no_pendaftaran'], -4);
             $newNumber = str_pad($lastNumber + 1, 4, '0', STR_PAD_LEFT);
         } else {
             $newNumber = '0001';
         }
-        
+
         return $prefix . $newNumber;
     }
 
@@ -218,13 +236,13 @@ class M_PendaftaranBaptis extends Model
         $today = Time::today('Asia/Jakarta');
         $monthStart = $today->firstOfMonth()->toDateString();
         $monthEnd = $today->lastOfMonth()->toDateString();
-        
+
         return [
             'total' => $this->countAll(),
             'today' => $this->where('DATE(created_at)', $today->toDateString())->countAllResults(),
             'this_month' => $this->where('created_at >=', $monthStart)
-                               ->where('created_at <=', $monthEnd)
-                               ->countAllResults(),
+                ->where('created_at <=', $monthEnd)
+                ->countAllResults(),
             'pending' => $this->where('status', '0')->countAllResults(),
             'by_status' => [
                 'pending' => $this->where('status', '0')->countAllResults(),
@@ -244,8 +262,8 @@ class M_PendaftaranBaptis extends Model
     public function getDitolak()
     {
         return $this->where('status', '2')
-                   ->orderBy('id_baptis', 'DESC')
-                   ->findAll();
+            ->orderBy('id_baptis', 'DESC')
+            ->findAll();
     }
 
     // Total pendaftar
@@ -254,4 +272,10 @@ class M_PendaftaranBaptis extends Model
         return $this->table('custome__pendaftaran_baptis')
             ->countAllResults();
     }
+    // List data for CMS
+    public function list()
+    {
+        return $this->orderBy('id_baptis', 'DESC')->findAll();
+    }
 }
+

@@ -9,7 +9,8 @@
 </div>
 
 <div class="table-responsive mt-3">
-    <table id="listpendaftaranbaptis" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+    <table id="listpendaftaranbaptis" class="table table-striped table-bordered dt-responsive nowrap"
+        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
         <thead class="thead-light">
             <tr>
                 <th width="5%">
@@ -26,12 +27,12 @@
         </thead>
         <tbody>
             <?php $no = 1;
-            if ($list) :
-                foreach ($list as $data) :
-            ?>
+            if ($list):
+                foreach ($list as $data):
+                    ?>
                     <tr>
                         <td>
-                            <input type="checkbox" class="checkboxes" name="id[]" value="<?= $data['id_pendaftaran'] ?>">
+                            <input type="checkbox" class="checkboxes" name="id_baptis[]" value="<?= $data['id_pendaftaran'] ?>">
                         </td>
                         <td><?= $no++ ?></td>
                         <td><?= esc($data['nama_lengkap']) ?></td>
@@ -41,11 +42,11 @@
                         </td>
                         <td><?= esc($data['no_hp']) ?></td>
                         <td>
-                            <?php if ($data['status'] == 0) : ?>
+                            <?php if ($data['status'] == 0): ?>
                                 <span class="badge badge-warning">Pending</span>
-                            <?php elseif ($data['status'] == 1) : ?>
+                            <?php elseif ($data['status'] == 1): ?>
                                 <span class="badge badge-success">Disetujui</span>
-                            <?php else : ?>
+                            <?php else: ?>
                                 <span class="badge badge-danger">Ditolak</span>
                             <?php endif; ?>
                         </td>
@@ -53,18 +54,20 @@
                             <button type="button" class="btn btn-info btn-sm" onclick="lihat('<?= $data['id_pendaftaran'] ?>')">
                                 <i class="fas fa-eye"></i>
                             </button>
-                            <button type="button" class="btn btn-warning btn-sm" onclick="edit('<?= $data['id_pendaftaran'] ?>')">
+                            <button type="button" class="btn btn-warning btn-sm"
+                                onclick="edit('<?= $data['id_pendaftaran'] ?>')">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button type="button" class="btn btn-danger btn-sm" onclick="hapus('<?= $data['id_pendaftaran'] ?>')">
+                            <button type="button" class="btn btn-danger btn-sm"
+                                onclick="hapus('<?= $data['id_pendaftaran'] ?>')">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </td>
                     </tr>
-            <?php
+                    <?php
                 endforeach;
-            else :
-            ?>
+            else:
+                ?>
                 <tr>
                     <td colspan="8" class="text-center">Tidak ada data</td>
                 </tr>
@@ -82,7 +85,7 @@
 </div>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#listpendaftaranbaptis').DataTable({
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Indonesian.json"
@@ -90,7 +93,7 @@
         });
 
         // Check all
-        $('#checkall').click(function() {
+        $('#checkall').click(function () {
             $('.checkboxes').prop('checked', $(this).prop('checked'));
         });
     });
@@ -100,11 +103,11 @@
             type: 'get',
             url: '<?= base_url('pendaftaran-baptis/formtambah') ?>',
             dataType: 'json',
-            success: function(response) {
+            success: function (response) {
                 $('.viewmodal').html(response.data).show();
                 $('#modaltambah').modal('show');
             },
-            error: function(xhr, ajaxOptions, thrownError) {
+            error: function (xhr, ajaxOptions, thrownError) {
                 alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
             }
         });
@@ -116,16 +119,16 @@
             url: '<?= base_url('pendaftaran-baptis/formlihat') ?>',
             data: {
                 csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
-                id: id
+                id_baptis: id
             },
             dataType: 'json',
-            success: function(response) {
+            success: function (response) {
                 if (response.sukses) {
                     $('.viewmodal').html(response.sukses).show();
                     $('#modallihat').modal('show');
                 }
             },
-            error: function(xhr, ajaxOptions, thrownError) {
+            error: function (xhr, ajaxOptions, thrownError) {
                 alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
             }
         });
@@ -137,16 +140,16 @@
             url: '<?= base_url('pendaftaran-baptis/formedit') ?>',
             data: {
                 csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
-                id: id
+                id_baptis: id
             },
             dataType: 'json',
-            success: function(response) {
+            success: function (response) {
                 if (response.sukses) {
                     $('.viewmodal').html(response.sukses).show();
                     $('#modaledit').modal('show');
                 }
             },
-            error: function(xhr, ajaxOptions, thrownError) {
+            error: function (xhr, ajaxOptions, thrownError) {
                 alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
             }
         });
@@ -169,10 +172,10 @@
                     url: '<?= base_url('pendaftaran-baptis/hapus') ?>',
                     data: {
                         csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
-                        id: id
+                        id_baptis: id
                     },
                     dataType: 'json',
-                    success: function(response) {
+                    success: function (response) {
                         if (response.sukses) {
                             Swal.fire({
                                 icon: 'success',
@@ -182,7 +185,7 @@
                             listpendaftaranbaptis();
                         }
                     },
-                    error: function(xhr, ajaxOptions, thrownError) {
+                    error: function (xhr, ajaxOptions, thrownError) {
                         alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
                     }
                 });
@@ -192,7 +195,7 @@
 
     function hapusall() {
         let id = [];
-        $('.checkboxes:checked').each(function() {
+        $('.checkboxes:checked').each(function () {
             id.push($(this).val());
         });
 
@@ -221,10 +224,10 @@
                     url: '<?= base_url('pendaftaran-baptis/hapusall') ?>',
                     data: {
                         csrf_tokencmsdatagoe: $('input[name=csrf_tokencmsdatagoe]').val(),
-                        id: id
+                        id_baptis: id
                     },
                     dataType: 'json',
-                    success: function(response) {
+                    success: function (response) {
                         if (response.sukses) {
                             Swal.fire({
                                 icon: 'success',
@@ -234,7 +237,7 @@
                             listpendaftaranbaptis();
                         }
                     },
-                    error: function(xhr, ajaxOptions, thrownError) {
+                    error: function (xhr, ajaxOptions, thrownError) {
                         alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
                     }
                 });
