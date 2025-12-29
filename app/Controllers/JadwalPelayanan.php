@@ -23,8 +23,15 @@ class JadwalPelayanan extends BaseController
     {
         if ($this->request->isAJAX()) {
             $id_grup = session()->get('id_grup');
+            $akses = 0; // Initialize
             $url = 'jadwal-pelayanan/list';
             $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
+
+            // Fallback for underscore URL
+            if (!$listgrupf) {
+                $url = 'jadwal_pelayanan/list';
+                $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
+            }
 
             foreach ($listgrupf as $data):
                 $akses = $data['akses'];
@@ -149,7 +156,7 @@ class JadwalPelayanan extends BaseController
     public function formedit()
     {
         if ($this->request->isAJAX()) {
-            $id_jadwal = $this->request->getVar('id_jadwal');
+            $id_jadwal = $this->request->getVar('id');
             $list = $this->jadwalpelayanan->find($id_jadwal);
 
             $data = [
@@ -227,7 +234,7 @@ class JadwalPelayanan extends BaseController
     public function hapus()
     {
         if ($this->request->isAJAX()) {
-            $id_jadwal = $this->request->getVar('id_jadwal');
+            $id_jadwal = $this->request->getVar('id');
 
             $this->jadwalpelayanan->delete($id_jadwal);
             $msg = [
@@ -242,7 +249,7 @@ class JadwalPelayanan extends BaseController
     public function hapusall()
     {
         if ($this->request->isAJAX()) {
-            $id_jadwal = $this->request->getVar('id_jadwal');
+            $id_jadwal = $this->request->getVar('id');
             $jmldata = count($id_jadwal);
 
             for ($i = 0; $i < $jmldata; $i++) {
@@ -293,7 +300,7 @@ class JadwalPelayanan extends BaseController
     public function formlihat()
     {
         if ($this->request->isAJAX()) {
-            $id_jadwal = $this->request->getVar('id_jadwal');
+            $id_jadwal = $this->request->getVar('id');
             $list = $this->jadwalpelayanan->find($id_jadwal);
 
             $data = [

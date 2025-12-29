@@ -26,9 +26,29 @@ class KeuanganGereja extends BaseController
             $url = 'keuangan-gereja/list';
             $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
 
-            foreach ($listgrupf as $data):
-                $akses = $data['akses'];
-            endforeach;
+            // Fallback: Check legacy underscore URL if dash version fails
+            // Fallback: Check legacy underscore URL if dash version fails
+            if (!$listgrupf) {
+                $url = 'keuangan_gereja/list';
+                $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
+            }
+
+            if (!$listgrupf) {
+                $url = 'keuangan-gereja/all';
+                $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
+            }
+
+            if (!$listgrupf) {
+                $url = 'keuangan_gereja/all';
+                $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
+            }
+
+            $akses = 0;
+            if ($listgrupf) {
+                foreach ($listgrupf as $data):
+                    $akses = $data['akses'];
+                endforeach;
+            }
 
             if ($listgrupf) {
                 if ($akses == '1' || $akses == '2') {

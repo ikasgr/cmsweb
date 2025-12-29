@@ -33,6 +33,84 @@
 <div class="page-content">
     <div class="container-fluid">
 
+        <!-- Quick Access Menu -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h5 class="mb-3 text-muted fw-bold font-size-14 text-uppercase">Menu Akses Cepat</h5>
+            </div>
+
+            <div class="col-md-4">
+                <a href="<?= base_url('produk-umkm/list') ?>" class="card border-0 shadow-sm h-100 text-decoration-none"
+                    style="transition: all 0.3s ease; overflow: hidden;"
+                    onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.1)'"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 .125rem .25rem rgba(0,0,0,.075)'">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="flex-shrink-0 me-3">
+                            <span class="avatar-title rounded-circle font-size-24 text-primary"
+                                style="background-color: rgba(85, 110, 230, 0.15); width: 48px; height: 48px;">
+                                <i class="fas fa-box"></i>
+                            </span>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h5 class="font-size-16 mb-1 text-dark">Produk UMKM</h5>
+                            <p class="text-muted mb-0 font-size-13">Kelola katalog produk</p>
+                        </div>
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-chevron-right text-muted"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-4">
+                <a href="<?= base_url('pesanan-umkm/list') ?>"
+                    class="card border-0 shadow-sm h-100 text-decoration-none"
+                    style="transition: all 0.3s ease; overflow: hidden;"
+                    onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.1)'"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 .125rem .25rem rgba(0,0,0,.075)'">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="flex-shrink-0 me-3">
+                            <span class="avatar-title rounded-circle font-size-24 text-success"
+                                style="background-color: rgba(52, 195, 143, 0.15); width: 48px; height: 48px;">
+                                <i class="fas fa-shopping-cart"></i>
+                            </span>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h5 class="font-size-16 mb-1 text-dark">Pesanan UMKM</h5>
+                            <p class="text-muted mb-0 font-size-13">Lihat & proses pesanan</p>
+                        </div>
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-chevron-right text-muted"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-4">
+                <a href="<?= base_url('kategori-produk/list') ?>"
+                    class="card border-0 shadow-sm h-100 text-decoration-none"
+                    style="transition: all 0.3s ease; overflow: hidden;"
+                    onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.1)'"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 .125rem .25rem rgba(0,0,0,.075)'">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="flex-shrink-0 me-3">
+                            <span class="avatar-title rounded-circle font-size-24 text-info"
+                                style="background-color: rgba(80, 165, 241, 0.15); width: 48px; height: 48px;">
+                                <i class="fas fa-tags"></i>
+                            </span>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h5 class="font-size-16 mb-1 text-dark">Kategori Produk</h5>
+                            <p class="text-muted mb-0 font-size-13">Atur kategori produk</p>
+                        </div>
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-chevron-right text-muted"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
         <!-- Statistik Cards -->
         <div class="row">
             <div class="col-xl-3 col-md-6">

@@ -318,7 +318,7 @@
         // Initialize DataTable
         $('#tabelKeuangan').DataTable({
             "language": {
-                "url": "<?= base_url() ?>/public/template/backend/assets/js/datatables/Indonesian.json"
+                "url": "https://cdn.datatables.net/plug-ins/1.13.4/i18n/id.json"
             },
             "pageLength": 25,
             "responsive": true,

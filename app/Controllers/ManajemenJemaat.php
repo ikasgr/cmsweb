@@ -26,9 +26,27 @@ class ManajemenJemaat extends BaseController
             $url = 'manajemen-jemaat/list';
             $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
 
-            foreach ($listgrupf as $data):
-                $akses = $data['akses'];
-            endforeach;
+            if (!$listgrupf) {
+                $url = 'manajemen_jemaat/list';
+                $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
+            }
+
+            if (!$listgrupf) {
+                $url = 'manajemen-jemaat/all';
+                $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
+            }
+
+            if (!$listgrupf) {
+                $url = 'manajemen_jemaat/all';
+                $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
+            }
+
+            $akses = 0;
+            if ($listgrupf) {
+                foreach ($listgrupf as $data):
+                    $akses = $data['akses'];
+                endforeach;
+            }
 
             if ($listgrupf) {
                 if ($akses == '1' || $akses == '2') {

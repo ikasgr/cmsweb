@@ -259,59 +259,6 @@ foreach ($listgrupakses as $data):
     }
 endforeach; ?>
 
-<?php
-// Collect existing modules to prevent duplicates if DB is seeded later
-$existing_modules = !empty($listgrupakses) ? array_column($listgrupakses, 'modul') : [];
-if (!in_array('Manajemen Gereja', $existing_modules)):
-    ?>
-    <li class="menu-title"><b> Manajemen Gereja</b></li>
-    <li>
-        <a href="<?= base_url('manajemen-jemaat/list') ?>" class="waves-effect">
-            <i class="mdi mdi-account-group"></i>
-            <span>Manajemen Jemaat</span>
-        </a>
-    </li>
-    <li>
-        <a href="<?= base_url('keuangan-gereja/list') ?>" class="waves-effect">
-            <i class="mdi mdi-cash-multiple"></i>
-            <span>Keuangan Gereja</span>
-        </a>
-    </li>
-    <li>
-        <a href="<?= base_url('inventaris-gereja/list') ?>" class="waves-effect">
-            <i class="mdi mdi-package-variant"></i>
-            <span>Inventaris Gereja</span>
-        </a>
-    </li>
-    <li>
-        <a href="<?= base_url('majelis-gereja/list') ?>" class="waves-effect">
-            <i class="mdi mdi-account-tie"></i>
-            <span>Majelis Gereja</span>
-        </a>
-    </li>
-    <li>
-        <a href="javascript:void(0);" class="has-arrow waves-effect">
-            <i class="mdi mdi-calendar-clock"></i>
-            <span>Jadwal & Pelayanan</span>
-        </a>
-        <ul class="sub-menu" aria-expanded="false">
-            <li><a href="<?= base_url('jadwal-ibadah/list') ?>">Jadwal Ibadah</a></li>
-            <li><a href="<?= base_url('jadwal-pelayanan/list') ?>">Jadwal Pelayanan</a></li>
-        </ul>
-    </li>
-    <li>
-        <a href="javascript:void(0);" class="has-arrow waves-effect">
-            <i class="mdi mdi-file-document-edit"></i>
-            <span>Pendaftaran</span>
-        </a>
-        <ul class="sub-menu" aria-expanded="false">
-            <li><a href="<?= base_url('pendaftaran-baptis/list') ?>">Baptis</a></li>
-            <li><a href="<?= base_url('pendaftaran-nikah/list') ?>">Pernikahan</a></li>
-            <li><a href="<?= base_url('pendaftaran-sidi/list') ?>">Sidi</a></li>
-        </ul>
-    </li>
-<?php endif; ?>
-
 <li>
     <a class="pointer <?= $tadmin['sidebar_mode'] == 0 ? 'dropdown-item' : '' ?> " data-bs-toggle="modal"
         data-bs-target="#petunjuk" data-bs-backdrop="static"><i class="dripicons-headset"></i> <span>SUPPORT </span></a>

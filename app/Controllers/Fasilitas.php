@@ -10,7 +10,7 @@ class Fasilitas extends BaseController
 	public function index()
 	{
 		$konfigurasi = $this->konfigurasi->vkonfig();
-		
+
 		$fasilitasutm = $this->fasilitas->getutama();
 		$fasilitas = $this->fasilitas->listfasilitaspage();
 
@@ -36,18 +36,18 @@ class Fasilitas extends BaseController
 			'agenda' => $this->agenda->listagendapage()->paginate(4),
 			'section' => $this->section->list(),
 			'linkterkaitall' => $this->linkterkait->publishlinkall(),
-			
+
 
 		];
 		if (0) {
 			$agent = $this->request->getUserAgent();
 			if ($agent->isMobile()) {
-				return view('frontend/'content/fasilitas', $data);
+				return view('frontend/content/fasilitas', $data);
 			} else {
-				return view('frontend/'content/fasilitas', $data);
+				return view('frontend/content/fasilitas', $data);
 			}
 		} else {
-			return view('frontend/'content/fasilitas', $data);
+			return view('frontend/content/fasilitas', $data);
 		}
 	}
 
@@ -91,7 +91,7 @@ class Fasilitas extends BaseController
 			return redirect()->to('/fasilitas');
 
 		$konfigurasi = $this->konfigurasi->vkonfig();
-		
+
 		$detfasilitas = $this->fasilitasdetail->list($fasilitas_id);
 
 		$kategori = $this->kategori->list();
@@ -115,18 +115,18 @@ class Fasilitas extends BaseController
 				'infografis1' => $this->banner->listinfo1(),
 				'agenda' => $this->agenda->listagendapage()->paginate(4),
 				'linkterkaitall' => $this->linkterkait->publishlinkall(),
-				
+
 
 			];
 			if (0) {
 				$agent = $this->request->getUserAgent();
 				if ($agent->isMobile()) {
-					return view('frontend/'content/fasilitas_detail', $data);
+					return view('frontend/content/fasilitas_detail', $data);
 				} else {
-					return view('frontend/'content/fasilitas_detail', $data);
+					return view('frontend/content/fasilitas_detail', $data);
 				}
 			} else {
-				return view('frontend/'content/fasilitas_detail', $data);
+				return view('frontend/content/fasilitas_detail', $data);
 			}
 		} else {
 			return redirect()->to('/fasilitas');
@@ -138,7 +138,7 @@ class Fasilitas extends BaseController
 		if (!session()->get('id')) {
 			return redirect()->to('');
 		}
-		
+
 		$data = [
 			'title' => 'Fasilitas',
 			'subtitle' => 'Lembaga',
@@ -182,7 +182,7 @@ class Fasilitas extends BaseController
 		$list = $this->fasilitas->list();
 
 		// Ambil template admin aktif
-		
+
 
 		// Siapkan data untuk tampilan
 		$data = [
@@ -212,7 +212,7 @@ class Fasilitas extends BaseController
 				'title' => 'Tambah Data',
 				// 'csrf_tokencmsikasmedia'  => csrf_hash(),
 			];
-			
+
 
 			$msg = [
 				'data' => view('backend/lembaga/fasilitas/tambah', $data)
@@ -319,7 +319,7 @@ class Fasilitas extends BaseController
 		if ($this->request->isAJAX()) {
 			$id = $this->request->getVar('fasilitas_id');
 			$list = $this->fasilitas->find($id);
-			
+
 
 			$data = [
 				'title' => 'Ganti Cover',
@@ -404,7 +404,7 @@ class Fasilitas extends BaseController
 		if ($this->request->isAJAX()) {
 			$fasilitas_id = $this->request->getVar('fasilitas_id');
 			$list = $this->fasilitas->find($fasilitas_id);
-			
+
 
 			$data = [
 				'title' => 'Edit Data',
@@ -504,7 +504,7 @@ class Fasilitas extends BaseController
 
 			return redirect()->to(base_url('fasilitas/list'));
 		}
-		
+
 
 		$list = $this->fasilitasdetail->list($fasilitas_id);
 		$data = [
@@ -561,7 +561,7 @@ class Fasilitas extends BaseController
 		$list = $this->fasilitasdetail->list($fasilitas_id);
 
 		// Ambil template admin aktif
-		
+
 
 		// Siapkan data untuk tampilan
 		$data = [
@@ -588,7 +588,7 @@ class Fasilitas extends BaseController
 			return redirect()->to('');
 		}
 		if ($this->request->isAJAX()) {
-			
+
 
 			$data = [
 				'title' => 'Tambah Item',
@@ -674,7 +674,7 @@ class Fasilitas extends BaseController
 		if ($this->request->isAJAX()) {
 			$fasilitasdetail_id = $this->request->getVar('fasilitasdetail_id');
 			$list = $this->fasilitasdetail->find($fasilitasdetail_id);
-			
+
 			$data = [
 				'title' => 'Edit Data',
 				'fasilitasdetail_id' => $list['fasilitasdetail_id'],

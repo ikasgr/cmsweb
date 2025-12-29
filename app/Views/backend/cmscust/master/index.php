@@ -1,6 +1,6 @@
 <?= $this->section('content') ?>
 <?= $this->extend('backend/script'); ?>
-<?= $this->include('/backend/datatable-js'); ?>
+<?= $this->include('backend/datatable-js'); ?>
 
 <div class="page-title-box">
     <div class="container-fluid">

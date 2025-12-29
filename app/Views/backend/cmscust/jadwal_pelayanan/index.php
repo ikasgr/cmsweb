@@ -5,6 +5,7 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
+<?= view('backend/datatable-js') ?>
 
 <div class="page-content">
     <div class="container-fluid">
@@ -39,7 +40,7 @@
 <script>
     function listjadwal() {
         $.ajax({
-            url: "<?= base_url('jadwal-pelayanan/list') ?>",
+            url: "<?= base_url('jadwal-pelayanan/getdata') ?>",
             dataType: "json",
             beforeSend: function () {
                 $('.viewdata').html('<div class="text-center"><i class="fas fa-spin fa-spinner"></i> Loading...</div>');

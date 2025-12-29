@@ -6,18 +6,31 @@ use CodeIgniter\Model;
 
 class M_KeuanganGereja extends Model
 {
-    protected $table      = 'custome__transaksi_keuangan';
+    protected $table = 'custome__transaksi_keuangan';
     protected $primaryKey = 'id_transaksi';
     protected $allowedFields = [
-        'kode_transaksi', 'id_kategori', 'tanggal_transaksi', 'jenis_transaksi',
-        'jumlah', 'sumber_dana', 'penerima', 'keterangan', 'bukti_transaksi',
-        'metode_pembayaran', 'no_referensi', 'id_jadwal_ibadah', 'status',
-        'disetujui_oleh', 'tanggal_persetujuan', 'catatan_persetujuan', 'created_by'
+        'kode_transaksi',
+        'id_kategori',
+        'tanggal_transaksi',
+        'jenis_transaksi',
+        'jumlah',
+        'sumber_dana',
+        'penerima',
+        'keterangan',
+        'bukti_transaksi',
+        'metode_pembayaran',
+        'no_referensi',
+        'id_jadwal_ibadah',
+        'status',
+        'disetujui_oleh',
+        'tanggal_persetujuan',
+        'catatan_persetujuan',
+        'created_by'
     ];
 
     protected $useTimestamps = true;
-    protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
+    protected $createdField = 'created_at';
+    protected $updatedField = 'updated_at';
 
     // List semua transaksi dengan join kategori
     public function list()
@@ -27,10 +40,10 @@ class M_KeuanganGereja extends Model
             custome__kategori_keuangan.nama_kategori,
             custome__kategori_keuangan.warna
         ')
-        ->join('custome__kategori_keuangan', 'custome__kategori_keuangan.id_kategori = custome__transaksi_keuangan.id_kategori')
-        ->orderBy('tanggal_transaksi', 'DESC')
-        ->orderBy('created_at', 'DESC')
-        ->findAll();
+            ->join('custome__kategori_keuangan', 'custome__kategori_keuangan.id_kategori = custome__transaksi_keuangan.id_kategori')
+            ->orderBy('tanggal_transaksi', 'DESC')
+            ->orderBy('created_at', 'DESC')
+            ->findAll();
     }
 
     // List transaksi berdasarkan periode
@@ -41,12 +54,12 @@ class M_KeuanganGereja extends Model
             custome__kategori_keuangan.nama_kategori,
             custome__kategori_keuangan.warna
         ')
-        ->join('custome__kategori_keuangan', 'custome__kategori_keuangan.id_kategori = custome__transaksi_keuangan.id_kategori')
-        ->where('tanggal_transaksi >=', $tanggal_mulai)
-        ->where('tanggal_transaksi <=', $tanggal_selesai)
-        ->where('status', 'Disetujui')
-        ->orderBy('tanggal_transaksi', 'DESC')
-        ->findAll();
+            ->join('custome__kategori_keuangan', 'custome__kategori_keuangan.id_kategori = custome__transaksi_keuangan.id_kategori')
+            ->where('tanggal_transaksi >=', $tanggal_mulai)
+            ->where('tanggal_transaksi <=', $tanggal_selesai)
+            ->where('status', 'Disetujui')
+            ->orderBy('tanggal_transaksi', 'DESC')
+            ->findAll();
     }
 
     // List transaksi berdasarkan jenis
@@ -57,10 +70,10 @@ class M_KeuanganGereja extends Model
             custome__kategori_keuangan.nama_kategori,
             custome__kategori_keuangan.warna
         ')
-        ->join('custome__kategori_keuangan', 'custome__kategori_keuangan.id_kategori = custome__transaksi_keuangan.id_kategori')
-        ->where('jenis_transaksi', $jenis)
-        ->where('status', 'Disetujui')
-        ->orderBy('tanggal_transaksi', 'DESC');
+            ->join('custome__kategori_keuangan', 'custome__kategori_keuangan.id_kategori = custome__transaksi_keuangan.id_kategori')
+            ->where('jenis_transaksi', $jenis)
+            ->where('status', 'Disetujui')
+            ->orderBy('tanggal_transaksi', 'DESC');
 
         if ($limit) {
             $builder->limit($limit);
@@ -74,11 +87,11 @@ class M_KeuanganGereja extends Model
     {
         $prefix = 'TRX';
         $today = date('Ymd');
-        
+
         // Cari transaksi terakhir hari ini
         $lastTransaction = $this->like('kode_transaksi', $prefix . $today)
-                               ->orderBy('id_transaksi', 'DESC')
-                               ->first();
+            ->orderBy('id_transaksi', 'DESC')
+            ->first();
 
         if ($lastTransaction) {
             $lastNumber = (int) substr($lastTransaction['kode_transaksi'], -3);
@@ -112,26 +125,28 @@ class M_KeuanganGereja extends Model
         }
 
         // Total pemasukan
-        $pemasukan = $this->selectSum('jumlah')
-                          ->where('jenis_transaksi', 'Pemasukan')
-                          ->where('status', 'Disetujui')
-                          ->where($where)
-                          ->first()['jumlah'] ?? 0;
+        $resPemasukan = $this->selectSum('jumlah')
+            ->where('jenis_transaksi', 'Pemasukan')
+            ->where('status', 'Disetujui')
+            ->where($where)
+            ->first();
+        $pemasukan = $resPemasukan['jumlah'] ?? 0;
 
         // Total pengeluaran
-        $pengeluaran = $this->selectSum('jumlah')
-                           ->where('jenis_transaksi', 'Pengeluaran')
-                           ->where('status', 'Disetujui')
-                           ->where($where)
-                           ->first()['jumlah'] ?? 0;
+        $resPengeluaran = $this->selectSum('jumlah')
+            ->where('jenis_transaksi', 'Pengeluaran')
+            ->where('status', 'Disetujui')
+            ->where($where)
+            ->first();
+        $pengeluaran = $resPengeluaran['jumlah'] ?? 0;
 
         // Saldo
         $saldo = $pemasukan - $pengeluaran;
 
         // Jumlah transaksi
         $jumlah_transaksi = $this->where('status', 'Disetujui')
-                                ->where($where)
-                                ->countAllResults();
+            ->where($where)
+            ->countAllResults();
 
         return [
             'pemasukan' => $pemasukan,
@@ -167,18 +182,20 @@ class M_KeuanganGereja extends Model
         $data = [];
         for ($i = 1; $i <= 12; $i++) {
             $bulan = str_pad($i, 2, '0', STR_PAD_LEFT);
-            
-            $pemasukan = $this->selectSum('jumlah')
-                             ->where('jenis_transaksi', 'Pemasukan')
-                             ->where('status', 'Disetujui')
-                             ->where("DATE_FORMAT(tanggal_transaksi, '%Y-%m')", "$tahun-$bulan")
-                             ->first()['jumlah'] ?? 0;
 
-            $pengeluaran = $this->selectSum('jumlah')
-                               ->where('jenis_transaksi', 'Pengeluaran')
-                               ->where('status', 'Disetujui')
-                               ->where("DATE_FORMAT(tanggal_transaksi, '%Y-%m')", "$tahun-$bulan")
-                               ->first()['jumlah'] ?? 0;
+            $resPemasukan = $this->selectSum('jumlah')
+                ->where('jenis_transaksi', 'Pemasukan')
+                ->where('status', 'Disetujui')
+                ->where("DATE_FORMAT(tanggal_transaksi, '%Y-%m')", "$tahun-$bulan")
+                ->first();
+            $pemasukan = $resPemasukan['jumlah'] ?? 0;
+
+            $resPengeluaran = $this->selectSum('jumlah')
+                ->where('jenis_transaksi', 'Pengeluaran')
+                ->where('status', 'Disetujui')
+                ->where("DATE_FORMAT(tanggal_transaksi, '%Y-%m')", "$tahun-$bulan")
+                ->first();
+            $pengeluaran = $resPengeluaran['jumlah'] ?? 0;
 
             $data[] = [
                 'bulan' => $i,
@@ -196,40 +213,40 @@ class M_KeuanganGereja extends Model
     public function getTopKategoriPemasukan($limit = 5, $periode = 'bulan_ini')
     {
         $thisMonth = date('Y-m');
-        
+
         return $this->select('
             custome__kategori_keuangan.nama_kategori,
             custome__kategori_keuangan.warna,
             SUM(custome__transaksi_keuangan.jumlah) as total
         ')
-        ->join('custome__kategori_keuangan', 'custome__kategori_keuangan.id_kategori = custome__transaksi_keuangan.id_kategori')
-        ->where('jenis_transaksi', 'Pemasukan')
-        ->where('status', 'Disetujui')
-        ->where("DATE_FORMAT(tanggal_transaksi, '%Y-%m')", $thisMonth)
-        ->groupBy('custome__transaksi_keuangan.id_kategori')
-        ->orderBy('total', 'DESC')
-        ->limit($limit)
-        ->findAll();
+            ->join('custome__kategori_keuangan', 'custome__kategori_keuangan.id_kategori = custome__transaksi_keuangan.id_kategori')
+            ->where('jenis_transaksi', 'Pemasukan')
+            ->where('status', 'Disetujui')
+            ->where("DATE_FORMAT(tanggal_transaksi, '%Y-%m')", $thisMonth)
+            ->groupBy('custome__transaksi_keuangan.id_kategori')
+            ->orderBy('total', 'DESC')
+            ->limit($limit)
+            ->findAll();
     }
 
     // Top kategori pengeluaran
     public function getTopKategoriPengeluaran($limit = 5, $periode = 'bulan_ini')
     {
         $thisMonth = date('Y-m');
-        
+
         return $this->select('
             custome__kategori_keuangan.nama_kategori,
             custome__kategori_keuangan.warna,
             SUM(custome__transaksi_keuangan.jumlah) as total
         ')
-        ->join('custome__kategori_keuangan', 'custome__kategori_keuangan.id_kategori = custome__transaksi_keuangan.id_kategori')
-        ->where('jenis_transaksi', 'Pengeluaran')
-        ->where('status', 'Disetujui')
-        ->where("DATE_FORMAT(tanggal_transaksi, '%Y-%m')", $thisMonth)
-        ->groupBy('custome__transaksi_keuangan.id_kategori')
-        ->orderBy('total', 'DESC')
-        ->limit($limit)
-        ->findAll();
+            ->join('custome__kategori_keuangan', 'custome__kategori_keuangan.id_kategori = custome__transaksi_keuangan.id_kategori')
+            ->where('jenis_transaksi', 'Pengeluaran')
+            ->where('status', 'Disetujui')
+            ->where("DATE_FORMAT(tanggal_transaksi, '%Y-%m')", $thisMonth)
+            ->groupBy('custome__transaksi_keuangan.id_kategori')
+            ->orderBy('total', 'DESC')
+            ->limit($limit)
+            ->findAll();
     }
 
     // Update status transaksi
@@ -253,14 +270,14 @@ class M_KeuanganGereja extends Model
             custome__kategori_keuangan.nama_kategori,
             custome__kategori_keuangan.warna
         ')
-        ->join('custome__kategori_keuangan', 'custome__kategori_keuangan.id_kategori = custome__transaksi_keuangan.id_kategori')
-        ->like('kode_transaksi', $keyword)
-        ->orLike('keterangan', $keyword)
-        ->orLike('sumber_dana', $keyword)
-        ->orLike('penerima', $keyword)
-        ->orLike('custome__kategori_keuangan.nama_kategori', $keyword)
-        ->orderBy('tanggal_transaksi', 'DESC')
-        ->findAll();
+            ->join('custome__kategori_keuangan', 'custome__kategori_keuangan.id_kategori = custome__transaksi_keuangan.id_kategori')
+            ->like('kode_transaksi', $keyword)
+            ->orLike('keterangan', $keyword)
+            ->orLike('sumber_dana', $keyword)
+            ->orLike('penerima', $keyword)
+            ->orLike('custome__kategori_keuangan.nama_kategori', $keyword)
+            ->orderBy('tanggal_transaksi', 'DESC')
+            ->findAll();
     }
 
     // Transaksi pending approval
@@ -271,10 +288,10 @@ class M_KeuanganGereja extends Model
             custome__kategori_keuangan.nama_kategori,
             custome__kategori_keuangan.warna
         ')
-        ->join('custome__kategori_keuangan', 'custome__kategori_keuangan.id_kategori = custome__transaksi_keuangan.id_kategori')
-        ->where('status', 'Pending')
-        ->orderBy('created_at', 'ASC')
-        ->findAll();
+            ->join('custome__kategori_keuangan', 'custome__kategori_keuangan.id_kategori = custome__transaksi_keuangan.id_kategori')
+            ->where('status', 'Pending')
+            ->orderBy('created_at', 'ASC')
+            ->findAll();
     }
 
     // Laporan keuangan periode
@@ -282,7 +299,7 @@ class M_KeuanganGereja extends Model
     {
         // Summary
         $summary = $this->getStatistikPeriode($tanggal_mulai, $tanggal_selesai);
-        
+
         // Detail per kategori
         $detail_pemasukan = $this->select('
             custome__kategori_keuangan.nama_kategori,
@@ -290,14 +307,14 @@ class M_KeuanganGereja extends Model
             SUM(custome__transaksi_keuangan.jumlah) as total,
             COUNT(custome__transaksi_keuangan.id_transaksi) as jumlah_transaksi
         ')
-        ->join('custome__kategori_keuangan', 'custome__kategori_keuangan.id_kategori = custome__transaksi_keuangan.id_kategori')
-        ->where('jenis_transaksi', 'Pemasukan')
-        ->where('status', 'Disetujui')
-        ->where('tanggal_transaksi >=', $tanggal_mulai)
-        ->where('tanggal_transaksi <=', $tanggal_selesai)
-        ->groupBy('custome__transaksi_keuangan.id_kategori')
-        ->orderBy('total', 'DESC')
-        ->findAll();
+            ->join('custome__kategori_keuangan', 'custome__kategori_keuangan.id_kategori = custome__transaksi_keuangan.id_kategori')
+            ->where('jenis_transaksi', 'Pemasukan')
+            ->where('status', 'Disetujui')
+            ->where('tanggal_transaksi >=', $tanggal_mulai)
+            ->where('tanggal_transaksi <=', $tanggal_selesai)
+            ->groupBy('custome__transaksi_keuangan.id_kategori')
+            ->orderBy('total', 'DESC')
+            ->findAll();
 
         $detail_pengeluaran = $this->select('
             custome__kategori_keuangan.nama_kategori,
@@ -305,14 +322,14 @@ class M_KeuanganGereja extends Model
             SUM(custome__transaksi_keuangan.jumlah) as total,
             COUNT(custome__transaksi_keuangan.id_transaksi) as jumlah_transaksi
         ')
-        ->join('custome__kategori_keuangan', 'custome__kategori_keuangan.id_kategori = custome__transaksi_keuangan.id_kategori')
-        ->where('jenis_transaksi', 'Pengeluaran')
-        ->where('status', 'Disetujui')
-        ->where('tanggal_transaksi >=', $tanggal_mulai)
-        ->where('tanggal_transaksi <=', $tanggal_selesai)
-        ->groupBy('custome__transaksi_keuangan.id_kategori')
-        ->orderBy('total', 'DESC')
-        ->findAll();
+            ->join('custome__kategori_keuangan', 'custome__kategori_keuangan.id_kategori = custome__transaksi_keuangan.id_kategori')
+            ->where('jenis_transaksi', 'Pengeluaran')
+            ->where('status', 'Disetujui')
+            ->where('tanggal_transaksi >=', $tanggal_mulai)
+            ->where('tanggal_transaksi <=', $tanggal_selesai)
+            ->groupBy('custome__transaksi_keuangan.id_kategori')
+            ->orderBy('total', 'DESC')
+            ->findAll();
 
         return [
             'summary' => $summary,
@@ -324,19 +341,21 @@ class M_KeuanganGereja extends Model
     // Statistik periode custom
     private function getStatistikPeriode($tanggal_mulai, $tanggal_selesai)
     {
-        $pemasukan = $this->selectSum('jumlah')
-                          ->where('jenis_transaksi', 'Pemasukan')
-                          ->where('status', 'Disetujui')
-                          ->where('tanggal_transaksi >=', $tanggal_mulai)
-                          ->where('tanggal_transaksi <=', $tanggal_selesai)
-                          ->first()['jumlah'] ?? 0;
+        $resPemasukan = $this->selectSum('jumlah')
+            ->where('jenis_transaksi', 'Pemasukan')
+            ->where('status', 'Disetujui')
+            ->where('tanggal_transaksi >=', $tanggal_mulai)
+            ->where('tanggal_transaksi <=', $tanggal_selesai)
+            ->first();
+        $pemasukan = $resPemasukan['jumlah'] ?? 0;
 
-        $pengeluaran = $this->selectSum('jumlah')
-                           ->where('jenis_transaksi', 'Pengeluaran')
-                           ->where('status', 'Disetujui')
-                           ->where('tanggal_transaksi >=', $tanggal_mulai)
-                           ->where('tanggal_transaksi <=', $tanggal_selesai)
-                           ->first()['jumlah'] ?? 0;
+        $resPengeluaran = $this->selectSum('jumlah')
+            ->where('jenis_transaksi', 'Pengeluaran')
+            ->where('status', 'Disetujui')
+            ->where('tanggal_transaksi >=', $tanggal_mulai)
+            ->where('tanggal_transaksi <=', $tanggal_selesai)
+            ->first();
+        $pengeluaran = $resPengeluaran['jumlah'] ?? 0;
 
         return [
             'pemasukan' => $pemasukan,

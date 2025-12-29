@@ -452,6 +452,3 @@ if (esc($list['user_image']) != 'default.png' && file_exists('public/img/user/' 
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-
-<script src="<?= base_url('/public/template/backend/assets/js/pages/fontawesome.init.js') ?>"></script>
-<script src="<?= base_url('/public/template/backend/assets/js/pages/materialdesign.init.js') ?>"></script>

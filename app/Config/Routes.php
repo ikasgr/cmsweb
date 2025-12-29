@@ -898,7 +898,7 @@ $routes->group('', ['namespace' => 'App\Controllers'], function ($routes) {
 
     // Manajemen Jemaat - Backend
     $routes->get('manajemen-jemaat/list', 'ManajemenJemaat::list');
-    $routes->get('manajemen_jemaat/all', 'ManajemenJemaat::list');
+    $routes->get('manajemen-jemaat/all', 'ManajemenJemaat::list');
     $routes->get('manajemen-jemaat/getdata', 'ManajemenJemaat::getdata');
     $routes->post('manajemen-jemaat/formlihat', 'ManajemenJemaat::formlihat');
     $routes->post('manajemen-jemaat/formedit', 'ManajemenJemaat::formedit');
@@ -920,7 +920,7 @@ $routes->group('', ['namespace' => 'App\Controllers'], function ($routes) {
 
     // Majelis Gereja - Backend
     $routes->get('majelis-gereja/list', 'MajelisGereja::list');
-    $routes->get('majelis_gereja/all', 'MajelisGereja::list');
+    $routes->get('majelis-gereja/all', 'MajelisGereja::list');
     $routes->get('majelis-gereja/getdata', 'MajelisGereja::getdata');
     $routes->post('majelis-gereja/formlihat', 'MajelisGereja::formlihat');
     $routes->post('majelis-gereja/formedit', 'MajelisGereja::formedit');
@@ -934,7 +934,7 @@ $routes->group('', ['namespace' => 'App\Controllers'], function ($routes) {
 
     // Jadwal Ibadah & Pelayanan - Backend
     $routes->get('jadwal-ibadah/list', 'JadwalIbadah::list');
-    $routes->get('jadwal_ibadah/all', 'JadwalIbadah::list');
+    $routes->get('jadwal-ibadah/all', 'JadwalIbadah::list');
     $routes->get('jadwal-ibadah/getdata', 'JadwalIbadah::getdata');
     $routes->post('jadwal-ibadah/formlihat', 'JadwalIbadah::formlihat');
     $routes->post('jadwal-ibadah/formedit', 'JadwalIbadah::formedit');
@@ -952,7 +952,7 @@ $routes->group('', ['namespace' => 'App\Controllers'], function ($routes) {
 
     // Keuangan Gereja - Backend
     $routes->get('keuangan-gereja/list', 'KeuanganGereja::list');
-    $routes->get('keuangan_gereja/all', 'KeuanganGereja::list');
+    $routes->get('keuangan-gereja/all', 'KeuanganGereja::list');
     $routes->get('keuangan-gereja/getdata', 'KeuanganGereja::getdata');
     $routes->post('keuangan-gereja/formlihat', 'KeuanganGereja::formlihat');
     $routes->post('keuangan-gereja/formedit', 'KeuanganGereja::formedit');
@@ -971,7 +971,7 @@ $routes->group('', ['namespace' => 'App\Controllers'], function ($routes) {
 
     // Inventaris Gereja - Backend
     $routes->get('inventaris-gereja/list', 'InventarisGereja::list');
-    $routes->get('inventaris_gereja/all', 'InventarisGereja::list');
+    $routes->get('inventaris-gereja/all', 'InventarisGereja::list');
     $routes->get('inventaris-gereja/getdata', 'InventarisGereja::getdata');
     $routes->post('inventaris-gereja/formlihat', 'InventarisGereja::formlihat');
     $routes->post('inventaris-gereja/formedit', 'InventarisGereja::formedit');

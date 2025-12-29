@@ -33,15 +33,15 @@
                         <td><input type="checkbox" class="checkboxes" name="id[]" value="<?= $data['id_jadwal'] ?>"></td>
                         <td><?= $no++ ?></td>
                         <td><strong><?= esc($data['judul_jadwal']) ?></strong></td>
-                        <td><span class="badge badge-primary"><?= esc($data['jenis_pelayanan']) ?></span></td>
-                        <td><?= date_indo($data['tanggal']) ?></td>
+                        <td><span class="badge bg-primary"><?= esc($data['jenis_pelayanan']) ?></span></td>
+                        <td><?= date('d/m/Y', strtotime($data['tanggal'])) ?></td>
                         <td><?= date('H:i', strtotime($data['waktu_mulai'])) ?></td>
                         <td><?= esc($data['tempat']) ?></td>
                         <td>
                             <?php if ($data['status'] == 1): ?>
-                                <span class="badge badge-success">Aktif</span>
+                                <span class="badge bg-success">Aktif</span>
                             <?php else: ?>
-                                <span class="badge badge-secondary">Nonaktif</span>
+                                <span class="badge bg-secondary">Nonaktif</span>
                             <?php endif; ?>
                         </td>
                         <td>
@@ -72,7 +72,7 @@
 
 <script>
     $(document).ready(function () {
-        $('#listjadwal').DataTable({ "language": { "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Indonesian.json" } });
+        $('#listjadwal').DataTable({ "language": { "url": "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Indonesian.json" } });
         $('#checkall').click(function () { $('.checkboxes').prop('checked', $(this).prop('checked')); });
     });
 

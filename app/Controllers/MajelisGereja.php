@@ -26,9 +26,27 @@ class MajelisGereja extends BaseController
             $url = 'majelis-gereja/list';
             $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
 
-            foreach ($listgrupf as $data):
-                $akses = $data['akses'];
-            endforeach;
+            if (!$listgrupf) {
+                $url = 'majelis_gereja/list';
+                $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
+            }
+
+            if (!$listgrupf) {
+                $url = 'majelis-gereja/all';
+                $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
+            }
+
+            if (!$listgrupf) {
+                $url = 'majelis_gereja/all';
+                $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
+            }
+
+            $akses = 0;
+            if ($listgrupf) {
+                foreach ($listgrupf as $data):
+                    $akses = $data['akses'];
+                endforeach;
+            }
 
             if ($listgrupf) {
                 if ($akses == '1' || $akses == '2') {

@@ -26,9 +26,27 @@ class InventarisGereja extends BaseController
             $url = 'inventaris-gereja/list';
             $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
 
-            foreach ($listgrupf as $data):
-                $akses = $data['akses'];
-            endforeach;
+            if (!$listgrupf) {
+                $url = 'inventaris_gereja/list';
+                $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
+            }
+
+            if (!$listgrupf) {
+                $url = 'inventaris-gereja/all';
+                $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
+            }
+
+            if (!$listgrupf) {
+                $url = 'inventaris_gereja/all';
+                $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
+            }
+
+            $akses = 0;
+            if ($listgrupf) {
+                foreach ($listgrupf as $data):
+                    $akses = $data['akses'];
+                endforeach;
+            }
 
             if ($listgrupf) {
                 if ($akses == '1' || $akses == '2') {
@@ -217,6 +235,13 @@ class InventarisGereja extends BaseController
 
                 // Get riwayat perbaikan
                 $riwayat_perbaikan = $this->perbaikanaset->getByAset($id_aset);
+
+                // Convert to object for view compatibility
+                $aset = (object) $aset;
+                $riwayat_maintenance = array_map(function ($item) {
+                    return (object) $item; }, $riwayat_maintenance);
+                $riwayat_perbaikan = array_map(function ($item) {
+                    return (object) $item; }, $riwayat_perbaikan);
 
                 $data = [
                     'title' => 'Detail Aset',

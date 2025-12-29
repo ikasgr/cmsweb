@@ -323,7 +323,7 @@ INSERT INTO `cms__grupakses` (`id_grupakses`, `id_grup`, `id_modul`, `akses`, `a
 (117,	3,	7,	2,	0,	1,	1,	1),
 (118,	3,	8,	2,	0,	1,	1,	1),
 (120,	3,	10,	3,	0,	0,	0,	0),
-(121,	3,	11,	3,	0,	0,	0,	0),
+(121,	3,	11,	1,	0,	1,	1,	1),
 (122,	3,	12,	3,	0,	0,	0,	0),
 (123,	3,	13,	3,	0,	0,	0,	0),
 (124,	3,	15,	3,	0,	0,	0,	0),
@@ -372,7 +372,20 @@ INSERT INTO `cms__grupakses` (`id_grupakses`, `id_grup`, `id_modul`, `akses`, `a
 (281,	2,	50,	0,	1,	0,	0,	0),
 (282,	2,	51,	0,	0,	0,	0,	0),
 (283,	2,	53,	0,	1,	0,	0,	0),
-(284,	2,	54,	0,	0,	0,	0,	0);
+(284,	2,	54,	0,	0,	0,	0,	0),
+(285,	1,	69,	1,	0,	1,	1,	1),
+(286,	1,	70,	1,	0,	1,	1,	1),
+(287,	1,	71,	1,	0,	1,	1,	1),
+(288,	1,	72,	1,	0,	1,	1,	1),
+(289,	1,	9,	0,	1,	0,	0,	0),
+(290,	1,	14,	0,	1,	0,	0,	0),
+(291,	1,	73,	1,	0,	1,	1,	1),
+(292,	1,	74,	1,	0,	1,	1,	1),
+(293,	1,	75,	1,	0,	1,	1,	1),
+(294,	1,	17,	0,	1,	0,	0,	0),
+(295,	1,	76,	1,	0,	1,	1,	1),
+(296,	1,	77,	1,	0,	1,	1,	1),
+(297,	1,	78,	1,	0,	1,	1,	1);
 
 DROP TABLE IF EXISTS `cms__modpublic`;
 CREATE TABLE `cms__modpublic` (
@@ -429,12 +442,15 @@ INSERT INTO `cms__modul` (`id_modul`, `modul`, `aktif`, `urut`, `level`, `hidden
 (6,	'Data Agenda',	1,	2,	1,	0,	'Informasi',	'sm',	'agenda/all',	'mdi mdi-timetable'),
 (7,	'Bank Data',	1,	3,	1,	0,	'Informasi',	'sm',	'bankdata/all',	'mdi mdi-file-multiple'),
 (8,	'Pengumuman',	1,	4,	1,	0,	'Informasi',	'sm',	'pengumuman/all',	'mdi mdi-bullhorn'),
+(9,	'PENDAFTARAN',	1,	7,	1,	1,	'Pendaftaran',	'utm',	NULL,	'dripicons-to-do'),
 (10,	'Sambutan Kepala',	1,	1,	1,	0,	'Lembaga',	'sm',	'sambutan',	'mdi mdi-voice'),
-(11,	'Data Pegawai',	1,	2,	1,	0,	'Lembaga',	'sm',	'pegawai/all',	'mdi mdi-folder-account'),
-(12,	'Transparansi',	1,	3,	1,	0,	'Lembaga',	'sm',	'transparansi/list',	'mdi mdi-chart-arc'),
-(13,	'Fasilitas',	1,	4,	1,	0,	'Lembaga',	'sm',	'fasilitas/list',	'mdi mdi-folder-star'),
-(15,	'Counter',	1,	5,	1,	0,	'Lembaga',	'sm',	'counter',	'mdi mdi-chart-timeline'),
+(11,	'Data Majelis',	1,	2,	1,	0,	'Lembaga',	'sm',	'majelis-gereja/list',	'mdi mdi-folder-account'),
+(12,	'Keuangan Gereja',	1,	4,	1,	0,	'Lembaga',	'sm',	'keuangan-gereja/list',	'mdi mdi-chart-arc'),
+(13,	'Fasilitas',	1,	5,	1,	0,	'Lembaga',	'sm',	'fasilitas/list',	'mdi mdi-folder-star'),
+(14,	'JADWAL',	1,	10,	1,	1,	'Jadwal',	'utm',	NULL,	'dripicons-to-do'),
+(15,	'Counter',	1,	6,	1,	0,	'Lembaga',	'sm',	'counter',	'mdi mdi-chart-timeline'),
 (16,	'Data Foto',	1,	1,	1,	0,	'Galeri',	'sm',	'foto/all',	'mdi mdi-folder-multiple-image'),
+(17,	'TOKO UMKM',	1,	9,	1,	1,	'Umkm',	'utm',	NULL,	'dripicons-to-do'),
 (18,	'Data Video',	1,	2,	1,	0,	'Galeri',	'sm',	'video/all',	'mdi mdi-youtube'),
 (20,	'Survei',	1,	1,	1,	0,	'Interaksi',	'sm',	'survey/all',	'far fa-check-square'),
 (21,	'Jajak Pendapat',	1,	2,	1,	0,	'Interaksi',	'sm',	'poling',	'mdi mdi-chart-bar-stacked'),
@@ -458,16 +474,26 @@ INSERT INTO `cms__modul` (`id_modul`, `modul`, `aktif`, `urut`, `level`, `hidden
 (48,	'GALERI',	1,	4,	2,	1,	'Galeri',	'utm',	NULL,	'dripicons-photo'),
 (49,	'INTERAKSI',	1,	5,	2,	1,	'Interaksi',	'utm',	NULL,	'dripicons-message'),
 (50,	'E-BOOK',	1,	6,	2,	1,	'Ebook',	'utm',	NULL,	'dripicons-to-do'),
-(51,	'KONFIGURASI',	1,	7,	2,	1,	'Pengaturan',	'utm',	NULL,	'dripicons-gear'),
+(51,	'KONFIGURASI',	1,	11,	2,	1,	'Pengaturan',	'utm',	NULL,	'dripicons-gear'),
 (52,	'Modul CMS',	1,	5,	1,	0,	'Pengaturan',	'sm',	'modul',	'mdi mdi-compare'),
-(53,	'KELOLA KONTEN',	1,	8,	2,	1,	'Setkonten',	'utm',	NULL,	'dripicons-copy'),
-(54,	'MASTER DATA',	1,	9,	3,	1,	'Master',	'utm',	NULL,	'mdi mdi-database'),
+(53,	'KELOLA KONTEN',	1,	12,	2,	1,	'Setkonten',	'utm',	NULL,	'dripicons-copy'),
+(54,	'MASTER DATA',	1,	13,	3,	1,	'Master',	'utm',	NULL,	'mdi mdi-database'),
 (55,	'Iklan',	1,	8,	3,	0,	'Setkonten',	'sm',	'iklan',	'mdi mdi-camera-burst'),
 (57,	'Tanya Jawab',	1,	9,	3,	0,	'Setkonten',	'sm',	'tanyajawab/list',	'mdi mdi-comment-question-outline'),
 (58,	'Permintaan Informasi',	0,	5,	3,	0,	'Interaksi',	'sm',	'permintaan-info/list',	'fab fa-slideshare'),
 (62,	'Kategori FAQ',	1,	2,	3,	0,	'Master',	'sm',	'm-kategorifaq',	'mdi mdi-checkbox-multiple-blank-circle-outline'),
 (67,	'Pendidikan',	1,	3,	3,	0,	'Master',	'sm',	'm-pendidikan',	'mdi mdi-checkbox-multiple-blank-circle-outline'),
-(68,	'Pekerjaan',	1,	4,	3,	0,	'Master',	'sm',	'm-pekerjaan',	'mdi mdi-checkbox-multiple-blank-circle-outline');
+(68,	'Pekerjaan',	1,	4,	3,	0,	'Master',	'sm',	'm-pekerjaan',	'mdi mdi-checkbox-multiple-blank-circle-outline'),
+(69,	'Data Jemaat',	1,	3,	3,	0,	'Lembaga',	'sm',	'manajemen-jemaat/list',	''),
+(70,	'Baptis',	1,	1,	3,	0,	'Pendaftaran',	'sm',	'pendaftaran-baptis/list',	''),
+(71,	'Sidi',	1,	2,	3,	0,	'Pendaftaran',	'sm',	'pendaftaran-sidi/list',	''),
+(72,	'Nikah',	1,	3,	3,	0,	'Pendaftaran',	'sm',	'pendaftaran-nikah/list',	''),
+(73,	'Jadwal Kebaktian',	1,	1,	3,	0,	'Jadwal',	'sm',	'jadwal-ibadah/list',	''),
+(74,	'Jadwal Pelayanan',	1,	2,	3,	0,	'Jadwal',	'sm',	'jadwal-pelayanan/list',	''),
+(75,	'Inventaris',	1,	7,	3,	0,	'Lembaga',	'sm',	'inventaris-gereja/list',	''),
+(76,	'Data Produk',	1,	1,	3,	0,	'Umkm',	'sm',	'produk-umkm/list',	''),
+(77,	'Kategori Produk',	1,	2,	3,	0,	'Umkm',	'sm',	'kategori-produk/list',	''),
+(78,	'Daftar Pesanan',	1,	3,	3,	0,	'Umkm',	'sm',	'pesanan-umkm/list',	'');
 
 DROP TABLE IF EXISTS `cms__usergrup`;
 CREATE TABLE `cms__usergrup` (
@@ -505,7 +531,7 @@ CREATE TABLE `cms__usersessions` (
 
 TRUNCATE `cms__usersessions`;
 INSERT INTO `cms__usersessions` (`id`, `user_id`, `session_id`, `session_hash`, `created_at`, `updated_at`) VALUES
-(1,	1,	'1887efcce70f35f001173b3155e5cf70',	'dead42785e470def1d4313f5d2787c37f6baf03d37c566c329d8b12e2555684e',	'2025-12-29 01:30:39',	'2025-12-29 01:41:25');
+(1,	1,	'd873ea95c26a600509f8f76682a5a29b',	'e1c57b333a3b91afecffcdaf90d5da30bb73f4e4e06881ae0b709ee2f4065024',	'2025-12-29 02:56:16',	'2025-12-29 03:23:43');
 
 DROP TABLE IF EXISTS `counter`;
 CREATE TABLE `counter` (
@@ -915,6 +941,32 @@ INSERT INTO `custome__jenis_ibadah` (`id_jenis_ibadah`, `nama_jenis`, `deskripsi
 (7,	'Ibadah Tahun Baru',	'Ibadah menyambut tahun baru',	'#6f42c1',	120,	'Aktif',	'2025-12-28 16:03:23',	'2025-12-28 16:03:23'),
 (8,	'Ibadah Khusus',	'Ibadah untuk acara khusus',	'#6c757d',	90,	'Aktif',	'2025-12-28 16:03:23',	'2025-12-28 16:03:23');
 
+DROP TABLE IF EXISTS `custome__kas_gereja`;
+CREATE TABLE `custome__kas_gereja` (
+  `id_kas` int(11) NOT NULL AUTO_INCREMENT,
+  `nama_kas` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `jenis_kas` enum('Kas Utama','Kas Khusus','Tabungan','Deposito') COLLATE utf8mb4_unicode_ci DEFAULT 'Kas Utama',
+  `saldo_awal` decimal(15,2) DEFAULT 0.00,
+  `saldo_akhir` decimal(15,2) DEFAULT 0.00,
+  `bank` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `no_rekening` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `atas_nama` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `keterangan` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` enum('Aktif','Non-Aktif') COLLATE utf8mb4_unicode_ci DEFAULT 'Aktif',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id_kas`),
+  KEY `idx_jenis` (`jenis_kas`),
+  KEY `idx_status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+TRUNCATE `custome__kas_gereja`;
+INSERT INTO `custome__kas_gereja` (`id_kas`, `nama_kas`, `jenis_kas`, `saldo_awal`, `saldo_akhir`, `bank`, `no_rekening`, `atas_nama`, `keterangan`, `status`, `created_at`, `updated_at`) VALUES
+(1,	'Kas Utama',	'Kas Utama',	10000000.00,	10000000.00,	'BCA',	'1234567890',	'Gereja Kristen Indonesia',	NULL,	'Aktif',	'2025-12-29 02:52:36',	'2025-12-29 02:52:36'),
+(2,	'Kas Persembahan',	'Kas Khusus',	5000000.00,	5000000.00,	NULL,	NULL,	NULL,	NULL,	'Aktif',	'2025-12-29 02:52:36',	'2025-12-29 02:52:36'),
+(3,	'Tabungan Pembangunan',	'Tabungan',	50000000.00,	50000000.00,	'Mandiri',	'0987654321',	'Gereja Kristen Indonesia',	NULL,	'Aktif',	'2025-12-29 02:52:36',	'2025-12-29 02:52:36'),
+(4,	'Dana Misi',	'Kas Khusus',	2000000.00,	2000000.00,	NULL,	NULL,	NULL,	NULL,	'Aktif',	'2025-12-29 02:52:36',	'2025-12-29 02:52:36');
+
 DROP TABLE IF EXISTS `custome__kategorilapak`;
 CREATE TABLE `custome__kategorilapak` (
   `kategorilapak_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -979,6 +1031,22 @@ CREATE TABLE `custome__kategori_keuangan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 TRUNCATE `custome__kategori_keuangan`;
+INSERT INTO `custome__kategori_keuangan` (`id_kategori`, `nama_kategori`, `jenis`, `deskripsi`, `warna`, `is_default`, `status`, `created_at`, `updated_at`) VALUES
+(1,	'Persepuluhan',	'Pemasukan',	'Persepuluhan dari jemaat',	'#28a745',	1,	'Aktif',	'2025-12-29 02:52:36',	'2025-12-29 02:52:36'),
+(2,	'Persembahan Syukur',	'Pemasukan',	'Persembahan syukur dalam ibadah',	'#17a2b8',	1,	'Aktif',	'2025-12-29 02:52:36',	'2025-12-29 02:52:36'),
+(3,	'Persembahan Khusus',	'Pemasukan',	'Persembahan untuk keperluan khusus',	'#ffc107',	0,	'Aktif',	'2025-12-29 02:52:36',	'2025-12-29 02:52:36'),
+(4,	'Kolekte',	'Pemasukan',	'Kolekte dalam ibadah',	'#6f42c1',	0,	'Aktif',	'2025-12-29 02:52:36',	'2025-12-29 02:52:36'),
+(5,	'Donasi',	'Pemasukan',	'Donasi dari pihak luar',	'#fd7e14',	0,	'Aktif',	'2025-12-29 02:52:36',	'2025-12-29 02:52:36'),
+(6,	'Sewa Gedung',	'Pemasukan',	'Pendapatan dari sewa fasilitas gereja',	'#20c997',	0,	'Aktif',	'2025-12-29 02:52:36',	'2025-12-29 02:52:36'),
+(7,	'Bunga Bank',	'Pemasukan',	'Bunga dari tabungan/deposito',	'#6c757d',	0,	'Aktif',	'2025-12-29 02:52:36',	'2025-12-29 02:52:36'),
+(8,	'Gaji Pendeta',	'Pengeluaran',	'Gaji dan tunjangan pendeta',	'#dc3545',	1,	'Aktif',	'2025-12-29 02:52:36',	'2025-12-29 02:52:36'),
+(9,	'Gaji Pegawai',	'Pengeluaran',	'Gaji pegawai gereja',	'#e83e8c',	1,	'Aktif',	'2025-12-29 02:52:36',	'2025-12-29 02:52:36'),
+(10,	'Listrik & Air',	'Pengeluaran',	'Biaya listrik dan air',	'#fd7e14',	1,	'Aktif',	'2025-12-29 02:52:36',	'2025-12-29 02:52:36'),
+(11,	'Pemeliharaan Gedung',	'Pengeluaran',	'Biaya pemeliharaan dan perbaikan',	'#6f42c1',	0,	'Aktif',	'2025-12-29 02:52:36',	'2025-12-29 02:52:36'),
+(12,	'Konsumsi',	'Pengeluaran',	'Biaya konsumsi acara gereja',	'#20c997',	0,	'Aktif',	'2025-12-29 02:52:36',	'2025-12-29 02:52:36'),
+(13,	'ATK & Operasional',	'Pengeluaran',	'Alat tulis kantor dan operasional',	'#6c757d',	0,	'Aktif',	'2025-12-29 02:52:36',	'2025-12-29 02:52:36'),
+(14,	'Misi & Diakonia',	'Pengeluaran',	'Dana untuk misi dan pelayanan sosial',	'#28a745',	0,	'Aktif',	'2025-12-29 02:52:36',	'2025-12-29 02:52:36'),
+(15,	'Transportasi',	'Pengeluaran',	'Biaya transportasi kegiatan gereja',	'#17a2b8',	0,	'Aktif',	'2025-12-29 02:52:36',	'2025-12-29 02:52:36');
 
 DROP TABLE IF EXISTS `custome__kategori_produk`;
 CREATE TABLE `custome__kategori_produk` (
@@ -1161,6 +1229,30 @@ INSERT INTO `custome__lapak` (`id_lapak`, `id`, `nama_lapak`, `harga`, `stok`, `
 (9,	1,	'Selendang Motif',	75000,	100,	'Selendang Motif',	'1',	'1696530625_6d6c94c9901ae84dcb43.png',	4,	'+6285339035155'),
 (11,	16,	'Topi Motif',	75000,	5,	'Topi Motif',	'1',	'1727608343_73c70819b2ae72962ab1.png',	3,	'+6285339035155'),
 (18,	1,	'Anugerah Las Petuk',	450000,	100,	'Angugera Las',	'1',	'1690264196_f28d3b4635a3a9a3e501.jpeg',	1,	'6285238992000');
+
+DROP TABLE IF EXISTS `custome__laporan_keuangan`;
+CREATE TABLE `custome__laporan_keuangan` (
+  `id_laporan` int(11) NOT NULL AUTO_INCREMENT,
+  `jenis_laporan` enum('Bulanan','Triwulan','Semester','Tahunan') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `periode_mulai` date NOT NULL,
+  `periode_selesai` date NOT NULL,
+  `total_pemasukan` decimal(15,2) DEFAULT 0.00,
+  `total_pengeluaran` decimal(15,2) DEFAULT 0.00,
+  `saldo_awal` decimal(15,2) DEFAULT 0.00,
+  `saldo_akhir` decimal(15,2) DEFAULT 0.00,
+  `file_laporan` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` enum('Draft','Final','Published') COLLATE utf8mb4_unicode_ci DEFAULT 'Draft',
+  `dibuat_oleh` int(11) NOT NULL,
+  `disetujui_oleh` int(11) DEFAULT NULL,
+  `tanggal_persetujuan` datetime DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id_laporan`),
+  KEY `idx_periode` (`periode_mulai`,`periode_selesai`),
+  KEY `idx_jenis` (`jenis_laporan`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+TRUNCATE `custome__laporan_keuangan`;
 
 DROP TABLE IF EXISTS `custome__lokasi_aset`;
 CREATE TABLE `custome__lokasi_aset` (
@@ -1445,6 +1537,28 @@ CREATE TABLE `custome__musik_ibadah` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 TRUNCATE `custome__musik_ibadah`;
+
+DROP TABLE IF EXISTS `custome__mutasi_kas`;
+CREATE TABLE `custome__mutasi_kas` (
+  `id_mutasi` int(11) NOT NULL AUTO_INCREMENT,
+  `id_kas` int(11) NOT NULL,
+  `id_transaksi` int(11) NOT NULL,
+  `tanggal_mutasi` datetime NOT NULL,
+  `jenis_mutasi` enum('Masuk','Keluar') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `jumlah` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `saldo_sebelum` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `saldo_sesudah` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `keterangan` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id_mutasi`),
+  KEY `idx_tanggal` (`tanggal_mutasi`),
+  KEY `fk_kas_mutasi` (`id_kas`),
+  KEY `fk_transaksi_mutasi` (`id_transaksi`),
+  CONSTRAINT `fk_kas_mutasi` FOREIGN KEY (`id_kas`) REFERENCES `custome__kas_gereja` (`id_kas`) ON DELETE CASCADE,
+  CONSTRAINT `fk_transaksi_mutasi` FOREIGN KEY (`id_transaksi`) REFERENCES `custome__transaksi_keuangan` (`id_transaksi`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+TRUNCATE `custome__mutasi_kas`;
 
 DROP TABLE IF EXISTS `custome__opd`;
 CREATE TABLE `custome__opd` (
@@ -1897,7 +2011,7 @@ INSERT INTO `custome__produk_umkm` (`id_produk`, `nama_produk`, `slug_produk`, `
 (2,	'Tas Rajut Handmade',	'tas-rajut-handmade',	2,	'Tas rajut buatan tangan dengan motif unik',	150000.00,	NULL,	20,	300,	'pcs',	NULL,	NULL,	'1',	'1',	0,	0,	'2025-12-28 16:05:15',	1,	NULL,	NULL),
 (3,	'Kaos Rohani',	'kaos-rohani',	3,	'Kaos dengan desain rohani berkualitas premium',	85000.00,	75000.00,	100,	200,	'pcs',	NULL,	NULL,	'1',	'0',	0,	0,	'2025-12-28 16:05:15',	1,	NULL,	NULL),
 (4,	'Buku Renungan Harian',	'buku-renungan-harian',	4,	'Buku renungan harian untuk memperkuat iman',	50000.00,	NULL,	30,	250,	'pcs',	NULL,	NULL,	'1',	'0',	0,	0,	'2025-12-28 16:05:15',	1,	NULL,	NULL),
-(5,	'Madu Murni',	'madu-murni',	1,	'Madu murni 100% alami dari peternakan jemaat',	120000.00,	100000.00,	40,	600,	'botol',	NULL,	NULL,	'1',	'1',	2,	0,	'2025-12-28 16:05:15',	1,	NULL,	NULL);
+(5,	'Madu Murni',	'madu-murni',	1,	'Madu murni 100% alami dari peternakan jemaat',	120000.00,	100000.00,	40,	600,	'pcs',	NULL,	NULL,	'1',	'1',	2,	0,	'2025-12-28 16:05:15',	1,	'',	'Halo, saya tertarik dengan produk:\r\n\r\n*{nama_produk}*\r\nHarga: Rp {harga}\r\n\r\nApakah produk ini masih tersedia?');
 
 DROP TABLE IF EXISTS `custome__riwayat_pelayanan`;
 CREATE TABLE `custome__riwayat_pelayanan` (
@@ -1952,6 +2066,12 @@ CREATE TABLE `custome__transaksi_keuangan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 TRUNCATE `custome__transaksi_keuangan`;
+INSERT INTO `custome__transaksi_keuangan` (`id_transaksi`, `kode_transaksi`, `id_kategori`, `tanggal_transaksi`, `jenis_transaksi`, `jumlah`, `sumber_dana`, `penerima`, `keterangan`, `bukti_transaksi`, `metode_pembayaran`, `no_referensi`, `id_jadwal_ibadah`, `status`, `disetujui_oleh`, `tanggal_persetujuan`, `catatan_persetujuan`, `created_by`, `created_at`, `updated_at`) VALUES
+(1,	'TRX001',	1,	'2025-10-01',	'Pemasukan',	15000000.00,	'Jemaat',	NULL,	'Persepuluhan bulan Oktober 2025',	NULL,	'Tunai',	NULL,	NULL,	'Disetujui',	NULL,	NULL,	NULL,	1,	'2025-12-29 02:52:36',	'2025-12-29 02:52:36'),
+(2,	'TRX002',	2,	'2025-10-06',	'Pemasukan',	8000000.00,	'Jemaat',	NULL,	'Persembahan syukur ibadah Minggu',	NULL,	'Tunai',	NULL,	NULL,	'Disetujui',	NULL,	NULL,	NULL,	1,	'2025-12-29 02:52:36',	'2025-12-29 02:52:36'),
+(3,	'TRX003',	8,	'2025-10-01',	'Pengeluaran',	5000000.00,	'Kas Utama',	NULL,	'Gaji pendeta bulan Oktober',	NULL,	'Tunai',	NULL,	NULL,	'Disetujui',	NULL,	NULL,	NULL,	1,	'2025-12-29 02:52:36',	'2025-12-29 02:52:36'),
+(4,	'TRX004',	10,	'2025-10-05',	'Pengeluaran',	1500000.00,	'Kas Utama',	NULL,	'Bayar listrik dan air bulan September',	NULL,	'Tunai',	NULL,	NULL,	'Disetujui',	NULL,	NULL,	NULL,	1,	'2025-12-29 02:52:36',	'2025-12-29 02:52:36'),
+(5,	'TRX005',	3,	'2025-10-08',	'Pemasukan',	25000000.00,	'Jemaat',	NULL,	'Persembahan khusus untuk renovasi gereja',	NULL,	'Tunai',	NULL,	NULL,	'Pending',	NULL,	NULL,	NULL,	1,	'2025-12-29 02:52:36',	'2025-12-29 02:52:36');
 
 DROP TABLE IF EXISTS `custome__transfer_aset`;
 CREATE TABLE `custome__transfer_aset` (
@@ -2336,7 +2456,7 @@ CREATE TABLE `modalpopup` (
 
 TRUNCATE `modalpopup`;
 INSERT INTO `modalpopup` (`modalpopup_id`, `judultawaran`, `isitawaran`, `gbrtawaran`, `linktawaran`, `namatombol`, `sts_tombol`) VALUES
-(1,	'CMS ikasmedia INFO',	' <div class=\"table-responsive\">\r\n    <table class=\"table table-bordered table-hover table-striped align-middle\">\r\n        <thead class=\"table-primary\">\r\n            <tr>\r\n                <th style=\"width: 120px;\">Versi</th>\r\n                <th>Catatan Pembaruan</th>\r\n            </tr>\r\n        </thead>\r\n        <tbody>\r\n            <tr>\r\n                <td><strong>5.2.0</strong> <span class=\"badge bg-success\">New</span></td>\r\n                <td>\r\n                    <ul class=\"mb-0\">\r\n                        <li>Kompresi gambar &amp; watermark otomatis di modul Berita untuk performa &amp; perlindungan konten.</li>\r\n                        <li>Penyesuaian nama field konfigurasi untuk hindari deteksi sebagai skrip berbahaya.</li>\r\n                        <li>Perbaikan bug pada modul Kritik &amp; Saran agar status publikasi tampil benar.</li>\r\n                        <li>Penambahan gaya font pada Tambah/Ubah Berita.</li>\r\n                        <li>Penyempurnaan modul UpdateCMS untuk kompatibilitas hosting.</li>\r\n                        <li>Bug fix &amp; optimalisasi untuk stabilitas dan pengalaman pengguna.</li>\r\n                    </ul>\r\n                </td>\r\n            </tr>\r\n            <tr>\r\n                <td><strong>5.1.0</strong></td>\r\n                <td>\r\n                    <ul class=\"mb-0\">\r\n                        <li>Penambahan fitur duplikasi konten halaman secara otomatis.</li>\r\n                        <li>Peningkatan keamanan inputan pengguna di form publik.</li>\r\n                        <li>Perbaikan minor pada tampilan dashboard responsif.</li>\r\n                    </ul>\r\n                </td>\r\n            </tr>\r\n            <tr>\r\n                <td><strong>5.0.0</strong></td>\r\n                <td>\r\n                    <ul class=\"mb-0\">\r\n                        <li>CMS full bundle menggunakan CodeIgniter 4.6.0.</li>\r\n                        <li>Peningkatan keamanan.</li>\r\n                        <li>Pembaruan Session ID saat login.</li>\r\n                        <li>URL login dapat diubah dinamis.</li>\r\n                        <li>Cegah kata sandi lemah.</li>\r\n                        <li>Akun hanya bisa login di satu perangkat.</li>\r\n                        <li>Statistik jumlah postingan.</li>\r\n                        <li>Login dengan OTP.</li>\r\n                        <li>Tampilan email lebih elegan.</li>\r\n                        <li>Tampilan form konfigurasi lebih menarik.</li>\r\n                        <li>Penambahan Field responden pada survei.</li>\r\n                        <li>Kunci pengisian survei (berulang/batas waktu).</li>\r\n                        <li>Update CMS otomatis (beta).</li>\r\n                        <li>Fix duplikasi kunjungan.</li>\r\n                        <li>Perubahan slug berita: <code>detail/judul-berita</code> ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ <code>judul-berita</code>.</li>\r\n                    </ul>\r\n                </td>\r\n            </tr>\r\n            <tr>\r\n                <td colspan=\"2\" class=\"text-center bg-light\">\r\n                    <strong class=\"text-primary\">ANDA DAPAT MENCOBA TEMA LAINNYA YANG TERSEDIA SESUAI SELERA</strong><br>\r\n                    <a href=\"https://ikasmedia.net/post/menerapkan-tema-pada-cms-ikasmedia\" class=\"btn btn-sm btn-outline-primary mt-2\">Klik di sini untuk panduannya</a><br><br>\r\n                    <span class=\"text-muted\">Informasi lengkap? Silakan hubungi kami melalui WhatsApp</span><br>\r\n                    <a href=\"https://wa.me/6281353967028\" target=\"_blank\" class=\"btn btn-sm btn-success mt-1\">\r\n                        <i class=\"bi bi-whatsapp\"></i> 081 353 967 028\r\n                    </a>\r\n                </td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n</div>\r\n',	'1690984941_bcf3035dfd026ccca23a.png',	'https://ikasmedia.net/kategori/cms-ikasmedia',	'Lihat Tema CMS ',	'1');
+(1,	'CMS ikasmedia INFO',	'<p>Selamat Datang</p>',	'1690984941_bcf3035dfd026ccca23a.png',	'https://ikasmedia.net/kategori/cms-ikasmedia',	'Lihat Tema CMS ',	'1');
 
 DROP TABLE IF EXISTS `pegawai`;
 CREATE TABLE `pegawai` (
@@ -2793,7 +2913,7 @@ CREATE TABLE `tbl_setaplikasi` (
 
 TRUNCATE `tbl_setaplikasi`;
 INSERT INTO `tbl_setaplikasi` (`id_setaplikasi`, `nama`, `alamat`, `no_telp`, `kecamatan`, `kabupaten`, `provinsi`, `website`, `email`, `deskripsi`, `logo`, `sts_sambutan`, `icon`, `google_map`, `nama_pimpinan`, `jabatan_pimpinan`, `sambutan`, `gbr_sambutan`, `link_gmap`, `sosmed_fb`, `sosmed_instagram`, `sosmed_twiter`, `sosmed_youtube`, `kategori_id`, `judul_section`, `sts_section`, `sts_modal`, `ck`, `sts_count`, `sts_rt`, `sts_regis`, `sts_web`, `sts_posting`, `mail_host`, `mail_user`, `smtp_pass`, `smtp_port`, `smtp_pengirim`, `smtp_pesanbalas`, `g_sitekey`, `google_secret`, `vercms`, `verdb`, `konek_opd`, `id_grup`, `footer_cms`, `ukuran_upload`, `wa_token`, `wa_sender_number`, `wa_receiver`, `katamutiara`, `namasingkat`, `urlserver`, `is_maintenance`, `otp_akses`) VALUES
-(1,	'Content Management System (CMS) ikasmedia',	'Jln. RS Bukit - Lembata Waikomo',	'+6281353967028',	'cms-login',	'Lembata',	'Nusa Tenggara Timur',	'https://cms.ikasmedia.net/',	'layanan@ikasmedia.net',	'Content Management System (CMS) ikasmedia dibuat khusus untuk situs pemerintahan, yayasan, sekolah, company profile dan lain-lain. CMS ini dibangun dengan Framework Codeigniter Versi 4.5.5 dan akan terus diupdate.',	'p2.png',	'1',	'1766972014_9d7aa23f04125f56ff88.png',	'<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31577.350186403717!2d123.3909895718859!3d-8.38505492086326!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dab731d6607bd57%3A0xe9072c1a3368c33b!2sikasmedia!5e0!3m2!1sid!2sid!4v1681788486436!5m2!1sid!2sid\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>',	'Deri Taum, S.Kom',	'Kepala Dinas',	'                              <p class=\"MsoNormal\"><span open=\"\" sans\",=\"\" sans-serif;=\"\" font-size:=\"\" 14.56px;=\"\" text-align:=\"\" center;\"=\"\" style=\"color: rgb(80, 93, 105); font-family: Nunito, sans-serif; font-size: 14.56px;\">Selamat datang di Website kami Dinas Pemuda Olahraga dan Kebudayaan Kabupaten Lembata, Website ini dimaksudkan sebagai sarana publikasi untuk memberikan Informasi dan gambaran Dinas Pemuda Olahraga dan Kebudayaan Kabupaten Lembata dalam Hal Publikasi kepada masyarakat. Melalui keberadaan website ini kiranya masyarakat dapat mengetahui seluruh informasi tentang Kebijakan Pemerintah Kabupaten Lembata pengelolaan sektor Kepemudaan dan Keolahragaan di wilayah Pemerintahan Kabupaten Lembata.&nbsp;</span><span open=\"\" \",=\"\" sans-serif;=\"\" font-size:=\"\" 14.56px;=\"\" text-align:=\"\" \"=\"\" sans\",=\"\" center;\"=\"\" style=\"color: rgb(80, 93, 105); font-family: Nunito, sans-serif; font-size: 14.56px; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235);\">Diharapkan website ini bisa dijadikan sebagai salah satu media komunikasi yang efektif, dapat memberi</span><span style=\"font-size: 16px;\">ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¯ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â»ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¿</span><span open=\"\" \",=\"\" sans-serif;=\"\" font-size:=\"\" 14.56px;=\"\" text-align:=\"\" \"=\"\" sans\",=\"\" center;\"=\"\" style=\"color: rgb(80, 93, 105); font-family: Nunito, sans-serif; font-size: 14.56px; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235);\">kan informasi, layanan yang akurat dan akuntabel untuk membangun&nbsp;<span lang=\"EN-US\" style=\"border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235);\">olahraga</span>&nbsp;di Kabupaten&nbsp;<span lang=\"EN-US\" style=\"border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235);\">Lembata</span>.&nbsp;</span></p><p class=\"MsoNormal\"><span open=\"\" sans\",=\"\" sans-serif;=\"\" font-size:=\"\" 14.56px;=\"\" text-align:=\"\" center;\"=\"\" style=\"color: rgb(80, 93, 105); font-family: Nunito, sans-serif; font-size: 14.56px;\">Dan sebagai wujud rasa tanggungjawab kami dalam rangka meningkatkan pelayanan kepada masyarakat, maka kami adakan website dinas ini. Kritik dan saran terhadap kekurangan dan kesalahan yang ada sangat kami harapkan guna penyempurnaan Website ini dimasa akan datang. Semoga Website ini memberikan manfaat bagi kita semua. Terima Kasih..!x</span></p>',	'1666974119_e6c4ee83f9e5204955fe.png',	'https://goo.gl/maps/QVtSNqKmgkHTBUCN8',	'https://www.facebook.com/ikasmedia',	'https://instagram.com/ikasmedia',	'http://twitter.com/ikasmedia',	'https://www.youtube.com/c/ikasmedia',	1,	'INFORMASI INSTANSI',	'1',	'1',	'1',	'1',	'1',	'1',	'1',	'1',	'smtp.hostinger.com',	'layanan@ikasmedia.net',	'xxxxx',	465,	'CMS ikasmedia',	'Terima Kasih telah menghubungi kami..!',	'',	'',	'5.2.0',	'2.2',	1,	3,	'Dikembangkan Oleh <a href=\"https://ikasmedia.net\" target=\"_blank\"> ikasmedia Software </a>',	NULL,	'',	'',	'',	'Mewujudkan Kabupaten Lembata sebagai <i style=\"color:#AC0C0C;\">kota budaya</i> yang Modern, Tangguh, Gesit, Kreatif dan Sejahtera',	'CMS ikasmedia',	'https://waysender-v2.ridped.com',	0,	0);
+(1,	'Content Management System (CMS) ikasmedia',	'Jln. RS Bukit - Lembata Waikomo',	'+6281353967028',	'cms-login',	'Lembata',	'Nusa Tenggara Timur',	'https://cms.ikasmedia.net/',	'layanan@ikasmedia.net',	'Content Management System (CMS) ikasmedia dibuat khusus untuk situs pemerintahan, yayasan, sekolah, company profile dan lain-lain. CMS ini dibangun dengan Framework Codeigniter Versi 4.5.5 dan akan terus diupdate.',	'p2.png',	'1',	'1766972014_9d7aa23f04125f56ff88.png',	'<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31577.350186403717!2d123.3909895718859!3d-8.38505492086326!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dab731d6607bd57%3A0xe9072c1a3368c33b!2sikasmedia!5e0!3m2!1sid!2sid!4v1681788486436!5m2!1sid!2sid\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>',	'Deri Taum, S.Kom',	'Kepala Dinas',	'                               <p class=\"MsoNormal\"><span open=\"\" sans\",=\"\" sans-serif;=\"\" font-size:=\"\" 14.56px;=\"\" text-align:=\"\" center;\"=\"\" style=\"color: rgb(80, 93, 105); font-family: Nunito, sans-serif; font-size: 14.56px;\">Selamat datang di Website kami Dinas Pemuda Olahraga dan Kebudayaan Kabupaten Lembata, Website ini dimaksudkan sebagai sarana publikasi untuk memberikan Informasi dan gambaran Dinas Pemuda Olahraga dan Kebudayaan Kabupaten Lembata dalam Hal Publikasi kepada masyarakat. Melalui keberadaan website ini kiranya masyarakat dapat mengetahui seluruh informasi tentang Kebijakan Pemerintah Kabupaten Lembata pengelolaan sektor Kepemudaan dan Keolahragaan di wilayah Pemerintahan Kabupaten Lembata.&nbsp;</span><span open=\"\" \",=\"\" sans-serif;=\"\" font-size:=\"\" 14.56px;=\"\" text-align:=\"\" \"=\"\" sans\",=\"\" center;\"=\"\" style=\"color: rgb(80, 93, 105); font-family: Nunito, sans-serif; font-size: 14.56px; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235);\">Diharapkan website ini bisa dijadikan sebagai salah satu media komunikasi yang efektif, dapat memberi</span><span open=\"\" \",=\"\" sans-serif;=\"\" font-size:=\"\" 14.56px;=\"\" text-align:=\"\" \"=\"\" sans\",=\"\" center;\"=\"\" style=\"color: rgb(80, 93, 105); font-family: Nunito, sans-serif; font-size: 14.56px; border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235);\">kan informasi, layanan yang akurat dan akuntabel untuk membangun&nbsp;<span lang=\"EN-US\" style=\"border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235);\">olahraga</span>&nbsp;di Kabupaten&nbsp;<span lang=\"EN-US\" style=\"border-width: 0px; border-style: solid; border-color: rgb(229, 231, 235);\">Lembata</span>.&nbsp;</span></p><p class=\"MsoNormal\"><span open=\"\" sans\",=\"\" sans-serif;=\"\" font-size:=\"\" 14.56px;=\"\" text-align:=\"\" center;\"=\"\" style=\"color: rgb(80, 93, 105); font-family: Nunito, sans-serif; font-size: 14.56px;\">Dan sebagai wujud rasa tanggungjawab kami dalam rangka meningkatkan pelayanan kepada masyarakat, maka kami adakan website dinas ini. Kritik dan saran terhadap kekurangan dan kesalahan yang ada sangat kami harapkan guna penyempurnaan Website ini dimasa akan datang. Semoga Website ini memberikan manfaat bagi kita semua. Terima Kasih..!x</span></p>',	'1666974119_e6c4ee83f9e5204955fe.png',	'https://goo.gl/maps/QVtSNqKmgkHTBUCN8',	'https://www.facebook.com/ikasmedia',	'https://instagram.com/ikasmedia',	'http://twitter.com/ikasmedia',	'https://www.youtube.com/c/ikasmedia',	1,	'INFORMASI INSTANSI',	'1',	'1',	'1',	'1',	'1',	'1',	'1',	'1',	'smtp.hostinger.com',	'layanan@ikasmedia.net',	'xxxxx',	465,	'CMS ikasmedia',	'Terima Kasih telah menghubungi kami..!',	'',	'',	'5.2.0',	'2.2',	1,	3,	'Dikembangkan Oleh <a href=\"https://ikasmedia.net\" target=\"_blank\"> ikasmedia Software </a>',	NULL,	'',	'',	'',	'Mewujudkan Kabupaten Lembata sebagai <i style=\"color:#AC0C0C;\">kota budaya</i> yang Modern, Tangguh, Gesit, Kreatif dan Sejahtera',	'CMS ikasmedia',	'https://waysender-v2.ridped.com',	0,	0);
 
 DROP TABLE IF EXISTS `template`;
 CREATE TABLE `template` (
@@ -2910,11 +3030,11 @@ CREATE TABLE `users` (
 
 TRUNCATE `users`;
 INSERT INTO `users` (`id`, `email`, `username`, `opd_id`, `id_grup`, `fullname`, `user_image`, `password_hash`, `active`, `level`, `new_email`, `activate_hash`, `reset_hash`, `reset_expires`, `created_at`, `updated_at`, `last_login`, `sts_on`, `login_attempts`, `nomor_wa`, `otp_code`) VALUES
-(1,	'admin@ikasmedia.net',	'admin',	0,	1,	'ikasmedia',	'1649394521_dd7f9ba3dc6b70c44beb.png',	'$2y$10$OK3J43fimOZZ9UrZnu6nTe7EDlbKSM0qK/qvCAPNFZzafExRz710y',	1,	'admin',	NULL,	NULL,	NULL,	NULL,	NULL,	'2021-10-14 10:05:30',	'2025-05-23 03:45:04',	'1',	1,	'081353967028',	NULL),
-(12,	'blakataduk@yahoo.co.id',	'Desi',	NULL,	2,	'Desi Gili',	'1633952653_0ab591eeeb6f2420bfbf.png',	'$2y$10$DWvmVLrlnn/8uzXFdKJ5ZeEzLa3fagNVMHU3E73Kop83J0yAuyEum',	1,	'autor',	NULL,	NULL,	NULL,	NULL,	NULL,	'1634011822',	'2024-10-30 05:28:57',	'0',	0,	NULL,	NULL),
-(14,	'fournet@yahoo.co.id',	'fournet321',	0,	3,	'Fournet Juang',	'1679377778_ac07bf58bf3001a93adf.png',	'$2y$10$DiZ8Mf4/btnseYMgtCzUPOz25GsVbvGvhnks0xdh9tt3wu5LY1Pni',	1,	'autor',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2023-03-21 05:54:41',	'0',	0,	NULL,	NULL),
-(16,	'deril@yahoo.com',	'deril',	4,	3,	'Ama Deril Taum',	'1649394870_0472d0a15867201a4cdc.png',	'$2y$10$Hef1vCmkBCUCnjVDjw4aOOxNCKEQwsMl/VPBbUITdS6U0UP.OwGr6',	1,	'autor',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2024-11-30 12:06:25',	'0',	0,	NULL,	''),
-(30,	'viory31@gmail.com',	'lwbbarat',	1,	3,	'coba no image',	'default.png',	'$2y$10$pDtxdrFC3KKowXj7GzT43OkRtKA1uTNZFjg0prkR4p.0lSIR45rm6',	0,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	0,	NULL,	NULL);
+(1,	'admin@ikasmedia.net',	'admin',	0,	1,	'ikasmedia',	'1649394521_dd7f9ba3dc6b70c44beb.png',	'$2y$10$iC5/3XPF6zNmY/ObdVhv7u7aeapriRlqSvMn2d4GQpWNjIUvyU2Xi',	1,	'admin',	NULL,	NULL,	NULL,	NULL,	NULL,	'2021-10-14 10:05:30',	'2025-12-29 02:56:19',	'1',	3,	'081353967028',	NULL),
+(12,	'ikasmedia1@gmail.com',	'ikasmedia1',	1,	2,	'ikasmedia1',	'1633952653_0ab591eeeb6f2420bfbf.png',	'$2y$10$iC5/3XPF6zNmY/ObdVhv7u7aeapriRlqSvMn2d4GQpWNjIUvyU2Xi',	1,	'autor',	NULL,	NULL,	NULL,	NULL,	NULL,	'1634011822',	'2025-12-29 02:03:39',	'0',	0,	NULL,	NULL),
+(14,	'ikasmedia2@gmail.com',	'ikasmedia2',	1,	3,	'ikasmedia2',	'1679377778_ac07bf58bf3001a93adf.png',	'$2y$10$iC5/3XPF6zNmY/ObdVhv7u7aeapriRlqSvMn2d4GQpWNjIUvyU2Xi',	1,	'autor',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2025-12-29 02:04:02',	'0',	0,	NULL,	NULL),
+(16,	'ikasmedia3@gmail.com',	'ikasmedia3',	1,	3,	'ikasmedia3',	'1649394870_0472d0a15867201a4cdc.png',	'$2y$10$iC5/3XPF6zNmY/ObdVhv7u7aeapriRlqSvMn2d4GQpWNjIUvyU2Xi',	1,	'autor',	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2025-12-29 02:04:47',	'0',	0,	NULL,	''),
+(30,	'ikasmedia4@gmail.com',	'ikasmedia4',	1,	3,	'ikasmedia4',	'default.png',	'$2y$10$iC5/3XPF6zNmY/ObdVhv7u7aeapriRlqSvMn2d4GQpWNjIUvyU2Xi',	1,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2025-12-29 02:03:56',	NULL,	0,	NULL,	NULL);
 
 DROP TABLE IF EXISTS `video`;
 CREATE TABLE `video` (
@@ -2987,6 +3107,6 @@ INSERT INTO `visitor` (`ip`, `tgl`, `hits`, `online`, `time`) VALUES
 ('::1',	'2025-05-19',	1,	'1747649121',	'2025-05-19 18:05:21'),
 ('::1',	'2025-05-21',	50,	'1747822321',	'2025-05-21 18:12:01'),
 ('::1',	'2025-05-23',	84,	'1747975335',	'2025-05-23 12:42:15'),
-('127.0.0.1',	'2025-12-29',	157,	'1766972485',	'2025-12-29 09:41:25');
+('127.0.0.1',	'2025-12-29',	1045,	'1766978624',	'2025-12-29 11:23:44');
 
--- 2025-12-29 01:41:58 UTC
+-- 2025-12-29 03:24:03 UTC

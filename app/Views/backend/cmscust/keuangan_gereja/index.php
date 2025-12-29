@@ -1,5 +1,6 @@
 <?= $this->extend('backend/script') ?>
 <?= $this->section('content') ?>
+<?= $this->include('backend/datatable-js') ?>
 
 <div class="row">
     <div class="col-sm-12">
