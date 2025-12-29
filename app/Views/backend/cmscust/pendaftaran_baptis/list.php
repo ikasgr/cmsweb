@@ -32,11 +32,11 @@
                     ?>
                     <tr>
                         <td>
-                            <input type="checkbox" class="checkboxes" name="id_baptis[]" value="<?= $data['id_pendaftaran'] ?>">
+                            <input type="checkbox" class="checkboxes" name="id_baptis[]" value="<?= $data['id_baptis'] ?>">
                         </td>
                         <td><?= $no++ ?></td>
                         <td><?= esc($data['nama_lengkap']) ?></td>
-                        <td><?= esc($data['tempat_lahir']) ?>, <?= date_indo($data['tanggal_lahir']) ?></td>
+                        <td><?= esc($data['tempat_lahir']) ?>, <?= date('d F Y', strtotime($data['tgl_lahir'])) ?></td>
                         <td>
                             <span class="badge badge-info"><?= esc($data['jenis_baptis']) ?></span>
                         </td>
@@ -51,15 +51,13 @@
                             <?php endif; ?>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-info btn-sm" onclick="lihat('<?= $data['id_pendaftaran'] ?>')">
+                            <button type="button" class="btn btn-info btn-sm" onclick="lihat('<?= $data['id_baptis'] ?>')">
                                 <i class="fas fa-eye"></i>
                             </button>
-                            <button type="button" class="btn btn-warning btn-sm"
-                                onclick="edit('<?= $data['id_pendaftaran'] ?>')">
+                            <button type="button" class="btn btn-warning btn-sm" onclick="edit('<?= $data['id_baptis'] ?>')">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            <button type="button" class="btn btn-danger btn-sm"
-                                onclick="hapus('<?= $data['id_pendaftaran'] ?>')">
+                            <button type="button" class="btn btn-danger btn-sm" onclick="hapus('<?= $data['id_baptis'] ?>')">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </td>
@@ -88,7 +86,7 @@
     $(document).ready(function () {
         $('#listpendaftaranbaptis').DataTable({
             "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Indonesian.json"
+                "url": "https://cdn.datatables.net/plug-ins/1.10.24/i18n/Indonesian.json"
             }
         });
 

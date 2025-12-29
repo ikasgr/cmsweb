@@ -23,50 +23,42 @@ class InventarisGereja extends BaseController
     {
         if ($this->request->isAJAX()) {
             $id_grup = session()->get('id_grup');
-            $url = 'inventaris-gereja/list';
-            $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
 
-            if (!$listgrupf) {
-                $url = 'inventaris_gereja/list';
-                $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
-            }
+            // Check ACL URLs
+            $urls = [
+                'inventaris-gereja/list',
+                'inventaris_gereja/list',
+                'inventaris-gereja/all',
+                'inventaris_gereja/all'
+            ];
 
-            if (!$listgrupf) {
-                $url = 'inventaris-gereja/all';
+            $listgrupf = null;
+            foreach ($urls as $url) {
                 $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
-            }
-
-            if (!$listgrupf) {
-                $url = 'inventaris_gereja/all';
-                $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
+                if ($listgrupf)
+                    break;
             }
 
             $akses = 0;
             if ($listgrupf) {
-                foreach ($listgrupf as $data):
+                foreach ($listgrupf as $data) {
                     $akses = $data['akses'];
-                endforeach;
+                }
             }
 
-            if ($listgrupf) {
-                if ($akses == '1' || $akses == '2') {
-                    $data = [
-                        'title' => 'Inventaris Gereja',
-                        'list' => $this->inventarisgereja->list(),
-                        'akses' => $akses,
-                        'statistik' => $this->inventarisgereja->getStatistik()
-                    ];
-                    $msg = [
-                        'data' => view('backend/cmscust/inventaris_gereja/list', $data)
-                    ];
-                } else {
-                    $msg = [
-                        'noakses' => []
-                    ];
-                }
+            if ($akses == '1' || $akses == '2') {
+                $data = [
+                    'title' => 'Inventaris Gereja',
+                    'list' => $this->inventarisgereja->list(),
+                    'akses' => $akses,
+                    'statistik' => $this->inventarisgereja->getStatistik()
+                ];
+                $msg = [
+                    'data' => view('backend/cmscust/inventaris_gereja/list', $data)
+                ];
             } else {
                 $msg = [
-                    'blmakses' => []
+                    'noakses' => []
                 ];
             }
             echo json_encode($msg);
@@ -239,9 +231,11 @@ class InventarisGereja extends BaseController
                 // Convert to object for view compatibility
                 $aset = (object) $aset;
                 $riwayat_maintenance = array_map(function ($item) {
-                    return (object) $item; }, $riwayat_maintenance);
+                    return (object) $item;
+                }, $riwayat_maintenance);
                 $riwayat_perbaikan = array_map(function ($item) {
-                    return (object) $item; }, $riwayat_perbaikan);
+                    return (object) $item;
+                }, $riwayat_perbaikan);
 
                 $data = [
                     'title' => 'Detail Aset',
@@ -416,6 +410,25 @@ class InventarisGereja extends BaseController
 
             $msg = [
                 'sukses' => "$jmldata aset berhasil dihapus"
+            ];
+            echo json_encode($msg);
+        }
+    }
+
+    // Bulk status update
+    public function bulkstatus()
+    {
+        if ($this->request->isAJAX()) {
+            $id_aset = $this->request->getVar('id_aset');
+            $status = $this->request->getVar('status');
+            $jmldata = count($id_aset);
+
+            foreach ($id_aset as $id) {
+                $this->inventarisgereja->toggleStatus($id, $status);
+            }
+
+            $msg = [
+                'sukses' => "$jmldata aset berhasil diubah statusnya menjadi $status"
             ];
             echo json_encode($msg);
         }
@@ -683,6 +696,56 @@ class InventarisGereja extends BaseController
                     'error' => 'Aset tidak ditemukan'
                 ];
             }
+            echo json_encode($msg);
+        }
+    }
+
+    // --- Placeholders for Future Features ---
+
+    public function maintenance_list()
+    {
+        if ($this->request->isAJAX()) {
+            $msg = ['data' => '<div class="alert alert-info text-center">Fitur Maintenance List akan segera hadir.</div>'];
+            echo json_encode($msg);
+        }
+    }
+
+    public function maintenance_formtambah()
+    {
+        if ($this->request->isAJAX()) {
+            $msg = ['data' => '<div class="alert alert-info">Form Maintenance belum tersedia.</div>'];
+            echo json_encode($msg);
+        }
+    }
+
+    public function maintenance_formlihat()
+    {
+        if ($this->request->isAJAX()) {
+            $msg = ['sukses' => '<div class="alert alert-info">Detail Maintenance belum tersedia.</div>'];
+            echo json_encode($msg);
+        }
+    }
+
+    public function perbaikan_formtambah()
+    {
+        if ($this->request->isAJAX()) {
+            $msg = ['data' => '<div class="alert alert-info">Form Perbaikan belum tersedia.</div>'];
+            echo json_encode($msg);
+        }
+    }
+
+    public function perbaikan_formlihat()
+    {
+        if ($this->request->isAJAX()) {
+            $msg = ['sukses' => '<div class="alert alert-info">Detail Perbaikan belum tersedia.</div>'];
+            echo json_encode($msg);
+        }
+    }
+
+    public function transfer_formtambah()
+    {
+        if ($this->request->isAJAX()) {
+            $msg = ['data' => '<div class="alert alert-info">Form Transfer Lokasi belum tersedia.</div>'];
             echo json_encode($msg);
         }
     }

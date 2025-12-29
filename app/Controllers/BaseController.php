@@ -226,6 +226,7 @@ class BaseController extends Controller
     public $grupuser;
     public $grupakses;
     public $modulpublic;
+    public $produkumkm;
     public $kategoriproduk;
     public $keranjang;
     public $pesanan;

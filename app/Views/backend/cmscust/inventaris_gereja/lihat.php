@@ -32,7 +32,8 @@
                             <tr>
                                 <td><strong>Kategori</strong></td>
                                 <td>
-                                    <span class="badge badge-soft-primary" style="background-color: <?= esc($aset->warna) ?>20; color: <?= esc($aset->warna) ?>; border: 1px solid <?= esc($aset->warna) ?>30;">
+                                    <span class="badge badge-soft-primary"
+                                        style="background-color: <?= esc($aset->warna) ?>20; color: <?= esc($aset->warna) ?>; border: 1px solid <?= esc($aset->warna) ?>30;">
                                         <i class="<?= esc($aset->icon) ?> mr-1"></i>
                                         <?= esc($aset->nama_kategori) ?>
                                     </span>
@@ -157,7 +158,8 @@
                 <h5 class="card-title mb-0">
                     <i class="fe-wrench mr-2"></i>Riwayat Maintenance
                 </h5>
-                <button type="button" class="btn btn-sm btn-primary" onclick="tambahMaintenance('<?= $aset->id_aset ?>')">
+                <button type="button" class="btn btn-sm btn-primary"
+                    onclick="tambahMaintenance('<?= $aset->id_aset ?>')">
                     <i class="fe-plus mr-1"></i>Tambah Maintenance
                 </button>
             </div>
@@ -208,7 +210,8 @@
                                         <td><?= esc($maintenance->nama_vendor ?: '-') ?></td>
                                         <td>Rp <?= number_format($maintenance->biaya_aktual, 0, ',', '.') ?></td>
                                         <td>
-                                            <button type="button" class="btn btn-sm btn-outline-info" onclick="lihatMaintenance('<?= $maintenance->id_maintenance ?>')">
+                                            <button type="button" class="btn btn-sm btn-outline-info"
+                                                onclick="lihatMaintenance('<?= $maintenance->id_maintenance ?>')">
                                                 <i class="fe-eye"></i>
                                             </button>
                                         </td>
@@ -281,7 +284,8 @@
                                         <td><?= esc($perbaikan->nama_vendor ?: '-') ?></td>
                                         <td>Rp <?= number_format($perbaikan->total_biaya, 0, ',', '.') ?></td>
                                         <td>
-                                            <button type="button" class="btn btn-sm btn-outline-info" onclick="lihatPerbaikan('<?= $perbaikan->id_perbaikan ?>')">
+                                            <button type="button" class="btn btn-sm btn-outline-info"
+                                                onclick="lihatPerbaikan('<?= $perbaikan->id_perbaikan ?>')">
                                                 <i class="fe-eye"></i>
                                             </button>
                                         </td>
@@ -312,7 +316,8 @@
             </div>
             <div class="card-body text-center">
                 <?php if ($aset->qr_code): ?>
-                    <div style="width: 150px; height: 150px; background: #f8f9fa; border: 2px solid #dee2e6; display: inline-flex; align-items: center; justify-content: center; margin: 0 auto;">
+                    <div
+                        style="width: 150px; height: 150px; background: #f8f9fa; border: 2px solid #dee2e6; display: inline-flex; align-items: center; justify-content: center; margin: 0 auto;">
                         <div class="text-center">
                             <i class="fe-qr-code fa-3x text-muted"></i>
                             <small class="d-block text-muted mt-2">QR Generated</small>
@@ -324,11 +329,13 @@
                             <?= esc($aset->qr_code) ?>
                         </small>
                     </p>
-                    <button type="button" class="btn btn-sm btn-outline-primary mt-2" onclick="printQRCode('<?= $aset->id_aset ?>')">
+                    <button type="button" class="btn btn-sm btn-outline-primary mt-2"
+                        onclick="printQRCode('<?= $aset->id_aset ?>')">
                         <i class="fe-printer mr-1"></i>Cetak QR Code
                     </button>
                 <?php else: ?>
-                    <div style="width: 150px; height: 150px; background: #f8f9fa; border: 2px dashed #dee2e6; display: inline-flex; align-items: center; justify-content: center; margin: 0 auto;">
+                    <div
+                        style="width: 150px; height: 150px; background: #f8f9fa; border: 2px dashed #dee2e6; display: inline-flex; align-items: center; justify-content: center; margin: 0 auto;">
                         <div class="text-center">
                             <i class="fe-qr-code fa-3x text-muted"></i>
                             <small class="d-block text-muted mt-2">No QR Code</small>
@@ -353,7 +360,8 @@
                 <table class="table table-sm">
                     <tr>
                         <td><strong>Harga Perolehan</strong></td>
-                        <td class="text-right"><strong>Rp <?= number_format($aset->harga_perolehan, 0, ',', '.') ?></strong></td>
+                        <td class="text-right"><strong>Rp
+                                <?= number_format($aset->harga_perolehan, 0, ',', '.') ?></strong></td>
                     </tr>
                     <tr>
                         <td><strong>Nilai Buku</strong></td>
@@ -434,24 +442,30 @@
             </div>
             <div class="card-body">
                 <div class="d-grid gap-2">
-                    <button type="button" class="btn btn-outline-primary btn-sm" onclick="edit('<?= $aset->id_aset ?>')">
+                    <button type="button" class="btn btn-outline-primary btn-sm"
+                        onclick="edit('<?= $aset->id_aset ?>')">
                         <i class="fe-edit mr-1"></i>Edit Aset
                     </button>
-                    <button type="button" class="btn btn-outline-success btn-sm" onclick="jadwalkanMaintenance('<?= $aset->id_aset ?>')">
+                    <button type="button" class="btn btn-outline-success btn-sm"
+                        onclick="jadwalkanMaintenance('<?= $aset->id_aset ?>')">
                         <i class="fe-calendar-plus mr-1"></i>Jadwalkan Maintenance
                     </button>
-                    <button type="button" class="btn btn-outline-warning btn-sm" onclick="laporKerusakan('<?= $aset->id_aset ?>')">
+                    <button type="button" class="btn btn-outline-warning btn-sm"
+                        onclick="laporKerusakan('<?= $aset->id_aset ?>')">
                         <i class="fe-alert-triangle mr-1"></i>Laporkan Kerusakan
                     </button>
-                    <button type="button" class="btn btn-outline-info btn-sm" onclick="transferAset('<?= $aset->id_aset ?>')">
+                    <button type="button" class="btn btn-outline-info btn-sm"
+                        onclick="transferAset('<?= $aset->id_aset ?>')">
                         <i class="fe-truck mr-1"></i>Transfer Lokasi
                     </button>
                     <?php if ($aset->status == 'Aktif'): ?>
-                        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="toggleStatus('<?= $aset->id_aset ?>', 'Maintenance')">
+                        <button type="button" class="btn btn-outline-secondary btn-sm"
+                            onclick="toggleStatus('<?= $aset->id_aset ?>', 'Maintenance')">
                             <i class="fe-pause mr-1"></i>Set Maintenance
                         </button>
                     <?php elseif ($aset->status == 'Maintenance'): ?>
-                        <button type="button" class="btn btn-outline-success btn-sm" onclick="toggleStatus('<?= $aset->id_aset ?>', 'Aktif')">
+                        <button type="button" class="btn btn-outline-success btn-sm"
+                            onclick="toggleStatus('<?= $aset->id_aset ?>', 'Aktif')">
                             <i class="fe-play mr-1"></i>Set Aktif
                         </button>
                     <?php endif; ?>
@@ -462,159 +476,159 @@
 </div>
 
 <script>
-// Print QR Code
-function printQRCode(id_aset) {
-    window.open('<?= site_url('inventaris-gereja/printqr') ?>/' + id_aset, '_blank');
-}
+    // Print QR Code
+    function printQRCode(id_aset) {
+        window.open('<?= site_url('inventaris-gereja/printqr') ?>/' + id_aset, '_blank');
+    }
 
-// Generate QR Code
-function generateQRCode(id_aset) {
-    Swal.fire({
-        title: 'Generate QR Code?',
-        text: 'QR Code akan digunakan untuk tracking aset',
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Ya, Generate!',
-        cancelButtonText: 'Batal'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                url: '<?= site_url('inventaris-gereja/generateqr') ?>',
-                type: 'POST',
-                data: { id_aset: id_aset },
-                success: function(response) {
-                    if (response.sukses) {
-                        toastr.success('QR Code berhasil di-generate');
-                        location.reload();
-                    } else {
-                        toastr.error(response.error);
+    // Generate QR Code
+    function generateQRCode(id_aset) {
+        Swal.fire({
+            title: 'Generate QR Code?',
+            text: 'QR Code akan digunakan untuk tracking aset',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Generate!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '<?= site_url('inventaris-gereja/generateqr') ?>',
+                    type: 'POST',
+                    data: { id_aset: id_aset },
+                    success: function (response) {
+                        if (response.sukses) {
+                            toastr.success('QR Code berhasil di-generate');
+                            location.reload();
+                        } else {
+                            toastr.error(response.error);
+                        }
                     }
-                }
-            });
-        }
-    });
-}
+                });
+            }
+        });
+    }
 
-// Tambah maintenance
-function tambahMaintenance(id_aset) {
-    $.ajax({
-        url: '<?= site_url('maintenance-aset/formtambah') ?>',
-        type: 'POST',
-        data: { id_aset: id_aset },
-        success: function(response) {
-            if (response.data) {
-                $('.modal-title').html('Jadwalkan Maintenance');
-                $('.modal-body').html(response.data);
-                $('.modal-footer').html(`
+    // Tambah maintenance
+    function tambahMaintenance(id_aset) {
+        $.ajax({
+            url: '<?= site_url('inventaris-gereja/maintenance_formtambah') ?>',
+            type: 'POST',
+            data: { id_aset: id_aset },
+            success: function (response) {
+                if (response.data) {
+                    $('.modal-title').html('Jadwalkan Maintenance');
+                    $('.modal-body').html(response.data);
+                    $('.modal-footer').html(`
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                     <button type="button" class="btn btn-primary" onclick="simpanMaintenance()">Simpan</button>
                 `);
-                $('#modal').modal('show');
+                    $('#modal').modal('show');
+                }
             }
-        }
-    });
-}
+        });
+    }
 
-// Lihat detail maintenance
-function lihatMaintenance(id_maintenance) {
-    $.ajax({
-        url: '<?= site_url('maintenance-aset/formlihat') ?>',
-        type: 'POST',
-        data: { id_maintenance: id_maintenance },
-        success: function(response) {
-            if (response.sukses) {
-                $('.modal-title').html('Detail Maintenance');
-                $('.modal-body').html(response.sukses);
-                $('.modal-footer').html(`
+    // Lihat detail maintenance
+    function lihatMaintenance(id_maintenance) {
+        $.ajax({
+            url: '<?= site_url('inventaris-gereja/maintenance_formlihat') ?>',
+            type: 'POST',
+            data: { id_maintenance: id_maintenance },
+            success: function (response) {
+                if (response.sukses) {
+                    $('.modal-title').html('Detail Maintenance');
+                    $('.modal-body').html(response.sukses);
+                    $('.modal-footer').html(`
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                 `);
-                $('#modal').modal('show');
+                    $('#modal').modal('show');
+                }
             }
-        }
-    });
-}
+        });
+    }
 
-// Tambah perbaikan
-function tambahPerbaikan(id_aset) {
-    $.ajax({
-        url: '<?= site_url('perbaikan-aset/formtambah') ?>',
-        type: 'POST',
-        data: { id_aset: id_aset },
-        success: function(response) {
-            if (response.data) {
-                $('.modal-title').html('Laporkan Kerusakan');
-                $('.modal-body').html(response.data);
-                $('.modal-footer').html(`
+    // Tambah perbaikan
+    function tambahPerbaikan(id_aset) {
+        $.ajax({
+            url: '<?= site_url('inventaris-gereja/perbaikan_formtambah') ?>',
+            type: 'POST',
+            data: { id_aset: id_aset },
+            success: function (response) {
+                if (response.data) {
+                    $('.modal-title').html('Laporkan Kerusakan');
+                    $('.modal-body').html(response.data);
+                    $('.modal-footer').html(`
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                     <button type="button" class="btn btn-warning" onclick="simpanPerbaikan()">Laporkan</button>
                 `);
-                $('#modal').modal('show');
+                    $('#modal').modal('show');
+                }
             }
-        }
-    });
-}
+        });
+    }
 
-// Lihat detail perbaikan
-function lihatPerbaikan(id_perbaikan) {
-    $.ajax({
-        url: '<?= site_url('perbaikan-aset/formlihat') ?>',
-        type: 'POST',
-        data: { id_perbaikan: id_perbaikan },
-        success: function(response) {
-            if (response.sukses) {
-                $('.modal-title').html('Detail Perbaikan');
-                $('.modal-body').html(response.sukses);
-                $('.modal-footer').html(`
+    // Lihat detail perbaikan
+    function lihatPerbaikan(id_perbaikan) {
+        $.ajax({
+            url: '<?= site_url('inventaris-gereja/perbaikan_formlihat') ?>',
+            type: 'POST',
+            data: { id_perbaikan: id_perbaikan },
+            success: function (response) {
+                if (response.sukses) {
+                    $('.modal-title').html('Detail Perbaikan');
+                    $('.modal-body').html(response.sukses);
+                    $('.modal-footer').html(`
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                 `);
-                $('#modal').modal('show');
+                    $('#modal').modal('show');
+                }
             }
-        }
-    });
-}
+        });
+    }
 
-// Jadwalkan maintenance
-function jadwalkanMaintenance(id_aset) {
-    tambahMaintenance(id_aset);
-}
+    // Jadwalkan maintenance
+    function jadwalkanMaintenance(id_aset) {
+        tambahMaintenance(id_aset);
+    }
 
-// Lapor kerusakan
-function laporKerusakan(id_aset) {
-    tambahPerbaikan(id_aset);
-}
+    // Lapor kerusakan
+    function laporKerusakan(id_aset) {
+        tambahPerbaikan(id_aset);
+    }
 
-// Transfer aset
-function transferAset(id_aset) {
-    $.ajax({
-        url: '<?= site_url('transfer-aset/formtambah') ?>',
-        type: 'POST',
-        data: { id_aset: id_aset },
-        success: function(response) {
-            if (response.data) {
-                $('.modal-title').html('Transfer Aset');
-                $('.modal-body').html(response.data);
-                $('.modal-footer').html(`
+    // Transfer aset
+    function transferAset(id_aset) {
+        $.ajax({
+            url: '<?= site_url('inventaris-gereja/transfer_formtambah') ?>',
+            type: 'POST',
+            data: { id_aset: id_aset },
+            success: function (response) {
+                if (response.data) {
+                    $('.modal-title').html('Transfer Aset');
+                    $('.modal-body').html(response.data);
+                    $('.modal-footer').html(`
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                     <button type="button" class="btn btn-primary" onclick="simpanTransfer()">Transfer</button>
                 `);
-                $('#modal').modal('show');
+                    $('#modal').modal('show');
+                }
             }
-        }
-    });
-}
+        });
+    }
 
-// Toggle status
-function toggleStatus(id_aset, status) {
-    $.ajax({
-        url: '<?= site_url('inventaris-gereja/toggle') ?>',
-        type: 'POST',
-        data: { id_aset: id_aset, status: status },
-        success: function(response) {
-            toastr.success(response.sukses);
-            location.reload();
-        }
-    });
-}
+    // Toggle status
+    function toggleStatus(id_aset, status) {
+        $.ajax({
+            url: '<?= site_url('inventaris-gereja/toggle') ?>',
+            type: 'POST',
+            data: { id_aset: id_aset, status: status },
+            success: function (response) {
+                toastr.success(response.sukses);
+                location.reload();
+            }
+        });
+    }
 </script>

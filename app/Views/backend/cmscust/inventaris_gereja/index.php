@@ -14,6 +14,7 @@ $subtitle = $subtitle ?? 'Manajemen Aset & Inventaris';
 <?= $this->extend('backend/script') ?>
 <?= $this->section('content') ?>
 <?= $this->include('backend/datatable-js') ?>
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 <div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
@@ -378,9 +379,13 @@ $subtitle = $subtitle ?? 'Manajemen Aset & Inventaris';
                     if (recentAssets.length > 0) {
                         recentAssets.each(function () {
                             const cols = $(this).find('td');
-                            const kodeAset = $(cols[1]).text().trim();
-                            const namaAset = $(cols[2]).find('strong').text().trim();
-                            const kategori = $(cols[3]).text().trim();
+                            // Ensure column indices match new layout (1=Foto, 2=Kode, 3=Nama)
+                            // If loadRecentAssets parses list.php HTML string:
+                            // list.php cols: 0=CB, 1=Foto, 2=Kode, 3=Nama
+                            
+                            const kodeAset = $(cols[2]).text().trim();
+                            const namaAset = $(cols[3]).find('strong').text().trim();
+                            const kategori = $(cols[4]).text().trim();
 
                             html += `
                             <div class="list-group-item d-flex justify-content-between align-items-center">
@@ -489,7 +494,7 @@ $subtitle = $subtitle ?? 'Manajemen Aset & Inventaris';
     // Load maintenance tab
     function loadMaintenanceData() {
         $.ajax({
-            url: '<?= site_url('maintenance-aset/list') ?>',
+            url: '<?= site_url('inventaris-gereja/maintenance_list') ?>',
             type: 'GET',
             success: function (response) {
                 if (response.data) {

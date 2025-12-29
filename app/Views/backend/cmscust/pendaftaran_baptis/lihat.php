@@ -1,4 +1,5 @@
-<div class="modal fade" id="modallihat" tabindex="-1" role="dialog" aria-labelledby="modallihatLabel" aria-hidden="true">
+<div class="modal fade" id="modallihat" tabindex="-1" role="dialog" aria-labelledby="modallihatLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -24,7 +25,7 @@
                             </tr>
                             <tr>
                                 <td><strong>Tanggal Lahir</strong></td>
-                                <td>: <?= date_indo($data['tgl_lahir']) ?></td>
+                                <td>: <?= date('d F Y', strtotime($data['tgl_lahir'])) ?></td>
                             </tr>
                             <tr>
                                 <td><strong>Jenis Kelamin</strong></td>
@@ -66,7 +67,8 @@
                             </tr>
                             <tr>
                                 <td><strong>Tanggal Baptis</strong></td>
-                                <td>: <?= $data['tgl_baptis'] ? date_indo($data['tgl_baptis']) : '-' ?></td>
+                                <td>: <?= $data['tgl_baptis'] ? date('d F Y', strtotime($data['tgl_baptis'])) : '-' ?>
+                                </td>
                             </tr>
                             <tr>
                                 <td><strong>Nama Pendamping</strong></td>
@@ -86,11 +88,11 @@
                         <table class="table table-sm table-borderless">
                             <tr>
                                 <td width="40%"><strong>No Pendaftaran</strong></td>
-                                <td>: <?= esc($data['no_pendaftaran']) ?></td>
+                                <td>: <?= isset($data['no_pendaftaran']) ? esc($data['no_pendaftaran']) : '-' ?></td>
                             </tr>
                             <tr>
                                 <td><strong>Tanggal Daftar</strong></td>
-                                <td>: <?= date_indo($data['tgl_daftar']) ?></td>
+                                <td>: <?= date('d F Y', strtotime($data['tgl_daftar'])) ?></td>
                             </tr>
                             <tr>
                                 <td><strong>Status</strong></td>
@@ -106,62 +108,67 @@
                                 </td>
                             </tr>
                             <?php if (!empty($data['keterangan'])): ?>
-                            <tr>
-                                <td><strong>Keterangan</strong></td>
-                                <td>: <?= esc($data['keterangan']) ?></td>
-                            </tr>
+                                <tr>
+                                    <td><strong>Keterangan</strong></td>
+                                    <td>: <?= esc($data['keterangan']) ?></td>
+                                </tr>
                             <?php endif; ?>
                         </table>
                     </div>
                 </div>
 
                 <?php if (!empty($data['dok_ktp']) || !empty($data['dok_kk']) || !empty($data['dok_akta_lahir']) || !empty($data['dok_foto']) || !empty($data['dok_surat_nikah_ortu'])): ?>
-                <div class="row">
-                    <div class="col-md-12">
-                        <h6 class="text-primary"><i class="fas fa-file-alt"></i> Dokumen</h6>
-                        <div class="row">
-                            <?php if (!empty($data['dok_ktp'])): ?>
-                            <div class="col-md-2 mb-2">
-                                <a href="<?= base_url('public/file/dokumen/baptis/' . $data['dok_ktp']) ?>" target="_blank" class="btn btn-sm btn-outline-primary btn-block">
-                                    <i class="fas fa-id-card"></i><br>KTP
-                                </a>
-                            </div>
-                            <?php endif; ?>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h6 class="text-primary"><i class="fas fa-file-alt"></i> Dokumen</h6>
+                            <div class="row">
+                                <?php if (!empty($data['dok_ktp'])): ?>
+                                    <div class="col-md-2 mb-2">
+                                        <a href="<?= base_url('public/file/dokumen/baptis/' . $data['dok_ktp']) ?>"
+                                            target="_blank" class="btn btn-sm btn-outline-primary btn-block">
+                                            <i class="fas fa-id-card"></i><br>KTP
+                                        </a>
+                                    </div>
+                                <?php endif; ?>
 
-                            <?php if (!empty($data['dok_kk'])): ?>
-                            <div class="col-md-2 mb-2">
-                                <a href="<?= base_url('public/file/dokumen/baptis/' . $data['dok_kk']) ?>" target="_blank" class="btn btn-sm btn-outline-primary btn-block">
-                                    <i class="fas fa-users"></i><br>KK
-                                </a>
-                            </div>
-                            <?php endif; ?>
+                                <?php if (!empty($data['dok_kk'])): ?>
+                                    <div class="col-md-2 mb-2">
+                                        <a href="<?= base_url('public/file/dokumen/baptis/' . $data['dok_kk']) ?>"
+                                            target="_blank" class="btn btn-sm btn-outline-primary btn-block">
+                                            <i class="fas fa-users"></i><br>KK
+                                        </a>
+                                    </div>
+                                <?php endif; ?>
 
-                            <?php if (!empty($data['dok_akta_lahir'])): ?>
-                            <div class="col-md-2 mb-2">
-                                <a href="<?= base_url('public/file/dokumen/baptis/' . $data['dok_akta_lahir']) ?>" target="_blank" class="btn btn-sm btn-outline-primary btn-block">
-                                    <i class="fas fa-birthday-cake"></i><br>Akta Lahir
-                                </a>
-                            </div>
-                            <?php endif; ?>
+                                <?php if (!empty($data['dok_akta_lahir'])): ?>
+                                    <div class="col-md-2 mb-2">
+                                        <a href="<?= base_url('public/file/dokumen/baptis/' . $data['dok_akta_lahir']) ?>"
+                                            target="_blank" class="btn btn-sm btn-outline-primary btn-block">
+                                            <i class="fas fa-birthday-cake"></i><br>Akta Lahir
+                                        </a>
+                                    </div>
+                                <?php endif; ?>
 
-                            <?php if (!empty($data['dok_foto'])): ?>
-                            <div class="col-md-2 mb-2">
-                                <a href="<?= base_url('public/file/dokumen/baptis/' . $data['dok_foto']) ?>" target="_blank" class="btn btn-sm btn-outline-primary btn-block">
-                                    <i class="fas fa-camera"></i><br>Foto
-                                </a>
-                            </div>
-                            <?php endif; ?>
+                                <?php if (!empty($data['dok_foto'])): ?>
+                                    <div class="col-md-2 mb-2">
+                                        <a href="<?= base_url('public/file/dokumen/baptis/' . $data['dok_foto']) ?>"
+                                            target="_blank" class="btn btn-sm btn-outline-primary btn-block">
+                                            <i class="fas fa-camera"></i><br>Foto
+                                        </a>
+                                    </div>
+                                <?php endif; ?>
 
-                            <?php if (!empty($data['dok_surat_nikah_ortu'])): ?>
-                            <div class="col-md-2 mb-2">
-                                <a href="<?= base_url('public/file/dokumen/baptis/' . $data['dok_surat_nikah_ortu']) ?>" target="_blank" class="btn btn-sm btn-outline-primary btn-block">
-                                    <i class="fas fa-heart"></i><br>Surat Nikah Ortu
-                                </a>
+                                <?php if (!empty($data['dok_surat_nikah_ortu'])): ?>
+                                    <div class="col-md-2 mb-2">
+                                        <a href="<?= base_url('public/file/dokumen/baptis/' . $data['dok_surat_nikah_ortu']) ?>"
+                                            target="_blank" class="btn btn-sm btn-outline-primary btn-block">
+                                            <i class="fas fa-heart"></i><br>Surat Nikah Ortu
+                                        </a>
+                                    </div>
+                                <?php endif; ?>
                             </div>
-                            <?php endif; ?>
                         </div>
                     </div>
-                </div>
                 <?php endif; ?>
             </div>
         </div>

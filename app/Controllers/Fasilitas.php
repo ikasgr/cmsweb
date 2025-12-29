@@ -39,16 +39,7 @@ class Fasilitas extends BaseController
 
 
 		];
-		if (0) {
-			$agent = $this->request->getUserAgent();
-			if ($agent->isMobile()) {
-				return view('frontend/content/fasilitas', $data);
-			} else {
-				return view('frontend/content/fasilitas', $data);
-			}
-		} else {
-			return view('frontend/content/fasilitas', $data);
-		}
+		return view('frontend/content/fasilitas', $data);
 	}
 
 	// default tampilan front
@@ -118,16 +109,7 @@ class Fasilitas extends BaseController
 
 
 			];
-			if (0) {
-				$agent = $this->request->getUserAgent();
-				if ($agent->isMobile()) {
-					return view('frontend/content/fasilitas_detail', $data);
-				} else {
-					return view('frontend/content/fasilitas_detail', $data);
-				}
-			} else {
-				return view('frontend/content/fasilitas_detail', $data);
-			}
+			return view('frontend/content/fasilitas_detail', $data);
 		} else {
 			return redirect()->to('/fasilitas');
 		}

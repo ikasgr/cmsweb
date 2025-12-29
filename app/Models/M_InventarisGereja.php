@@ -44,6 +44,37 @@ class M_InventarisGereja extends Model
     protected $useTimestamps = true;
     protected $createdField = 'created_at';
     protected $updatedField = 'updated_at';
+    protected $returnType = 'object';
+
+    protected $validationRules = [
+        'nama_aset' => 'required|min_length[3]',
+        'id_kategori' => 'required',
+        'id_lokasi' => 'required',
+        'tanggal_pembelian' => 'required|valid_date',
+        'harga_perolehan' => 'required|numeric|greater_than[0]'
+    ];
+
+    protected $validationMessages = [
+        'nama_aset' => [
+            'required' => 'Nama Aset tidak boleh kosong',
+            'min_length' => 'Nama Aset minimal 3 karakter'
+        ],
+        'id_kategori' => [
+            'required' => 'Kategori harus dipilih'
+        ],
+        'id_lokasi' => [
+            'required' => 'Lokasi harus dipilih'
+        ],
+        'tanggal_pembelian' => [
+            'required' => 'Tanggal Pembelian tidak boleh kosong',
+            'valid_date' => 'Tanggal Pembelian harus berformat tanggal yang valid'
+        ],
+        'harga_perolehan' => [
+            'required' => 'Harga Perolehan tidak boleh kosong',
+            'numeric' => 'Harga Perolehan harus berupa angka',
+            'greater_than' => 'Harga Perolehan harus lebih besar dari 0'
+        ]
+    ];
 
     // List semua aset dengan join
     public function list()
@@ -176,8 +207,8 @@ class M_InventarisGereja extends Model
 
         // Calculate maintenance costs
         $db = \Config\Database::connect();
-        $biayaMaint = $db->table('custome__maintenance_aset')->selectSum('biaya')->get()->getRow();
-        $biayaPerbaikan = $db->table('custome__perbaikan_aset')->selectSum('biaya')->get()->getRow();
+        $biayaMaint = $db->table('custome__maintenance_aset')->selectSum('biaya_aktual')->get()->getRow();
+        $biayaPerbaikan = $db->table('custome__perbaikan_aset')->selectSum('total_biaya')->get()->getRow();
 
         $totalMaint = $db->table('custome__maintenance_aset')->countAllResults();
         $totalPerbaikan = $db->table('custome__perbaikan_aset')->countAllResults();
@@ -187,19 +218,18 @@ class M_InventarisGereja extends Model
             'aset_aktif' => $aktif,
             'aset_maintenance' => $maintenance,
             'aset_rusak' => $rusak,
-            'total_nilai_perolehan' => isset($totalNilai) ? ($totalNilai['harga_perolehan'] ?? 0) : 0,
-            'total_akumulasi_depreciation' => isset($totalDepreciasi) ? ($totalDepreciasi['akumulasi_depreciation'] ?? 0) : 0,
-            'total_nilai_buku' => isset($totalNilaiBuku) ? ($totalNilaiBuku['nilai_buku'] ?? 0) : 0,
+            'total_nilai_perolehan' => isset($totalNilai) ? ($totalNilai->harga_perolehan ?? 0) : 0,
+            'total_akumulasi_depreciation' => isset($totalDepreciasi) ? ($totalDepreciasi->akumulasi_depreciation ?? 0) : 0,
+            'total_nilai_buku' => isset($totalNilaiBuku) ? ($totalNilaiBuku->nilai_buku ?? 0) : 0,
             'total_maintenance' => $totalMaint,
             'total_perbaikan' => $totalPerbaikan,
-            'total_biaya' => ($biayaMaint->biaya ?? 0) + ($biayaPerbaikan->biaya ?? 0)
+            'total_biaya' => ($biayaMaint->biaya_aktual ?? 0) + ($biayaPerbaikan->total_biaya ?? 0)
         ];
     }
 
-    // Get aset per kategori untuk chart
     public function getAsetPerKategori()
     {
-        return $this->select('custome__kategori_aset.nama_kategori, custome__kategori_aset.warna, 
+        return $this->select('custome__kategori_aset.nama_kategori, custome__kategori_aset.warna, custome__kategori_aset.icon,
                             COUNT(custome__aset_gereja.id_aset) as jumlah_aset,
                             SUM(custome__aset_gereja.harga_perolehan) as total_nilai')
             ->join('custome__kategori_aset', 'custome__kategori_aset.id_kategori = custome__aset_gereja.id_kategori', 'left')

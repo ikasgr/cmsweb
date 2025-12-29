@@ -991,6 +991,12 @@ $routes->group('', ['namespace' => 'App\Controllers'], function ($routes) {
     $routes->get('inventaris-gereja/print', 'InventarisGereja::print');
     $routes->get('inventaris-gereja/printqr/(:num)', 'InventarisGereja::printqr/$1');
     $routes->post('inventaris-gereja/generateqr', 'InventarisGereja::generateqr');
+    $routes->get('inventaris-gereja/maintenance_list', 'InventarisGereja::maintenance_list');
+    $routes->post('inventaris-gereja/maintenance_formtambah', 'InventarisGereja::maintenance_formtambah');
+    $routes->post('inventaris-gereja/maintenance_formlihat', 'InventarisGereja::maintenance_formlihat');
+    $routes->post('inventaris-gereja/perbaikan_formtambah', 'InventarisGereja::perbaikan_formtambah');
+    $routes->post('inventaris-gereja/perbaikan_formlihat', 'InventarisGereja::perbaikan_formlihat');
+    $routes->post('inventaris-gereja/transfer_formtambah', 'InventarisGereja::transfer_formtambah');
 
     // Setup Menu
     $routes->get('setupmenu', 'SetupMenu::index');

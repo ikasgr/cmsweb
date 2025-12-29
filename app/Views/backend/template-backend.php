@@ -11,14 +11,14 @@ use App\Models\ModelKritikSaran;
 use App\Models\M_Ikasmedia_grupakses;
 use App\Models\ModelKonfigurasi;
 
-$this->konfigurasi = new ModelKonfigurasi();
-$this->komen = new ModelBeritaKomen();
-$this->kritik = new ModelKritikSaran();
-$this->grupakses = new M_Ikasmedia_grupakses();
+$modelKonfigurasi = new ModelKonfigurasi();
+$komen = new ModelBeritaKomen();
+$kritik = new ModelKritikSaran();
+$grupakses = new M_Ikasmedia_grupakses();
 
-$totkritik = $this->kritik->totkritik();
-$totkomen = $this->komen->totkomen();
-$konfigurasi = $this->konfigurasi->vkonfig();
+$totkritik = $kritik->totkritik();
+$totkomen = $komen->totkomen();
+$konfigurasi = $modelKonfigurasi->vkonfig();
 
 // Default values since template system is removed
 $tadmin = [
@@ -27,11 +27,11 @@ $tadmin = [
 ];
 
 $urlkritik = 'kritiksaran/list';
-$listgrupkritik = $this->grupakses->viewgrupakses($id_grup, $urlkritik);
+$listgrupkritik = $grupakses->viewgrupakses($id_grup, $urlkritik);
 $akseskritik = $listgrupkritik->akses;
 
 $urlkomen = 'berita/all';
-$listgrupkomen = $this->grupakses->viewgrupakses($id_grup, $urlkomen);
+$listgrupkomen = $grupakses->viewgrupakses($id_grup, $urlkomen);
 $akseskomen = $listgrupkomen->akses;
 
 // header("Content-Security-Policy: connect-src 'self'; media-src 'self'; form-action 'self'; worker-src 'self'");

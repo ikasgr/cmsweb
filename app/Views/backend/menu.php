@@ -11,27 +11,27 @@ use App\Models\M_Ikasmedia_grupakses;
 use App\Models\ModelKritikSaran;
 use App\Models\ModelBeritaKomen;
 
-$this->setnewdata = new ModelBerita();
-$this->grupakses = new M_Ikasmedia_grupakses();
-$this->komen = new ModelBeritaKomen();
-$this->kritik = new ModelKritikSaran();
-$jum = $this->setnewdata->totberitanew();
-$totkritik = $this->kritik->totkritik();
-$totkomen = $this->komen->totkomen();
+$setnewdata = new ModelBerita();
+$modelGrupAkses = new M_Ikasmedia_grupakses();
+$komen = new ModelBeritaKomen();
+$kritik = new ModelKritikSaran();
+$jum = $setnewdata->totberitanew();
+$totkritik = $kritik->totkritik();
+$totkomen = $komen->totkomen();
 $jnotif = $totkritik + $totkomen;
 
 $gm = 'Pengaturan';
-$listgrupakses = $this->grupakses->listgrupaksesmenu($id_grup);
-$grupakses = $this->grupakses->grupaksessubmenu($id_grup, $gm);
+$listgrupakses = $modelGrupAkses->listgrupaksesmenu($id_grup);
+$grupakses = $modelGrupAkses->grupaksessubmenu($id_grup, $gm);
 $tadmin = ['sidebar_mode' => 0]; // Default static value
 
 
 $urlkritik = 'kritiksaran/list';
-$listgrupkritik = $this->grupakses->viewgrupakses($id_grup, $urlkritik);
+$listgrupkritik = $modelGrupAkses->viewgrupakses($id_grup, $urlkritik);
 $akseskritik = $listgrupkritik->akses;
 
 $urlkomen = 'berita/all';
-$listgrupkomen = $this->grupakses->viewgrupakses($id_grup, $urlkomen);
+$listgrupkomen = $modelGrupAkses->viewgrupakses($id_grup, $urlkomen);
 $akseskomen = $listgrupkomen->akses;
 
 
@@ -225,7 +225,7 @@ foreach ($listgrupakses as $data):
                     <?= $namamenu ?> </span> </a>
             <ul class="sub-menu " aria-expanded="false">
                 <?php
-                $listgrupf = $this->grupakses->grupaksessubmenu($id_grup, $gm);
+                $listgrupf = $modelGrupAkses->grupaksessubmenu($id_grup, $gm);
                 foreach ($listgrupf as $datacek):
                     $akses = $datacek['akses'];
                     $linkurl = esc($datacek['urlmenu']);

@@ -11,7 +11,7 @@ class M_PendaftaranBaptis extends Model
     protected $primaryKey = 'id_baptis';
     protected $useAutoIncrement = true;
     protected $returnType = 'array';
-    protected $useSoftDeletes = true;
+    protected $useSoftDeletes = false;
     protected $useTimestamps = true;
     protected $createdField = 'created_at';
     protected $updatedField = 'updated_at';
