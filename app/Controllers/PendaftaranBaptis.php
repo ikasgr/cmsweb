@@ -33,7 +33,7 @@ class PendaftaranBaptis extends BaseController
             'validation' => \Config\Services::validation()
         ];
 
-        return view('frontend/' . $template['folder'] . '/content/pendaftaran_baptis', $data);
+        return view('frontend/pendaftaran/baptis', $data);
     }
 
     /**
@@ -731,3 +731,8 @@ class PendaftaranBaptis extends BaseController
         }
     }
 }
+
+
+
+
+

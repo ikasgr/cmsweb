@@ -13,7 +13,7 @@ class Survey extends BaseController
         $agenda = $this->agenda->listagendapage();
         $surveytopik = $this->surveytopik->listsurveytopikpg();
         $pengumuman = $this->pengumuman->listpengumumanpage();
-        
+
         $data = [
             'title' => 'Survei | ' . esc($konfigurasi->nama),
             'deskripsi' => esc($konfigurasi->deskripsi),
@@ -43,19 +43,11 @@ class Survey extends BaseController
             'terkini3' => $this->berita->terkini3(),
             'pekerjaan' => $this->masterdata->listmasterpublik(2),
             'pendidikan' => $this->masterdata->listmasterpublik(3),
-            
+
 
         ];
-        if (0) {
-            $agent = $this->request->getUserAgent();
-            if ($agent->isMobile()) {
-                return view('frontend/desktop/' . 'content/survei', $data);
-            } else {
-                return view('frontend/desktop/' . 'content/survei', $data);
-            }
-        } else {
-            return view('frontend/desktop/' . 'content/survei', $data);
-        }
+
+        return view('frontend/interaksi/survey', $data);
     }
 
     public function cetak($survey_id = null)
@@ -70,7 +62,7 @@ class Survey extends BaseController
 
         $konfigurasi = $this->konfigurasi->orderBy('id_setaplikasi')->first();
         $surveytopik = $this->surveytopik->listcetak($survey_id);
-        
+
         $data = [
             'title' => 'Masukan dan Saran',
             'subtitle' => 'Detail',
@@ -87,7 +79,7 @@ class Survey extends BaseController
         if (!session()->get('id')) {
             return redirect()->to('');
         }
-        
+
         $konfigurasi = $this->konfigurasi->orderBy('id_setaplikasi')->first();
 
         $data = [
@@ -133,7 +125,7 @@ class Survey extends BaseController
             : $this->surveytopik->listsurveytopikauthor($id_user);
 
         // Ambil informasi folder admin yang aktif
-        
+
 
         // Siapkan data untuk view
         $data = [
@@ -159,10 +151,10 @@ class Survey extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            
+
             $data = [
                 'title' => 'Tambah Topik',
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             $msg = [
                 'data' => view('backend/' . 'interaksi/surveytopik/tambah', $data)
@@ -232,7 +224,7 @@ class Survey extends BaseController
                         'ket_b' => $validation->getError('ket_b'),
                         'ket_sb' => $validation->getError('ket_sb'),
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
                 echo json_encode($msg);
             } else {
@@ -258,7 +250,7 @@ class Survey extends BaseController
                 $this->surveytopik->insert($insertdata);
                 $msg = [
                     'sukses' => 'Data berhasil disimpan!',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
                 echo json_encode($msg);
             }
@@ -277,7 +269,7 @@ class Survey extends BaseController
             $this->surveytopik->delete($id);
             $msg = [
                 'sukses' => 'Data Berhasil Dihapus',
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -311,7 +303,7 @@ class Survey extends BaseController
 
             $msg = [
                 'sukses' => 'Data Berhasil direset',
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -376,10 +368,10 @@ class Survey extends BaseController
 
 
             ];
-            
+
             $msg = [
                 'sukses' => view('backend/' . 'interaksi/surveytopik/edit', $data),
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
 
             ];
             echo json_encode($msg);
@@ -448,7 +440,7 @@ class Survey extends BaseController
                         'ket_b' => $validation->getError('ket_b'),
                         'ket_sb' => $validation->getError('ket_sb'),
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
@@ -473,7 +465,7 @@ class Survey extends BaseController
                 $this->surveytopik->update($survey_id, $updatedata);
                 $msg = [
                     'sukses' => 'Data berhasil diubah!',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -519,7 +511,7 @@ class Survey extends BaseController
 
             $msg = [
                 'sukses' => $pesan,
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -535,7 +527,7 @@ class Survey extends BaseController
             return redirect()->to(base_url('surveytopik/all'));
         }
         $list = $this->pertanyaan->listpertanyaan($survey_id);
-        
+
         $data = [
             'title' => 'Responden',
             'subtitle' => 'Detail',
@@ -593,7 +585,7 @@ class Survey extends BaseController
         ];
 
         // Ambil folder admin untuk tampilan
-        
+
 
         // Kirim data ke tampilan
         $msg = [
@@ -624,7 +616,7 @@ class Survey extends BaseController
             $this->responden->delete($id);
             $msg = [
                 'sukses' => 'Data responden berhasil Dihapus',
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -640,7 +632,7 @@ class Survey extends BaseController
 
             $survey_id = $this->request->getVar('survey_id');
             $list = $this->surveytopik->find($survey_id);
-            
+
             $data = [
                 'title' => 'Masukan Saran',
                 'survey_id' => $list['survey_id'],
@@ -652,7 +644,7 @@ class Survey extends BaseController
             ];
             $msg = [
                 'sukses' => view('backend/' . 'interaksi/surveytopik/surveypesan/index', $data),
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -671,7 +663,7 @@ class Survey extends BaseController
             return redirect()->to(base_url('surveytopik/all'));
         }
         $list = $this->pertanyaan->listpertanyaan($survey_id);
-        
+
         $data = [
             'title' => 'Pertanyaan',
             'subtitle' => 'Quisioner',
@@ -728,7 +720,7 @@ class Survey extends BaseController
         ];
 
         // Ambil folder admin untuk tampilan
-        
+
 
         // Kirim data ke tampilan
         $msg = [
@@ -745,7 +737,7 @@ class Survey extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            
+
             $data = [
                 'title' => 'Tambah Pertanyaan',
                 'survey_id' => $this->request->getVar('survey_id'),
@@ -782,7 +774,7 @@ class Survey extends BaseController
                     'error' => [
                         'pertanyaan' => $validation->getError('pertanyaan'),
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
                 echo json_encode($msg);
             } else {
@@ -797,7 +789,7 @@ class Survey extends BaseController
 
                 $msg = [
                     'sukses' => 'Data berhasil disimpan!',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
                 echo json_encode($msg);
             }
@@ -814,7 +806,7 @@ class Survey extends BaseController
             $pertanyaan_id = $this->request->getVar('pertanyaan_id');
 
             $list = $this->pertanyaan->find($pertanyaan_id);
-            
+
             $data = [
                 'title' => 'Edit Pertanyaan',
                 'pertanyaan_id' => $pertanyaan_id,
@@ -822,7 +814,7 @@ class Survey extends BaseController
             ];
             $msg = [
                 'sukses' => view('backend/' . 'interaksi/surveytopik/surveypertanyaan/edit', $data),
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -853,7 +845,7 @@ class Survey extends BaseController
                     'error' => [
                         'pertanyaan' => $validation->getError('pertanyaan'),
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 $updatedata = [
@@ -863,7 +855,7 @@ class Survey extends BaseController
                 $this->pertanyaan->update($pertanyaan_id, $updatedata);
                 $msg = [
                     'sukses' => 'Data berhasil diubah!',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -884,7 +876,7 @@ class Survey extends BaseController
             $this->pertanyaan->delete($id);
             $msg = [
                 'sukses' => 'Data Berhasil Dihapus',
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -906,7 +898,7 @@ class Survey extends BaseController
 
             $msg = [
                 'sukses' => "$jmldata Data berhasil dihapus",
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -925,7 +917,7 @@ class Survey extends BaseController
             return redirect()->to(base_url('survey/all'));
         }
         $list = $this->jawaban->listjawaban($pertanyaan_id);
-        
+
         $data = [
             'title' => 'Survei',
             'subtitle' => 'Jawaban',
@@ -985,7 +977,7 @@ class Survey extends BaseController
         ];
 
         // Ambil folder admin untuk tampilan
-        
+
 
         // Kirim data ke tampilan
         $msg = [
@@ -1007,9 +999,9 @@ class Survey extends BaseController
                 'title' => 'Tambah Jawaban',
                 'pertanyaan_id' => $pertanyaan_id,
                 'jum' => $jjawab,
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
-            
+
             $msg = [
                 'data' => view('backend/' . 'interaksi/surveytopik/surveyjawaban/tambah', $data)
             ];
@@ -1043,7 +1035,7 @@ class Survey extends BaseController
                         'jawaban' => $validation->getError('jawaban'),
 
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
@@ -1056,7 +1048,7 @@ class Survey extends BaseController
                 $this->jawaban->insert($insertdata);
                 $msg = [
                     'sukses' => 'Data berhasil disimpan!',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -1073,7 +1065,7 @@ class Survey extends BaseController
             $jawaban_id = $this->request->getVar('jawaban_id');
 
             $list = $this->jawaban->find($jawaban_id);
-            
+
             $data = [
                 'title' => 'Edit Data',
                 'jawaban_id' => $jawaban_id,
@@ -1082,7 +1074,7 @@ class Survey extends BaseController
                 'nilai' => $list['nilai'],
             ];
             $msg = [
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
                 'sukses' => view('backend/' . 'interaksi/surveytopik/surveyjawaban/edit', $data),
             ];
             echo json_encode($msg);
@@ -1114,7 +1106,7 @@ class Survey extends BaseController
                     'error' => [
                         'jawaban' => $validation->getError('jawaban'),
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
@@ -1127,7 +1119,7 @@ class Survey extends BaseController
                 $this->jawaban->update($jawaban_id, $updatedata);
                 $msg = [
                     'sukses' => 'Data berhasil diubah!',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -1145,7 +1137,7 @@ class Survey extends BaseController
             $this->jawaban->delete($id);
             $msg = [
                 'sukses' => 'Data Berhasil Dihapus',
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -1168,7 +1160,7 @@ class Survey extends BaseController
 
             $msg = [
                 'sukses' => "$jmldata Data berhasil dihapus",
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -1211,7 +1203,7 @@ class Survey extends BaseController
                             'nama' => $validation->getError('nama'),
                             'usia' => $validation->getError('usia'),
                         ],
-                        'csrf_tokencmsdatagoe' => csrf_hash(),
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                 } else {
 
@@ -1250,7 +1242,7 @@ class Survey extends BaseController
 
                     $msg = [
                         'sukses' => 'Terima kasih atas partisipasi Anda mengikuti survei kami.!',
-                        'csrf_tokencmsdatagoe' => csrf_hash()
+                        'csrf_tokencmsikasmedia' => csrf_hash()
                     ];
                 }
 
@@ -1258,10 +1250,15 @@ class Survey extends BaseController
             } else {
                 $msg = [
                     'gagal' => 'Anda telah berpartisipasi..!',
-                    'csrf_tokencmsdatagoe' => csrf_hash()
+                    'csrf_tokencmsikasmedia' => csrf_hash()
                 ];
             }
             echo json_encode($msg);
         }
     }
 }
+
+
+
+
+

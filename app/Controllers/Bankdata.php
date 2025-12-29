@@ -35,7 +35,7 @@ class Bankdata extends BaseController
             'grafisrandom' => $this->banner->grafisrandom(),
             'terkini3' => $this->berita->terkini3(),
         ];
-        return view('frontend/content/semua_bankdata', $data);
+        return view('frontend/bankdata/index', $data);
     }
 
     //list semua bankdata
@@ -463,3 +463,8 @@ class Bankdata extends BaseController
         }
     }
 }
+
+
+
+
+

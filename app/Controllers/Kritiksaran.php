@@ -12,7 +12,7 @@ class Kritiksaran extends BaseController
     {
         $konfigurasi = $this->konfigurasi->vkonfig();
         $suaraanda = $this->kritiksaran->listsuaraanda();
-        
+
         $data = [
             'title' => 'Masukan & Saran ' . esc($konfigurasi->nama),
             'deskripsi' => esc($konfigurasi->deskripsi),
@@ -37,18 +37,10 @@ class Kritiksaran extends BaseController
             'sitekey' => $konfigurasi->g_sitekey,
             'infografis10' => $this->banner->listinfopage()->paginate(10),
             'grafisrandom' => $this->banner->grafisrandom(),
-            
+
         ];
-        if (0) {
-            $agent = $this->request->getUserAgent();
-            if ($agent->isMobile()) {
-                return view('frontend/desktop/' . 'content/masukansaran', $data);
-            } else {
-                return view('frontend/desktop/' . 'content/masukansaran', $data);
-            }
-        } else {
-            return view('frontend/desktop/' . 'content/masukansaran', $data);
-        }
+
+        return view('frontend/interaksi/masukansaran', $data);
     }
 
     public function formkritik()
@@ -57,7 +49,7 @@ class Kritiksaran extends BaseController
         if ($this->request->isAJAX()) {
             $konfigurasi = $this->konfigurasi->orderBy('id_setaplikasi')->first();
             $g_sitekey = $konfigurasi['g_sitekey'];
-            
+
             $data = [
                 'title' => 'Masukan Saran',
                 'konfigurasi' => $konfigurasi,
@@ -66,7 +58,7 @@ class Kritiksaran extends BaseController
             ];
             $msg = [
 
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
                 'data' => view('backend/modal/kritiksaranmd', $data),
 
             ];
@@ -80,7 +72,7 @@ class Kritiksaran extends BaseController
         if (!session()->get('id')) {
             return redirect()->to('');
         }
-        
+
         $data = [
             'title' => 'Masukan',
             'subtitle' => 'Saran',
@@ -106,7 +98,7 @@ class Kritiksaran extends BaseController
             $ubah = $listgrupf->ubah;
             $tambah = $listgrupf->tambah;
             // jika temukan maka eksekusi
-            
+
             if ($listgrupf) {
                 # cek akses
                 if ($akses == '1' || $akses == '2') {
@@ -177,7 +169,7 @@ class Kritiksaran extends BaseController
             'tambah' => $listgrupf->tambah,
         ];
 
-        
+
 
         // Siapkan respons JSON dengan data tampilan
         $msg = [
@@ -193,7 +185,7 @@ class Kritiksaran extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            
+
             $data = [
                 'list' => $this->kritiksaran->listkritiknew(),
                 'totkritik' => $this->kritiksaran->totkritik()
@@ -369,7 +361,7 @@ class Kritiksaran extends BaseController
             $list = $this->kritiksaran->find($kritiksaran_id);
             $url = 'kritiksaran/list';
             $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
-            
+
             $konfigurasi = $this->konfigurasi->orderBy('id_setaplikasi')->first();
 
             foreach ($listgrupf as $data):
@@ -396,7 +388,7 @@ class Kritiksaran extends BaseController
                     ];
                     $msg = [
                         'sukses' => view('backend/interaksi/kritiksaran/edit', $data),
-                        'csrf_tokencmsdatagoe' => csrf_hash(),
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                         // 'sukses' => view('admin/interaksi/kritiksaran/edit', $data)
                     ];
                 } else {
@@ -435,7 +427,7 @@ class Kritiksaran extends BaseController
                     'error' => [
                         'balas' => $validation->getError('balas'),
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
@@ -569,7 +561,7 @@ class Kritiksaran extends BaseController
 
                 $msg = [
                     'sukses' => $pesan,
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -653,7 +645,7 @@ class Kritiksaran extends BaseController
             $this->kritiksaran->delete($kritiksaran_id);
             $msg = [
                 'sukses' => 'Data berhasil dihapus!',
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -680,3 +672,8 @@ class Kritiksaran extends BaseController
         }
     }
 }
+
+
+
+
+

@@ -1,4 +1,3 @@
-<!-- ============================= WEBSITE DIDEVELOP OLEH VIAN TAUM | DATAGOE.COM ============================= -->
 <?php
 $db = \Config\Database::connect();
 ?>
@@ -21,7 +20,7 @@ $konfigurasi = $this->konfigurasi->orderBy('id_setaplikasi')->first();
 
     <title>Cetak Quisioner</title>
 
-    <meta content="CMS DATAGOE" name="DATAGOE SOFTWARE" />
+    <meta content="CMS IKASMEDIA" name="IKASMEDIA SOFTWARE" />
 
     <link rel="shortcut icon" href="<?= base_url('/public/img/konfigurasi/icon/' . esc($konfigurasi['icon'])) ?>">
     <link href="<?= base_url() ?>/public/backend/standar/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -44,67 +43,71 @@ $konfigurasi = $this->konfigurasi->orderBy('id_setaplikasi')->first();
                         <div class="text-center">
                             <?php if (esc($nama_survey)) { ?>
 
-                                <div class="alert alert-danger" style='background-color:#f4f4f4; border-color:#e3e3e3;font-size:18px;'>
+                                <div class="alert alert-danger"
+                                    style='background-color:#f4f4f4; border-color:#e3e3e3;font-size:18px;'>
                                     <?= strtoupper(esc($nama_survey)) ?>
                                 </div>
                                 <br>
-                        </div>
+                            </div>
 
-                        <div class="text-left ml-3">
+                            <div class="text-left ml-3">
 
-                            <?php
+                                <?php
                                 $set = $db->table('survey_pertanyaan')->where('survey_id', $survey_id)->orderBy('pertanyaan_id', 'ASC')->get()->getResultArray();
                                 if ($set) {
                                     $no = 0;
                                     foreach ($set as $datatanya) {
                                         $no++;
-                            ?>
+                                        ?>
 
-                                    <b><?= $no ?>. <?= esc($datatanya['pertanyaan']) ?></b>
-                                    <hr>
+                                        <b><?= $no ?>. <?= esc($datatanya['pertanyaan']) ?></b>
+                                        <hr>
 
 
-                                    <?php
+                                        <?php
                                         $set2 = $db->table('survey_jawaban')->where('pertanyaan_id', $datatanya['pertanyaan_id'])->orderBy('pertanyaan_id', 'ASC')->get()->getResultArray();
                                         $nos = 0;
                                         $i = 1;
                                         foreach ($set2 as $datajwb) {
                                             $nos++;
-                                    ?>
+                                            ?>
 
-                                        <label>
-                                            <input name="jawaban_id[<?= $no ?>]" class="centang_id" type="radio" value="<?= $datajwb['jawaban_id'] ?>">
+                                            <label>
+                                                <input name="jawaban_id[<?= $no ?>]" class="centang_id" type="radio"
+                                                    value="<?= $datajwb['jawaban_id'] ?>">
 
-                                            <span class="pointer"><?= esc($datajwb['jawaban']) ?></span>
+                                                <span class="pointer"><?= esc($datajwb['jawaban']) ?></span>
 
-                                        </label><br>
+                                            </label><br>
 
-                                    <?php }
-                                    ?>
-                                    <br>
+                                        <?php }
+                                        ?>
+                                        <br>
 
+                                    <?php } ?>
+
+                                    <div class="text-right ">
+                                        <label> <b class="text-primary">Saran dan Kritik yang Membangun</b></label> <br>
+                                        <textarea type="text" rows="5" id="saran" name="saran" class="form-control"></textarea>
+                                    </div>
+                                <?php } else { ?>
+                                    <div class="alert alert-danger text-center"
+                                        style='background-color:#FAEBD7; border-color:#e3e3e3;'>
+                                        <a style='color:red'>Belum Ada pertanyaan untuk topik ini.!</a>
+                                    </div>
                                 <?php } ?>
+                                <br>
 
-                                <div class="text-right ">
-                                    <label> <b class="text-primary">Saran dan Kritik yang Membangun</b></label> <br>
-                                    <textarea type="text" rows="5" id="saran" name="saran" class="form-control"></textarea>
-                                </div>
-                            <?php } else { ?>
-                                <div class="alert alert-danger text-center" style='background-color:#FAEBD7; border-color:#e3e3e3;'>
-                                    <a style='color:red'>Belum Ada pertanyaan untuk topik ini.!</a>
-                                </div>
-                            <?php } ?>
-                            <br>
+                            </div>
 
-                        </div>
+                        <?php } else { ?>
 
-                    <?php } else { ?>
-
-                        <h4 class="">Maaf, Belum Ada data Survey.!</h4><br>
-                        <a class="btn btn-info mb-5 waves-effect waves-light" href="<?= base_url('/') ?>"><i class="mdi mdi-home"></i> Kembali ke Halaman Utama</a>
+                            <h4 class="">Maaf, Belum Ada data Survey.!</h4><br>
+                            <a class="btn btn-info mb-5 waves-effect waves-light" href="<?= base_url('/') ?>"><i
+                                    class="mdi mdi-home"></i> Kembali ke Halaman Utama</a>
 
 
-                    <?php } ?>
+                        <?php } ?>
 
                     </div>
                 </div>

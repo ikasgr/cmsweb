@@ -124,7 +124,7 @@ class Pegawai extends BaseController
             ];
             $msg = [
                 'data' => view('backend/' . 'lembaga/pegawai/formimport', $data),
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
 
             ];
             echo json_encode($msg);
@@ -188,12 +188,12 @@ class Pegawai extends BaseController
             }
             $msg = [
                 'sukses' => 'Data Pegawai berhasil di import!',
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
         } else {
             $msg = [
                 'kosong' => 'File belum ada!',
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
         }
         echo json_encode($msg);
@@ -213,7 +213,7 @@ class Pegawai extends BaseController
             ];
             $msg = [
                 'data' => view('backend/' . 'lembaga/pegawai/tambah', $data),
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
 
             ];
             echo json_encode($msg);
@@ -317,7 +317,7 @@ class Pegawai extends BaseController
                         'gambar' => $validation->getError('gambar'),
 
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
                 echo json_encode($msg);
             } else {
@@ -353,7 +353,7 @@ class Pegawai extends BaseController
                     $this->pegawai->insert($insertdata);
                     $msg = [
                         'sukses' => 'Pegawai berhasil disimpan!',
-                        'csrf_tokencmsdatagoe' => csrf_hash(),
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                 } else {
 
@@ -387,7 +387,7 @@ class Pegawai extends BaseController
                         ->save('public/img/informasi/pegawai/' . $nama_file, 70);
                     $msg = [
                         'sukses' => 'Pegawai berhasil disimpan!',
-                        'csrf_tokencmsdatagoe' => csrf_hash(),
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                 }
                 echo json_encode($msg);
@@ -413,7 +413,7 @@ class Pegawai extends BaseController
             ];
             $msg = [
                 'sukses' => view('backend/' . 'lembaga/pegawai/gantitupoksi', $data),
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -450,7 +450,7 @@ class Pegawai extends BaseController
                     'error' => [
                         'filetupoksi' => $validation->getError('filetupoksi')
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
@@ -482,7 +482,7 @@ class Pegawai extends BaseController
 
                 $msg = [
                     'sukses' => 'File berhasil diupdate!',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -514,7 +514,7 @@ class Pegawai extends BaseController
 
             $msg = [
                 'sukses' => 'Data tupoksi sukses Dihapus',
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -545,7 +545,7 @@ class Pegawai extends BaseController
             $this->pegawai->delete($id);
             $msg = [
                 'sukses' => 'Data Pegawai Berhasil Dihapus',
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -580,7 +580,7 @@ class Pegawai extends BaseController
 
             $msg = [
                 'sukses' => "$jmldata Data pegawai berhasil dihapus",
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -620,7 +620,7 @@ class Pegawai extends BaseController
             ];
             $msg = [
                 'sukses' => view('backend/' . 'lembaga/pegawai/edit', $data),
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -713,7 +713,7 @@ class Pegawai extends BaseController
                         'pangkat' => $validation->getError('pangkat'),
                         'jabatan' => $validation->getError('jabatan'),
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 $tgl_lahir_input = $this->request->getVar('tgl_lahir');
@@ -741,7 +741,7 @@ class Pegawai extends BaseController
                 $this->pegawai->update($pegawai_id, $updatedata);
                 $msg = [
                     'sukses' => 'Data Pegawai berhasil diubah!',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -765,7 +765,7 @@ class Pegawai extends BaseController
             $msg = [
                 'sukses' => view('backend/' . 'lembaga/pegawai/gantifoto', $data),
 
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -799,7 +799,7 @@ class Pegawai extends BaseController
                     'error' => [
                         'gambar' => $validation->getError('gambar')
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
@@ -828,7 +828,7 @@ class Pegawai extends BaseController
 
                 $msg = [
                     'sukses' => 'Foto berhasil diganti!',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -867,12 +867,12 @@ class Pegawai extends BaseController
                 'bio_singkat' => $list['bio_singkat'],
                 'konfigurasi' => $template,
 
-                // 'csrf_tokencmsdatagoe'  => csrf_hash(),
+                // 'csrf_tokencmsikasmedia'  => csrf_hash(),
 
             ];
             $msg = [
 
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
                 'sukses' => view('backend/' . 'lembaga/pegawai/lihatpegawai', $data),
             ];
             echo json_encode($msg);
@@ -915,10 +915,15 @@ class Pegawai extends BaseController
             ];
             $msg = [
                 'sukses' => view('backend/' . 'lembaga/pegawai/lihatpegawaiback', $data),
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
                 // 'sukses' => view('admin/lembaga/pegawai/lihatpegawai', $data)
             ];
             echo json_encode($msg);
         }
     }
 }
+
+
+
+
+

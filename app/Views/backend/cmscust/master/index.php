@@ -1,6 +1,6 @@
 <?= $this->section('content') ?>
-<?= $this->extend('backend/' . esc($folder) . '/' . 'script'); ?>
-<?= $this->include('/backend/' . esc($folder) . '/datatable-js'); ?>
+<?= $this->extend('backend/script'); ?>
+<?= $this->include('/backend/datatable-js'); ?>
 
 <div class="page-title-box">
     <div class="container-fluid">
@@ -69,7 +69,7 @@
                 url: url,
             },
             dataType: "json",
-            success: function(response) {
+            success: function (response) {
                 $('.viewdata').html(response.data);
 
                 if (response.noakses) {
@@ -80,7 +80,7 @@
                         icon: "error",
                         showConfirmButton: false,
                         timer: 3100
-                    }).then(function() {
+                    }).then(function () {
                         window.location = '<?= base_url('/') ?>';
                     })
                 }
@@ -92,12 +92,12 @@
                         icon: "error",
                         showConfirmButton: false,
                         timer: 3100
-                    }).then(function() {
+                    }).then(function () {
                         window.location = '<?= base_url('/') ?>';
                     })
                 }
             },
-            error: function(xhr, ajaxOptions, thrownerror) {
+            error: function (xhr, ajaxOptions, thrownerror) {
 
                 Swal.fire({
                     title: "Maaf gagal load data!",
@@ -105,7 +105,7 @@
                     icon: "error",
                     // showConfirmButton: false,
                     // timer: 3100
-                }).then(function() {
+                }).then(function () {
                     window.location = '<?= base_url('/') ?>';
 
                 });
@@ -113,7 +113,7 @@
         });
     }
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         listmaster();
     });
 </script>

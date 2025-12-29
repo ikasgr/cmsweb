@@ -165,6 +165,93 @@ class BaseController extends Controller
      */
     protected $helpers = ['form', 'url', 'Tgl_indo', 'cookie', 'dge', 'text'];
     protected $session;
+    protected $db;
+    public $konfigurasi;
+    public $email;
+    public $banner;
+    public $user;
+    public $berita;
+    public $kategori;
+    public $infografis;
+    public $profil;
+    public $pegawai;
+    public $linkterkait;
+    public $agenda;
+    public $layanan;
+    public $pengumuman;
+    public $bankdata;
+    public $kategorifoto;
+    public $foto;
+    public $video;
+    public $kritiksaran;
+    public $poling;
+    public $menu;
+    public $submenu;
+    public $subsubmenu;
+    public $section;
+    public $ebook;
+    public $kategoriebook;
+    public $surveytopik;
+    public $pertanyaan;
+    public $jawaban;
+    public $responden;
+    public $bidang;
+    public $bukutamu;
+    public $counter;
+    public $kategorivideo;
+    public $tag;
+    public $beritatag;
+    public $beritakomen;
+    public $faqtanya;
+    public $faqjawab;
+    public $modalpopup;
+    public $transparandetail;
+    public $transparan;
+    public $fasilitas;
+    public $fasilitasdetail;
+    public $pendaftaransidi;
+    public $pendaftaranbaptis;
+    public $pendaftarannikah;
+    public $pendaftarandokumen;
+    public $pendaftarantimeline;
+    public $pendaftarancatatan;
+    public $masterdokumen;
+    public $masterdata;
+    public $permohonaninfo;
+    public $unitkerja;
+    public $unitkerjatipe;
+    public $dokumen;
+    public $dokumenkat;
+    public $modulecms;
+    public $grupuser;
+    public $grupakses;
+    public $modulpublic;
+    public $kategoriproduk;
+    public $keranjang;
+    public $pesanan;
+    public $pesanandetail;
+    public $jadwalpelayanan;
+    public $jemaat;
+    public $jadwalibadah;
+    public $jenisibadah;
+    public $pelayanibadah;
+    public $jabatanpelayanan;
+    public $musikibadah;
+    public $pengumumanibadah;
+    public $keuangangereja;
+    public $kategorikeuangan;
+    public $kasgereja;
+    public $mutasikas;
+    public $inventarisgereja;
+    public $kategoriaset;
+    public $lokasiaset;
+    public $vendormaintenance;
+    public $maintenanceaset;
+    public $perbaikanaset;
+    public $majelisgereja;
+    public $jabatanmajelis;
+    public $masajabatanmajelis;
+    public $komisimajelis;
 
 
     /**
@@ -279,3 +366,8 @@ class BaseController extends Controller
         $this->user->kunjungan();
     }
 }
+
+
+
+
+

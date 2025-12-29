@@ -24,7 +24,7 @@ class PendaftaranNikah extends BaseController
             'linkterkaitall' => $this->linkterkait->publishlinkall(),
 
         ];
-        return view('frontend/desktop/content/pendaftaran_nikah', $data);
+        return view('frontend/pendaftaran/nikah', $data);
     }
 
     // Frontend - Simpan pendaftaran dari publik
@@ -635,3 +635,8 @@ class PendaftaranNikah extends BaseController
         }
     }
 }
+
+
+
+
+

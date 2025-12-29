@@ -8,44 +8,44 @@ class Foto extends BaseController
     public function index()
     {
         $konfigurasi = $this->konfigurasi->vkonfig();
-        $album = $this->kategorifoto->listalbumpage();
+        $rawPhotos = $this->foto->listfotopage()->paginate(12, 'hal');
 
-        
+        $items = [];
+        foreach ($rawPhotos as $foto) {
+            $items[] = [
+                'id' => $foto['kategorifoto_id'], // Using category ID for group view or individual as needed
+                'type' => 'photo',
+                'file_path' => $foto['gambar'],
+                'title' => $foto['judul'],
+                'category' => $foto['nama_kategori_foto'],
+                'event_date' => $foto['tanggal'],
+                'description' => '',
+                'views' => $foto['hits'],
+                'thumbnail' => $foto['gambar']
+            ];
+        }
+
+        $rawCats = $this->kategorifoto->findAll();
+        $categories = [];
+        foreach ($rawCats as $cat) {
+            $categories[] = [
+                'category' => $cat['nama_kategori_foto'],
+                'total' => $this->foto->where('kategorifoto_id', $cat['kategorifoto_id'])->countAllResults()
+            ];
+        }
+
         $data = [
-            'title' => 'Foto | ' . esc($konfigurasi->nama),
-            'deskripsi' => esc($konfigurasi->deskripsi),
-            'url' => esc($konfigurasi->website),
-            'img' => base_url('/public/img/konfigurasi/logo/' . esc($konfigurasi->logo)),
+            'title' => 'Galeri Foto | ' . esc($konfigurasi->nama),
             'konfigurasi' => $konfigurasi,
+            'items' => $items,
+            'filters' => ['type' => 'photo', 'category' => null],
+            'categories' => $categories,
+            'pager' => $this->foto->pager,
             'mainmenu' => $this->menu->mainmenu(),
             'footer' => $this->menu->footermenu(),
-            'topmenu' => $this->menu->topmenu(),
-            // 'foto'          => $foto->paginate(12, 'hal'),
-            'album' => $album->paginate(12, 'hal'),
-            'pager' => $album->pager,
-            // 'jum'           => $this->foto->totfoto(),
-            'jumpg' => $this->foto->jumalbum(),
-            'banner' => $this->banner->list(),
-            'infografis' => $this->banner->listinfo(),
-            'infografis1' => $this->banner->listinfo1(),
-            'agenda' => $this->agenda->listagendapage()->paginate(4),
-            'section' => $this->section->list(),
-            'linkterkaitall' => $this->linkterkait->publishlinkall(),
-            'infografis10' => $this->banner->listinfopage()->paginate(10),
-            'kategori' => $this->kategori->list(),
-            
-
         ];
-        if (0) {
-            $agent = $this->request->getUserAgent();
-            if ($agent->isMobile()) {
-                return view('frontend/desktop/' . 'content/semua_foto', $data);
-            } else {
-                return view('frontend/desktop/' . 'content/semua_foto', $data);
-            }
-        } else {
-            return view('frontend/desktop/' . 'content/semua_foto', $data);
-        }
+
+        return view('frontend/gallery/index', $data);
     }
 
     //Detail front end
@@ -54,47 +54,36 @@ class Foto extends BaseController
         if (!isset($kategorifoto_id))
             return redirect()->to('/foto');
         $konfigurasi = $this->konfigurasi->vkonfig();
-        
 
-        $foto = $this->foto->detail_foto($kategorifoto_id);
-        $kategori = $this->kategori->list();
-        $namaalbum = $this->kategorifoto->find($kategorifoto_id);
-        if ($foto) {
+        $photos = $this->foto->detail_foto($kategorifoto_id);
+        $album = $this->kategorifoto->find($kategorifoto_id);
+
+        if ($photos) {
+            $items = [];
+            foreach ($photos as $foto) {
+                $items[] = [
+                    'id' => $foto['foto_id'],
+                    'type' => 'photo',
+                    'file_path' => $foto['gambar'],
+                    'title' => $foto['judul'],
+                    'category' => $foto['nama_kategori_foto']
+                ];
+            }
 
             $data = [
-                'title' => 'Foto | ' . esc($konfigurasi->nama),
-                'deskripsi' => esc($konfigurasi->deskripsi),
-                'url' => esc($konfigurasi->website),
-                'img' => base_url('/public/img/konfigurasi/logo/' . esc($konfigurasi->logo)),
-
+                'title' => 'Album: ' . ($album['nama_kategori_foto'] ?? 'Detail Foto'),
                 'konfigurasi' => $konfigurasi,
-                'foto' => $foto,
-                'beritapopuler' => $this->berita->populer()->paginate(8),
-                'kategori' => $kategori,
+                'album' => [
+                    'title' => $album['nama_kategori_foto'] ?? '',
+                    'description' => '',
+                    'created_at' => $photos[0]['tanggal'] ?? date('Y-m-d')
+                ],
+                'items' => $items,
                 'mainmenu' => $this->menu->mainmenu(),
                 'footer' => $this->menu->footermenu(),
-                'topmenu' => $this->menu->topmenu(),
-                'banner' => $this->banner->list(),
-                'infografis' => $this->banner->listinfo(),
-                'infografis1' => $this->banner->listinfo1(),
-                'agenda' => $this->agenda->listagendapage()->paginate(4),
-                'linkterkaitall' => $this->linkterkait->publishlinkall(),
-                'albumlain' => $this->kategorifoto->listalbumlain($kategorifoto_id)->paginate(4),
-                
-                // p4
-                'namaalbum' => $namaalbum['nama_kategori_foto'],
-
             ];
-            if (0) {
-                $agent = $this->request->getUserAgent();
-                if ($agent->isMobile()) {
-                    return view('frontend/desktop/' . 'content/detailfoto', $data);
-                } else {
-                    return view('frontend/desktop/' . 'content/detailfoto', $data);
-                }
-            } else {
-                return view('frontend/desktop/' . 'content/detailfoto', $data);
-            }
+
+            return view('frontend/gallery/detail', $data);
         } else {
             return redirect()->to('/foto');
         }
@@ -108,7 +97,7 @@ class Foto extends BaseController
         if ($this->request->isAJAX()) {
             $foto_id = $this->request->getVar('foto_id');
             $kategori = $this->request->getVar('nama_kategori_foto');
-            
+
             $list = $this->foto->find($foto_id);
             $data = [
                 'title' => 'Galeri - Foto',
@@ -120,7 +109,7 @@ class Foto extends BaseController
             $msg = [
 
                 'sukses' => view('backend/modal/v_foto', $data),
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -132,7 +121,7 @@ class Foto extends BaseController
         if (!session()->get('id')) {
             return redirect()->to('');
         }
-        
+
 
         $data = [
             'title' => 'Galeri',
@@ -196,7 +185,7 @@ class Foto extends BaseController
         if ($this->request->isAJAX()) {
             $foto_id = $this->request->getVar('foto_id');
             $list = $this->foto->find($foto_id);
-            
+
 
             $data = [
                 'title' => 'Edit Galeri Foto',
@@ -208,7 +197,7 @@ class Foto extends BaseController
             ];
             $msg = [
                 'sukses' => view('backend/galeri/foto/detail/edit', $data),
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -257,7 +246,7 @@ class Foto extends BaseController
                         'kategorifoto_id' => $validation->getError('kategorifoto_id'),
                         'gambar' => $validation->getError('gambar')
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 $filegambar = $this->request->getFile('gambar');
@@ -272,7 +261,7 @@ class Foto extends BaseController
                     $this->foto->update($foto_id, $data);
                     $msg = [
                         'sukses' => 'Data berhasil diubah!',
-                        'csrf_tokencmsdatagoe' => csrf_hash(),
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                 } else {
 
@@ -305,7 +294,7 @@ class Foto extends BaseController
 
                     $msg = [
                         'sukses' => 'Data berhasil diubah!',
-                        'csrf_tokencmsdatagoe' => csrf_hash(),
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                 }
             }
@@ -335,7 +324,7 @@ class Foto extends BaseController
             $this->foto->delete($foto_id);
             $msg = [
                 'sukses' => 'Data berhasil dihapus!',
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -367,7 +356,7 @@ class Foto extends BaseController
 
             $msg = [
                 'sukses' => "$jmldata foto berhasil dihapus",
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -383,7 +372,7 @@ class Foto extends BaseController
         if ($kategorifoto_id == '') {
             return redirect()->to(base_url('foto/list'));
         }
-        
+
 
         $list = $this->kategorifoto->find($kategorifoto_id);
         $data = [
@@ -437,7 +426,7 @@ class Foto extends BaseController
 
             $msg = [
                 'data' => view('backend/galeri/foto/detail/list', $data),
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -452,7 +441,7 @@ class Foto extends BaseController
         }
 
         if ($this->request->isAJAX()) {
-            
+
             $kategorifoto_id = $this->request->getVar('kategorifoto_id');
 
             // Siapkan data untuk view
@@ -464,7 +453,7 @@ class Foto extends BaseController
             // Siapkan respons JSON
             $msg = [
                 'data' => view("backend/galeri/foto/detail/formmultiadd", $data),
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -506,7 +495,7 @@ class Foto extends BaseController
                         'judul' => $validation->getError('judul'),
                         'gambar' => $validation->getError('gambar')
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
@@ -542,7 +531,7 @@ class Foto extends BaseController
 
                 $msg = [
                     'sukses' => 'Data berhasil disimpan!',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -559,10 +548,10 @@ class Foto extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            
+
             $data = [
                 'title' => 'Tambah Kategori',
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             $msg = [
                 'data' => view('backend/galeri/foto/tambah', $data)
@@ -608,7 +597,7 @@ class Foto extends BaseController
                         'nama_kategori_foto' => $validation->getError('nama_kategori_foto'),
                         'cover_foto' => $validation->getError('cover_foto'),
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
                 echo json_encode($msg);
             } else {
@@ -632,7 +621,7 @@ class Foto extends BaseController
 
                     $msg = [
                         'sukses' => 'Kategori foto berhasil disimpan!',
-                        'csrf_tokencmsdatagoe' => csrf_hash(),
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                 } else {
 
@@ -651,7 +640,7 @@ class Foto extends BaseController
                         ->save('public/img/galeri/katfoto/' . $nama_file, 70);
                     $msg = [
                         'sukses' => 'Kategori berhasil disimpan!',
-                        'csrf_tokencmsdatagoe' => csrf_hash(),
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                 }
                 echo json_encode($msg);
@@ -665,7 +654,7 @@ class Foto extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            
+
             $id = $this->request->getVar('kategorifoto_id');
             $list = $this->kategorifoto->find($id);
             $data = [
@@ -676,7 +665,7 @@ class Foto extends BaseController
             ];
             $msg = [
                 'sukses' => view('backend/galeri/foto/gantifoto', $data),
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
 
             ];
             echo json_encode($msg);
@@ -711,7 +700,7 @@ class Foto extends BaseController
                     'error' => [
                         'cover_foto' => $validation->getError('cover_foto')
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
@@ -738,7 +727,7 @@ class Foto extends BaseController
 
                 $msg = [
                     'sukses' => 'Cover berhasil diganti!',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -753,7 +742,7 @@ class Foto extends BaseController
         if ($this->request->isAJAX()) {
             $kategorifoto_id = $this->request->getVar('kategorifoto_id');
             $list = $this->kategorifoto->find($kategorifoto_id);
-            
+
             $data = [
                 'title' => 'Edit Kategori',
                 'kategorifoto_id' => $list['kategorifoto_id'],
@@ -764,7 +753,7 @@ class Foto extends BaseController
             ];
             $msg = [
                 'sukses' => view('backend/galeri/foto/edit', $data),
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -799,7 +788,7 @@ class Foto extends BaseController
                         'nama_kategori_foto' => $validation->getError('nama_kategori_foto'),
                         'tgl_album' => $validation->getError('tgl_album'),
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 $updatedata = [
@@ -813,7 +802,7 @@ class Foto extends BaseController
                 $this->kategorifoto->update($kategorifoto_id, $updatedata);
                 $msg = [
                     'sukses' => 'Data berhasil diupdate',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -840,7 +829,7 @@ class Foto extends BaseController
             $this->kategorifoto->delete($kategorifoto_id);
             $msg = [
                 'sukses' => 'Kategori Berhasil Dihapus',
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -849,3 +838,8 @@ class Foto extends BaseController
     //end kategori
 
 }
+
+
+
+
+

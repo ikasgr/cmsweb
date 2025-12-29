@@ -1,10 +1,10 @@
 <!-- =======================================================
-      * CMS DATAGOE
+      * CMS IKASMEDIA
       * Content Management System.
       *
-      * @author			Vian Taum <viantaum17@gmail.com>
-      * @website		www.datagoe.com
-      * @copyright		(c) 2021 - Datagoe Software
+      * @author			Ikasmedia <viantaum17@gmail.com>
+      * @website		www.ikasmedia.com
+      * @copyright		(c) 2021 - Ikasmedia Software
  ======================================================== -->
 
 <script nonce="${nonce}">

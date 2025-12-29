@@ -32,19 +32,9 @@ class Pengumuman extends BaseController
             'kategori' => $this->kategori->list(),
             'grafisrandom' => $this->banner->grafisrandom(),
             'terkini3' => $this->berita->terkini3(),
-            'folder' => $template['folder']
-
         ];
-        if ($template['duatema'] == 1) {
-            $agent = $this->request->getUserAgent();
-            if ($agent->isMobile()) {
-                return view('frontend/' . $template['folder'] . '/mobile/' . 'content/semua_pengumuman', $data);
-            } else {
-                return view('frontend/' . $template['folder'] . '/desktop/' . 'content/semua_pengumuman', $data);
-            }
-        } else {
-            return view('frontend/' . $template['folder'] . '/desktop/' . 'content/semua_pengumuman', $data);
-        }
+
+        return view('frontend/pengumuman/index', $data);
     }
 
     //list semua pengumuman
@@ -667,7 +657,6 @@ class Pengumuman extends BaseController
                 'nama' => $judulpengumuman,
                 'isi_informasi' => $isi_informasi,
                 'tgl_informasi' => $tgl_informasi,
-                // 'gambar'         => $gambar,
                 'fileunduh' => $fileunduh,
                 'fullname' => $fullname,
                 'hits' => $hits,
@@ -687,22 +676,16 @@ class Pengumuman extends BaseController
                 'pengumuman' => $this->pengumuman->listpengumumanpage()->paginate(10),
                 'linkterkaitall' => $this->linkterkait->publishlinkall(),
                 'iklankanan1' => $this->banner->listiklankanan1(),
-                'folder' => $template['folder']
-
             ];
 
-            if ($template['duatema'] == 1) {
-                $agent = $this->request->getUserAgent();
-                if ($agent->isMobile()) {
-                    return view('frontend/' . $template['folder'] . '/mobile/' . 'content/detail_pengumuman', $data);
-                } else {
-                    return view('frontend/' . $template['folder'] . '/desktop/' . 'content/detail_pengumuman', $data);
-                }
-            } else {
-                return view('frontend/' . $template['folder'] . '/desktop/' . 'content/detail_pengumuman', $data);
-            }
+            return view('frontend/pengumuman/detail', $data);
         } else {
             return redirect()->to('/');
         }
     }
 }
+
+
+
+
+

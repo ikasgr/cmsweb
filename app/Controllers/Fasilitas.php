@@ -42,12 +42,12 @@ class Fasilitas extends BaseController
 		if (0) {
 			$agent = $this->request->getUserAgent();
 			if ($agent->isMobile()) {
-				return view('frontend/desktop/' . 'content/fasilitas', $data);
+				return view('frontend/'content/fasilitas', $data);
 			} else {
-				return view('frontend/desktop/' . 'content/fasilitas', $data);
+				return view('frontend/'content/fasilitas', $data);
 			}
 		} else {
-			return view('frontend/desktop/' . 'content/fasilitas', $data);
+			return view('frontend/'content/fasilitas', $data);
 		}
 	}
 
@@ -80,7 +80,7 @@ class Fasilitas extends BaseController
 			// Kirim respons JSON
 			echo json_encode([
 				'sukses' => $stsket,
-				'csrf_tokencmsdatagoe' => csrf_hash(),
+				'csrf_tokencmsikasmedia' => csrf_hash(),
 			]);
 		}
 	}
@@ -121,12 +121,12 @@ class Fasilitas extends BaseController
 			if (0) {
 				$agent = $this->request->getUserAgent();
 				if ($agent->isMobile()) {
-					return view('frontend/desktop/' . 'content/fasilitas_detail', $data);
+					return view('frontend/'content/fasilitas_detail', $data);
 				} else {
-					return view('frontend/desktop/' . 'content/fasilitas_detail', $data);
+					return view('frontend/'content/fasilitas_detail', $data);
 				}
 			} else {
-				return view('frontend/desktop/' . 'content/fasilitas_detail', $data);
+				return view('frontend/'content/fasilitas_detail', $data);
 			}
 		} else {
 			return redirect()->to('/fasilitas');
@@ -210,7 +210,7 @@ class Fasilitas extends BaseController
 		if ($this->request->isAJAX()) {
 			$data = [
 				'title' => 'Tambah Data',
-				// 'csrf_tokencmsdatagoe'  => csrf_hash(),
+				// 'csrf_tokencmsikasmedia'  => csrf_hash(),
 			];
 			
 
@@ -258,7 +258,7 @@ class Fasilitas extends BaseController
 						'fasilitas' => $validation->getError('fasilitas'),
 						'cover_foto' => $validation->getError('cover_foto'),
 					],
-					'csrf_tokencmsdatagoe' => csrf_hash(),
+					'csrf_tokencmsikasmedia' => csrf_hash(),
 				];
 				echo json_encode($msg);
 			} else {
@@ -282,7 +282,7 @@ class Fasilitas extends BaseController
 
 					$msg = [
 						'sukses' => 'Kategori foto berhasil disimpan!',
-						'csrf_tokencmsdatagoe' => csrf_hash(),
+						'csrf_tokencmsikasmedia' => csrf_hash(),
 					];
 				} else {
 
@@ -303,7 +303,7 @@ class Fasilitas extends BaseController
 						->save('public/img/informasi/fasilitas/' . $nama_file, 70);
 					$msg = [
 						'sukses' => 'Fasilitas berhasil disimpan!',
-						'csrf_tokencmsdatagoe' => csrf_hash(),
+						'csrf_tokencmsikasmedia' => csrf_hash(),
 					];
 				}
 				echo json_encode($msg);
@@ -329,7 +329,7 @@ class Fasilitas extends BaseController
 			];
 			$msg = [
 				'sukses' => view('backend/lembaga/fasilitas/gantifoto', $data),
-				'csrf_tokencmsdatagoe' => csrf_hash(),
+				'csrf_tokencmsikasmedia' => csrf_hash(),
 
 			];
 			echo json_encode($msg);
@@ -363,7 +363,7 @@ class Fasilitas extends BaseController
 					'error' => [
 						'cover_foto' => $validation->getError('cover_foto')
 					],
-					'csrf_tokencmsdatagoe' => csrf_hash(),
+					'csrf_tokencmsikasmedia' => csrf_hash(),
 				];
 			} else {
 
@@ -389,7 +389,7 @@ class Fasilitas extends BaseController
 					->save('public/img/informasi/fasilitas/' . $nama_file, 70);
 				$msg = [
 					'sukses' => 'Cover berhasil diganti!',
-					'csrf_tokencmsdatagoe' => csrf_hash(),
+					'csrf_tokencmsikasmedia' => csrf_hash(),
 				];
 			}
 			echo json_encode($msg);
@@ -415,7 +415,7 @@ class Fasilitas extends BaseController
 			];
 			$msg = [
 				'sukses' => view('backend/lembaga/fasilitas/edit', $data),
-				'csrf_tokencmsdatagoe' => csrf_hash(),
+				'csrf_tokencmsikasmedia' => csrf_hash(),
 
 			];
 			echo json_encode($msg);
@@ -445,7 +445,7 @@ class Fasilitas extends BaseController
 						'fasilitas' => $validation->getError('fasilitas'),
 
 					],
-					'csrf_tokencmsdatagoe' => csrf_hash(),
+					'csrf_tokencmsikasmedia' => csrf_hash(),
 				];
 			} else {
 				$updatedata = [
@@ -459,7 +459,7 @@ class Fasilitas extends BaseController
 				$this->fasilitas->update($fasilitas_id, $updatedata);
 				$msg = [
 					'sukses' => 'Data berhasil diupdate',
-					'csrf_tokencmsdatagoe' => csrf_hash(),
+					'csrf_tokencmsikasmedia' => csrf_hash(),
 				];
 			}
 			echo json_encode($msg);
@@ -486,7 +486,7 @@ class Fasilitas extends BaseController
 			$this->fasilitas->delete($fasilitas_id);
 			$msg = [
 				'sukses' => 'Data Berhasil Dihapus',
-				'csrf_tokencmsdatagoe' => csrf_hash(),
+				'csrf_tokencmsikasmedia' => csrf_hash(),
 			];
 
 			echo json_encode($msg);
@@ -636,7 +636,7 @@ class Fasilitas extends BaseController
 						'deskripsi' => $validation->getError('deskripsi'),
 						'gambar' => $validation->getError('gambar')
 					],
-					'csrf_tokencmsdatagoe' => csrf_hash(),
+					'csrf_tokencmsikasmedia' => csrf_hash(),
 				];
 			} else {
 
@@ -659,7 +659,7 @@ class Fasilitas extends BaseController
 					->save('public/img/informasi/fasilitas/detail/' . $nama_file, 70);
 				$msg = [
 					'sukses' => 'Data berhasil disimpan!',
-					'csrf_tokencmsdatagoe' => csrf_hash(),
+					'csrf_tokencmsikasmedia' => csrf_hash(),
 				];
 			}
 			echo json_encode($msg);
@@ -684,7 +684,7 @@ class Fasilitas extends BaseController
 			];
 			$msg = [
 				'sukses' => view('backend/lembaga/fasilitas/detail/edit', $data),
-				'csrf_tokencmsdatagoe' => csrf_hash(),
+				'csrf_tokencmsikasmedia' => csrf_hash(),
 			];
 			echo json_encode($msg);
 		}
@@ -726,7 +726,7 @@ class Fasilitas extends BaseController
 						'deskripsi' => $validation->getError('deskripsi'),
 						'gambar' => $validation->getError('gambar')
 					],
-					'csrf_tokencmsdatagoe' => csrf_hash(),
+					'csrf_tokencmsikasmedia' => csrf_hash(),
 				];
 			} else {
 				$filegambar = $this->request->getFile('gambar');
@@ -741,7 +741,7 @@ class Fasilitas extends BaseController
 					$this->fasilitasdetail->update($fasilitasdetail_id, $data);
 					$msg = [
 						'sukses' => 'Data berhasil diubah!',
-						'csrf_tokencmsdatagoe' => csrf_hash(),
+						'csrf_tokencmsikasmedia' => csrf_hash(),
 					];
 				} else {
 
@@ -766,7 +766,7 @@ class Fasilitas extends BaseController
 
 					$msg = [
 						'sukses' => 'Data berhasil diubah!',
-						'csrf_tokencmsdatagoe' => csrf_hash(),
+						'csrf_tokencmsikasmedia' => csrf_hash(),
 					];
 				}
 			}
@@ -792,7 +792,7 @@ class Fasilitas extends BaseController
 			$this->fasilitasdetail->delete($fasilitasdetail_id);
 			$msg = [
 				'sukses' => 'Data berhasil dihapus!',
-				'csrf_tokencmsdatagoe' => csrf_hash(),
+				'csrf_tokencmsikasmedia' => csrf_hash(),
 			];
 
 			echo json_encode($msg);
@@ -820,9 +820,14 @@ class Fasilitas extends BaseController
 
 			$msg = [
 				'sukses' => "$jmldata foto berhasil dihapus",
-				'csrf_tokencmsdatagoe' => csrf_hash(),
+				'csrf_tokencmsikasmedia' => csrf_hash(),
 			];
 			echo json_encode($msg);
 		}
 	}
 }
+
+
+
+
+

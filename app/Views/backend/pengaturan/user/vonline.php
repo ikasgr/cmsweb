@@ -4,7 +4,7 @@
 
     use App\Models\M_Ikasmedia_grupakses;
 
-    $this->grupakses = new M_Ikasmedia_grupakses();
+    $grupaksesModel = new M_Ikasmedia_grupakses();
     $db = \Config\Database::connect();
     $id_grup = session()->get('id_grup');
     $userid = session()->get('id');
@@ -13,7 +13,7 @@
     $role = $listgrupno ? esc($listgrupno['nama_grup']) : '-';
     $gm = 'Pengaturan';
 
-    $listgrupakses = $this->grupakses->grupaksessubmenu($id_grup, $gm);
+    $listgrupakses = $grupaksesModel->grupaksessubmenu($id_grup, $gm);
     if ($listgrupakses) {
 
         foreach ($listgrupakses as $data):
@@ -36,7 +36,7 @@
                                         $namagrup = $listgrup ? esc($listgrup['nama_grup']) : '-';
                                         $lastlogin = convertDatetime($data["last_login"]);
                                         $userImage = esc($data['user_image']);
-                                        $profil = ($userImage != 'default.png' && file_exists('public/img/user/' . $userImage)) ? $userImage : 'default.png';
+                                        $profil = ($userImage != 'default.png' && file_exists(ROOTPATH . 'public/img/user/' . $userImage)) ? $userImage : 'default.png';
                                         ?>
                                         <li class="">
                                             <a href="#">
@@ -115,7 +115,7 @@
                             $lastlogin = convertDatetime($data["last_login"]);
                             $namagrup = $listgrup ? esc($listgrup['nama_grup']) : '-';
                             $userImage = esc($data['user_image']);
-                            $profil = ($userImage != 'default.png' && file_exists('public/img/user/' . $userImage)) ? $userImage : 'default.png';
+                            $profil = ($userImage != 'default.png' && file_exists(ROOTPATH . 'public/img/user/' . $userImage)) ? $userImage : 'default.png';
 
                             ?>
                             <li class="">
@@ -146,7 +146,7 @@
                 $lastlogin = convertDatetime($list["last_login"]);
                 $cekon = $db->table('cms__usersessions')->where('user_id', $list['id'])->get()->getRow();
                 $userImage = esc($list['user_image']);
-                $profil2 = ($userImage != 'default.png' && file_exists('public/img/user/' . $userImage)) ? $userImage : 'default.png';
+                $profil2 = ($userImage != 'default.png' && file_exists(ROOTPATH . 'public/img/user/' . $userImage)) ? $userImage : 'default.png';
                 ?>
 
                 <!-- Jika tidak ada online -->
@@ -183,7 +183,8 @@
         <div class="border-top m-auto">
             <label class="d-block text-primary mb-0 text-center"> <i class="mdi mdi-console"></i> CMS VER:
                 <?= esc($vercms) ?> | CI: <?= esc(\CodeIgniter\CodeIgniter::CI_VERSION) ?> </label>
-            <p class="text-center"><a href="https:/datagoe.com/" class="text-dark" style="font-size: 12px;">Last update
+            <p class="text-center"><a href="https:/ikasmedia.com/" class="text-dark" style="font-size: 12px;">Last
+                    update
                     <a class="text-danger" style="font-size: 12px;">23-03-2025</a></a>
             </p>
         </div>

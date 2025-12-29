@@ -8,50 +8,62 @@ class Berita extends BaseController
 
     public function index()
     {
-
-
         $konfigurasi = $this->konfigurasi->vkonfig();
-        $berita = $this->berita->listberitapage();
+        $keyword = $this->request->getVar('q');
+
+        if ($keyword) {
+            $rawNews = $this->berita->cari1($keyword);
+        } else {
+            $rawNews = $this->berita->listberitapage();
+        }
+
+        $newsList = [];
+        foreach ($rawNews->paginate(8, 'news') as $news) {
+            $newsList[] = [
+                'id' => $news['berita_id'],
+                'title' => $news['judul_berita'],
+                'slug' => $news['slug_berita'],
+                'content' => $news['isi'],
+                'featured_image' => $news['gambar'],
+                'published_at' => $news['tgl_berita'],
+                'views' => $news['hits'],
+                'category' => $news['slug_kategori'],
+                'excerpt' => $news['ringkasan']
+            ];
+        }
+
+        $rawCategories = $this->kategori->findAll();
+        $categoriesMap = [];
+        foreach ($rawCategories as $cat) {
+            $categoriesMap[$cat['slug_kategori']] = $cat['nama_kategori'];
+        }
 
         $data = [
-            'title' => 'Berita | ' . esc($konfigurasi->nama),
-            'deskripsi' => esc($konfigurasi->deskripsi),
-            'url' => esc($konfigurasi->website),
-            'img' => base_url('/public/img/konfigurasi/logo/' . esc($konfigurasi->logo)),
-
+            'title' => $keyword ? 'Cari: ' . esc($keyword) : 'Berita | ' . esc($konfigurasi->nama),
             'konfigurasi' => $konfigurasi,
+            'newsList' => $newsList,
+            'pager' => $this->berita->pager,
+            'categories' => $categoriesMap,
+            'activeCategory' => null,
+            'searchQuery' => $keyword,
+            'popularNews' => $this->berita->populer()->limit(5)->get()->getResultArray(),
             'mainmenu' => $this->menu->mainmenu(),
             'footer' => $this->menu->footermenu(),
-            'topmenu' => $this->menu->topmenu(),
-            'berita' => $berita->paginate(8, 'hal'),
-            'pager' => $berita->pager,
-            'kategori' => $this->kategori->list(),
-            'banner' => $this->banner->list(),
-            'infografis' => $this->banner->listinfo(),
-            'infografis1' => $this->banner->listinfo1(),
-            'agenda' => $this->agenda->listagendapage()->paginate(4),
-            'pengumuman' => $this->pengumuman->listpengumumanpage()->paginate(10),
-            'section' => $this->section->list(),
-            'linkterkaitall' => $this->linkterkait->publishlinkall(),
-
-
-            'terkini' => $this->berita->terkini(),
-            'foto' => $this->foto->listfotopage()->paginate(6),
-            'tagall' => $this->tag->listtag(),
-            'headline' => $this->berita->headline(),
-            'utama' => $this->berita->utama(),
-            'headline2' => $this->berita->headline2(),
-            'beritapopuler' => $this->berita->populer()->paginate(5),
-            'iklanatas' => $this->banner->listiklanatas(),
-            'iklantengah' => $this->banner->listiklantengah(),
-            'iklankanan1' => $this->banner->listiklankanan1(),
-            'iklankanan2' => $this->banner->listiklankanan2(),
-            'iklankanan3' => $this->banner->listiklankanan3(),
-            'stikkiri' => $this->banner->iklanstikkiri(),
-            'stikkanan' => $this->banner->iklanstikkanan(),
-            'grafisrandom' => $this->banner->grafisrandom(),
         ];
-        return view('frontend/content/semua_berita', $data);
+
+        // Map popular news
+        $popList = [];
+        foreach ($data['popularNews'] as $pop) {
+            $popList[] = [
+                'title' => $pop['judul_berita'],
+                'slug' => $pop['slug_berita'],
+                'featured_image' => $pop['gambar'],
+                'published_at' => $pop['tgl_berita']
+            ];
+        }
+        $data['popularNews'] = $popList;
+
+        return view('frontend/news/index', $data);
     }
 
     //Detail berita front end
@@ -62,80 +74,55 @@ class Berita extends BaseController
         $konfigurasi = $this->konfigurasi->vkonfig();
 
         $berita = $this->berita->detail_berita($slug_berita);
-        $kategori = $this->kategori->list();
         if ($berita) {
-            $list = $this->user->find($berita->id);
-
             // Update hits
-            $data = [
-                'hits' => $berita->hits + 1
-            ];
-            $this->berita->update($berita->berita_id, $data);
+            $this->berita->update($berita->berita_id, ['hits' => $berita->hits + 1]);
 
-            $beritalain = $this->berita->beritalain($berita->berita_id);
-            $kategorilain = $this->berita->kategorilain13($berita->berita_id, $berita->kategori_id);
-            $kategorilain2 = $this->berita->kategorilain23($berita->berita_id, $berita->kategori_id);
-            $poltanya = $this->poling->poltanya();
-            $poljawab = $this->poling->poljawab();
-            $jumpol = $this->poling->selectSum('rating')->where('type', 'Jawaban')->where('status', 'Y')->where('informasi_id', 0)->first();
-
+            $rawCategories = $this->kategori->findAll();
+            $categoriesMap = [];
+            foreach ($rawCategories as $cat) {
+                $categoriesMap[$cat['slug_kategori']] = $cat['nama_kategori'];
+            }
 
             $data = [
-
                 'title' => esc($berita->judul_berita),
-                'deskripsi' => esc($berita->ringkasan),
-                'url' => base_url($berita->slug_berita),
-                'img' => base_url('/public/img/informasi/berita/' . esc($berita->gambar)),
                 'konfigurasi' => $konfigurasi,
-                'berita' => $berita,
-                'beritapopuler' => $this->berita->populer()->paginate(8),
-                'beritapopuler5' => $this->berita->populer()->paginate(5),
-                'terkini3' => $this->berita->terkini(),
-                'kategori' => $kategori,
-                'beritalain' => $beritalain,
-                'kategorilain' => $kategorilain,
-                'kategorilain2' => $kategorilain2,
-                'ebook' => $this->ebook->listebookpage()->paginate(3),
-                'ebook4' => $this->ebook->listebookpage()->paginate(4),
+                'news' => [
+                    'id' => $berita->berita_id,
+                    'title' => $berita->judul_berita,
+                    'content' => $berita->isi,
+                    'featured_image' => $berita->gambar,
+                    'published_at' => $berita->tgl_berita,
+                    'views' => $berita->hits + 1,
+                    'category' => $berita->slug_kategori,
+                    'category_name' => $berita->nama_kategori,
+                    'author' => $berita->fullname ?? 'Admin',
+                    'tags' => $this->beritatag->listberitatag($berita->berita_id)
+                ],
+                'popularNews' => [], // Map as needed
+                'categories' => $categoriesMap,
                 'mainmenu' => $this->menu->mainmenu(),
                 'footer' => $this->menu->footermenu(),
-                'topmenu' => $this->menu->topmenu(),
-                'banner' => $this->banner->list(),
-                'infografis' => $this->banner->listinfo(),
-                'infografis1' => $this->banner->listinfo1(),
-                'agenda' => $this->agenda->listagendapage()->paginate(4),
-                'pengumuman' => $this->pengumuman->listpengumumanpage()->paginate(10),
-                'linkterkaitall' => $this->linkterkait->publishlinkall(),
-
-                'tag' => $this->beritatag->listberitatag($berita->berita_id),
-                // 'tag'            => $listtag,
-                'komen' => $this->beritakomen->listberitakomen($berita->berita_id),
-                'jkomen' => $this->beritakomen->totkomenbyid($berita->berita_id),
-
-                'sitekey' => $konfigurasi->g_sitekey,
-                'role' => $this->grupuser->listbyid($list['id_grup']),
-                'deskripsiweb' => $konfigurasi->deskripsi,
-
-                'iklanatas' => $this->banner->listiklanatas(),
-                'iklantengah' => $this->banner->listiklantengah(),
-                'iklankanan1' => $this->banner->listiklankanan1(),
-                'iklankanan2' => $this->banner->listiklankanan2(),
-                'iklankanan3' => $this->banner->listiklankanan3(),
-                'stikkiri' => $this->banner->iklanstikkiri(),
-                'stikkanan' => $this->banner->iklanstikkanan(),
-                'tagall' => $this->tag->listtag(),
-                'foto' => $this->foto->listfotopage()->paginate(6),
-                'poltanya' => $poltanya['pilihan'],
-                'polsts' => $poltanya['status'],
-                'poljawab' => $poljawab,
-                'jumpol' => $jumpol['rating'],
-                'grafisrandom' => $this->banner->grafisrandom(),
-                // mob
-                'beritapopuler6' => $this->berita->populer()->paginate(6),
             ];
-            return view('frontend/content/detailberita', $data);
+
+            // Popular News for Sidebar
+            $rawPop = $this->berita->populer()->limit(5)->get()->getResultArray();
+            foreach ($rawPop as $pop) {
+                $data['popularNews'][] = [
+                    'title' => $pop['judul_berita'],
+                    'slug' => $pop['slug_berita'],
+                    'featured_image' => $pop['gambar'],
+                    'published_at' => $pop['tgl_berita']
+                ];
+            }
+
+            // Fetch Comments
+            $data['comments'] = $this->beritakomen->listberitakomen($berita->berita_id);
+            $data['totalComments'] = $this->beritakomen->totkomenbyid($berita->berita_id);
+
+            return view('frontend/news/detail', $data);
         } else {
-            return redirect()->to('/berita');
+            return redirect()->to('/news');
         }
     }
 
@@ -143,160 +130,162 @@ class Berita extends BaseController
     public function kategori($slug_kategori = null)
     {
         $konfigurasi = $this->konfigurasi->vkonfig();
-        $berita = $this->berita->kategori($slug_kategori);
+        $beritaModel = $this->berita->kategori($slug_kategori);
 
+        $newsList = [];
+        foreach ($beritaModel->paginate(8, 'news') as $news) {
+            $newsList[] = [
+                'id' => $news['berita_id'],
+                'title' => $news['judul_berita'],
+                'slug' => $news['slug_berita'],
+                'content' => $news['isi'],
+                'featured_image' => $news['gambar'],
+                'published_at' => $news['tgl_berita'],
+                'views' => $news['hits'],
+                'category' => $news['slug_kategori'],
+                'excerpt' => $news['ringkasan']
+            ];
+        }
+
+        $rawCategories = $this->kategori->findAll();
+        $categoriesMap = [];
+        foreach ($rawCategories as $cat) {
+            $categoriesMap[$cat['slug_kategori']] = $cat['nama_kategori'];
+        }
 
         $data = [
-            'title' => 'Kategori ' . $slug_kategori,
-            'deskripsi' => esc($konfigurasi->deskripsi),
-            'url' => esc($konfigurasi->website),
-            'img' => base_url('/public/img/konfigurasi/logo/' . esc($konfigurasi->logo)),
-            'subtitle' => $slug_kategori,
+            'title' => 'Kategori: ' . ($categoriesMap[$slug_kategori] ?? $slug_kategori),
             'konfigurasi' => $konfigurasi,
+            'newsList' => $newsList,
+            'pager' => $this->berita->pager,
+            'categories' => $categoriesMap,
+            'activeCategory' => $slug_kategori,
+            'popularNews' => [],
             'mainmenu' => $this->menu->mainmenu(),
             'footer' => $this->menu->footermenu(),
-            'topmenu' => $this->menu->topmenu(),
-
-            'jum' => $this->db->query("SELECT b.kategori_id  
-                               FROM berita AS b JOIN kategori AS k ON b.kategori_id = k.kategori_id 
-                               WHERE k.slug_kategori='" . $slug_kategori . "'")->getNumRows(),
-
-            'berita' => $berita->paginate(6, 'hal'),
-            'pager' => $berita->pager,
-            'kategori' => $this->kategori->list(),
-            'beritapopuler' => $this->berita->populer()->paginate(8),
-            'beritautama' => $this->berita->headlineall(),
-            'banner' => $this->banner->list(),
-            'infografis' => $this->banner->listinfo(),
-            'infografis1' => $this->banner->listinfo1(),
-            'agenda' => $this->agenda->listagendapage()->paginate(4),
-            'section' => $this->section->list(),
-            'linkterkaitall' => $this->linkterkait->publishlinkall(),
-
-            'terkini' => $this->berita->terkini(),
-            'headline' => $this->berita->utamabykategori($slug_kategori),
-            'iklanatas' => $this->banner->listiklanatas(),
-            'iklantengah' => $this->banner->listiklantengah(),
-            'iklankanan1' => $this->banner->listiklankanan1(),
-            'iklankanan2' => $this->banner->listiklankanan2(),
-            'iklankanan3' => $this->banner->listiklankanan3(),
-            'stikkiri' => $this->banner->iklanstikkiri(),
-            'stikkanan' => $this->banner->iklanstikkanan(),
-            // PERIJINAN
-            'grafisrandom' => $this->banner->grafisrandom(),
         ];
-        return view('frontend/content/semua_kategori', $data);
+
+        // Popular News for Sidebar
+        $rawPop = $this->berita->populer()->limit(5)->get()->getResultArray();
+        foreach ($rawPop as $pop) {
+            $data['popularNews'][] = [
+                'title' => $pop['judul_berita'],
+                'slug' => $pop['slug_berita'],
+                'featured_image' => $pop['gambar'],
+                'published_at' => $pop['tgl_berita']
+            ];
+        }
+
+        return view('frontend/news/index', $data);
     }
 
     //list per tag FRONTEND
     public function tag($tag_id)
     {
         $konfigurasi = $this->konfigurasi->vkonfig();
-        $berita = $this->berita->tag($tag_id);
+        $beritaModel = $this->berita->tag($tag_id);
 
-
-        // $berita             =  $this->berita->newsbytag($idk);
         $cari = $this->tag->find($tag_id);
-        if ($cari) {
-            $nm = esc($cari['nama_tag']);
-        } else {
-            $nm = '-';
+        $tagName = $cari ? esc($cari['nama_tag']) : '-';
+
+        $newsList = [];
+        foreach ($beritaModel->paginate(8, 'news') as $news) {
+            $newsList[] = [
+                'id' => $news['berita_id'],
+                'title' => $news['judul_berita'],
+                'slug' => $news['slug_berita'],
+                'content' => $news['isi'],
+                'featured_image' => $news['gambar'],
+                'published_at' => $news['tgl_berita'],
+                'views' => $news['hits'],
+                'category' => $news['slug_kategori'],
+                'excerpt' => $news['ringkasan']
+            ];
         }
+
+        $rawCategories = $this->kategori->findAll();
+        $categoriesMap = [];
+        foreach ($rawCategories as $cat) {
+            $categoriesMap[$cat['slug_kategori']] = $cat['nama_kategori'];
+        }
+
         $data = [
-            'title' => 'Tagar ' . $nm,
-            'deskripsi' => esc($konfigurasi->deskripsi),
-            'url' => esc($konfigurasi->website),
-            'img' => base_url('/public/img/konfigurasi/logo/' . esc($konfigurasi->logo)),
-            'subtitle' => $nm,
-            // 'tag_pilih'      => ($j),
+            'title' => 'Tag: ' . $tagName,
             'konfigurasi' => $konfigurasi,
+            'newsList' => $newsList,
+            'pager' => $this->berita->pager,
+            'categories' => $categoriesMap,
+            'activeCategory' => null,
+            'popularNews' => [],
             'mainmenu' => $this->menu->mainmenu(),
             'footer' => $this->menu->footermenu(),
-            'topmenu' => $this->menu->topmenu(),
-            // 'berita'        => $berita,
-            'berita' => $berita->paginate(6, 'hal'),
-            'pager' => $berita->pager,
-            'beritautama' => $this->berita->headlineall(),
-            'kategori' => $this->kategori->list(),
-            'banner' => $this->banner->list(),
-            'infografis' => $this->banner->listinfo(),
-            'infografis1' => $this->banner->listinfo1(),
-            'agenda' => $this->agenda->listagendapage()->paginate(4),
-            'section' => $this->section->list(),
-            'linkterkaitall' => $this->linkterkait->publishlinkall(),
-
-
-            'terkini' => $this->berita->terkini(),
-            'foto' => $this->foto->listfotopage()->paginate(6),
-            'tagall' => $this->tag->listtag(),
-            'headline' => $this->berita->utamabytag($tag_id),
-            'utama' => $this->berita->utama(),
-            'headline2' => $this->berita->headline2(),
-            'beritapopuler' => $this->berita->populer()->paginate(5),
-            'iklanatas' => $this->banner->listiklanatas(),
-            'iklantengah' => $this->banner->listiklantengah(),
-            'iklankanan1' => $this->banner->listiklankanan1(),
-            'iklankanan2' => $this->banner->listiklankanan2(),
-            'iklankanan3' => $this->banner->listiklankanan3(),
-            'stikkiri' => $this->banner->iklanstikkiri(),
-            'stikkanan' => $this->banner->iklanstikkanan(),
-            'grafisrandom' => $this->banner->grafisrandom(),
         ];
-        return view('frontend/content/semua_tag', $data);
+
+        // Popular News for Sidebar
+        $rawPop = $this->berita->populer()->limit(5)->get()->getResultArray();
+        foreach ($rawPop as $pop) {
+            $data['popularNews'][] = [
+                'title' => $pop['judul_berita'],
+                'slug' => $pop['slug_berita'],
+                'featured_image' => $pop['gambar'],
+                'published_at' => $pop['tgl_berita']
+            ];
+        }
+
+        return view('frontend/news/index', $data);
     }
 
     //list per users FRONTEND
     public function author($id, $nm)
     {
-
         $konfigurasi = $this->konfigurasi->vkonfig();
-        $berita = $this->berita->listberitabyuserpg($id);
+        $beritaModel = $this->berita->listberitabyuserpg($id);
 
-        $list = $this->user->find($id);
+        $newsList = [];
+        foreach ($beritaModel->paginate(8, 'news') as $news) {
+            $newsList[] = [
+                'id' => $news['berita_id'],
+                'title' => $news['judul_berita'],
+                'slug' => $news['slug_berita'],
+                'content' => $news['isi'],
+                'featured_image' => $news['gambar'],
+                'published_at' => $news['tgl_berita'],
+                'views' => $news['hits'],
+                'category' => $news['slug_kategori'],
+                'excerpt' => $news['ringkasan']
+            ];
+        }
+
+        $rawCategories = $this->kategori->findAll();
+        $categoriesMap = [];
+        foreach ($rawCategories as $cat) {
+            $categoriesMap[$cat['slug_kategori']] = $cat['nama_kategori'];
+        }
 
         $data = [
-            'title' => 'Berita By ' . $nm,
-            'deskripsi' => esc($konfigurasi->deskripsi),
-            'url' => esc($konfigurasi->website),
-            'img' => base_url('/public/img/konfigurasi/logo/' . esc($konfigurasi->logo)),
-
-            'subtitle' => $nm,
+            'title' => 'Penulis: ' . $nm,
             'konfigurasi' => $konfigurasi,
+            'newsList' => $newsList,
+            'pager' => $this->berita->pager,
+            'categories' => $categoriesMap,
+            'activeCategory' => null,
+            'popularNews' => [],
             'mainmenu' => $this->menu->mainmenu(),
             'footer' => $this->menu->footermenu(),
-            'topmenu' => $this->menu->topmenu(),
-            'role' => $this->grupuser->listbyid($list['id_grup']),
-            'berita' => $berita->paginate(6, 'hal'),
-            'pager' => $berita->pager,
-            'jum' => $this->berita->totberitabyid($id),
-            'kategori' => $this->kategori->list(),
-            'beritapopuler' => $this->berita->populer()->paginate(8),
-            'beritautama' => $this->berita->headlineall(),
-            'banner' => $this->banner->list(),
-            'infografis' => $this->banner->listinfo(),
-            'infografis1' => $this->banner->listinfo1(),
-            'agenda' => $this->agenda->listagendapage()->paginate(4),
-            'section' => $this->section->list(),
-            'linkterkaitall' => $this->linkterkait->publishlinkall(),
-
-
-            'terkini' => $this->berita->terkini(),
-            'foto' => $this->foto->listfotopage()->paginate(6),
-            'tagall' => $this->tag->listtag(),
-            'headline' => $this->berita->headline(),
-            'utama' => $this->berita->utama(),
-            'headline2' => $this->berita->headline2(),
-            'beritapopuler' => $this->berita->populer()->paginate(5),
-            'iklanatas' => $this->banner->listiklanatas(),
-            'iklantengah' => $this->banner->listiklantengah(),
-            'iklankanan1' => $this->banner->listiklankanan1(),
-            'iklankanan2' => $this->banner->listiklankanan2(),
-            'iklankanan3' => $this->banner->listiklankanan3(),
-            'stikkiri' => $this->banner->iklanstikkiri(),
-            'stikkanan' => $this->banner->iklanstikkanan(),
-            'grafisrandom' => $this->banner->grafisrandom(),
         ];
-        return view('frontend/content/berita_author', $data);
+
+        // Popular News for Sidebar
+        $rawPop = $this->berita->populer()->limit(5)->get()->getResultArray();
+        foreach ($rawPop as $pop) {
+            $data['popularNews'][] = [
+                'title' => $pop['judul_berita'],
+                'slug' => $pop['slug_berita'],
+                'featured_image' => $pop['gambar'],
+                'published_at' => $pop['tgl_berita']
+            ];
+        }
+
+        return view('frontend/news/index', $data);
     }
 
     //list per opd FRONTEND
@@ -1854,4 +1843,63 @@ class Berita extends BaseController
             echo json_encode($msg);
         }
     }
+    // Simpan komentar berita
+    public function simpanKomentar()
+    {
+        if ($this->request->isAJAX()) {
+            $validation = \Config\Services::validation();
+
+            $valid = $this->validate([
+                'nama' => [
+                    'label' => 'Nama',
+                    'rules' => 'required',
+                    'errors' => ['required' => '{field} tidak boleh kosong']
+                ],
+                'email' => [
+                    'label' => 'Email',
+                    'rules' => 'required|valid_email',
+                    'errors' => [
+                        'required' => '{field} tidak boleh kosong',
+                        'valid_email' => 'Format {field} tidak valid'
+                    ]
+                ],
+                'isi' => [
+                    'label' => 'Komentar',
+                    'rules' => 'required',
+                    'errors' => ['required' => '{field} tidak boleh kosong']
+                ],
+            ]);
+
+            if (!$valid) {
+                $msg = [
+                    'error' => $validation->getErrors(),
+                    'csrf_tokencmsikasmedia' => csrf_hash()
+                ];
+            } else {
+                $berita_id = $this->request->getVar('berita_id');
+                $simpandata = [
+                    'berita_id' => $berita_id,
+                    'nama_komen' => $this->request->getVar('nama'),
+                    'email_komen' => $this->request->getVar('email'),
+                    'isi_komen' => $this->request->getVar('isi'),
+                    'tanggal_komen' => date('Y-m-d H:i:s'),
+                    'sts_komen' => 0, // Default 0 (moderation)
+                    'id' => session()->get('id') ?? 11, // User ID if logged in, fallback to admin/default?
+                ];
+
+                $this->beritakomen->insert($simpandata);
+
+                $msg = [
+                    'sukses' => 'Terima kasih! Komentar Anda telah terkirim dan sedang menunggu moderasi.',
+                    'csrf_tokencmsikasmedia' => csrf_hash()
+                ];
+            }
+            echo json_encode($msg);
+        }
+    }
 }
+
+
+
+
+

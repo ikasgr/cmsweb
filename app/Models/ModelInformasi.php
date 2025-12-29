@@ -6,11 +6,21 @@ use CodeIgniter\Model;
 
 class ModelInformasi extends Model
 {
-    protected $table      = 'informasi';
+    protected $table = 'informasi';
     protected $primaryKey = 'informasi_id';
     protected $allowedFields = [
-        'nama', 'slug_informasi', 'gambar', 'isi_informasi', 'tgl_informasi',
-        'hits', 'type', 'id', 'fileunduh', 'sts_aktif', 'ket', 'utm'
+        'nama',
+        'slug_informasi',
+        'gambar',
+        'isi_informasi',
+        'tgl_informasi',
+        'hits',
+        'type',
+        'id',
+        'fileunduh',
+        'sts_aktif',
+        'ket',
+        'utm'
     ];
 
     //backend
@@ -63,7 +73,7 @@ class ModelInformasi extends Model
     public function totlayanan()
     {
         return $this->table('informasi')
-            ->where(array('type'    => '0'))
+            ->where(array('type' => '0'))
             ->get()->getNumRows();
     }
 
@@ -71,8 +81,8 @@ class ModelInformasi extends Model
     {
         return $this->table('informasi')
             ->where(array(
-                'type'    => '0',
-                'informasi.id'    => $id,
+                'type' => '0',
+                'informasi.id' => $id,
 
             ))
             ->get()->getNumRows();
@@ -93,7 +103,7 @@ class ModelInformasi extends Model
     {
         return $this->table('informasi')
             ->where(array(
-                'type'    => '1'
+                'type' => '1'
             ))
             ->get()->getNumRows();
     }
@@ -101,8 +111,8 @@ class ModelInformasi extends Model
     {
         return $this->table('informasi')
             ->where(array(
-                'type'    => '1',
-                'informasi.id'    => $id
+                'type' => '1',
+                'informasi.id' => $id
             ))
             ->get()->getNumRows();
     }
@@ -116,13 +126,19 @@ class ModelInformasi extends Model
             ->get()->getResultArray();
     }
 
-    public function detailpengumuman($informasi_id)
+    public function detailpengumuman($id_or_slug)
     {
-        return $this->table('informasi')
+        $builder = $this->table('informasi')
             ->join('users', 'users.id = informasi.id')
-            ->where('type', '1')
-            ->where('informasi_id', $informasi_id)
-            ->orderBy('informasi_id', 'DESC')
+            ->where('type', '1');
+
+        if (is_numeric($id_or_slug)) {
+            $builder->where('informasi_id', $id_or_slug);
+        } else {
+            $builder->where('slug_informasi', $id_or_slug);
+        }
+
+        return $builder->orderBy('informasi_id', 'DESC')
             ->get()->getRow();
     }
 

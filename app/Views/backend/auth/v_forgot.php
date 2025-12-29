@@ -15,7 +15,7 @@ $konfigurasi = $builder->select('nama,vercms,kecamatan,icon,logo')->get()->getRo
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
 
     <title>Lupa Password</title>
-    <meta content="CMS DATAGOE" name="DATAGOE SOFTWARE" />
+    <meta content="CMS IKASMEDIA" name="IKASMEDIA SOFTWARE" />
 
     <link rel="shortcut icon" href="<?= base_url('/public/img/konfigurasi/icon/' . esc($konfigurasi->icon)) ?>">
     <link href="<?= base_url('/public/template/backend/assets/libs/sweetalert2/sweetalert2.min.css') ?>"

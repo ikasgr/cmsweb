@@ -156,11 +156,16 @@ class Sambutan extends BaseController
                     'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
-                //check
+                // check if data exists
                 $cekdata = $this->konfigurasi->find($id_setaplikasi);
-                $fotolama = $cekdata['gbr_sambutan'];
-                if ($fotolama != '' && file_exists('public/img/konfigurasi/pimpinan/' . $fotolama)) {
-                    unlink('public/img/konfigurasi/pimpinan/' . $fotolama);
+                if ($cekdata) {
+                    $fotolama = $cekdata['gbr_sambutan'];
+                    if (!empty($fotolama)) {
+                        $path_lama = 'public/img/konfigurasi/pimpinan/' . $fotolama;
+                        if (file_exists($path_lama) && is_file($path_lama)) {
+                            unlink($path_lama);
+                        }
+                    }
                 }
 
                 $filegambar = $this->request->getFile('gbr_sambutan');
@@ -184,3 +189,8 @@ class Sambutan extends BaseController
         }
     }
 }
+
+
+
+
+

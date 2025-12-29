@@ -8,38 +8,39 @@ class Toko extends BaseController
     public function index()
     {
         $konfigurasi = $this->konfigurasi->vkonfig();
-        
+
         $produk = $this->produkumkm->listaktif();
 
         $data = [
-            'title'         => 'Toko UMKM | ' . $konfigurasi->nama,
-            'deskripsi'     => 'Belanja produk UMKM jemaat ' . $konfigurasi->nama,
-            'url'           => base_url('toko'),
-            'img'           => base_url('/public/img/konfigurasi/logo/' . $konfigurasi->logo),
-            'konfigurasi'   => $konfigurasi,
-            'mainmenu'      => $this->menu->mainmenu(),
-            'footer'        => $this->menu->footermenu(),
-            'topmenu'       => $this->menu->topmenu(),
-            'section'       => $this->section->list(),
+            'title' => 'Toko UMKM | ' . $konfigurasi->nama,
+            'deskripsi' => 'Belanja produk UMKM jemaat ' . $konfigurasi->nama,
+            'url' => base_url('toko'),
+            'img' => base_url('/public/img/konfigurasi/logo/' . $konfigurasi->logo),
+            'konfigurasi' => $konfigurasi,
+            'mainmenu' => $this->menu->mainmenu(),
+            'footer' => $this->menu->footermenu(),
+            'topmenu' => $this->menu->topmenu(),
+            'section' => $this->section->list(),
             'linkterkaitall' => $this->linkterkait->publishlinkall(),
-            
-            'produk'        => $produk->paginate(12, 'produk'),
-            'pager'         => $produk->pager,
-            'kategori'      => $this->kategoriproduk->withcount(),
-            'featured'      => $this->produkumkm->featured()->limit(4)->get()->getResultArray(),
-            'terlaris'      => $this->produkumkm->terlaris()->limit(4)->get()->getResultArray(),
+
+            'produk' => $produk->paginate(12, 'produk'),
+            'pager' => $produk->pager,
+            'kategori' => $this->kategoriproduk->withcount(),
+            'featured' => $this->produkumkm->featured()->limit(4)->get()->getResultArray(),
+            'terlaris' => $this->produkumkm->terlaris()->limit(4)->get()->getResultArray(),
         ];
 
-        return view('frontend/desktop/content/toko_index', $data);
+        return view('frontend/content/toko_index', $data);
     }
 
     // Detail produk
     public function detail($slug_produk = null)
     {
-        if (!isset($slug_produk)) return redirect()->to('toko');
+        if (!isset($slug_produk))
+            return redirect()->to('toko');
 
         $konfigurasi = $this->konfigurasi->vkonfig();
-        
+
         $produk = $this->produkumkm->detail($slug_produk);
 
         if (!$produk) {
@@ -54,32 +55,62 @@ class Toko extends BaseController
         // Produk terkait
         $terkait = $this->produkumkm->terkait($produk->kategori_id, $produk->id_produk);
 
+        // Convert produk object to array and prepare data
+        $productArray = (array) $produk;
+
+        // Parse images from JSON if exists
+        $images = !empty($productArray['gambar']) ? json_decode($productArray['gambar'], true) : [];
+        if (!is_array($images)) {
+            $images = [$productArray['gambar']];
+        }
+
         $data = [
-            'title'         => $produk->nama_produk . ' | Toko UMKM',
-            'deskripsi'     => strip_tags($produk->deskripsi),
-            'url'           => base_url('toko/' . $slug_produk),
-            'img'           => base_url('/public/img/produk/' . $produk->gambar),
-            'konfigurasi'   => $konfigurasi,
-            'mainmenu'      => $this->menu->mainmenu(),
-            'footer'        => $this->menu->footermenu(),
-            'topmenu'       => $this->menu->topmenu(),
-            'section'       => $this->section->list(),
+            'title' => $produk->nama_produk . ' | Toko UMKM',
+            'deskripsi' => strip_tags($produk->deskripsi ?? ''),
+            'url' => base_url('umkm/produk/' . $slug_produk),
+            'img' => base_url('public/img/produk/' . (!empty($images) ? $images[0] : 'default.jpg')),
+            'konfigurasi' => $konfigurasi,
+            'mainmenu' => $this->menu->mainmenu(),
+            'footer' => $this->menu->footermenu(),
+            'topmenu' => $this->menu->topmenu(),
+            'section' => $this->section->list(),
             'linkterkaitall' => $this->linkterkait->publishlinkall(),
-            
-            'produk'        => $produk,
-            'terkait'       => $terkait,
+
+            'product' => [
+                'id' => $produk->id_produk ?? 0,
+                'name' => $produk->nama_produk ?? '',
+                'description' => $produk->deskripsi ?? '',
+                'price' => $produk->harga ?? 0,
+                'discount_price' => $produk->harga_diskon ?? null,
+                'stock' => $produk->stok ?? 0,
+                'category_name' => $produk->nama_kategori ?? 'Lainnya',
+                'seller_name' => $produk->nama_pelapak ?? 'UMKM',
+                'seller_phone' => $produk->telp_pelapak ?? '',
+                'seller_email' => $produk->email_pelapak ?? '',
+                'seller_address' => $produk->alamat_pelapak ?? '',
+                'seller_id' => $produk->pelapak_id ?? 0,
+                'sold_count' => $produk->terjual ?? 0,
+                'rating' => $produk->rating ?? 0,
+                'min_order' => $produk->min_order ?? 1,
+                'unit' => $produk->satuan ?? 'pcs',
+                'sku' => $produk->sku ?? '',
+                'weight' => $produk->berat ?? 0,
+            ],
+            'images' => $images,
+            'relatedProducts' => $terkait,
         ];
 
-        return view('frontend/desktop/content/toko_detail', $data);
+        return view('frontend/umkm/product_detail', $data);
     }
 
     // Produk by kategori
     public function kategori($slug_kategori = null)
     {
-        if (!isset($slug_kategori)) return redirect()->to('toko');
+        if (!isset($slug_kategori))
+            return redirect()->to('toko');
 
         $konfigurasi = $this->konfigurasi->vkonfig();
-        
+
         $kategori = $this->kategoriproduk->detail($slug_kategori);
 
         if (!$kategori) {
@@ -89,61 +120,61 @@ class Toko extends BaseController
         $produk = $this->produkumkm->bykategori($kategori->kategori_id);
 
         $data = [
-            'title'         => $kategori->nama_kategori . ' | Toko UMKM',
-            'deskripsi'     => $kategori->deskripsi ?? 'Produk kategori ' . $kategori->nama_kategori,
-            'url'           => base_url('toko/kategori/' . $slug_kategori),
-            'img'           => base_url('/public/img/konfigurasi/logo/' . $konfigurasi->logo),
-            'konfigurasi'   => $konfigurasi,
-            'mainmenu'      => $this->menu->mainmenu(),
-            'footer'        => $this->menu->footermenu(),
-            'topmenu'       => $this->menu->topmenu(),
-            'section'       => $this->section->list(),
+            'title' => $kategori->nama_kategori . ' | Toko UMKM',
+            'deskripsi' => $kategori->deskripsi ?? 'Produk kategori ' . $kategori->nama_kategori,
+            'url' => base_url('toko/kategori/' . $slug_kategori),
+            'img' => base_url('/public/img/konfigurasi/logo/' . $konfigurasi->logo),
+            'konfigurasi' => $konfigurasi,
+            'mainmenu' => $this->menu->mainmenu(),
+            'footer' => $this->menu->footermenu(),
+            'topmenu' => $this->menu->topmenu(),
+            'section' => $this->section->list(),
             'linkterkaitall' => $this->linkterkait->publishlinkall(),
-            
-            'kategori'      => $kategori,
-            'produk'        => $produk->paginate(12, 'produk'),
-            'pager'         => $produk->pager,
+
+            'kategori' => $kategori,
+            'produk' => $produk->paginate(12, 'produk'),
+            'pager' => $produk->pager,
             'kategori_list' => $this->kategoriproduk->withcount(),
         ];
 
-        return view('frontend/desktop/content/toko_kategori', $data);
+        return view('frontend/content/toko_kategori', $data);
     }
 
     // Search produk
     public function search()
     {
         $keyword = $this->request->getGet('q');
-        
+
         $konfigurasi = $this->konfigurasi->vkonfig();
-        
+
         $produk = $this->produkumkm->search($keyword);
 
         $data = [
-            'title'         => 'Pencarian: ' . $keyword . ' | Toko UMKM',
-            'deskripsi'     => 'Hasil pencarian produk: ' . $keyword,
-            'url'           => base_url('toko/search?q=' . $keyword),
-            'img'           => base_url('/public/img/konfigurasi/logo/' . $konfigurasi->logo),
-            'konfigurasi'   => $konfigurasi,
-            'mainmenu'      => $this->menu->mainmenu(),
-            'footer'        => $this->menu->footermenu(),
-            'topmenu'       => $this->menu->topmenu(),
-            'section'       => $this->section->list(),
+            'title' => 'Pencarian: ' . $keyword . ' | Toko UMKM',
+            'deskripsi' => 'Hasil pencarian produk: ' . $keyword,
+            'url' => base_url('toko/search?q=' . $keyword),
+            'img' => base_url('/public/img/konfigurasi/logo/' . $konfigurasi->logo),
+            'konfigurasi' => $konfigurasi,
+            'mainmenu' => $this->menu->mainmenu(),
+            'footer' => $this->menu->footermenu(),
+            'topmenu' => $this->menu->topmenu(),
+            'section' => $this->section->list(),
             'linkterkaitall' => $this->linkterkait->publishlinkall(),
-            
-            'keyword'       => $keyword,
-            'produk'        => $produk->paginate(12, 'produk'),
-            'pager'         => $produk->pager,
-            'kategori'      => $this->kategoriproduk->withcount(),
+
+            'keyword' => $keyword,
+            'produk' => $produk->paginate(12, 'produk'),
+            'pager' => $produk->pager,
+            'kategori' => $this->kategoriproduk->withcount(),
         ];
 
-        return view('frontend/desktop/content/toko_search', $data);
+        return view('frontend/content/toko_search', $data);
     }
 
     // Keranjang belanja
     public function keranjang()
     {
         $konfigurasi = $this->konfigurasi->vkonfig();
-        
+
         $session_id = session()->get('cart_session') ?? session()->session_id;
 
         $cart = $this->keranjang->bysession($session_id);
@@ -151,22 +182,22 @@ class Toko extends BaseController
         $total = $total_obj->subtotal ?? 0;
 
         $data = [
-            'title'         => 'Keranjang Belanja | Toko UMKM',
-            'deskripsi'     => 'Keranjang belanja Anda',
-            'url'           => base_url('toko/keranjang'),
-            'img'           => base_url('/public/img/konfigurasi/logo/' . $konfigurasi->logo),
-            'konfigurasi'   => $konfigurasi,
-            'mainmenu'      => $this->menu->mainmenu(),
-            'footer'        => $this->menu->footermenu(),
-            'topmenu'       => $this->menu->topmenu(),
-            'section'       => $this->section->list(),
+            'title' => 'Keranjang Belanja | Toko UMKM',
+            'deskripsi' => 'Keranjang belanja Anda',
+            'url' => base_url('toko/keranjang'),
+            'img' => base_url('/public/img/konfigurasi/logo/' . $konfigurasi->logo),
+            'konfigurasi' => $konfigurasi,
+            'mainmenu' => $this->menu->mainmenu(),
+            'footer' => $this->menu->footermenu(),
+            'topmenu' => $this->menu->topmenu(),
+            'section' => $this->section->list(),
             'linkterkaitall' => $this->linkterkait->publishlinkall(),
-            
-            'cart'          => $cart,
-            'total'         => $total,
+
+            'cart' => $cart,
+            'total' => $total,
         ];
 
-        return view('frontend/desktop/content/toko_keranjang', $data);
+        return view('frontend/content/toko_keranjang', $data);
     }
 
     // Add to cart
@@ -245,9 +276,9 @@ class Toko extends BaseController
 
             // Cari item di keranjang berdasarkan id_produk dan session_id
             $keranjang = $this->keranjang->where('session_id', $session_id)
-                                         ->where('id_produk', $id_produk)
-                                         ->first();
-            
+                ->where('id_produk', $id_produk)
+                ->first();
+
             if (!$keranjang) {
                 $msg = ['error' => 'Item tidak ditemukan!'];
                 echo json_encode($msg);
@@ -283,8 +314,8 @@ class Toko extends BaseController
 
             // Hapus berdasarkan id_produk dan session_id
             $this->keranjang->where('session_id', $session_id)
-                           ->where('id_produk', $id_produk)
-                           ->delete();
+                ->where('id_produk', $id_produk)
+                ->delete();
 
             $msg = ['sukses' => 'Item berhasil dihapus!'];
             echo json_encode($msg);
@@ -309,7 +340,7 @@ class Toko extends BaseController
     {
         if ($this->request->isAJAX()) {
             $session_id = session()->get('cart_session');
-            
+
             if ($session_id) {
                 $this->keranjang->where('session_id', $session_id)->delete();
             }
@@ -324,7 +355,7 @@ class Toko extends BaseController
     {
         if ($this->request->isAJAX()) {
             $validation = \Config\Services::validation();
-            
+
             $validation->setRules([
                 'nama_pembeli' => [
                     'rules' => 'required',
@@ -442,8 +473,8 @@ class Toko extends BaseController
     public function invoice($kode_pesanan)
     {
         $konfigurasi = $this->konfigurasi->vkonfig();
-        
-        
+
+
         $pesanan = $this->pesanan->getByKode($kode_pesanan);
         if (!$pesanan) {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
@@ -466,12 +497,17 @@ class Toko extends BaseController
             'topmenu' => $this->menu->topmenu(),
             'section' => $this->section->list(),
             'linkterkaitall' => $this->linkterkait->publishlinkall(),
-            
+
             'pesanan' => $pesanan,
             'detail' => $detail
         ];
 
-        return view('frontend/desktop/content/toko_invoice', $data);
+        return view('frontend/content/toko_invoice', $data);
     }
 }
+
+
+
+
+
 

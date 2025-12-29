@@ -197,13 +197,18 @@ class Penawaran extends BaseController
                             'csrf_tokencmsikasmedia' => csrf_hash()
                         ];
                     } else {
-                        //check
+                        // check if data exists
                         $modalpopup_id = $this->request->getVar('modalpopup_id');
                         $cekdata = $this->modalpopup->find($modalpopup_id);
-                        $fotolama = $cekdata['gbrtawaran'];
+                        if ($cekdata) {
+                            $fotolama = $cekdata['gbrtawaran'];
 
-                        if ($fotolama != 'default.png' && file_exists('public/img/informasi/' . $fotolama)) {
-                            unlink('public/img/informasi/' . $fotolama);
+                            if ($fotolama != 'default.png' && !empty($fotolama)) {
+                                $path_lama = 'public/img/informasi/' . $fotolama;
+                                if (file_exists($path_lama) && is_file($path_lama)) {
+                                    unlink($path_lama);
+                                }
+                            }
                         }
 
                         $filegambar = $this->request->getFile('gbrtawaran');
@@ -262,3 +267,8 @@ class Penawaran extends BaseController
         }
     }
 }
+
+
+
+
+

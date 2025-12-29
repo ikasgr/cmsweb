@@ -37,18 +37,9 @@ class Bukutamu extends BaseController
             'infografis10' => $this->banner->listinfopage()->paginate(10),
             'grafisrandom' => $this->banner->grafisrandom(),
             'terkini3' => $this->berita->terkini3(),
-            'folder' => $template['folder']
         ];
-        if ($template['duatema'] == 1) {
-            $agent = $this->request->getUserAgent();
-            if ($agent->isMobile()) {
-                return view('frontend/' . $template['folder'] . '/mobile/' . 'content/bukutamu', $data);
-            } else {
-                return view('frontend/' . $template['folder'] . '/desktop/' . 'content/bukutamu', $data);
-            }
-        } else {
-            return view('frontend/' . $template['folder'] . '/desktop/' . 'content/bukutamu', $data);
-        }
+
+        return view('frontend/interaksi/bukutamu', $data);
     }
 
     public function simpanbukutamu()
@@ -551,3 +542,8 @@ class Bukutamu extends BaseController
         }
     }
 }
+
+
+
+
+

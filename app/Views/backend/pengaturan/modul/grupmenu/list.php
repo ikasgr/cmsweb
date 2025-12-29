@@ -9,7 +9,7 @@ $this->modulecms = new M_Ikasmedia_modul();
     <button type="submit" class="btn btn-success btn-sm tambah">
         <i class="fas fa fa-plus-circle"></i> Tambah Menu
     </button>
-    <a href="modul/publik" button type="button" title="Kelola Modul Publik CMS Datagoe" class="btn btn-primary btn-sm mr-1">
+    <a href="<?= base_url('modul/publik') ?>" title="Kelola Modul Publik CMS Ikasmedia" class="btn btn-primary btn-sm mr-1">
         <i class="fas fa-copy text-light"></i> Modul Publik
     </a>
 <?php } ?>

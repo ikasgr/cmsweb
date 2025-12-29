@@ -24,7 +24,7 @@ class PendaftaranSidi extends BaseController
             'linkterkaitall' => $this->linkterkait->publishlinkall(),
 
         ];
-        return view('frontend/' . $template['folder'] . '/content/pendaftaran_sidi', $data);
+        return view('frontend/pendaftaran/sidi', $data);
     }
 
     // Frontend - Simpan pendaftaran dari publik
@@ -895,3 +895,8 @@ class PendaftaranSidi extends BaseController
         }
     }
 }
+
+
+
+
+

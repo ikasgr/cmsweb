@@ -30,7 +30,7 @@ class Jadwal extends BaseController
             'mingguini'     => $this->jadwalpelayanan->mingguini(),
         ];
 
-        return view('frontend/desktop/content/jadwal_index', $data);
+        return view('frontend/content/jadwal_index', $data);
     }
 
     // Frontend - Jadwal by bulan (untuk calendar)
@@ -98,7 +98,7 @@ class Jadwal extends BaseController
             'jenis'         => $jenis,
         ];
 
-        return view('frontend/desktop/content/jadwal_jenis', $data);
+        return view('frontend/content/jadwal_jenis', $data);
     }
 
     // Widget jadwal untuk homepage
@@ -113,3 +113,8 @@ class Jadwal extends BaseController
         return view('frontend/widgets/jadwal_widget', $data);
     }
 }
+
+
+
+
+

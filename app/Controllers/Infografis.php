@@ -8,7 +8,7 @@ class Infografis extends BaseController
     {
         $konfigurasi = $this->konfigurasi->vkonfig();
         $infografis = $this->banner->listinfopage();
-        
+
         $data = [
             'title' => 'Infografis | ' . esc($konfigurasi->nama),
             'deskripsi' => esc($konfigurasi->deskripsi),
@@ -31,18 +31,9 @@ class Infografis extends BaseController
             'linkterkaitall' => $this->linkterkait->publishlinkall(),
             'infografis10' => $this->banner->listinfopage()->paginate(10),
             'kategori' => $this->kategori->list(),
-            
+
         ];
-        if (0) {
-            $agent = $this->request->getUserAgent();
-            if ($agent->isMobile()) {
-                return view('frontend/desktop/' . 'content/semua_infografis', $data);
-            } else {
-                return view('frontend/desktop/' . 'content/semua_infografis', $data);
-            }
-        } else {
-            return view('frontend/desktop/' . 'content/semua_infografis', $data);
-        }
+        return view('frontend/infografis/index', $data);
     }
 
     public function all()
@@ -50,7 +41,7 @@ class Infografis extends BaseController
         if (!session()->get('id')) {
             return redirect()->to('');
         }
-        
+
         $data = [
             'title' => 'Informasi',
             'subtitle' => 'Info Grafis',
@@ -69,7 +60,7 @@ class Infografis extends BaseController
         if ($this->request->isAJAX()) {
             $id_grup = session()->get('id_grup');
             $url = 'infografis/all';
-            
+
 
             // Ambil grup akses
             $listgrupf = $this->grupakses->viewgrupakses($id_grup, $url);
@@ -112,7 +103,7 @@ class Infografis extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            
+
             $data = [
                 'title' => 'Tambah Info Grafis'
             ];
@@ -159,7 +150,7 @@ class Infografis extends BaseController
                         'ket' => $validation->getError('ket'),
                         'banner_image' => $validation->getError('banner_image')
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
@@ -182,7 +173,7 @@ class Infografis extends BaseController
                 $filegambar->move('public/img/informasi/infografis/', $nama_file); //folder gbr
                 $msg = [
                     'sukses' => 'Banner berhasil diupload!',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -197,7 +188,7 @@ class Infografis extends BaseController
         if ($this->request->isAJAX()) {
             $id_banner = $this->request->getVar('id_banner');
             $list = $this->banner->find($id_banner);
-            
+
             $data = [
                 'title' => 'Edit Info Grafis',
                 'id_banner' => $list['id_banner'],
@@ -206,7 +197,7 @@ class Infografis extends BaseController
             ];
             $msg = [
                 'sukses' => view('backend/setkonten/infografis/edit', $data),
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -247,7 +238,7 @@ class Infografis extends BaseController
                         'ket' => $validation->getError('ket'),
                         'banner' => $validation->getError('banner')
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 $filegambar = $this->request->getFile('banner_image');
@@ -261,7 +252,7 @@ class Infografis extends BaseController
                     $this->banner->update($id_banner, $data);
                     $msg = [
                         'sukses' => 'Data berhasil diubah!',
-                        'csrf_tokencmsdatagoe' => csrf_hash(),
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                 } else {
 
@@ -290,7 +281,7 @@ class Infografis extends BaseController
 
                     $msg = [
                         'sukses' => 'Info Grafis berhasil diganti!',
-                        'csrf_tokencmsdatagoe' => csrf_hash(),
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                 }
 
@@ -320,7 +311,7 @@ class Infografis extends BaseController
             $this->banner->delete($id_banner);
             $msg = [
                 'sukses' => 'Data berhasil dihapus!',
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -351,7 +342,7 @@ class Infografis extends BaseController
 
             $msg = [
                 'sukses' => "$jmldata Info Grafis berhasil dihapus",
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -364,7 +355,7 @@ class Infografis extends BaseController
         if ($this->request->isAJAX()) {
             $id_banner = $this->request->getVar('id_banner');
             $list = $this->banner->find($id_banner);
-            
+
 
             $data = [
                 'title' => 'Info Grafis',
@@ -375,10 +366,15 @@ class Infografis extends BaseController
             $msg = [
 
                 'sukses' => view('backend/modal/v_infografis', $data),
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
 
             ];
             echo json_encode($msg);
         }
     }
 }
+
+
+
+
+

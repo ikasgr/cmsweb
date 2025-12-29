@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
 
     <title>Registrasi Pengguna</title>
-    <meta content="Admin Dashboard" name="Datagoe Software" />
-    <meta content="CMS Datagoe" name="Vian Taum" />
+    <meta content="Admin Dashboard" name="Ikasmedia Software" />
+    <meta content="CMS Ikasmedia" name="Ikasmedia" />
     <link rel="shortcut icon" href="<?= base_url('/public/img/konfigurasi/icon/' . esc($konfigurasi->icon)) ?>">
     <link href="<?= base_url('/public/template/backend/assets/libs/sweetalert2/sweetalert2.min.css') ?>"
         rel="stylesheet" type="text/css" />
@@ -68,18 +68,18 @@
 
                             <?php if ($opd != '') { ?>
 
-                                <div class="form-group mb-3">
-                                    <label> Unit Kerja</label>
-                                    <div>
-                                        <select name="opd_id" id="opd_id" class="form-select pointer">
-                                            <option Disabled=true Selected=true>-- Pilih Unit Kerja --</option>
-                                            <?php foreach ($opd as $key => $data) { ?>
-                                                <option value="<?= $data['opd_id'] ?>"><?= esc($data['nama_opd']) ?></option>
-                                            <?php } ?>
-                                        </select>
-                                        <div class="invalid-feedback erroropd_id">Silahkan pilih unit kerja</div>
+                                    <div class="form-group mb-3">
+                                        <label> Unit Kerja</label>
+                                        <div>
+                                            <select name="opd_id" id="opd_id" class="form-select pointer">
+                                                <option Disabled=true Selected=true>-- Pilih Unit Kerja --</option>
+                                                <?php foreach ($opd as $key => $data) { ?>
+                                                        <option value="<?= $data['opd_id'] ?>"><?= esc($data['nama_opd']) ?></option>
+                                                <?php } ?>
+                                            </select>
+                                            <div class="invalid-feedback erroropd_id">Silahkan pilih unit kerja</div>
+                                        </div>
                                     </div>
-                                </div>
 
                             <?php } ?>
 

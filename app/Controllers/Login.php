@@ -203,7 +203,7 @@ class Login extends BaseController
             'fullname' => esc($user['fullname']),
             'user_image' => esc($user['user_image']),
             'id_grup' => esc($user['id_grup']),
-            'setweb' => 'https://cms.datagoe.com/',
+            'setweb' => 'https://cms.ikasmedia.com/',
             'session_id' => session_id(),
         ];
         $session->set($simpan_session);
@@ -396,7 +396,7 @@ class Login extends BaseController
                 'fullname' => esc($user['fullname']),
                 'user_image' => esc($user['user_image']),
                 'id_grup' => esc($user['id_grup']),
-                'setweb' => 'https://cms.datagoe.com/',
+                'setweb' => 'https://cms.ikasmedia.com/',
                 'session_id' => $sessionId,
             ];
             $session->set($simpan_session); // Menyimpan session data
@@ -935,3 +935,8 @@ class Login extends BaseController
         return json_encode(['sukses' => $message]);
     }
 }
+
+
+
+
+

@@ -13,8 +13,8 @@ $konfigurasi = $builder->select('nama,vercms,kecamatan,icon,logo')->get()->getRo
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
 
     <title>Reset Password</title>
-    <meta content="CMS DATAGOE" name="Datagoe Software" />
-    <meta content="Themesbrand" name="Vian Taum" />
+    <meta content="CMS IKASMEDIA" name="Ikasmedia Software" />
+    <meta content="Themesbrand" name="Ikasmedia" />
     <link rel="shortcut icon" href="<?= base_url('/public/img/konfigurasi/icon/' . esc($konfigurasi->icon)) ?>">
     <link href="<?= base_url('/public/template/backend/assets/libs/sweetalert2/sweetalert2.min.css') ?>"
         rel="stylesheet" type="text/css" />

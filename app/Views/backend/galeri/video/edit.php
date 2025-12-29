@@ -1,4 +1,4 @@
-<div class="modal fade" id="modaledit">
+<div class="modal fade" id="modaledit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -27,7 +27,8 @@
                         <?php foreach ($kategorivideo as $key => $value) { ?>
                             <option value="<?= $value['kategorivideo_id'] ?>"
                                 <?= $kategorivideo_id == $value['kategorivideo_id'] ? 'selected' : '' ?>>
-                                <?= esc($value['nama_kategori_video']) ?></option>
+                                <?= esc($value['nama_kategori_video']) ?>
+                            </option>
                         <?php } ?>
                     </select>
                 </div>
@@ -62,6 +63,28 @@
 
 <script>
     $(document).ready(function () {
+        // Fix modal flickering and positioning issues
+        $('#modaledit').on('show.bs.modal', function (e) {
+            $('.modal-backdrop').remove();
+            $('body').removeClass('modal-open');
+            $('#judul').removeClass('is-invalid');
+            $('#video_link').removeClass('is-invalid');
+            $('.errorjudul').html('');
+            $('.errorvideo_link').html('');
+        });
+
+        $('#modaledit').on('shown.bs.modal', function (e) {
+            $('body').addClass('modal-open');
+            $('#judul').focus();
+        });
+
+        $('#modaledit').on('hidden.bs.modal', function (e) {
+            $('.modal-backdrop').remove();
+            $('body').removeClass('modal-open');
+            $('body').css('overflow', '');
+            $('body').css('padding-right', '');
+        });
+
         $('.btnupload').click(function (e) {
             e.preventDefault();
             let form = $('.formvideo')[0];

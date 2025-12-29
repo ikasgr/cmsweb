@@ -51,7 +51,8 @@
                             <option Disabled=true Selected=true>--Pilih Kategori Berita--</option>
                             <?php foreach ($kategoriberita as $key => $data) { ?>
                                 <option data-menu_link="category/<?= esc($data['slug_kategori']) ?>">
-                                    <?= esc($data['nama_kategori']) ?></option>
+                                    <?= esc($data['nama_kategori']) ?>
+                                </option>
                             <?php } ?>
                         </select>
                         <div class="invalid-feedback errorKategori"></div>
@@ -63,7 +64,8 @@
                             <option Disabled=true Selected=true>--Pilih Halaman--</option>
                             <?php foreach ($halaman as $key => $data) { ?>
                                 <option data-menu_link="page/<?= esc($data['slug_berita']) ?>">
-                                    <?= esc($data['judul_berita']) ?></option>
+                                    <?= esc($data['judul_berita']) ?>
+                                </option>
                             <?php } ?>
                         </select>
                         <div class="invalid-feedback errorKategori"></div>
@@ -82,7 +84,7 @@
 
                     <div class="form-group mb-2" id="eksternal">
                         <label>
-                            Link URL <small class="text-danger">(Misalnya: http://cms.datagoe.com/)</small>
+                            Link URL <small class="text-danger">(Misalnya: http://cms.ikasmedia.com/)</small>
                         </label>
                         <input type="text" id="menu_link" name="menu_link" value="<?= esc($menu_link) ?>"
                             class="form-control">

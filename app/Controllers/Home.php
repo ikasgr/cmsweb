@@ -20,6 +20,83 @@ class Home extends BaseController
 		$jadwal_upcoming = $this->jadwalpelayanan->upcoming(4);
 		$produk_featured = $this->produkumkm->featured()->limit(12)->get()->getResultArray();
 
+		// News & Articles
+		$rawLatestNews = $this->berita->listberitapage()->paginate(3);
+		$latestNews = [];
+		foreach ($rawLatestNews as $news) {
+			$latestNews[] = [
+				'slug' => $news['slug_berita'],
+				'title' => $news['judul_berita'],
+				'category' => $news['slug_kategori'],
+				'featured_image' => $news['gambar'],
+				'published_at' => $news['tgl_berita'],
+				'views' => $news['hits'],
+			];
+		}
+
+		// Categories Mapping
+		$rawCategories = $this->kategori->findAll();
+		$newsCategories = [];
+		foreach ($rawCategories as $cat) {
+			$newsCategories[$cat['slug_kategori'] ?? ''] = $cat['nama_kategori'] ?? '';
+		}
+
+		// Majelis Mapping
+		$majelisList = [];
+		if (!empty($majelis)) {
+			foreach ($majelis as $member) {
+				$majelisList[] = [
+					'name' => $member['nama'],
+					'position' => $member['nama_jabatan'] ?? ($member['jenis_jabatan'] ?? ''),
+					'photo' => $member['file_foto'] ?? ($member['gambar'] ?? ''),
+				];
+			}
+		}
+
+		// Products Mapping
+		$latestProducts = [];
+		if (!empty($produk_featured)) {
+			foreach ($produk_featured as $product) {
+				$latestProducts[] = [
+					'id' => $product['id_produk'],
+					'name' => $product['nama_produk'],
+					'slug' => $product['slug_produk'],
+					'price' => $product['harga'],
+					'discount_price' => $product['harga_promo'],
+					'images' => json_encode([$product['gambar']]),
+					'seller_name' => $product['fullname'] ?? $konfigurasi->nama,
+					'seller_id' => $product['user_id'],
+					'category_name' => $product['nama_kategori'],
+				];
+			}
+		}
+
+		// Jadwal Upcoming Mapping
+		$jadwalList = [];
+		if (!empty($jadwal_upcoming)) {
+			foreach ($jadwal_upcoming as $jadwal) {
+				$jadwalList[] = [
+					'nama_kegiatan' => $jadwal['judul_jadwal'],
+					'tanggal' => $jadwal['tanggal'],
+					'jam' => $jadwal['waktu_mulai'],
+					'keterangan' => $jadwal['keterangan'],
+				];
+			}
+		}
+
+		// Pengumuman Mapping
+		$rawPengumuman = $this->pengumuman->listpengumumanpage()->paginate(6);
+		$pengumumanList = [];
+		foreach ($rawPengumuman as $p) {
+			$pengumumanList[] = [
+				'tgl_pengumuman' => $p['tgl_informasi'],
+				'judul_pengumuman' => $p['nama'],
+				'slug_pengumuman' => $p['slug_informasi'],
+				'isi_pengumuman' => $p['isi_informasi'],
+				'gambar' => $p['gambar'],
+			];
+		}
+
 		$data = [
 			// Config
 			'title' => esc($konfigurasi->nama),
@@ -36,31 +113,33 @@ class Home extends BaseController
 
 			// Homepage Content
 			'banner' => $this->banner->list(),
-			'pengumuman' => $this->pengumuman->listpengumumanpage()->paginate(6),
+			'pengumuman' => $pengumumanList,
 			'section' => $this->section->list(), // Ministries/Layanan Sections
 
 			// News & Articles
 			'beritautama' => $this->berita->headlineall(), // Slider News
-			'berita4' => $this->berita->listberitapage()->paginate(4), // Latest News
+			'latestNews' => $latestNews,
+			'newsCategories' => $newsCategories,
 
 			// Widgets
 			'counter' => $this->counter->listfront(),
-			'majelis' => $majelis,
+			'majelis' => $majelisList,
 			'iklantengah' => $this->banner->listiklantengahran(),
 			'agenda2' => $this->agenda->listagendapage()->paginate(2), // Upcoming events widget
 
 			// Poling
-			'poltanya' => esc($poltanya['pilihan']),
-			'polsts' => $poltanya['status'],
+			'poltanya' => esc($poltanya['pilihan'] ?? '-'),
+			'polsts' => $poltanya['status'] ?? 'N',
 			'poljawab' => $poljawab,
-			'jumpol' => $jumpol['rating'],
+			'jumpol' => $jumpol['rating'] ?? 0,
 
 			// New Data for Church Features
-			'jadwal_upcoming' => $jadwal_upcoming,
-			'produk_featured' => $produk_featured,
+			'jadwal_upcoming' => $jadwalList,
+			'latestProducts' => $latestProducts,
+			'photos' => $this->foto->orderBy('foto_id', 'DESC')->limit(6)->get()->getResultArray(),
 		];
 
-		return view('frontend/desktop/v_home', $data);
+		return view('frontend/home', $data);
 	}
 
 
@@ -75,127 +154,35 @@ class Home extends BaseController
 
 			try {
 				// Request ke API
-				$response = $client->get($apiUrl);
+				$response = $client->request('GET', $apiUrl, [
+					'headers' => [
+						'Accept' => 'application/json',
+					],
+				]);
 
-				// Ambil status kode dari response
-				$statusCode = $response->getStatusCode();
+				// Ambil body response
+				$data = json_decode($response->getBody(), true);
 
-				// Cek apakah respons berhasil (status 200)
-				if ($statusCode == 200) {
-					// Ambil response body dan decode dari JSON ke array
-					$data = [
-						'news' => json_decode($response->getBody(), true),
-					];
-
-					$msg = [
-						'data' => view('backend/berita/data-api', $data),
-						'csrf_tokencmsikasmediaon' => csrf_hash(),
-					];
-				} else {
-					// Jika status code bukan 200, tampilkan pesan error
-					$msg = [
-						'gagalkonek' => 'Gagal mengambil data dari API. Kode status: ' . $statusCode,
-					];
-				}
-			} catch (\CodeIgniter\HTTP\Exceptions\HTTPException $e) {
-				// Tangkap pengecualian HTTP khusus
-				$msg = [
-					'gagalkonek' => 'Terjadi kesalahan HTTP: ' . $e->getMessage(),
-				];
+				// Kirim data ke view atau sebagai JSON response
+				return $this->response->setJSON($data);
 			} catch (\Exception $e) {
-				// Tangkap semua pengecualian lain seperti gagal menghubungkan ke host
-				if (strpos($e->getMessage(), 'Could not resolve host') !== false) {
-					$msg = [
-						'gagalkonek' => 'Gagal menghubungi server API. Pastikan koneksi internet Anda stabil dan URL API benar.',
-					];
-				} else {
-					$msg = [
-						'gagalkonek' => 'Terjadi kesalahan: ' . $e->getMessage(),
-					];
-				}
+				// Error handling
+				return $this->response->setJSON(['error' => $e->getMessage()]);
 			}
-
-			echo json_encode($msg);
 		}
 	}
 
-	public function cekpengunjung()
+	public function totalkunjungan()
 	{
 		if ($this->request->isAJAX()) {
 
 			$data = [
-				'kunjungan' => $this->user->kunjungan(),
-				'pengunjungon' => $this->user->totonline(),
+				'counter' => $this->counter->listfront(),
 			];
 			$msg = [
-				'data' => view('admin/modal/onpengunjung', $data),
-				'csrf_tokencmsikasmediaon' => csrf_hash(),
-
-			];
-
-			echo json_encode($msg);
-		}
-	}
-
-	//nonaktifpenawaran front end
-	public function nonaktiftawaran()
-	{
-		if ($this->request->isAJAX()) {
-			$msg = [
-				'csrf_tokencmsikasmedia' => csrf_hash(),
-				set_cookie("penawaran", "isi", 5500),
+				'data' => view('frontend/content/counter', $data),
 			];
 			echo json_encode($msg);
 		}
-	}
-
-	public function penawaran22()
-	{
-		if ($this->request->isAJAX()) {
-
-			if (get_cookie("penawaran") != 'isi') {
-
-				$data = [
-					'konfigurasi' => $this->konfigurasi->vkonfig(),
-					'list' => $this->modalpopup->orderBy('modalpopup_id')->first(),
-				];
-				$msg = [
-					'csrf_tokencmsikasmedia' => csrf_hash(),
-					'data' => view('backend/modal/penawaran', $data),
-
-				];
-			} else {
-				$msg = [
-					'csrf_tokencmsikasmedia' => csrf_hash(),
-				];
-			}
-			echo json_encode($msg);
-		}
-	}
-
-	public function indexkonsep()
-	{
-		$konfigurasi = $this->konfigurasi->vkonfig();
-		$kategori_id = $konfigurasi->kategori_id;
-
-		// Konfigurasi data umum
-		$data = [
-			'title' => esc($konfigurasi->nama),
-			'deskripsi' => esc($konfigurasi->deskripsi),
-			'url' => esc($konfigurasi->website),
-			'img' => base_url('/public/img/konfigurasi/logo/' . esc($konfigurasi->logo)),
-			'konfigurasi' => $konfigurasi,
-		];
-
-		// Konfigurasi elemen tema (Defaulting to desktop view)
-		$theme_config = [
-			'beritakate' => $this->berita->listkategori($kategori_id),
-			'beritakate6' => $this->berita->listkategori6($kategori_id),
-			'terkini' => $this->berita->terkini(),
-		];
-
-		$data = array_merge($data, $theme_config);
-
-		return view("frontend/desktop/v_home", $data);
 	}
 }

@@ -34,12 +34,12 @@ class Permohonaninfo extends BaseController
         if (0) {
             $agent = $this->request->getUserAgent();
             if ($agent->isMobile()) {
-                return view('frontend/desktop/' . 'content/permohonan_info', $data);
+                return view('frontend/'content/permohonan_info', $data);
             } else {
-                return view('frontend/desktop/' . 'content/permohonan_info', $data);
+                return view('frontend/'content/permohonan_info', $data);
             }
         } else {
-            return view('frontend/desktop/' . 'content/permohonan_info', $data);
+            return view('frontend/'content/permohonan_info', $data);
         }
     }
 
@@ -212,7 +212,7 @@ class Permohonaninfo extends BaseController
                         'info_ygdibutuhkan' => $validation->getError('info_ygdibutuhkan'),
                         'tujuan_info' => $validation->getError('tujuan_info'),
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 $email = $this->request->getVar('email_pemohon');
@@ -409,7 +409,7 @@ class Permohonaninfo extends BaseController
                     ];
                     $msg = [
                         'sukses' => view('backend/' . 'interaksi/permintaan-info/edit', $data),
-                        'csrf_tokencmsdatagoe' => csrf_hash(),
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
 
                     ];
                 } else {
@@ -448,7 +448,7 @@ class Permohonaninfo extends BaseController
                     'error' => [
                         'respon_balas' => $validation->getError('respon_balas'),
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 $id = session()->get('id');
@@ -490,7 +490,7 @@ class Permohonaninfo extends BaseController
 
                 $msg = [
                     'sukses' => $titelbalas,
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -589,7 +589,7 @@ class Permohonaninfo extends BaseController
                 $this->permohonaninfo->update($id_mohoninfo, $updatedata);
                 $msg = [
                     'sukses' => 'Berhasil dinonaktifkan!',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
                 $list = $this->permohonaninfo->getnonaktif($id_mohoninfo);
@@ -600,7 +600,7 @@ class Permohonaninfo extends BaseController
                 $this->permohonaninfo->update($id_mohoninfo, $updatedata);
                 $msg = [
                     'sukses' => 'Berhasil menampilkan ke publik!',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
 
@@ -625,7 +625,7 @@ class Permohonaninfo extends BaseController
             $this->permohonaninfo->delete($id_mohoninfo);
             $msg = [
                 'sukses' => 'Data berhasil dihapus!',
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -657,3 +657,8 @@ class Permohonaninfo extends BaseController
         }
     }
 }
+
+
+
+
+

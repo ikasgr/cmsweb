@@ -4,24 +4,6 @@
 use Config\Services;
 use App\Models\ModelKonfigurasi;
 
-/**
- * CMS DATAGOE!
- *
- * Selamat datang bro ^_^ terima kasih sudah menggunakan CMS ini sebagai Core situs Anda. 
- * agar tetap terlihat berwibawa dan berkelas, mohon tetap menghargai karya cipta,
- * dengan tidak mengubah atau menghapus semua baris script ini.
- *
- * Mari kita sama-sama saling menghormati dan menghargai hasil keringat dengan Elegan.
- *
- * @author			Vian Taum <viantaum17@gmail.com>
- * @phone			081353967028
- * @website			www.datagoe.com
- * @copyright		(c) 2024 Datagoe Software
- * -------------------------------------------------------------------
- * Salam share CMS Anak kampung untuk Indonesia :)
- * -------------------------------------------------------------------
- */
-
 
 if (!function_exists('convertDatetime')) {
     function convertDatetime($date)
@@ -208,7 +190,7 @@ function rudr_instagram_api_curl_connect($api_url)
 if (!function_exists('dataKoneksi')) {
     function dataKoneksi()
     {
-        return 'https://datagoe.com/get/datagoecms/link_up/';
+        return 'https://ikasmedia.com/get/ikasmediacms/link_up/';
     }
 }
 
@@ -239,9 +221,9 @@ function http_request($url)
     }
     return false;
 }
-// $webapi = "https://datagoe.com/wp-json/wp/v2/posts?context=view&per_page=8";
-// $datagoe = http_request($webapi);
-// $datagoe = json_decode($datagoe, true);
+// $webapi = "https://ikasmedia.com/wp-json/wp/v2/posts?context=view&per_page=8";
+// $ikasmedia = http_request($webapi);
+// $ikasmedia = json_decode($ikasmedia, true);
 
 /**
  * Get image URL with fallback to default image if file doesn't exist
@@ -283,7 +265,7 @@ if (!function_exists('app_setting')) {
 
         if ($konfigurasi === null) {
             $db = \Config\Database::connect();
-            $konfigurasi = $db->table('setaplikasi')->orderBy('id_setaplikasi', 'ASC')->get()->getRow();
+            $konfigurasi = $db->table('tbl_setaplikasi')->orderBy('id_setaplikasi', 'ASC')->get()->getRow();
         }
 
         if (!$konfigurasi) {
@@ -298,18 +280,21 @@ if (!function_exists('app_setting')) {
             'site_logo' => 'logo',
             'site_icon' => 'icon',
             'site_email' => 'email',
-            'site_phone' => 'telepon',
+            'site_phone' => 'no_telp',
             'site_address' => 'alamat',
-            'site_city' => 'kota',
+            'site_city' => 'kabupaten',
+            'site_province' => 'provinsi',
             'site_office_address' => 'alamat',
             'site_youtube' => 'sosmed_youtube',
             'site_facebook' => 'sosmed_fb',
             'site_twitter' => 'sosmed_twiter',
             'site_instagram' => 'sosmed_instagram',
-            'site_whatsapp' => 'wa_kontak',
-            'header_cta_text' => null,
-            'header_cta_link' => null,
-            'header_cta_button' => null,
+            'site_whatsapp' => 'wa_receiver',
+            'social_facebook' => 'sosmed_fb',
+            'social_twitter' => 'sosmed_twiter',
+            'social_instagram' => 'sosmed_instagram',
+            'social_youtube' => 'sosmed_youtube',
+            'social_whatsapp' => 'wa_receiver',
         ];
 
         $column = $mapping[$key] ?? $key;

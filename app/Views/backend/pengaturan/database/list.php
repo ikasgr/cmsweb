@@ -65,9 +65,9 @@
                 style="max-height: 100%; margin-bottom: 15px;">
 
             <div class="alert alert-primary alert-dismissible fade show mb-0" role="alert" style="border-radius: 6px;">
-                <strong>Selamat!</strong> Anda sudah menggunakan <b>CMS DATAGOE</b> versi terbaru.
+                <strong>Selamat!</strong> Anda sudah menggunakan <b>CMS IKASMEDIA</b> versi terbaru.
                 <small>
-                    <span class="d-block mt-1">Belum menjadi <b>member Pro</b>? <a href="https://datagoe.com/paketmember"
+                    <span class="d-block mt-1">Belum menjadi <b>member Pro</b>? <a href="https://ikasmedia.com/paketmember"
                             class="alert-link">Aktifkan sekarang</a> sebagai bentuk dukungan untuk pengembangan CMS ini.</span>
                 </small>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -84,7 +84,7 @@
         <div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
             </button>
-            Maaf, tidak dapat terhubung ke Server <a href="https://datagoe.com" class="alert-link">DATAGOE</a>.
+            Maaf, tidak dapat terhubung ke Server <a href="https://ikasmedia.com" class="alert-link">IKASMEDIA</a>.
         </div>
     </center>
 <?php } ?>

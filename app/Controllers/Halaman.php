@@ -11,7 +11,7 @@ class Halaman extends BaseController
             return redirect()->to('/');
         $konfigurasi = $this->konfigurasi->vkonfig();
         $berita = $this->berita->detail_halaman($slug_berita);
-        
+
         $kategori = $this->kategori->list();
         if ($berita) {
 
@@ -42,20 +42,9 @@ class Halaman extends BaseController
                 'pengumuman' => $this->pengumuman->listpengumumanpage()->paginate(10),
                 'linkterkaitall' => $this->linkterkait->publishlinkall(),
                 'iklankanan1' => $this->banner->listiklankanan1(),
-                
-
             ];
 
-            if (0) {
-                $agent = $this->request->getUserAgent();
-                if ($agent->isMobile()) {
-                    return view('frontend/desktop/' . 'content/detailhalaman', $data);
-                } else {
-                    return view('frontend/desktop/' . 'content/detailhalaman', $data);
-                }
-            } else {
-                return view('frontend/desktop/' . 'content/detailhalaman', $data);
-            }
+            return view('frontend/halaman/detail', $data);
         } else {
             return redirect()->to('/');
         }
@@ -68,7 +57,7 @@ class Halaman extends BaseController
 
         $konfigurasi = $this->konfigurasi->vkonfig();
         $berita = $this->berita->detail_halaman($request);
-        
+
         $kategori = $this->kategori->list();
 
         // Update hits
@@ -99,19 +88,9 @@ class Halaman extends BaseController
             'pengumuman' => $this->pengumuman->listpengumumanpage()->paginate(10),
             'linkterkaitall' => $this->linkterkait->publishlinkall(),
             'iklankanan1' => $this->banner->listiklankanan1(),
-            
-
         ];
-        if (0) {
-            $agent = $this->request->getUserAgent();
-            if ($agent->isMobile()) {
-                return view('frontend/desktop/' . 'content/detailhalaman', $data);
-            } else {
-                return view('frontend/desktop/' . 'content/detailhalaman', $data);
-            }
-        } else {
-            return view('frontend/desktop/' . 'content/detailhalaman', $data);
-        }
+
+        return view('frontend/halaman/detail', $data);
     }
 
     public function index()
@@ -119,12 +98,12 @@ class Halaman extends BaseController
         if (!session()->get('id')) {
             return redirect()->to('');
         }
-        
+
         $data = [
             'title' => 'Halaman',
             'subtitle' => 'Statis',
 
-            'csrf_tokencmsdatagoe' => csrf_hash(),
+            'csrf_tokencmsikasmedia' => csrf_hash(),
         ];
         return view('backend/setkonten/halaman/index', $data);
     }
@@ -141,7 +120,7 @@ class Halaman extends BaseController
             // Ambil grup dan akses pengguna
             $id_grup = session()->get('id_grup');
             $urlget = 'halaman';
-            
+
 
             // Ambil data akses grup
             $listgrupf = $this->grupakses->viewgrupakses($id_grup, $urlget);
@@ -167,7 +146,7 @@ class Halaman extends BaseController
             // Siapkan data untuk tampilan
             $data = [
                 'title' => 'Halaman',
-                'list' => 'cmsdatagoe',
+                'list' => 'cmsikasmedia',
                 'akses' => $akses,
                 'hapus' => $hapus,
                 'ubah' => $ubah,
@@ -177,7 +156,7 @@ class Halaman extends BaseController
             // Kembalikan data dan token CSRF
             echo json_encode([
                 'data' => view('backend/setkonten/halaman/list', $data),
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ]);
         }
     }
@@ -313,7 +292,7 @@ class Halaman extends BaseController
                 ];
                 $this->berita->update($id, $updatedata);
                 $msg = [
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                     'sukses' => 'Berhasil nonaktifkan halaman!',
                 ];
             } else {
@@ -324,7 +303,7 @@ class Halaman extends BaseController
                 ];
                 $this->berita->update($id, $updatedata);
                 $msg = [
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                     'sukses' => 'Berhasil mengaktifkan halaman!',
                 ];
             }
@@ -340,7 +319,7 @@ class Halaman extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            
+
             $data = [
                 'title' => 'Tambah Halaman',
 
@@ -398,7 +377,7 @@ class Halaman extends BaseController
                         'isi' => $validation->getError('isi'),
                         'gambar' => $validation->getError('gambar'),
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
                 echo json_encode($msg);
             } else {
@@ -451,7 +430,7 @@ class Halaman extends BaseController
 
                     $msg = [
                         'sukses' => 'Halaman berhasil disimpan!',
-                        'csrf_tokencmsdatagoe' => csrf_hash(),
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                 } else {
 
@@ -491,7 +470,7 @@ class Halaman extends BaseController
                         ->save('public/img/informasi/profil/' . $nama_file, 65);
                     $msg = [
                         'sukses' => 'Halaman berhasil disimpan!',
-                        'csrf_tokencmsdatagoe' => csrf_hash(),
+                        'csrf_tokencmsikasmedia' => csrf_hash(),
                     ];
                 }
                 echo json_encode($msg);
@@ -525,7 +504,7 @@ class Halaman extends BaseController
             $this->berita->delete($id);
             $msg = [
                 'sukses' => 'Data Berhasil Dihapus',
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -556,7 +535,7 @@ class Halaman extends BaseController
 
             $msg = [
                 'sukses' => 'Data PDF yang disematkan sukses Dihapus',
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -591,7 +570,7 @@ class Halaman extends BaseController
 
             $msg = [
                 'sukses' => "$jmldata Data berita berhasil dihapus",
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -606,7 +585,7 @@ class Halaman extends BaseController
 
             $berita_id = $this->request->getVar('berita_id');
             $list = $this->berita->find($berita_id);
-            
+
             $data = [
                 'title' => 'Edit Halaman',
                 'berita_id' => $list['berita_id'],
@@ -619,7 +598,7 @@ class Halaman extends BaseController
             ];
             $msg = [
                 'sukses' => view('backend/setkonten/halaman/edit', $data),
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -659,7 +638,7 @@ class Halaman extends BaseController
                         'judul_berita' => $validation->getError('judul_berita'),
                         'isi' => $validation->getError('isi')
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
@@ -675,7 +654,7 @@ class Halaman extends BaseController
 
                 $msg = [
                     'sukses' => 'Data berhasil diubah!',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -691,7 +670,7 @@ class Halaman extends BaseController
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('berita_id');
             $list = $this->berita->find($id);
-            
+
             $data = [
                 'title' => 'Upload File PDF',
                 'id' => $list['berita_id'],
@@ -700,7 +679,7 @@ class Halaman extends BaseController
             ];
             $msg = [
                 'sukses' => view('backend/setkonten/halaman/gantipdf', $data),
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -740,7 +719,7 @@ class Halaman extends BaseController
                     'error' => [
                         'filepdf' => $validation->getError('filepdf')
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
@@ -767,7 +746,7 @@ class Halaman extends BaseController
 
                 $msg = [
                     'sukses' => 'File PDF berhasil diupdate!',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -782,16 +761,16 @@ class Halaman extends BaseController
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('berita_id');
             $list = $this->berita->find($id);
-            
+
             $data = [
                 'title' => 'Ganti Cover',
                 'id' => $list['berita_id'],
                 'gambar' => $list['gambar'],
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
 
             ];
             $msg = [
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
                 'sukses' => view('backend/setkonten/halaman/gantifoto', $data),
             ];
             echo json_encode($msg);
@@ -826,7 +805,7 @@ class Halaman extends BaseController
                     'error' => [
                         'gambar' => $validation->getError('gambar')
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
@@ -858,10 +837,15 @@ class Halaman extends BaseController
 
                 $msg = [
                     'sukses' => 'Cover berhasil diganti!',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
         }
     }
 }
+
+
+
+
+

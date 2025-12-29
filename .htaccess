@@ -10,7 +10,7 @@ Options All -Indexes
     Header always set X-XSS-Protection "1; mode=block"
     Header always set Expect-CT "max-age=7776000, enforce"
     Header always set Referrer-Policy: "no-referrer-when-downgrade"
-    # Header always set Permissions-Policy: geolocation=(self "https://datagoe.com"), microphone=()
+    # Header always set Permissions-Policy: geolocation=(self "https://ikasmedia.com"), microphone=()
    
 	# End Header
 

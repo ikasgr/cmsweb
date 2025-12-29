@@ -522,3 +522,8 @@ class MajelisGereja extends BaseController
         return view('frontend/' . esc($template['folder']) . '/desktop/content/v_majelis_detail', $data);
     }
 }
+
+
+
+
+

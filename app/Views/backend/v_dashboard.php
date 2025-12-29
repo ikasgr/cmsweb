@@ -187,13 +187,8 @@ $list = $db->table('users')->where('id', $userid)->get()->getRowArray();
                                     <li class="activity-list activity-border">
 
                                         <div class="activity-icon avatar-sm">
-                                            <?php if (esc($data['gambar']) == 'default.png') { ?>
-                                                <img src="<?= base_url('public/img/informasi/agenda/agenda128.png') ?>"
+                                                <img src="<?= image_url('informasi/agenda/' . esc($data['gambar']), 'public/img/', 'public/img/informasi/agenda/agenda128.png') ?>"
                                                     class="avatar-sm rounded-circle" alt="">
-                                            <?php } else { ?>
-                                                <img src="<?= base_url('public/img/informasi/agenda/' . esc($data['gambar'])) ?>"
-                                                    class="avatar-sm rounded-circle" alt="">
-                                            <?php } ?>
                                         </div>
                                         <div>
                                             <div>
@@ -400,11 +395,11 @@ $list = $db->table('users')->where('id', $userid)->get()->getRowArray();
                         </div>
                     <?php } else { ?>
                         <div class="border-top text-center mt-3">
-                            <!-- <img class="" src="<?= base_url('public/template/backend/assets/images/coming-soon.png') ?>" alt="datagoe" width="20%" height="100%"> -->
+                            <!-- <img class="" src="<?= base_url('public/template/backend/assets/images/coming-soon.png') ?>" alt="ikasmedia" width="20%" height="100%"> -->
                             <div class="alert alert-info alert-dismissible fade show mb-0" role="alert">
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                Dapatkan produk berkualitas DATAGOE SOFTWARE lainnya, <a target="_blank"
-                                    href="https://datagoe.com/">disini</a>..!
+                                Dapatkan produk berkualitas IKASMEDIA SOFTWARE lainnya, <a target="_blank"
+                                    href="https://ikasmedia.com/">disini</a>..!
                             </div>
                         </div>
                     <?php } ?>
@@ -543,7 +538,6 @@ $list = $db->table('users')->where('id', $userid)->get()->getRowArray();
                 }).then(function () {
                     // window.location = '';
                 })
-                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
             }
         });
     }
@@ -573,7 +567,6 @@ $list = $db->table('users')->where('id', $userid)->get()->getRowArray();
                     // showConfirmButton: false,
                     // timer: 3100
                 });
-                $('input[name=csrf_tokencmsikasmedia]').val(response.csrf_tokencmsikasmedia);
             }
         });
     }

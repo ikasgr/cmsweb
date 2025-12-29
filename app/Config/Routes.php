@@ -329,7 +329,11 @@ $routes->group('', ['namespace' => 'App\Controllers'], function ($routes) {
     $routes->post('pengumuman/hapusall', 'Pengumuman::hapusall');
     $routes->post('pengumuman/douploadPengumuman', 'Pengumuman::douploadPengumuman');
     $routes->post('pengumuman/updatepengumuman', 'Pengumuman::updatepengumuman');
+    $routes->get('pengumuman/(:segment)', 'Pengumuman::bacapengumuman/$1');
 
+    // contact
+    $routes->get('contact', 'Contact::index');
+    $routes->post('contact/send', 'Contact::send');
 
     //    kategori foto
     $routes->get('foto', 'Foto::index');
@@ -386,29 +390,6 @@ $routes->group('', ['namespace' => 'App\Controllers'], function ($routes) {
     $routes->post('penawaran/douploadlogo', 'Penawaran::douploadlogo');
     $routes->post('penawaran/submit', 'Penawaran::submit');
 
-    // template
-    $routes->get('template', 'Template::index');
-    $routes->get('template/getdata', 'Template::getdata');
-    $routes->post('template/toggle', 'Template::toggle');
-
-    $routes->get('template/front', 'Template::front');
-    $routes->get('template/formtambah', 'Template::formtambah');
-    $routes->get('template/getdatafront', 'Template::getdatafront');
-    $routes->post('template/simpantemplate', 'Template::simpantemplate');
-    $routes->post('template/updatetemplate', 'Template::updatetemplate');
-    $routes->post('template/formedit', 'Template::formedit');
-    $routes->post('template/hapus', 'Template::hapus');
-    $routes->get('template/back', 'Template::back');
-    $routes->get('template/formtambahback', 'Template::formtambahback');
-    $routes->post('template/simpantemplateback', 'Template::simpantemplateback');
-    $routes->get('template/getdataback', 'Template::getdataback');
-    $routes->post('template/formeditback', 'Template::formeditback');
-    $routes->post('template/updatetemplateback', 'Template::updatetemplateback');
-    $routes->post('template/hapusback', 'Template::hapusback');
-    $routes->post('template/toggleback', 'Template::toggleback');
-    $routes->post('template/duplikasitema', 'Template::duplikasitema');
-    $routes->post('template/formuploadvideo', 'Template::formuploadvideo');
-    $routes->post('template/douploadvideo', 'Template::douploadvideo');
 
     // kritik
     $routes->get('kritiksaran/list', 'Kritiksaran::list');
@@ -516,9 +497,12 @@ $routes->group('', ['namespace' => 'App\Controllers'], function ($routes) {
     $routes->post('cari/video', 'Cari::video');
 
     $routes->get('artikel', 'Berita::index', ['as' => 'artikel']);
+    $routes->get('news', 'Berita::index');
     $routes->get('category/(:segment)', 'Berita::kategori/$1');
+    $routes->get('news/category/(:segment)', 'Berita::kategori/$1');
 
     $routes->get('detail/(:segment)', 'Berita::detail/$1');
+    $routes->get('news/(:segment)', 'Berita::detail/$1');
     $routes->get('tag/(:segment)/(:segment)', 'Berita::tag/$1/$2');
     // $routes->get('tagar/(:segment)', 'Berita::tag/$1/$2');
     $routes->get('tagar/(:segment)', 'Berita::tag/$1');
@@ -659,18 +643,6 @@ $routes->group('', ['namespace' => 'App\Controllers'], function ($routes) {
     $routes->post('section/hapus', 'Section::hapus');
     $routes->post('section/hapusall', 'Section::hapusall');
 
-    // section script
-    $routes->get('section-script', 'Sectionscript::index');
-    $routes->get('list', 'Sectionscript::list');
-    $routes->get('section-script/getdata', 'Sectionscript::getdata');
-    $routes->post('section-script/formedit', 'Sectionscript::formedit');
-    $routes->post('section-script/updatesection', 'Sectionscript::updatesection');
-    $routes->get('section-script/formtambah', 'Sectionscript::formtambah');
-    $routes->post('section-script/simpan', 'Sectionscript::simpan');
-    $routes->post('section-script/hapus', 'Sectionscript::hapus');
-    $routes->post('section-script/hapusall', 'Sectionscript::hapusall');
-    $routes->post('section-script/formgantifoto', 'Sectionscript::formgantifoto');
-    $routes->post('section-script/douploadfoto', 'Sectionscript::douploadfoto');
 
     // unit kerja
     $routes->get('unitkerja', 'Unitkerja::index');
@@ -773,6 +745,7 @@ $routes->group('', ['namespace' => 'App\Controllers'], function ($routes) {
     $routes->post('dokumen/updatekategori', 'Dokumen::updatekategori');
     $routes->post('dokumen/hapuskategori', 'Dokumen::hapuskategori');
 
+    $routes->get('pendaftaran', 'Pendaftaran::index');
     // Pendaftaran Sidi
     $routes->get('pendaftaran-sidi', 'PendaftaranSidi::index');
     $routes->post('pendaftaran-sidi/simpanpendaftaran', 'PendaftaranSidi::simpanpendaftaran');
@@ -800,6 +773,10 @@ $routes->group('', ['namespace' => 'App\Controllers'], function ($routes) {
     $routes->post('pendaftaran-sidi/getcatatan', 'PendaftaranSidi::getcatatan');
     $routes->post('pendaftaran-sidi/approve', 'PendaftaranSidi::approve');
     $routes->post('pendaftaran-sidi/reject', 'PendaftaranSidi::reject');
+
+    // Pendataan Jemaat
+    $routes->get('pendataan-jemaat', 'PendataanJemaat::index');
+    $routes->post('pendataan-jemaat/simpan', 'PendataanJemaat::simpan');
 
     // Pendaftaran Baptis
     $routes->get('pendaftaran-baptis', 'PendaftaranBaptis::index');
@@ -884,6 +861,19 @@ $routes->group('', ['namespace' => 'App\Controllers'], function ($routes) {
     $routes->get('toko/invoice/(:segment)', 'Toko::invoice/$1');
     $routes->get('toko/cartcount', 'Toko::cartcount');
     $routes->get('toko/(:segment)', 'Toko::detail/$1');
+
+    // UMKM - Frontend (alias untuk Toko)
+    $routes->get('umkm', 'Toko::index');
+    $routes->get('umkm/kategori/(:segment)', 'Toko::kategori/$1');
+    $routes->get('umkm/produk/(:segment)', 'Toko::detail/$1');
+
+    // Cart - Alias routes untuk shopping cart
+    $routes->post('cart/add', 'Toko::addtocart');
+    $routes->post('cart/update', 'Toko::updatecart');
+    $routes->post('cart/remove', 'Toko::removecart');
+    $routes->post('cart/clear', 'Toko::clearcart');
+    $routes->get('cart', 'Toko::keranjang');
+    $routes->get('cart/count', 'Toko::cartcount');
 
     // Jadwal Pelayanan - Backend
     $routes->get('jadwal-pelayanan/list', 'JadwalPelayanan::list');

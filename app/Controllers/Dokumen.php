@@ -7,12 +7,12 @@ class Dokumen extends BaseController
 
     public function index()
     {
-         if (!session()->get('id')) {
+        if (!session()->get('id')) {
             return redirect()->to('');
         }
         $data = [
-            'title'        => 'Dokumen',
-            'subtitle'     => 'Data',
+            'title' => 'Dokumen',
+            'subtitle' => 'Data',
         ];
 
         return view('admin/cmscust/dokumen/index', $data);
@@ -24,9 +24,9 @@ class Dokumen extends BaseController
         if ($this->request->isAJAX()) {
             $id_grup = session()->get('id_grup');
             $urlget = 'dokumen';
-            $listgrupf =  $this->grupakses->listgrupakses($id_grup, $urlget);
+            $listgrupf = $this->grupakses->listgrupakses($id_grup, $urlget);
 
-            foreach ($listgrupf as $data) :
+            foreach ($listgrupf as $data):
                 $akses = $data['akses'];
             endforeach;
 
@@ -35,9 +35,9 @@ class Dokumen extends BaseController
                 # cek akses
                 if ($akses == '1' || $akses == '2') {
                     $data = [
-                        'title'     => 'Berita',
-                        'list'      => 'cmsdatagoe',
-                        'urlget'    => $urlget,
+                        'title' => 'Berita',
+                        'list' => 'cmsikasmedia',
+                        'urlget' => $urlget,
                     ];
 
                     $msg = [
@@ -71,11 +71,11 @@ class Dokumen extends BaseController
         // $level = session()->get('level');
         $id = session()->get('id');
 
-        $id_grup    = session()->get('id_grup');
-        $urlget     = 'dokumen';
-        $listgrupf  =  $this->grupakses->listgrupakses($id_grup, $urlget);
+        $id_grup = session()->get('id_grup');
+        $urlget = 'dokumen';
+        $listgrupf = $this->grupakses->listgrupakses($id_grup, $urlget);
 
-        foreach ($listgrupf as $data) :
+        foreach ($listgrupf as $data):
             $akses = $data['akses'];
         endforeach;
 
@@ -113,7 +113,7 @@ class Dokumen extends BaseController
             $tedit = '<button type="button" class="btn btn-info btn-sm p-1" onclick="edit(' . $list->id_dokumenupl . ')"><i class="fa fa-edit text-light"></i></button>';
             $thapus = '<button type="button" class="btn btn-danger btn-sm p-1" onclick="hapus(' . $list->id_dokumenupl . ')"><i class="far fa-trash-alt text-light"></i></button>';
 
-            $row   = [];
+            $row = [];
             $row[] = "<input type=\"checkbox\" name=\"id_dokumenupl[]\" class=\"centang_id\" value=\"$list->id_dokumenupl\">";
             // $row[] = $no;
             $row[] = $namadok;
@@ -133,9 +133,9 @@ class Dokumen extends BaseController
         }
 
         $output = array(
-            "draw"              => $request->getPost("draw"),
-            "recordsTotal"      => count($total_count),
-            "recordsFiltered"   => count($total_count),
+            "draw" => $request->getPost("draw"),
+            "recordsTotal" => count($total_count),
+            "recordsFiltered" => count($total_count),
 
             "data" => $data,
         );
@@ -198,9 +198,9 @@ class Dokumen extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'nama_dok'     => $validation->getError('nama_dok'),
-                        'id_katdok'     => $validation->getError('id_katdok'),
-                        'file_dok'     => $validation->getError('file_dok'),
+                        'nama_dok' => $validation->getError('nama_dok'),
+                        'id_katdok' => $validation->getError('id_katdok'),
+                        'file_dok' => $validation->getError('file_dok'),
                     ]
                 ];
                 echo json_encode($msg);
@@ -212,12 +212,12 @@ class Dokumen extends BaseController
 
                 $insertdata = [
 
-                    'nama_dok'      => $this->request->getVar('nama_dok'),
-                    'id_katdok'     => $this->request->getVar('id_katdok'),
-                    'ket'           => $this->request->getVar('ket'),
-                    'file_dok'      => $nama_file,
-                    'tgl_upload'    => date('Y-m-d'),
-                    'id'            => $userid,
+                    'nama_dok' => $this->request->getVar('nama_dok'),
+                    'id_katdok' => $this->request->getVar('id_katdok'),
+                    'ket' => $this->request->getVar('ket'),
+                    'file_dok' => $nama_file,
+                    'tgl_upload' => date('Y-m-d'),
+                    'id' => $userid,
 
                 ];
 
@@ -281,15 +281,15 @@ class Dokumen extends BaseController
         if ($this->request->isAJAX()) {
 
             $id_dokumenupl = $this->request->getVar('id_dokumenupl');
-            $list =  $this->dokumen->find($id_dokumenupl);
+            $list = $this->dokumen->find($id_dokumenupl);
 
             $data = [
-                'title'          => 'Edit Data',
-                'id_dokumenupl'  => $list['id_dokumenupl'],
-                'nama_dok'       => $list['nama_dok'],
-                'id_katdok'      => $list['id_katdok'],
-                'ket'            => $list['ket'],
-                'kat'            => $this->dokumenkat->list()
+                'title' => 'Edit Data',
+                'id_dokumenupl' => $list['id_dokumenupl'],
+                'nama_dok' => $list['nama_dok'],
+                'id_katdok' => $list['id_katdok'],
+                'ket' => $list['ket'],
+                'kat' => $this->dokumenkat->list()
 
             ];
             $msg = [
@@ -319,16 +319,16 @@ class Dokumen extends BaseController
             if (!$valid) {
                 $msg = [
                     'error' => [
-                        'nama_dok'           => $validation->getError('nama_dok'),
+                        'nama_dok' => $validation->getError('nama_dok'),
                     ]
                 ];
             } else {
 
                 $updatedata = [
 
-                    'nama_dok'      => $this->request->getVar('nama_dok'),
-                    'id_katdok'     => $this->request->getVar('id_katdok'),
-                    'ket'           => $this->request->getVar('ket'),
+                    'nama_dok' => $this->request->getVar('nama_dok'),
+                    'id_katdok' => $this->request->getVar('id_katdok'),
+                    'ket' => $this->request->getVar('ket'),
 
                 ];
 
@@ -346,11 +346,11 @@ class Dokumen extends BaseController
     {
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('id_dokumenupl');
-            $list =  $this->dokumen->find($id);
+            $list = $this->dokumen->find($id);
             $data = [
-                'title'       => 'Upload File',
-                'id'          => $list['id_dokumenupl'],
-                'file_dok'   => $list['file_dok']
+                'title' => 'Upload File',
+                'id' => $list['id_dokumenupl'],
+                'file_dok' => $list['file_dok']
 
             ];
             $msg = [
@@ -420,12 +420,12 @@ class Dokumen extends BaseController
 
     public function kategori()
     {
-         if (!session()->get('id')) {
+        if (!session()->get('id')) {
             return redirect()->to('');
         }
         $data = [
-            'title'       => 'Kelola Data',
-            'subtitle'    => 'Kategori',
+            'title' => 'Kelola Data',
+            'subtitle' => 'Kategori',
         ];
         return view('admin/cmscust/dokumen/kategori/index', $data);
     }
@@ -435,9 +435,9 @@ class Dokumen extends BaseController
         if ($this->request->isAJAX()) {
             $id_grup = session()->get('id_grup');
             $url = 'dokumen/kategori';
-            $listgrupf =  $this->grupakses->listgrupakses($id_grup, $url);
+            $listgrupf = $this->grupakses->listgrupakses($id_grup, $url);
 
-            foreach ($listgrupf as $data) :
+            foreach ($listgrupf as $data):
                 $akses = $data['akses'];
             endforeach;
             // jika temukan maka eksekusi
@@ -445,9 +445,9 @@ class Dokumen extends BaseController
                 # cek akses
                 if ($akses == '1') {
                     $data = [
-                        'title'     => 'Kategori Dokumen',
-                        'list'      => $this->dokumenkat->list(),
-                        'akses'     => '1'
+                        'title' => 'Kategori Dokumen',
+                        'list' => $this->dokumenkat->list(),
+                        'akses' => '1'
                     ];
                     $msg = [
                         'data' => view('admin/cmscust/dokumen/kategori/list', $data)
@@ -455,9 +455,9 @@ class Dokumen extends BaseController
                 } elseif ($akses == '2') {
 
                     $data = [
-                        'title'     => 'Kategori Dokumen',
-                        'list'      => $this->dokumenkat->list(),
-                        'akses'     => '2'
+                        'title' => 'Kategori Dokumen',
+                        'list' => $this->dokumenkat->list(),
+                        'akses' => '2'
                     ];
                     $msg = [
                         'data' => view('admin/cmscust/dokumen/kategori/list', $data)
@@ -530,11 +530,11 @@ class Dokumen extends BaseController
     {
         if ($this->request->isAJAX()) {
             $id_katdok = $this->request->getVar('id_katdok');
-            $list =  $this->dokumenkat->find($id_katdok);
+            $list = $this->dokumenkat->find($id_katdok);
             $data = [
-                'title'         => 'Edit Kategori',
-                'id_katdok'     => $list['id_katdok'],
-                'nama_katdok'   => $list['nama_katdok'],
+                'title' => 'Edit Kategori',
+                'id_katdok' => $list['id_katdok'],
+                'nama_katdok' => $list['nama_katdok'],
             ];
             $msg = [
                 'sukses' => view('admin/cmscust/dokumen/kategori/edit', $data)
@@ -592,3 +592,8 @@ class Dokumen extends BaseController
         }
     }
 }
+
+
+
+
+

@@ -11,7 +11,7 @@ class Tanyajawab extends BaseController
         $agenda = $this->agenda->listagendapage();
         $surveytopik = $this->surveytopik->listsurveytopikpg();
         $pengumuman = $this->pengumuman->listpengumumanpage();
-        
+
         $data = [
             'title' => 'Tanya Jawab | ' . esc($konfigurasi->nama),
             'deskripsi' => esc($konfigurasi->deskripsi),
@@ -35,19 +35,11 @@ class Tanyajawab extends BaseController
             'section' => $this->section->list(),
             'faq' => $this->faqtanya->listpublish(),
 
-            
+
 
         ];
-        if (0) {
-            $agent = $this->request->getUserAgent();
-            if ($agent->isMobile()) {
-                return view('frontend/' . esc($template['folder']) . '/mobile/' . 'content/tanyajawab', $data);
-            } else {
-                return view('frontend/' . esc($template['folder']) . '/desktop/' . 'content/tanyajawab', $data);
-            }
-        } else {
-            return view('frontend/' . esc($template['folder']) . '/desktop/' . 'content/tanyajawab', $data);
-        }
+
+        return view('frontend/tanyajawab/index', $data);
     }
 
 
@@ -58,7 +50,7 @@ class Tanyajawab extends BaseController
         $agenda = $this->agenda->listagendapage();
         $surveytopik = $this->surveytopik->listsurveytopikpg();
         $pengumuman = $this->pengumuman->listpengumumanpage();
-        
+
         $data = [
             'title' => 'Bantuan | ' . $konfigurasi->nama,
             'deskripsi' => $konfigurasi->deskripsi,
@@ -80,10 +72,11 @@ class Tanyajawab extends BaseController
             'topmenu' => $this->menu->topmenu(),
             'section' => $this->section->list(),
             'faq' => $this->faqtanya->listpublish(),
-            
+
 
         ];
-        return view('' . esc($template['folder']) . '/' . 'content/detailtiket', $data);
+
+        return view('frontend/tanyajawab/detail', $data);
     }
 
     public function list()
@@ -91,7 +84,7 @@ class Tanyajawab extends BaseController
         if (!session()->get('id')) {
             return redirect()->to('');
         }
-        
+
         $konfigurasi = $this->konfigurasi->orderBy('id_setaplikasi')->first();
 
         $data = [
@@ -154,7 +147,7 @@ class Tanyajawab extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            
+
             $data = [
                 'title' => 'Tambah Pertanyaan',
                 'kategori' => $this->masterdata->listmaster(1),
@@ -200,7 +193,7 @@ class Tanyajawab extends BaseController
                         'kat_faq' => $validation->getError('kat_faq'),
 
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
                 echo json_encode($msg);
             } else {
@@ -215,7 +208,7 @@ class Tanyajawab extends BaseController
                 $this->faqtanya->insert($insertdata);
                 $msg = [
                     'sukses' => 'Data berhasil disimpan!',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
                 echo json_encode($msg);
             }
@@ -234,7 +227,7 @@ class Tanyajawab extends BaseController
             $this->faqtanya->delete($id);
             $msg = [
                 'sukses' => 'Data Berhasil Dihapus',
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -257,7 +250,7 @@ class Tanyajawab extends BaseController
 
             $msg = [
                 'sukses' => "$jmldata Data berhasil dihapus",
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -272,7 +265,7 @@ class Tanyajawab extends BaseController
 
             $faq_tanyaid = $this->request->getVar('faq_tanyaid');
             $list = $this->faqtanya->find($faq_tanyaid);
-            
+
             $data = [
                 'title' => 'Edit Pertanyaan',
                 'faq_tanyaid' => $list['faq_tanyaid'],
@@ -282,7 +275,7 @@ class Tanyajawab extends BaseController
             ];
             $msg = [
                 'sukses' => view('backend/setkonten/faqtanya/edit', $data),
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -315,7 +308,7 @@ class Tanyajawab extends BaseController
                         'faqtanya' => $validation->getError('faqtanya'),
 
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
@@ -326,7 +319,7 @@ class Tanyajawab extends BaseController
                 $this->faqtanya->update($faq_tanyaid, $updatedata);
                 $msg = [
                     'sukses' => 'Data berhasil diubah!',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -344,7 +337,7 @@ class Tanyajawab extends BaseController
             return redirect()->to(base_url('tanyajawab'));
         }
         $list = $this->faqjawab->listjawaban($faq_tanyaid);
-        
+
         $data = [
             'title' => 'Tanya Jawab',
             'subtitle' => 'Jawaban',
@@ -412,7 +405,7 @@ class Tanyajawab extends BaseController
         ];
 
         // Ambil template admin aktif
-        
+
 
         // Kirimkan data ke tampilan dan respons JSON
         echo json_encode([
@@ -426,7 +419,7 @@ class Tanyajawab extends BaseController
             return redirect()->to('');
         }
         if ($this->request->isAJAX()) {
-            
+
             $data = [
                 'title' => 'Tambah Jawaban',
                 'faq_tanyaid' => $this->request->getVar('faq_tanyaid'),
@@ -463,7 +456,7 @@ class Tanyajawab extends BaseController
                         'faq_jawaban' => $validation->getError('faq_jawaban'),
 
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
@@ -476,7 +469,7 @@ class Tanyajawab extends BaseController
                 $this->faqjawab->insert($insertdata);
                 $msg = [
                     'sukses' => 'Data berhasil disimpan!',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -492,7 +485,7 @@ class Tanyajawab extends BaseController
 
             $faq_jawabid = $this->request->getVar('faq_jawabid');
             $list = $this->faqjawab->find($faq_jawabid);
-            
+
             $data = [
                 'title' => 'Edit Data',
                 'faq_jawabid' => $faq_jawabid,
@@ -502,7 +495,7 @@ class Tanyajawab extends BaseController
             ];
             $msg = [
                 'sukses' => view('backend/setkonten/faqtanya/faqjawab/edit', $data),
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
@@ -533,7 +526,7 @@ class Tanyajawab extends BaseController
                     'error' => [
                         'faq_jawaban' => $validation->getError('faq_jawaban'),
                     ],
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             } else {
 
@@ -545,7 +538,7 @@ class Tanyajawab extends BaseController
                 $this->faqjawab->update($faq_jawabid, $updatedata);
                 $msg = [
                     'sukses' => 'Data berhasil diubah!',
-                    'csrf_tokencmsdatagoe' => csrf_hash(),
+                    'csrf_tokencmsikasmedia' => csrf_hash(),
                 ];
             }
             echo json_encode($msg);
@@ -563,7 +556,7 @@ class Tanyajawab extends BaseController
             $this->faqjawab->delete($id);
             $msg = [
                 'sukses' => 'Data Berhasil Dihapus',
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
 
             echo json_encode($msg);
@@ -584,9 +577,14 @@ class Tanyajawab extends BaseController
             }
             $msg = [
                 'sukses' => "$jmldata Data berhasil dihapus",
-                'csrf_tokencmsdatagoe' => csrf_hash(),
+                'csrf_tokencmsikasmedia' => csrf_hash(),
             ];
             echo json_encode($msg);
         }
     }
 }
+
+
+
+
+

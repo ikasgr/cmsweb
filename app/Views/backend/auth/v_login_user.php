@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
 
     <title>Login</title>
-    <meta content="CMS Datagoe" name="Vian Taum" />
+    <meta content="CMS Ikasmedia" name="Ikasmedia" />
     <link rel="shortcut icon" href="<?= base_url('/public/img/konfigurasi/icon/' . esc($konfigurasi->icon)) ?>">
     <?php if (esc($sitekey) != '') { ?>
         <script src='https://www.google.com/recaptcha/api.js'></script>

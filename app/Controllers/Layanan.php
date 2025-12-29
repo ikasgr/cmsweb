@@ -9,7 +9,6 @@ class Layanan extends BaseController
         $konfigurasi = $this->konfigurasi->vkonfig();
         $layanan = $this->layanan->listlayananpage();
 
-
         $data = [
             'title' => 'Layanan | ' . esc($konfigurasi->nama),
             'deskripsi' => esc($konfigurasi->deskripsi),
@@ -33,19 +32,9 @@ class Layanan extends BaseController
             'linkterkaitall' => $this->linkterkait->publishlinkall(),
             'grafisrandom' => $this->banner->grafisrandom(),
             'terkini3' => $this->berita->terkini3(),
-            'folder' => $template['folder'],
-
         ];
-        if ($template['duatema'] == 1) {
-            $agent = $this->request->getUserAgent();
-            if ($agent->isMobile()) {
-                return view('frontend/' . $template['folder'] . '/mobile/' . 'content/semua_layanan', $data);
-            } else {
-                return view('frontend/' . $template['folder'] . '/desktop/' . 'content/semua_layanan', $data);
-            }
-        } else {
-            return view('frontend/' . $template['folder'] . '/desktop/' . 'content/semua_layanan', $data);
-        }
+
+        return view('frontend/layanan/index', $data);
     }
 
     //list semua layanan
@@ -641,7 +630,6 @@ class Layanan extends BaseController
             'gambar' => $list['gambar'],
             'fileunduh' => $list['fileunduh'],
             'webutama' => $konfigurasi->website,
-            'folder' => esc($template['folder']),
         ];
 
         $msg = [
@@ -667,7 +655,7 @@ class Layanan extends BaseController
             return $this->response->setJSON(['error' => 'Data tidak ditemukan']);
         }
 
-
+        $konfigurasi = $this->konfigurasi->vkonfig();
 
         // Update hits
         $this->layanan->update($informasi_id, ['hits' => $list['hits'] + 1]);
@@ -681,8 +669,6 @@ class Layanan extends BaseController
             'tgl_informasi' => $list['tgl_informasi'],
             'gambar' => esc($list['gambar']),
             'fileunduh' => esc($list['fileunduh']),
-            'folder' => esc($template['folder']),
-
         ];
 
         $msg = [
@@ -1109,3 +1095,8 @@ class Layanan extends BaseController
         }
     }
 }
+
+
+
+
+

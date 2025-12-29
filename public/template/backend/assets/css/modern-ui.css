@@ -1213,3 +1213,30 @@ select.form-control {
         border: 1px solid var(--gray-200) !important;
     }
 }
+/* FIX: Modal Blinking/Flickering Bug */
+.modal.fade .modal-dialog {
+    transition: transform 0.3s ease-out !important;
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+.modal-content {
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+}
+
+.modal .card:hover,
+.modal .btn:hover,
+.modal .btn-primary:hover,
+.modal .btn-success:hover,
+.modal .btn-danger:hover,
+.modal .btn-warning:hover,
+.modal .btn-info:hover,
+.modal .dropdown-item:hover,
+.modal .nav-link:hover {
+    transform: none !important;
+}
+
+.modal .card {
+    animation: none !important;
+}

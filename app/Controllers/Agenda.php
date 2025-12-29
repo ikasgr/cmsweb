@@ -36,19 +36,9 @@ class Agenda extends BaseController
             'kategori' => $this->kategori->list(),
             'grafisrandom' => $this->banner->grafisrandom(),
             'terkini3' => $this->berita->terkini3(),
-            'folder' => $template['folder'],
-
         ];
-        if ($template['duatema'] == 1) {
-            $agent = $this->request->getUserAgent();
-            if ($agent->isMobile()) {
-                return view('frontend/' . $template['folder'] . '/mobile/' . 'content/semua_agenda', $data);
-            } else {
-                return view('frontend/' . $template['folder'] . '/desktop/' . 'content/semua_agenda', $data);
-            }
-        } else {
-            return view('frontend/' . $template['folder'] . '/desktop/' . 'content/semua_agenda', $data);
-        }
+
+        return view('frontend/agenda/index', $data);
     }
 
     //list semua agenda
@@ -220,7 +210,6 @@ class Agenda extends BaseController
                         'pengirim' => $validation->getError('pengirim'),
                         'tgl_mulai' => $validation->getError('tgl_mulai'),
                         'tgl_selesai' => $validation->getError('tgl_selesai'),
-                        'pengirim' => $validation->getError('pengirim'),
                         'jam' => $validation->getError('jam')
                     ],
                     'csrf_tokencmsikasmedia' => csrf_hash(),
@@ -455,7 +444,6 @@ class Agenda extends BaseController
                         'pengirim' => $validation->getError('pengirim'),
                         'tgl_mulai' => $validation->getError('tgl_mulai'),
                         'tgl_selesai' => $validation->getError('tgl_selesai'),
-                        'pengirim' => $validation->getError('pengirim'),
                         'jam' => $validation->getError('jam')
                     ],
                     'csrf_tokencmsikasmedia' => csrf_hash(),
@@ -612,3 +600,8 @@ class Agenda extends BaseController
         }
     }
 }
+
+
+
+
+

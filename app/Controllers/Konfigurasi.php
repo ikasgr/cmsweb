@@ -351,14 +351,18 @@ class Konfigurasi extends BaseController
                 $lebar = 200;  // Default logo width
                 $panjang = 60; // Default logo height
 
-                //check
+                // check if application settings exist
                 $cekdata = $this->konfigurasi->find($id_setaplikasi);
-                $fotolama = $cekdata['logo'];
-                if (
-                    $fotolama != 'p1.png' || $fotolama != 'p2.png' || $fotolama != 'p3.png' || $fotolama != 'bs.png' || $fotolama != 'pnpt.png' || $fotolama != 'p4.png'
-                    && file_exists('public/img/konfigurasi/logo/' . $fotolama)
-                ) {
-                    unlink('public/img/konfigurasi/logo/' . $fotolama);
+                if ($cekdata) {
+                    $fotolama = $cekdata['logo'];
+                    $restricted = ['p1.png', 'p2.png', 'p3.png', 'bs.png', 'pnpt.png', 'p4.png', 'default.png'];
+
+                    if (!empty($fotolama) && !in_array($fotolama, $restricted)) {
+                        $path_lama = 'public/img/konfigurasi/logo/' . $fotolama;
+                        if (file_exists($path_lama) && is_file($path_lama)) {
+                            unlink($path_lama);
+                        }
+                    }
                 }
 
                 $filegambar = $this->request->getFile('logo');
@@ -371,7 +375,7 @@ class Konfigurasi extends BaseController
 
                 \Config\Services::image()
                     ->withFile($filegambar)
-                    ->fit($lebar, $panjang, 'center')
+                    ->resize($lebar, $panjang, true)
                     ->save('public/img/konfigurasi/logo/' . $nama_file);
 
                 $msg = [
@@ -436,11 +440,16 @@ class Konfigurasi extends BaseController
                 ];
             } else {
 
-                //check
+                // check if application settings exist
                 $cekdata = $this->konfigurasi->find($id_setaplikasi);
-                $fotolama = $cekdata['icon'];
-                if ($fotolama != '' && file_exists('public/img/konfigurasi/icon/' . $fotolama)) {
-                    unlink('public/img/konfigurasi/icon/' . $fotolama);
+                if ($cekdata) {
+                    $fotolama = $cekdata['icon'];
+                    if (!empty($fotolama)) {
+                        $path_lama = 'public/img/konfigurasi/icon/' . $fotolama;
+                        if (file_exists($path_lama) && is_file($path_lama)) {
+                            unlink($path_lama);
+                        }
+                    }
                 }
 
                 $filegambar = $this->request->getFile('icon');
@@ -549,3 +558,8 @@ class Konfigurasi extends BaseController
         }
     }
 }
+
+
+
+
+

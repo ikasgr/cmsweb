@@ -2,20 +2,20 @@
 <?= $this->extend('backend/' . 'script'); ?>
 
 <!-- 
- * CMS DATAGOE!
+ * CMS IKASMEDIA!
  *
  * Selamat datang! Terima kasih telah memilih CMS ini sebagai inti dari situs atau aplikasi Anda.. 
  * Demi menjaga integritas dan profesionalisme, mohon untuk tetap menghormati hak cipta dengan 
- * tidak menghapus atau mengubah bagian skrip ini, terutama identitas CMS DATAGOE.
+ * tidak menghapus atau mengubah bagian skrip ini, terutama identitas CMS IKASMEDIA.
  *
  * Mari kita saling menghargai dan menghormati hasil karya dengan penuh profesionalisme.
  *
- * @author			Vian Taum <viantaum17@gmail.com>
+ * @author			Ikasmedia <viantaum17@gmail.com>
  * @phone			0813-5396-7028
- * @website			www.datagoe.com
- * @copyright		(c) 2024 Datagoe Software
+ * @website			www.ikasmedia.com
+ * @copyright		(c) 2024 Ikasmedia Software
  * ----------------------------------------------------------------------------------
- * CMS DATAGOE : Dari Kampung, Menembus Batas, Menghadirkan Inovasi untuk Indonesia!
+ * CMS IKASMEDIA : Dari Kampung, Menembus Batas, Menghadirkan Inovasi untuk Indonesia!
  * ----------------------------------------------------------------------------------
  -->
 
@@ -76,7 +76,7 @@
             <div class="card m-b-20">
                 <div class="card-header font-18 bg-light">
                     <h5 class="modal-title mt-0">
-                        <i class="fas fa-sync-alt"></i> Upgrade CMS DATAGOE
+                        <i class="fas fa-sync-alt"></i> Upgrade CMS IKASMEDIA
                     </h5>
                 </div>
 
@@ -101,8 +101,8 @@
                         <div class="alert alert-success d-flex align-items-start show p-2" role="alert">
                             <i class="mdi mdi-checkbox-marked-circle-outline display-6 text-success me-2"></i>
                             <div>
-                                <div class="fw-bold mt-1">Anda berhasil terhubung ke server Datagoe</div>
-                                <small class="text-muted">Anda sedang menggunakan CMS Datagoe versi <a
+                                <div class="fw-bold mt-1">Anda berhasil terhubung ke server Ikasmedia</div>
+                                <small class="text-muted">Anda sedang menggunakan CMS Ikasmedia versi <a
                                         class="text-danger"><?= esc($vercms) ?></a> dan Database versi <a
                                         class="text-danger"><?= esc($verdb) ?></a>.</small>
                             </div>

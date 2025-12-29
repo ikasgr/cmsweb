@@ -1,20 +1,20 @@
 <?= $this->section('content') ?>
 <?= $this->extend('backend/' . 'script'); ?>
 <!-- 
- * CMS DATAGOE!
+ * CMS IKASMEDIA!
  *
  * Selamat datang! Terima kasih telah memilih CMS ini sebagai inti dari situs atau aplikasi Anda.. 
  * Demi menjaga integritas dan profesionalisme, mohon untuk tetap menghormati hak cipta dengan tidak menghapus 
- * atau mengubah bagian skrip ini, terutama identitas CMS DATAGOE.
+ * atau mengubah bagian skrip ini, terutama identitas CMS IKASMEDIA.
  *
  * Mari kita saling menghargai dan menghormati hasil karya dengan penuh profesionalisme.
  *
- * @author			Vian Taum <viantaum17@gmail.com>
+ * @author			Ikasmedia <viantaum17@gmail.com>
  * @phone			0813-5396-7028
- * @website			www.datagoe.com
- * @copyright		(c) 2024 Datagoe Software
+ * @website			www.ikasmedia.com
+ * @copyright		(c) 2024 Ikasmedia Software
  * ------------------------------------------------------------------------------------
- * CMS DATAGOE : Dari Kampung, Menembus Batas, Menghadirkan Inovasi untuk Indonesia. :)
+ * CMS IKASMEDIA : Dari Kampung, Menembus Batas, Menghadirkan Inovasi untuk Indonesia. :)
  * ------------------------------------------------------------------------------------
  -->
 
@@ -264,7 +264,7 @@
                                         <select name="id_grup" id="id_grup" class="form-select pointer">
                                             <option Disabled=true Selected=true>-- Pilih --</option>
                                             <?php foreach ($listgrup as $key => $value) { ?>
-                                                <option value="<?= $value['id_grup'] ?>" <?= $id_grup == $value['id_grup'] ? 'selected' : '' ?>><?= esc($value['nama_grup']) ?></option>
+                                                    <option value="<?= $value['id_grup'] ?>" <?= $id_grup == $value['id_grup'] ? 'selected' : '' ?>><?= esc($value['nama_grup']) ?></option>
                                             <?php } ?>
                                         </select>
                                         <div class="invalid-feedback errorid_grup"></div>
@@ -318,10 +318,10 @@
                                         <select class="form-select pointer" name="kategori" id="kategori">
                                             <option Disabled=true Selected=true>-- Pilih Kategori --</option>
                                             <?php foreach ($mkategori as $key => $value) { ?>
-                                                <option value="<?= $value['kategori_id'] ?>"
-                                                    <?= $kategori_id == $value['kategori_id'] ? 'selected' : '' ?>>
-                                                    <?= esc($value['nama_kategori']) ?>
-                                                </option>
+                                                    <option value="<?= $value['kategori_id'] ?>"
+                                                        <?= $kategori_id == $value['kategori_id'] ? 'selected' : '' ?>>
+                                                        <?= esc($value['nama_kategori']) ?>
+                                                    </option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -567,7 +567,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="google_secret">Secret Key <small><a
-                                                            href="https://datagoe.com/post/cara-mengaktifkan-recaptca-google-v2-untuk-cms-datagoe"
+                                                            href="https://ikasmedia.com/post/cara-mengaktifkan-recaptca-google-v2-untuk-cms-ikasmedia"
                                                             target="_blank" class="text-primary">(Baca
                                                             petunjuk)</a></small></label>
                                                 <input type="text" id="google_secret" name="google_secret"
@@ -604,25 +604,25 @@
                                             <hr>
 
                                             <?php if (file_exists('public/file/db/' . $fileName)) { ?>
-                                                <button type="button" class="btn btn-success btn-sm px-3 py-1 me-2"
-                                                    onclick="location.href=('<?= base_url('public/file/db/' . $fileName); ?>')">
-                                                    <i class="fas fa-cloud-download-alt"></i> Download Db <?= $fileName ?>
-                                                </button>
-                                                <button type="button" class="btn btn-danger btn-sm px-3 py-1"
-                                                    onclick="hapus('<?= $fileName ?>')">
-                                                    <i class="fas fa-trash-alt"></i> Hapus Db <?= $fileName ?>
-                                                </button>
+                                                    <button type="button" class="btn btn-success btn-sm px-3 py-1 me-2"
+                                                        onclick="location.href=('<?= base_url('public/file/db/' . $fileName); ?>')">
+                                                        <i class="fas fa-cloud-download-alt"></i> Download Db <?= $fileName ?>
+                                                    </button>
+                                                    <button type="button" class="btn btn-danger btn-sm px-3 py-1"
+                                                        onclick="hapus('<?= $fileName ?>')">
+                                                        <i class="fas fa-trash-alt"></i> Hapus Db <?= $fileName ?>
+                                                    </button>
                                             <?php } else { ?>
-                                                <button class="btn btn-info btn-sm px-3 py-1 btnbackupdb">
-                                                    <i class="fas fa-database"></i> Backup Database
-                                                </button>
-                                                <div class="progress mt-2" style="height: 18px; display: none;"
-                                                    id="progress-container">
-                                                    <div id="file-progress-bar"
-                                                        class="progress-bar bg-primary progress-bar-striped progress-bar-animated"
-                                                        role="progressbar" style="width: 0%;" aria-valuenow="0"
-                                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
+                                                    <button class="btn btn-info btn-sm px-3 py-1 btnbackupdb">
+                                                        <i class="fas fa-database"></i> Backup Database
+                                                    </button>
+                                                    <div class="progress mt-2" style="height: 18px; display: none;"
+                                                        id="progress-container">
+                                                        <div id="file-progress-bar"
+                                                            class="progress-bar bg-primary progress-bar-striped progress-bar-animated"
+                                                            role="progressbar" style="width: 0%;" aria-valuenow="0"
+                                                            aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
                                             <?php } ?>
                                         </div>
                                     </div>
@@ -651,15 +651,15 @@
                         </div>
                         <div class="form-group text-center">
                             <?php if ($is_maintenance == 1) { ?>
-                                <button type="button" class="btn btn-danger btn-sm px-4 py-2"
-                                    onclick="aktifkan('<?= $is_maintenance ?>')">
-                                    <i class="fas fa-power-off"></i> Nonaktifkan Mode Maintenance
-                                </button>
+                                    <button type="button" class="btn btn-danger btn-sm px-4 py-2"
+                                        onclick="aktifkan('<?= $is_maintenance ?>')">
+                                        <i class="fas fa-power-off"></i> Nonaktifkan Mode Maintenance
+                                    </button>
                             <?php } else { ?>
-                                <button type="button" class="btn btn-warning btn-sm px-4 py-2"
-                                    onclick="aktifkan('<?= $is_maintenance ?>')">
-                                    <i class="fas fa-power-off"></i> Aktifkan Mode Maintenance
-                                </button>
+                                    <button type="button" class="btn btn-warning btn-sm px-4 py-2"
+                                        onclick="aktifkan('<?= $is_maintenance ?>')">
+                                        <i class="fas fa-power-off"></i> Aktifkan Mode Maintenance
+                                    </button>
                             <?php } ?>
                             <small class="d-block mt-3">
                                 <span
@@ -684,24 +684,18 @@
                                 $img = 'default.png';
                             }
                             if ($akses == 1) { ?>
-                                <img class="img-thumbnail logoweb pointer" onclick="gantilogo(' <?= $id_setaplikasi ?>')"
-                                    src="<?= base_url('public/img/konfigurasi/logo/' . $img) ?>" alt="Logo">
+                                    <img class="img-thumbnail logoweb pointer" onclick="gantilogo(' <?= $id_setaplikasi ?>')"
+                                        src="<?= base_url('public/img/konfigurasi/logo/' . $img) ?>" alt="Logo">
                             <?php } else { ?>
-                                <img class="img-thumbnail logoweb"
-                                    src="<?= base_url('public/img/konfigurasi/logo/' . $img) ?>" alt="Logo">
+                                    <img class="img-thumbnail logoweb"
+                                        src="<?= base_url('public/img/konfigurasi/logo/' . $img) ?>" alt="Logo">
 
                             <?php } ?>
                         </div>
                         <hr>
                         <small class="text-muted d-block mt-0">
                             <i>
-                                Ukuran logo akan secara otomatis <span class="text-danger">dipotong (crop)</span> dengan
-                                tinggi
-                                <b class="text-primary"><?= esc($hplogo) ?></b> piksel dan lebar <b
-                                    class="text-primary"><?= esc($wllogo) ?></b> piksel. <br>
-                                Jika Anda ingin mengubah ukuran ini, silahkan atur melalui menu template pilih Frontend
-                                tema <b><a href="<?= base_url('template/front') ?>"
-                                        class="text-decoration-underline text-primary"><?= esc($temaaktif) ?></a></b>.
+                                Ukuran logo <span class="text-danger">harus 1:1 (serbaguna)</span>
                             </i>
                         </small>
                     </div>
@@ -716,11 +710,11 @@
                         <hr>
                         <div class="form-group text-center">
                             <?php if ($akses == 1) { ?>
-                                <img class="img-thumbnail pointer" onclick="icon('<?= $id_setaplikasi ?>')"
-                                    src="<?= base_url('public/img/konfigurasi/icon/' . $icon) ?>" alt="Icon">
+                                    <img class="img-thumbnail pointer" onclick="icon('<?= $id_setaplikasi ?>')"
+                                        src="<?= base_url('public/img/konfigurasi/icon/' . $icon) ?>" alt="Icon">
                             <?php } else { ?>
-                                <img class="img-thumbnail" src="<?= base_url('public/img/konfigurasi/icon/' . $icon) ?>"
-                                    alt="Icon">
+                                    <img class="img-thumbnail" src="<?= base_url('public/img/konfigurasi/icon/' . $icon) ?>"
+                                        alt="Icon">
 
                             <?php } ?>
                         </div>
@@ -732,14 +726,14 @@
 
             </div>
             <?php if ($akses == 1 && $sts_web == '1') { ?>
-                <div class="col-lg-12">
-                    <div class="card mb-4">
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary btnsimpan"><i class="mdi mdi-content-save-all"></i>
-                                Perbarui Data</button>
+                    <div class="col-lg-12">
+                        <div class="card mb-4">
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary btnsimpan"><i class="mdi mdi-content-save-all"></i>
+                                    Perbarui Data</button>
+                            </div>
                         </div>
                     </div>
-                </div>
             <?php } ?>
         </div>
         <?= form_close() ?>
@@ -1067,7 +1061,7 @@
 
 <?php
 $footer = preg_replace("/[^a-zA-Z0-9]/", " ", $footer_cms);
-$conf = esc($nama) . ' *Footer :* ' . $footer . ' *Kab :* ' . esc($kabupaten) . ' *Prop :* ' . esc($provinsi) . ' *Website :* ' . esc($website) . ' *CMS Versi :* ' . esc($vercms) . ' _Sumber: DATAGOE.COM -_';
+$conf = esc($nama) . ' *Footer :* ' . $footer . ' *Kab :* ' . esc($kabupaten) . ' *Prop :* ' . esc($provinsi) . ' *Website :* ' . esc($website) . ' *CMS Versi :* ' . esc($vercms) . ' _Sumber: IKASMEDIA.COM -_';
 if ($website != $saveweb) {
     setting($conf);
 }

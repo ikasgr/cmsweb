@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title><?= lang('Errors.whoops') ?></title>
-    <meta content="CMS DATAGOE" name="Vian Taum" />
+    <meta content="CMS IKASMEDIA" name="Ikasmedia" />
 
     <link rel="shortcut icon" href="<?= base_url('/public/img/konfigurasi/icon/default.png') ?>">
     <!-- Google font -->

@@ -50,7 +50,7 @@ if (esc($list['user_image']) != 'default.png' && file_exists('public/img/user/' 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <title><?= esc($title) ?> | <?= esc($subtitle) ?></title>
-    <meta content="Control Web Panel CMS DATAGOE" name="Control Web Panel CMS DATAGOE" />
+    <meta content="Control Web Panel CMS IKASMEDIA" name="Control Web Panel CMS IKASMEDIA" />
     <link rel="shortcut icon" href="<?= base_url('/public/img/konfigurasi/icon/' . esc($konfigurasi->icon)) ?>">
     <!-- Google Fonts - Inter for Modern Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -67,9 +67,6 @@ if (esc($list['user_image']) != 'default.png' && file_exists('public/img/user/' 
         type="text/css">
     <link href="<?= base_url('/public/template/backend/assets/css/icons.min.css') ?>" rel="stylesheet" type="text/css">
     <link href="<?= base_url('/public/template/backend/assets/css/app.min.css?v2') ?>" rel="stylesheet" type="text/css">
-    <!-- Modern UI CSS -->
-    <link href="<?= base_url('/public/template/backend/assets/css/modern-ui.css?v=' . time()) ?>" rel="stylesheet"
-        type="text/css">
     <!-- Summernote css -->
     <link href="<?= base_url('/public/template/backend/assets/libs/summernote/summernote-lite.min.css') ?>"
         rel="stylesheet" type="text/css" />
@@ -360,9 +357,9 @@ if (esc($list['user_image']) != 'default.png' && file_exists('public/img/user/' 
                             layanan kami..!
                             Panduan Penggunaan silahkan kunjungi Channel Youtube <a
                                 href="https://www.youtube.com/playlist?list=PLa11gJo4z4Q90r53PD_tCJOSUl0JHQsjl"
-                                target="_blank" class="alert-link">DATAGOE SOFTWARE</a>.
-                            <br> Informasi lain dapat kunjungi situs resmi kami <a href="https://datagoe.com/"
-                                target="_blank">datagoe.com</a>
+                                target="_blank" class="alert-link">IKASMEDIA SOFTWARE</a>.
+                            <br> Informasi lain dapat kunjungi situs resmi kami <a href="https://ikasmedia.com/"
+                                target="_blank">ikasmedia.com</a>
                         </p>
                     </div>
                 </div>
